@@ -48,7 +48,6 @@ export interface IThumbnail {
   height: number
 }
 
-
 export interface ILocalized {
   title: string
   description: string
