@@ -1,0 +1,33 @@
+button {
+  border: none;
+  background-color: #FF0000;
+  color: white;
+  display: block;
+  border-radius: 0 7px 7px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.active {
+    box-shadow: 0px 0px 8px 0px rgba(255,0,0,1);
+  }
+
+  &:hover {
+    background-color: #ff0000a8;
+  }
+
+  &:disabled {
+    background-color: #B1B1B1;
+  }
+}
+
+.search__button {
+  width: 80px;
+  height: 24px;
+}
+
+.item__button {
+  width: 120px;
+  height: 32px;
+  border-radius: 7px;
+
+}
