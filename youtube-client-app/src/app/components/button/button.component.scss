@@ -2,8 +2,10 @@ button {
   border: none;
   background-color: #FF0000;
   color: white;
-  display: block;
-  border-radius: 0 7px 7px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
   cursor: pointer;
   transition: all 0.2s ease;
 
@@ -22,12 +24,20 @@ button {
 
 .search__button {
   width: 80px;
-  height: 24px;
+  height: 34px;
+  border-radius: 0 7px 7px 0;
 }
 
 .item__button {
   width: 120px;
   height: 32px;
-  border-radius: 7px;
+}
 
+.img__btn {
+  background-color: #FF0000;
+  padding: 5px;
+
+  img {
+    width: 20px;
+  }
 }

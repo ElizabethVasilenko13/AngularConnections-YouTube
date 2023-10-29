@@ -1,1 +1,4 @@
-<button [ngClass]="[className]">{{ name }}</button>
+<button [ngClass]="[className]">
+  <img *ngIf="iconPath" [src]="iconPath" alt="Button Icon">
+  {{ name }}
+</button>

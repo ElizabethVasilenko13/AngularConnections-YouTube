@@ -50,7 +50,10 @@
         "plugin:@angular-eslint/template/recommended",
         "plugin:@angular-eslint/template/accessibility"
       ],
-      "rules": {}
+      "rules": {
+        "lines-between-class-members": "off",
+        "@typescript-eslint/lines-between-class-members": "off"
+      }
     }
   ]
 }

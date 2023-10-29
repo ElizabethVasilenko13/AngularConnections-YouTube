@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+$main-color: #0F0F0F;
+body {
+  background-color: $main-color;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  font-family: "Roboto", sans-serif;
+}

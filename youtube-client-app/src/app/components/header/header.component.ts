@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  searchButtonName = 'searh';
+  searchButtonName = 'Searh';
 
   searchButtonClassName = 'search__button';
+
+  roundedImgBtn = 'img__btn';
 }

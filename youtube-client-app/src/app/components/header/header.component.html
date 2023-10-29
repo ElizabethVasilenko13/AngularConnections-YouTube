@@ -1,3 +1,14 @@
-<header>
-  <app-button [name]="searchButtonName" [className]="searchButtonClassName"></app-button>
+<header class="header">
+  <div class="header__search">
+    <img src="assets/youTubeIcon.png" alt="youTubeIcon" class="header__icon">
+    <div class="search__block">
+      <input type="text" name="" id="" placeholder="What are you want to find out?">
+      <app-button [name]="searchButtonName" [className]="searchButtonClassName"></app-button>
+    </div>
+    <app-button [className]="roundedImgBtn" [iconPath]="'assets/searchSettingIcon.png'"></app-button>
+  </div>
+  <div class="header__user">
+    <div class="user__name">Your Name</div>
+    <app-button [className]="roundedImgBtn" [iconPath]="'assets/userIcon.png'"></app-button>
+  </div>
 </header>

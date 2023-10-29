@@ -9,4 +9,6 @@ export class ButtonComponent {
   @Input() name: string | undefined;
 
   @Input() className: string | undefined;
+
+  @Input() iconPath: string | undefined;
 }
