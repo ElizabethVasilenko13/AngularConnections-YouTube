@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MockDataService } from 'src/app/shared/services/mockDataService.service';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +8,10 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   searchButtonName = 'Searh';
-
   searchButtonClassName = 'search__button';
-
   roundedImgBtn = 'img__btn';
+
+  constructor(private mockData: MockDataService) {
+    console.log(mockData);
+  }
 }

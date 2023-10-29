@@ -11,6 +11,7 @@ import { AuthorizationComponent } from './components/authorization/authorization
 import { RegistrationComponent } from './components/authorization/registration/registration.component';
 import { MainComponent } from './components/main/main.component';
 import { ButtonComponent } from './components/button/button.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { ButtonComponent } from './components/button/button.component';
     MainComponent,
     ButtonComponent
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule],
   providers: [],
   bootstrap: [AppComponent],
 })

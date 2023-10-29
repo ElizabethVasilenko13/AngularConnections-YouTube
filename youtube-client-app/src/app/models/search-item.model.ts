@@ -11,7 +11,7 @@ export interface ISnippet {
   channelId: string
   title: string
   description: string
-  IThumbnails: IThumbnails
+  thumbnails: IThumbnails
   channelTitle: string
   tags: string[]
   categoryId: string
