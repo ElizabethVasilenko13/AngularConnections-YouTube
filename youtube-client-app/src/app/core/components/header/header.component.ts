@@ -12,10 +12,11 @@ export class HeaderComponent {
   searchButtonClassName = 'search__button';
   roundedImgBtn = 'img__btn';
 
+  isSortingVisible = false;
+
   constructor(private mockData: MockDataService) {}
 
   handleButtonClick() {
-    const data = this.mockData.getData();
-    console.log(data);
+    this.isSortingVisible = !this.isSortingVisible;
   }
 }

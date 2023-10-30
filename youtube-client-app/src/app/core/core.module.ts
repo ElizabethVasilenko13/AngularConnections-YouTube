@@ -2,13 +2,15 @@ import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from '../shared/shared.module';
+import { YouTubeAppModule } from '../youTubeApp/youTubeApp.module';
 
 @NgModule({
   declarations: [HeaderComponent],
   exports: [HeaderComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    YouTubeAppModule,
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
