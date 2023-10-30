@@ -1,8 +1,7 @@
-<div class="video-card">
+<div class="video-card" >
   <img
     [src]="video.snippet.thumbnails.medium.url"
     alt="{{ video.snippet.title }}"
-    class="video-thumbnail"
     [style.width.px]="video.snippet.thumbnails.medium.width"
     [style.height.px]="video.snippet.thumbnails.medium.height"
   >
@@ -27,5 +26,6 @@
     </div>
     <h3 class="video-title">{{ video.snippet.title }}</h3>
     <app-button [name]="videoBtnName" [className]="videoButtonClassName"></app-button>
+    <div class="bottom-line" [appDateBorder]="video.snippet.publishedAt"></div>
   </div>
 </div>

@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { MockDataService } from './services/mockDataService.service';
 import { ButtonComponent } from './ui/button/button.component';
 import { DataSharingService } from './services/dataSharingService.service';
+import { DateBorderDirective } from './directives/date-border.directive';
 
 @NgModule({
-  declarations: [ButtonComponent],
-  exports: [ButtonComponent],
+  declarations: [ButtonComponent, DateBorderDirective],
+  exports: [ButtonComponent, DateBorderDirective],
   imports: [CommonModule],
   providers: [MockDataService, DataSharingService],
   schemas: [NO_ERRORS_SCHEMA]
