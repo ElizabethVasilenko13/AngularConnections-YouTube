@@ -6,12 +6,16 @@ import { MockDataService } from 'src/app/shared/services/mockDataService.service
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent {
   searchButtonName = 'Searh';
   searchButtonClassName = 'search__button';
   roundedImgBtn = 'img__btn';
 
-  constructor(private mockData: MockDataService) {
-    console.log(mockData);
+  constructor(private mockData: MockDataService) {}
+
+  handleButtonClick() {
+    const data = this.mockData.getData();
+    console.log(data);
   }
 }
