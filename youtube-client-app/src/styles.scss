@@ -3,8 +3,34 @@ body {
   background-color: $main-color;
   color: #ffffff;
   font-family: "Roboto", sans-serif;
+  font-size: 14px;
 }
 
 button {
   font-family: "Roboto", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+input, button {
+  border-radius: 7px;
+}
+
+input {
+  border: 1px solid #312B2B;
+  background-color: #1c1c1c;
+  color: #ffffff;
+  padding: 0 0 0 5px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 34px;
+}
+
+.top-container {
+  max-width: 860px;
+  display: flex;
+  align-items: center;
 }

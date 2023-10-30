@@ -1,9 +1,8 @@
 .header {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   column-gap: 15%;
-  padding: 20px 0 ;
+  padding: 20px 0;
 
   .header__icon {
     width: 50px;
@@ -24,15 +23,8 @@
     }
 
     input {
-      padding: 0 0 0 5px;
       max-width: 396px;
-      width: 100%;
-      box-sizing: border-box;
-      height: 34px;
       border-radius: 7px 0 0 7px;
-      border: 1px solid #312B2B;
-      background-color: #0F0F0F;
-      color: #ffffff;
     }
   }
 

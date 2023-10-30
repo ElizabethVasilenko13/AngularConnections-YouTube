@@ -1,13 +1,8 @@
 button {
-  border: none;
   background-color: #FF0000;
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 7px;
-  cursor: pointer;
-  transition: all 0.2s ease;
 
   &.active {
     box-shadow: 0px 0px 8px 0px rgba(255,0,0,1);

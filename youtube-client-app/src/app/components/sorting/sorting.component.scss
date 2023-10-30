@@ -1,0 +1,31 @@
+.sort-section {
+  justify-content: flex-start;
+  .sort__container {
+    column-gap: 30px;
+    justify-content: flex-end;
+  }
+
+  .sort__input {
+    column-gap: 10px;
+  }
+
+  input {
+    max-width: 150px;
+    width: 100%;
+  }
+}
+
+.sort__container, .sort__input {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  background-color: rgba(255,255,255,0.1);
+  padding: 8px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #3F3F3F;
+  }
+}
