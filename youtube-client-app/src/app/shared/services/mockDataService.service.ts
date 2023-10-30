@@ -760,6 +760,6 @@ export class MockDataService {
   ];
 
   getData() {
-    return this.data;
+    return this.data[0].items;
   }
 }

@@ -1,0 +1,40 @@
+.video-card {
+  height: 100%;
+  box-sizing: border-box;
+  max-width: 340px;
+  padding: 10px;
+  display: flex;
+  background-color: #fff;
+  flex-direction: column;
+  border-radius: 7px;
+  background-color: rgba(255, 255, 255, 0.1);
+
+  .video-info {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 1;
+    align-items: end;
+
+    h3 {
+      text-align: right;
+      flex-grow: 1;
+    }
+
+    .icons-video {
+      display: flex;
+      margin-top: 20px;
+      justify-content: space-between;
+      column-gap: 10px;
+    }
+
+    .icon-block {
+      display: flex;
+      column-gap: 10px;
+      img {
+        width: 20px;
+      }
+    }
+  }
+}

@@ -3,15 +3,15 @@
     <img src="assets/youTubeIcon.png" alt="youTubeIcon" class="header__icon">
     <div class="search__block">
       <input type="text" name="" id="" placeholder="What are you want to find out?">
-      <app-button [name]="searchButtonName" [className]="searchButtonClassName"></app-button>
+      <app-button [name]="searchButtonName" [className]="searchButtonClassName" (buttonClick)="handleSearchBtn()"></app-button>
     </div>
-    <app-button [className]="roundedImgBtn" [iconPath]="'assets/searchSettingIcon.png'" (buttonClick)="handleButtonClick()"></app-button>
+    <app-button [className]="roundedImgBtn" [iconPath]="'assets/searchSettingIcon.png'" (buttonClick)="toggleShowSortBtn()"></app-button>
   </div>
   <div class="header__user">
     <div class="user__name">Your Name</div>
     <app-button [className]="roundedImgBtn" [iconPath]="'assets/userIcon.png'"></app-button>
   </div>
 </header>
-<app-sorting *ngIf="isSortingVisible"></app-sorting>
+<app-sorting *ngIf="isSortingBlockVisible"></app-sorting>
 
 

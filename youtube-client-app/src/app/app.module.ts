@@ -20,9 +20,8 @@ import { YouTubeAppModule } from './youTubeApp/youTubeApp.module';
     SearchItemComponent,
     AuthorizationComponent,
     RegistrationComponent,
-    MainComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, CoreModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, CoreModule, YouTubeAppModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MockDataService } from 'src/app/shared/services/mockDataService.service';
+import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
 
 @Component({
   selector: 'app-header',
@@ -12,11 +12,15 @@ export class HeaderComponent {
   searchButtonClassName = 'search__button';
   roundedImgBtn = 'img__btn';
 
-  isSortingVisible = false;
+  isSortingBlockVisible = false;
 
-  constructor(private mockData: MockDataService) {}
+  constructor(private dataSharingService: DataSharingService) {}
 
-  handleButtonClick() {
-    this.isSortingVisible = !this.isSortingVisible;
+  toggleShowSortBtn() {
+    this.isSortingBlockVisible = !this.isSortingBlockVisible;
+  }
+
+  handleSearchBtn() {
+    this.dataSharingService.showSearchResult();
   }
 }
