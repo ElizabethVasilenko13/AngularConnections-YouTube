@@ -6,6 +6,7 @@ import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
   templateUrl: './search-item.component.html',
   styleUrls: ['./search-item.component.scss']
 })
+
 export class SearchItemComponent {
   @Input() video!: IYouTubeApiItem;
   videoBtnName = 'more...';

@@ -7,9 +7,11 @@ import { MockDataService } from './mockDataService.service';
 export class DataSharingService {
   private isSortingVisibleSource = new BehaviorSubject<boolean>(false);
   private videosSource = new BehaviorSubject<IYouTubeApiItem[]>([]);
+  private searchTextSource = new BehaviorSubject<string>('');
 
   isSortingVisible$ = this.isSortingVisibleSource.asObservable();
   videos$ = this.videosSource.asObservable();
+  searchInputText$ = this.searchTextSource.asObservable();
 
   constructor(private mockDataService: MockDataService) {
     const mockDataVideos = this.mockDataService.getData();
@@ -18,5 +20,9 @@ export class DataSharingService {
 
   showSearchResult() {
     this.isSortingVisibleSource.next(true);
+  }
+
+  setSearchText(searchText: string) {
+    this.searchTextSource.next(searchText);
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
 
 @Component({
   selector: 'app-sorting',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./sorting.component.scss']
 })
 export class SortingComponent {
+  searchText = '';
+  constructor(private dataSharingService: DataSharingService) {}
 
+  updateSearchText() {
+    this.dataSharingService.setSearchText(this.searchText);
+  }
 }

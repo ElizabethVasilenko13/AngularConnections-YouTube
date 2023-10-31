@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
-import { IYouTubeApiResponse } from 'src/app/shared/models/search-response.model';
 import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.dataSharingService.videos$.subscribe((videos) => {
       this.videos = videos;
-      console.log(this.videos);
     });
 
     this.dataSharingService.isSortingVisible$.subscribe((isVisible) => {

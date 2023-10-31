@@ -20,6 +20,7 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "class-methods-use-this": "off",
         "lines-between-class-members": "off",
         "@typescript-eslint/lines-between-class-members": "off",
         "import/prefer-default-export": "off",
