@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IYouTubeApiItem } from 'src/app/models/search-item.model';
+import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 import { MockDataService } from './mockDataService.service';
 
 @Injectable()

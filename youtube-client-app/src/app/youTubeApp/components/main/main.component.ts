@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IYouTubeApiItem } from 'src/app/models/search-item.model';
-import { IYouTubeApiResponse } from 'src/app/models/search-response.model';
+import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
+import { IYouTubeApiResponse } from 'src/app/shared/models/search-response.model';
 import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
 
 @Component({

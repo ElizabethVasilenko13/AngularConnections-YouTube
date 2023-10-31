@@ -1,15 +1,15 @@
 import {
   Directive, ElementRef, Input, OnInit, Renderer2
 } from '@angular/core';
+import { BorderColor } from '../enums/search-item-enum';
 
 @Directive({
   selector: '[appDateBorder]'
 })
-
 export class DateBorderDirective implements OnInit {
   @Input('appDateBorder') publicationDate!: string;
 
-  constructor(private el: ElementRef, private render: Renderer2) { }
+  constructor(private el: ElementRef, private render: Renderer2) {}
 
   ngOnInit(): void {
     const publicationDate = new Date(this.publicationDate);
@@ -18,15 +18,16 @@ export class DateBorderDirective implements OnInit {
     const millisecondsInADay = 1000 * 60 * 60 * 24;
     const differenceInDays = timeDifferenceInMilliseconds / millisecondsInADay;
 
-    let borderColor = '';
+    let borderColor: string;
+
     if (differenceInDays > 180) {
-      borderColor = '#ff0000';
+      borderColor = BorderColor.OlderThan6Months;
     } else if (differenceInDays > 30) {
-      borderColor = '#ffff00';
+      borderColor = BorderColor.Between1And6Months;
     } else if (differenceInDays > 7) {
-      borderColor = '#00ff00';
+      borderColor = BorderColor.Between7DaysAnd1Month;
     } else {
-      borderColor = '#0000ff';
+      borderColor = BorderColor.NewerThan7Days;
     }
 
     this.render.setStyle(this.el.nativeElement, 'background-color', borderColor);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IYouTubeApiResponse } from '../../models/search-response.model';
+import { IYouTubeApiResponse } from '../models/search-response.model';
 
 @Injectable()
 export class MockDataService {

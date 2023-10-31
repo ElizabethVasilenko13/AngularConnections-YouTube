@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IYouTubeApiItem } from 'src/app/models/search-item.model';
+import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 
 @Component({
   selector: 'app-search-result',
