@@ -6,6 +6,7 @@ import { MainComponent } from './components/main/main.component';
 import { SharedModule } from '../shared/shared.module';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { SearchItemComponent } from './components/search-item/search-item.component';
+import { SortingStateService } from './services/sortingState.service';
 
 @NgModule({
   declarations: [SortingComponent, MainComponent, SearchResultComponent, SearchItemComponent],
@@ -15,6 +16,7 @@ import { SearchItemComponent } from './components/search-item/search-item.compon
     SharedModule,
     FormsModule
   ],
+  providers: [SortingStateService],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class YouTubeAppModule { }
