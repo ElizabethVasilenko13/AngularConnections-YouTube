@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component, EventEmitter, Input, Output
 } from '@angular/core';
@@ -5,7 +6,9 @@ import {
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss']
+  styleUrls: ['./button.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class ButtonComponent {
   @Input() name: string | undefined;

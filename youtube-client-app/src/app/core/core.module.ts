@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from '../shared/shared.module';
 import { YouTubeAppModule } from '../youTubeApp/youTubeApp.module';
+import { ButtonComponent } from '../shared/ui/button/button.component';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -11,6 +12,7 @@ import { YouTubeAppModule } from '../youTubeApp/youTubeApp.module';
     CommonModule,
     SharedModule,
     YouTubeAppModule,
+    ButtonComponent
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
