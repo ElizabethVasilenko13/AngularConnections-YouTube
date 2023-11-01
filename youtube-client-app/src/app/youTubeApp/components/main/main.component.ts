@@ -18,7 +18,7 @@ export class MainComponent implements OnInit {
       this.videos = videos;
     });
 
-    this.dataSharingService.isSortingVisible$.subscribe((isVisible) => {
+    this.dataSharingService.isSearchResultVisible$.subscribe((isVisible) => {
       this.isSortingVisible = isVisible;
     });
   }

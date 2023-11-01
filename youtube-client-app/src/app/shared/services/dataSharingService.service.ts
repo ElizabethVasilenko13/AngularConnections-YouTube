@@ -5,11 +5,11 @@ import { MockDataService } from './mockDataService.service';
 
 @Injectable()
 export class DataSharingService {
-  private isSortingVisibleSource = new BehaviorSubject<boolean>(false);
+  private isSearchResultVisibleSource = new BehaviorSubject<boolean>(false);
   private videosSource = new BehaviorSubject<IYouTubeApiItem[]>([]);
   private searchTextSource = new BehaviorSubject<string>('');
 
-  isSortingVisible$ = this.isSortingVisibleSource.asObservable();
+  isSearchResultVisible$ = this.isSearchResultVisibleSource.asObservable();
   videos$ = this.videosSource.asObservable();
   searchInputText$ = this.searchTextSource.asObservable();
 
@@ -19,7 +19,7 @@ export class DataSharingService {
   }
 
   showSearchResult() {
-    this.isSortingVisibleSource.next(true);
+    this.isSearchResultVisibleSource.next(true);
   }
 
   setSearchText(searchText: string) {
