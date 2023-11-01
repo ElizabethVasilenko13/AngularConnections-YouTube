@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
 
@@ -7,13 +8,20 @@ import { DataSharingService } from 'src/app/shared/services/dataSharingService.s
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss']
 })
-export class SearchResultComponent {
+export class SearchResultComponent implements OnDestroy {
   @Input() videos: IYouTubeApiItem[] = [];
   searchText = '';
+  private subscription: Subscription;
 
   constructor(private dataSharingService: DataSharingService) {
-    this.dataSharingService.searchInputText$.subscribe((searchText) => {
+    this.subscription = this.dataSharingService.searchInputText$.subscribe((searchText) => {
       this.searchText = searchText;
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

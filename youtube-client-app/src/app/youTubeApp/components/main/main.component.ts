@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
 
@@ -7,19 +8,31 @@ import { DataSharingService } from 'src/app/shared/services/dataSharingService.s
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
   videos: IYouTubeApiItem[] = [];
   isSortingVisible = false;
+  private videosSubscription!: Subscription;
+  private isSortingVisibleSubscription!: Subscription;
 
   constructor(private dataSharingService: DataSharingService) {}
 
   ngOnInit(): void {
-    this.dataSharingService.videos$.subscribe((videos) => {
+    this.videosSubscription = this.dataSharingService.videos$.subscribe((videos) => {
       this.videos = videos;
     });
 
-    this.dataSharingService.isSearchResultVisible$.subscribe((isVisible) => {
-      this.isSortingVisible = isVisible;
-    });
+    this.isSortingVisibleSubscription = this.dataSharingService
+      .isSearchResultVisible$.subscribe((isVisible) => {
+        this.isSortingVisible = isVisible;
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.videosSubscription) {
+      this.videosSubscription.unsubscribe();
+    }
+    if (this.isSortingVisibleSubscription) {
+      this.isSortingVisibleSubscription.unsubscribe();
+    }
   }
 }
