@@ -5,13 +5,9 @@ import { MockDataService } from './mockDataService.service';
 
 @Injectable()
 export class DataSharingService {
-  private isSearchResultVisibleSource = new BehaviorSubject<boolean>(false);
-  private videosSource = new BehaviorSubject<IYouTubeApiItem[]>([]);
-  private searchTextSource = new BehaviorSubject<string>('');
-
-  isSearchResultVisible$ = this.isSearchResultVisibleSource.asObservable();
-  videos$ = this.videosSource.asObservable();
-  searchInputText$ = this.searchTextSource.asObservable();
+  public isSearchResultVisibleSource = new BehaviorSubject<boolean>(false);
+  public videosSource = new BehaviorSubject<IYouTubeApiItem[]>([]);
+  public searchTextSource = new BehaviorSubject<string>('');
 
   constructor(private mockDataService: MockDataService) {
     const mockDataVideos = this.mockDataService.getData();

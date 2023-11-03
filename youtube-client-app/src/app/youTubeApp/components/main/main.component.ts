@@ -17,12 +17,12 @@ export class MainComponent implements OnInit, OnDestroy {
   constructor(private dataSharingService: DataSharingService) {}
 
   ngOnInit(): void {
-    this.videosSubscription = this.dataSharingService.videos$.subscribe((videos) => {
+    this.videosSubscription = this.dataSharingService.videosSource.subscribe((videos) => {
       this.videos = videos;
     });
 
     this.isSortingVisibleSubscription = this.dataSharingService
-      .isSearchResultVisible$.subscribe((isVisible) => {
+      .isSearchResultVisibleSource.subscribe((isVisible) => {
         this.isSortingVisible = isVisible;
       });
   }

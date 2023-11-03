@@ -14,7 +14,7 @@ export class SearchResultComponent implements OnDestroy {
   private subscription: Subscription;
 
   constructor(private dataSharingService: DataSharingService) {
-    this.subscription = this.dataSharingService.searchInputText$.subscribe((searchText) => {
+    this.subscription = this.dataSharingService.searchTextSource.subscribe((searchText) => {
       this.searchText = searchText;
     });
   }
