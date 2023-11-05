@@ -1,31 +1,16 @@
-<div class="video-card" >
+<div class="video-card">
   <img
-    [src]="video.snippet.thumbnails.medium.url"
-    alt="{{ video.snippet.title }}"
-    [style.width.px]="video.snippet.thumbnails.medium.width"
-    [style.height.px]="video.snippet.thumbnails.medium.height"
-  >
-  <div class="video-info">
-    <div class="icons-video">
-      <div class="icon-block">
-        <img src="assets/eyeIcon.png" alt="">
-        <div class="">{{ video.statistics.viewCount }}</div>
-      </div>
-      <div class="icon-block">
-        <img src="assets/likesIcon.png" alt="">
-        <div class="">{{ video.statistics.likeCount }}</div>
-      </div>
-      <div class="icon-block">
-        <img src="assets/dislikesIcon.png" alt="">
-        <div class="">{{ video.statistics.dislikeCount }}</div>
-      </div>
-      <div class="icon-block">
-        <img src="assets/commentIcon.png" alt="">
-        <div class="">{{ video.statistics.commentCount }}</div>
-      </div>
+      [src]="video.snippet.thumbnails.medium.url"
+      alt="{{ video.snippet.title }}"
+      [style.width.px]="video.snippet.thumbnails.medium.width"
+      [style.height.px]="video.snippet.thumbnails.medium.height"
+    >
+    <div class="video-info">
+      <app-video-statics [video]="video"></app-video-statics>
+      <h3 class="video-title">{{ video.snippet.title }}</h3>
+      <a routerLink="/detail/{{video.id}}">
+        <app-button [name]="videoBtnName" [className]="videoButtonClassName"></app-button>
+      </a>
+      <div class="bottom-line" [appDateBorder]="video.snippet.publishedAt"></div>
     </div>
-    <h3 class="video-title">{{ video.snippet.title }}</h3>
-    <app-button [name]="videoBtnName" [className]="videoButtonClassName"></app-button>
-    <div class="bottom-line" [appDateBorder]="video.snippet.publishedAt"></div>
-  </div>
 </div>

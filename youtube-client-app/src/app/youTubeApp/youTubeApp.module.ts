@@ -9,6 +9,8 @@ import { SearchItemComponent } from './components/search-item/search-item.compon
 import { SortingStateService } from './services/sortingState.service';
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
+import { VideoStaticsComponent } from './components/video-statics/video-statics.component';
+import { ButtonComponent } from '../shared/ui/button/button.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +18,16 @@ import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-pa
     MainComponent,
     SearchResultComponent,
     SearchItemComponent,
-    DetailInfoPageComponent
+    DetailInfoPageComponent,
+    VideoStaticsComponent
   ],
   exports: [SortingComponent, MainComponent],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
-    YoutubeRoutingModule
+    YoutubeRoutingModule,
+    ButtonComponent
   ],
   providers: [SortingStateService],
   schemas: [NO_ERRORS_SCHEMA]

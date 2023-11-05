@@ -21,30 +21,21 @@
   }
 
   .video-info {
-    padding: 0 20px;
+    padding: 0 10px 10px 10px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     flex: 1;
+    color: white;
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
 
     h3 {
       text-align: right;
       flex-grow: 1;
-    }
-
-    .icons-video {
-      display: flex;
-      margin-top: 20px;
-      justify-content: space-between;
-      column-gap: 10px;
-    }
-
-    .icon-block {
-      display: flex;
-      column-gap: 10px;
-      img {
-        width: 20px;
-      }
     }
   }
 }
