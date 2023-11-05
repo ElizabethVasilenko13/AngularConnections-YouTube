@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
-import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
+import { DataSharingService } from 'src/app/core/services/dataSharingService.service';
 
 @Component({
   selector: 'app-search-result',

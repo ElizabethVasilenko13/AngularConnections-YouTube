@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
+import { DataSharingService } from 'src/app/core/services/dataSharingService.service';
 
 @Component({
   selector: 'app-header',
