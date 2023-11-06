@@ -4,10 +4,11 @@ import {
 import { BorderColor } from '../enums/search-item-enum';
 
 @Directive({
-  selector: '[appDateBorder]'
+  selector: '[appDateColor]'
 })
-export class DateBorderDirective implements OnInit {
-  @Input('appDateBorder') publicationDate!: string;
+export class DateColorDirective implements OnInit {
+  @Input('appDateColor') publicationDate!: string;
+  @Input() cssProperty = 'background-color';
 
   constructor(private el: ElementRef, private render: Renderer2) {}
 
@@ -18,18 +19,22 @@ export class DateBorderDirective implements OnInit {
     const millisecondsInADay = 1000 * 60 * 60 * 24;
     const differenceInDays = timeDifferenceInMilliseconds / millisecondsInADay;
 
-    let borderColor: string;
+    let colorValue: string;
 
     if (differenceInDays > 180) {
-      borderColor = BorderColor.OlderThan6Months;
+      colorValue = BorderColor.OlderThan6Months;
     } else if (differenceInDays > 30) {
-      borderColor = BorderColor.Between1And6Months;
+      colorValue = BorderColor.Between1And6Months;
     } else if (differenceInDays > 7) {
-      borderColor = BorderColor.Between7DaysAnd1Month;
+      colorValue = BorderColor.Between7DaysAnd1Month;
     } else {
-      borderColor = BorderColor.NewerThan7Days;
+      colorValue = BorderColor.NewerThan7Days;
     }
 
-    this.render.setStyle(this.el.nativeElement, 'background-color', borderColor);
+    if (this.cssProperty === 'box-shadow') {
+      colorValue = `5px 10px 10px 0px ${colorValue.substring(0, colorValue.length - 2)} 0.25)`;
+    }
+
+    this.render.setStyle(this.el.nativeElement, this.cssProperty, colorValue);
   }
 }
