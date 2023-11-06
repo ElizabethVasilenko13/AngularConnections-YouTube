@@ -1,22 +1,23 @@
 
-<div class="video-container" [appDateColor]="video.snippet.publishedAt" [cssProperty]="'box-shadow'">
-  <!-- <app-button [name]="videoBtnName" [className]="videoButtonClassName"></app-button> -->
+<div class="container">
   <button class="video__back-btn" [appDateColor]="video.snippet.publishedAt" (click)="goBack()">
     <img src="assets/moveBackIcon.png" alt="">
   </button>
-  <img class="video__img" [src]="video.snippet.thumbnails.maxres.url" alt="videoImg"/>
-  <div class="video__info">
-    <div class="info__main">
-      <div class="info__header">
-        <h1 class="video__title">{{ video.snippet.title }}</h1>
-        <div class="video__date text-secondary">{{video.snippet.publishedAt | date: "fullDate"}}</div>
+  <div class="video-container" [appDateColor]="video.snippet.publishedAt" [cssProperty]="'box-shadow'">
+    <img class="video__img" [src]="video.snippet.thumbnails.maxres.url" alt="videoImg"/>
+    <div class="video__info">
+      <div class="info__main">
+        <div class="info__header">
+          <h1 class="video__title">{{ video.snippet.title }}</h1>
+          <div class="video__date text-secondary">{{video.snippet.publishedAt | date: "fullDate"}}</div>
+        </div>
+        <div class="info__deskr">
+          <b>Description:</b>
+          <p class="text-secondary">{{video.snippet.description}}</p>
+        </div>
       </div>
-      <div class="info__deskr">
-        <b>Description:</b>
-        <p class="text-secondary">{{video.snippet.description}}</p>
-      </div>
+      <app-video-statics [video]="video"></app-video-statics>
+      <div class="bottom-line" [appDateColor]="video.snippet.publishedAt"></div>
     </div>
-    <app-video-statics [video]="video"></app-video-statics>
-    <div class="bottom-line" [appDateColor]="video.snippet.publishedAt"></div>
-  </div>
+</div>
 </div>

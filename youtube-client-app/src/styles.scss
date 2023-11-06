@@ -5,6 +5,21 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: normal;
+  margin: 0;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+main {
+  flex: 1;
+  margin-top: 40px;
 }
 
 button {
@@ -30,16 +45,11 @@ input {
   height: 34px;
 }
 
-h1{
+h1 {
   color: white;
   margin: 0;
 }
 
-.top-container {
-  max-width: 860px;
-  display: flex;
-  align-items: center;
-}
 .text-secondary {
   color: #A1A1A1;
 }
