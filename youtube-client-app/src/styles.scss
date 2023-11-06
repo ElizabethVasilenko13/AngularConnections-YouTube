@@ -30,12 +30,26 @@ input {
   height: 34px;
 }
 
-h1 {
+h1{
   color: white;
+  margin: 0;
 }
 
 .top-container {
   max-width: 860px;
   display: flex;
   align-items: center;
+}
+.text-secondary {
+  color: #A1A1A1;
+}
+
+.bottom-line {
+  height: 4px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #ff0000;
+  border-radius: 0 0 7px 7px;
 }

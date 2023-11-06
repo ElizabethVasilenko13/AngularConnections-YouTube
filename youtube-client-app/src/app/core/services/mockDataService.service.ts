@@ -764,7 +764,7 @@ export class MockDataService {
   }
 
   getVideoInfo(id: string) {
-    const videoInfo = this.data[0].items.find((video) => video.id === id);
+    const videoInfo = this.data[0].items.find((video) => video.id === id)!;
     return videoInfo;
   }
 }

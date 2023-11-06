@@ -11,6 +11,7 @@ import { YoutubeRoutingModule } from './youtube-routing.module';
 import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
 import { VideoStaticsComponent } from './components/video-statics/video-statics.component';
 import { ButtonComponent } from '../shared/ui/button/button.component';
+import { DetailVideoItemComponent } from './components/detail-video-item/detail-video-item.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
     SearchResultComponent,
     SearchItemComponent,
     DetailInfoPageComponent,
-    VideoStaticsComponent
+    VideoStaticsComponent,
+    DetailVideoItemComponent
   ],
   exports: [SortingComponent, MainComponent],
   imports: [
