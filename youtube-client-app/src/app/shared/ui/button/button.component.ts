@@ -14,11 +14,17 @@ export class ButtonComponent {
   @Input() name: string | undefined;
   @Input() className: string | undefined;
   @Input() iconPath: string | undefined;
+  @Input() type: string | undefined;
 
-  @Output() buttonClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output() buttonClick: EventEmitter<Event> = new EventEmitter<Event>();
+  @Output() buttonSubmit: EventEmitter<Event> = new EventEmitter<Event>();
 
   onClick(event: MouseEvent) {
     event.preventDefault();
-    this.buttonClick.emit();
+    this.buttonClick.emit(event);
+  }
+
+  onSubmit(event: Event) {
+    this.buttonSubmit.emit(event);
   }
 }

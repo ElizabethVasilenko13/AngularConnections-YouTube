@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
+import { AuthGuard } from './auth/guards/guards.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
-  { path: '', loadChildren: () => import('./youTubeApp/youTubeApp.module').then((m) => m.YouTubeAppModule) },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./youTubeApp/youTubeApp.module').then((m) => m.YouTubeAppModule)
+  },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
   { path: '**', component: NotFoundComponent },
 ];
