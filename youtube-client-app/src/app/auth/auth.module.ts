@@ -5,6 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginPageComponent } from './pages/login-page.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ButtonComponent } from '../shared/ui/button/button.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
     CommonModule,
     AuthRoutingModule,
     ButtonComponent
-  ]
+  ],
+  providers: [AuthService]
 })
 export class AuthModule {}
