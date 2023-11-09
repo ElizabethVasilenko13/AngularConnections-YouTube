@@ -17,15 +17,15 @@
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "prettier"
       ],
       "rules": {
         "class-methods-use-this": "off",
-        "lines-between-class-members": "off",
         "@typescript-eslint/lines-between-class-members": "off",
+        "@typescript-eslint/member-delimiter-style": "error",
         "import/prefer-default-export": "off",
         "no-console": "off",
-        "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/no-explicit-any": "error",
         "@angular-eslint/directive-selector": [
           "error",
@@ -51,7 +51,8 @@
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended",
-        "plugin:@angular-eslint/template/accessibility"
+        "plugin:@angular-eslint/template/accessibility",
+        "prettier"
       ]
     }
   ]

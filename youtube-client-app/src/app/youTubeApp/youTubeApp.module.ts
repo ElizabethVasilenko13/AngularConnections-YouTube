@@ -14,9 +14,9 @@ import { SortingStateService } from './services/sortingState.service';
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [SortingStateService],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class YouTubeAppModule { }

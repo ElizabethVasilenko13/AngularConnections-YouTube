@@ -5,7 +5,7 @@ import { SortingStateService } from '../../services/sortingState.service';
 @Component({
   selector: 'app-sorting',
   templateUrl: './sorting.component.html',
-  styleUrls: ['./sorting.component.scss']
+  styleUrls: ['./sorting.component.scss'],
 })
 
 export class SortingComponent {
@@ -13,7 +13,7 @@ export class SortingComponent {
 
   constructor(
     private dataSharingService: DataSharingService,
-    private sortingStateService: SortingStateService
+    private sortingStateService: SortingStateService,
   ) {}
 
   updateSearchText() {

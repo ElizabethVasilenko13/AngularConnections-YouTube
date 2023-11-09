@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IYouTubeApiItem } from '../models/search-item.model';
 
 @Pipe({
-  name: 'titleFilter'
+  name: 'titleFilter',
 })
 
 export class TitleFilterPipe implements PipeTransform {

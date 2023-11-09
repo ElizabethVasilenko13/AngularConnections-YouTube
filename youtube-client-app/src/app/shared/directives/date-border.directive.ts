@@ -1,10 +1,10 @@
 import {
-  Directive, ElementRef, Input, OnInit, Renderer2
+  Directive, ElementRef, Input, OnInit, Renderer2,
 } from '@angular/core';
 import { BorderColor } from '../enums/search-item-enum';
 
 @Directive({
-  selector: '[appDateBorder]'
+  selector: '[appDateBorder]',
 })
 export class DateBorderDirective implements OnInit {
   @Input('appDateBorder') publicationDate!: string;

@@ -12,8 +12,8 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
     CommonModule,
     SharedModule,
     YouTubeAppModule,
-    ButtonComponent
+    ButtonComponent,
   ],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class CoreModule { }

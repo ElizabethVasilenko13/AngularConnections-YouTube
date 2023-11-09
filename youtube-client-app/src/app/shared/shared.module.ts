@@ -10,6 +10,6 @@ import { TitleFilterPipe } from './pipes/title-filter.pipe';
   exports: [DateBorderDirective, TitleFilterPipe],
   imports: [CommonModule],
   providers: [MockDataService, DataSharingService],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class SharedModule {}
