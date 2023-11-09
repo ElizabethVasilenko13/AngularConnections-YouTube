@@ -11,28 +11,27 @@ import { DataSharingService } from 'src/app/shared/services/dataSharingService.s
 export class MainComponent implements OnInit, OnDestroy {
   videos: IYouTubeApiItem[] = [];
   isSortingVisible = false;
-  private videosSubscription!: Subscription;
-  private isSortingVisibleSubscription!: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(private dataSharingService: DataSharingService) {}
 
   ngOnInit(): void {
-    this.videosSubscription = this.dataSharingService.videosSource.subscribe((videos) => {
-      this.videos = videos;
-    });
+    this.subscriptions.push(
+      this.dataSharingService.videosSource.subscribe((videos) => {
+        this.videos = videos;
+      })
+    );
 
-    this.isSortingVisibleSubscription = this.dataSharingService
-      .isSearchResultVisibleSource.subscribe((isVisible) => {
+    this.subscriptions.push(
+      this.dataSharingService.isSearchResultVisibleSource.subscribe((isVisible) => {
         this.isSortingVisible = isVisible;
-      });
+      })
+    );
   }
 
   ngOnDestroy(): void {
-    if (this.videosSubscription) {
-      this.videosSubscription.unsubscribe();
-    }
-    if (this.isSortingVisibleSubscription) {
-      this.isSortingVisibleSubscription.unsubscribe();
-    }
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
   }
 }

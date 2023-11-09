@@ -11,17 +11,17 @@ import { DataSharingService } from 'src/app/shared/services/dataSharingService.s
 export class SearchResultComponent implements OnDestroy {
   @Input() videos: IYouTubeApiItem[] = [];
   searchText = '';
-  private subscription: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(private dataSharingService: DataSharingService) {
-    this.subscription = this.dataSharingService.searchTextSource.subscribe((searchText) => {
+    this.subscriptions.push(this.dataSharingService.searchTextSource.subscribe((searchText) => {
       this.searchText = searchText;
-    });
+    }))
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    })
   }
 }
