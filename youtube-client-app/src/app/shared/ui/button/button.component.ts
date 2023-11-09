@@ -17,7 +17,7 @@ export class ButtonComponent {
 
   @Output() buttonClick: EventEmitter<void> = new EventEmitter<void>();
 
-  onClick(event: MouseEvent) {
+  onClick(event: MouseEvent): void {
     event.preventDefault();
     this.buttonClick.emit();
   }

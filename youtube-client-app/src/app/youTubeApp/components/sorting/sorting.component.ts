@@ -16,7 +16,7 @@ export class SortingComponent {
     private sortingStateService: SortingStateService,
   ) {}
 
-  updateSearchText() {
+  updateSearchText(): void {
     this.dataSharingService.setSearchText(this.searchText);
   }
 
@@ -25,7 +25,7 @@ export class SortingComponent {
       && ascending === this.sortingStateService.activeSortDirection;
   }
 
-  sortResults(key: 'date' | 'views', ascending: boolean) {
+  sortResults(key: 'date' | 'views', ascending: boolean): void {
     this.dataSharingService.sortSearchResults(key, ascending);
     this.sortingStateService.activeSortKey = key;
     this.sortingStateService.activeSortDirection = ascending;

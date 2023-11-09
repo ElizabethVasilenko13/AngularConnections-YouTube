@@ -16,11 +16,11 @@ export class HeaderComponent {
 
   constructor(private dataSharingService: DataSharingService) {}
 
-  toggleShowSortBtn() {
+  toggleShowSortBtn(): void {
     this.isSortingBlockVisible = !this.isSortingBlockVisible;
   }
 
-  handleSearchBtn() {
+  handleSearchBtn(): void {
     this.dataSharingService.showSearchResult();
   }
 }

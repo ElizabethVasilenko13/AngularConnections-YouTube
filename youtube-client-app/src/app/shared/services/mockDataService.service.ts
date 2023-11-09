@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IYouTubeApiResponse } from '../models/search-response.model';
+import { IYouTubeApiItem } from '../models/search-item.model';
 
 @Injectable()
 export class MockDataService {
@@ -759,7 +760,7 @@ export class MockDataService {
     },
   ];
 
-  getData() {
+  getData(): IYouTubeApiItem[] {
     return this.data[0].items;
   }
 }

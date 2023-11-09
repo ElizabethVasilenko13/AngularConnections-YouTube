@@ -14,15 +14,15 @@ export class DataSharingService {
     this.videosSource.next(mockDataVideos);
   }
 
-  showSearchResult() {
+  showSearchResult(): void {
     this.isSearchResultVisibleSource.next(true);
   }
 
-  setSearchText(searchText: string) {
+  setSearchText(searchText: string): void {
     this.searchTextSource.next(searchText);
   }
 
-  sortSearchResults(key: 'date' | 'views', ascending: boolean) {
+  sortSearchResults(key: 'date' | 'views', ascending: boolean): void {
     const videos = this.videosSource.getValue().slice();
     videos.sort((a, b) => {
       const valueA = key === 'date' ? new Date(a.snippet.publishedAt).getTime() : +a.statistics.viewCount;
