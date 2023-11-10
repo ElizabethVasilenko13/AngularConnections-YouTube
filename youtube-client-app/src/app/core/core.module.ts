@@ -12,7 +12,7 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
     CommonModule,
     SharedModule,
     YouTubeAppModule,
-    ButtonComponent,
+    ButtonComponent
   ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],

@@ -8,10 +8,6 @@ import { SearchService } from '../../../services/searchService.service';
 })
 
 export class HeaderComponent {
-  searchButtonName = 'Searh';
-  searchButtonClassName = 'search__button';
-  roundedImgBtn = 'img__btn';
-
   isSortingBlockVisible = false;
 
   constructor(private searchService: SearchService) {}

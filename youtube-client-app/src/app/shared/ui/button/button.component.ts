@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
-  Component, EventEmitter, Input, Output,
+  Component, ContentChild, EventEmitter, Input, Output, TemplateRef,
 } from '@angular/core';
 
 @Component({
@@ -11,9 +11,8 @@ import {
   imports: [CommonModule],
 })
 export class ButtonComponent {
-  @Input() name: string | undefined;
-  @Input() className: string | undefined;
-  @Input() iconPath: string | undefined;
+  @Input() customClass = '';
+  @ContentChild('buttonTemplate') buttonTemplate?: TemplateRef<unknown>;
 
   @Output() buttonClick: EventEmitter<void> = new EventEmitter<void>();
 

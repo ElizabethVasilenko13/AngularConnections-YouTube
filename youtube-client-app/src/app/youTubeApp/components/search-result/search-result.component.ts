@@ -14,7 +14,7 @@ export class SearchResultComponent implements OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private searchService: SearchService) {
-    this.subscriptions.push(this.searchService.searchTextSource.subscribe((searchText) => {
+    this.subscriptions.push(this.searchService.searchTextSource$.subscribe((searchText) => {
       this.searchText = searchText;
     }))
   }
