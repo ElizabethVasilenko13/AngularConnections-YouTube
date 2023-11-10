@@ -3,18 +3,22 @@ import { BehaviorSubject } from 'rxjs';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 import { MockDataService } from './mockDataService.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchService  {
   public isSearchResultVisibleSource = new BehaviorSubject<boolean>(false);
   public videosSource = new BehaviorSubject<IYouTubeApiItem[]>([]);
   public searchTextSource = new BehaviorSubject<string>('');
 
-  constructor(private mockDataService: MockDataService) {
-    const mockDataVideos = this.mockDataService.getData();
-    this.videosSource.next(mockDataVideos);
+  constructor(private mockDataService: MockDataService) {}
+
+  requestVideos(): void {
+    this.mockDataService.getData().subscribe((mockDataVideos) => {
+      this.videosSource.next(mockDataVideos);
+    });
   }
 
   showSearchResult(): void {
+    this.requestVideos();
     this.isSearchResultVisibleSource.next(true);
   }
 

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IYouTubeApiResponse } from '../../shared/models/search-response.model';
-import { IYouTubeApiItem } from '../../shared/models/search-item.model';
+import { Observable, of } from 'rxjs';
+import { IYouTubeApiResponse } from '../shared/models/search-response.model';
+import { IYouTubeApiItem } from '../shared/models/search-item.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MockDataService {
   private data: IYouTubeApiResponse[] = [
     {
@@ -760,7 +761,7 @@ export class MockDataService {
     },
   ];
 
-  getData(): IYouTubeApiItem[] {
-    return this.data[0].items;
+  getData(): Observable<IYouTubeApiItem[]> {
+    return of(this.data[0].items as IYouTubeApiItem[]);
   }
 }

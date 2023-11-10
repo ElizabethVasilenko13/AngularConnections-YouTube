@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SearchService } from 'src/app/core/services/searchService.service';
+import { SearchService } from 'src/app/services/searchService.service';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 
 @Component({

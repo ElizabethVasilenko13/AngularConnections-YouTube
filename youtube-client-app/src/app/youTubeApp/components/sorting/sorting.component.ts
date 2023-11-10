@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchService } from 'src/app/core/services/searchService.service';
+import { SearchService } from 'src/app/services/searchService.service';
 import { SortingStateService } from '../../services/sortingState.service';
 
 @Component({
