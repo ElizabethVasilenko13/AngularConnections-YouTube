@@ -25,7 +25,9 @@
       </div>
     </div>
     <h3 class="video-title">{{ video.snippet.title }}</h3>
-    <app-button [name]="videoBtnName" [className]="videoButtonClassName"></app-button>
+    <app-button [customClass]="'item__button'">
+      more...
+    </app-button>
     <div class="bottom-line" [appDateBorder]="video.snippet.publishedAt"></div>
   </div>
 </div>

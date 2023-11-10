@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SearchService } from 'src/app/services/searchService.service';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
@@ -8,15 +8,24 @@ import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
 })
-export class SearchResultComponent implements OnDestroy {
+export class SearchResultComponent implements OnInit, OnDestroy {
   @Input() videos: IYouTubeApiItem[] = [];
-  searchText = '';
   private subscriptions: Subscription[] = [];
+  searchText = '';
+  isSortingVisible = false;
 
-  constructor(private searchService: SearchService) {
+  constructor(public searchService: SearchService) {}
+
+  ngOnInit(): void {
     this.subscriptions.push(this.searchService.searchTextSource$.subscribe((searchText) => {
       this.searchText = searchText;
-    }))
+    }));
+
+    this.subscriptions.push(
+      this.searchService.isSearchResultVisibleSource$.subscribe((isVisible) => {
+        this.isSortingVisible = isVisible;
+      })
+    );
   }
 
   ngOnDestroy(): void {
