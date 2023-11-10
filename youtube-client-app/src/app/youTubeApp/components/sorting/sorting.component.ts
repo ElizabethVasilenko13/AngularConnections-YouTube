@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
+import { SearchService } from 'src/app/core/services/searchService.service';
 import { SortingStateService } from '../../services/sortingState.service';
 
 @Component({
@@ -12,12 +12,12 @@ export class SortingComponent {
   searchText = '';
 
   constructor(
-    private dataSharingService: DataSharingService,
+    private searchService: SearchService,
     private sortingStateService: SortingStateService,
   ) {}
 
   updateSearchText(): void {
-    this.dataSharingService.setSearchText(this.searchText);
+    this.searchService.setSearchText(this.searchText);
   }
 
   isClassActive(key: 'date' | 'views', ascending: boolean): boolean {
@@ -26,7 +26,7 @@ export class SortingComponent {
   }
 
   sortResults(key: 'date' | 'views', ascending: boolean): void {
-    this.dataSharingService.sortSearchResults(key, ascending);
+    this.searchService.sortSearchResults(key, ascending);
     this.sortingStateService.activeSortKey = key;
     this.sortingStateService.activeSortDirection = ascending;
   }

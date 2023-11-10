@@ -4,7 +4,7 @@ import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 import { MockDataService } from './mockDataService.service';
 
 @Injectable()
-export class DataSharingService {
+export class SearchService  {
   public isSearchResultVisibleSource = new BehaviorSubject<boolean>(false);
   public videosSource = new BehaviorSubject<IYouTubeApiItem[]>([]);
   public searchTextSource = new BehaviorSubject<string>('');

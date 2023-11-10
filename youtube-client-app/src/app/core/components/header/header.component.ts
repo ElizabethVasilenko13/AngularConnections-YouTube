@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
+import { SearchService } from '../../services/searchService.service';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +14,13 @@ export class HeaderComponent {
 
   isSortingBlockVisible = false;
 
-  constructor(private dataSharingService: DataSharingService) {}
+  constructor(private searchService: SearchService) {}
 
   toggleShowSortBtn(): void {
     this.isSortingBlockVisible = !this.isSortingBlockVisible;
   }
 
   handleSearchBtn(): void {
-    this.dataSharingService.showSearchResult();
+    this.searchService.showSearchResult();
   }
 }

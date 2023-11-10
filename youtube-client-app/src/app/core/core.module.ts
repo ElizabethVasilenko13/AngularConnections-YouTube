@@ -4,6 +4,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from '../shared/shared.module';
 import { YouTubeAppModule } from '../youTubeApp/youTubeApp.module';
 import { ButtonComponent } from '../shared/ui/button/button.component';
+import { MockDataService } from './services/mockDataService.service';
+import { SearchService } from './services/searchService.service';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -14,6 +16,7 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
     YouTubeAppModule,
     ButtonComponent,
   ],
+  providers: [MockDataService, SearchService],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class CoreModule { }

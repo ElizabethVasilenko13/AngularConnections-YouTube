@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { SearchService } from 'src/app/core/services/searchService.service';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
-import { DataSharingService } from 'src/app/shared/services/dataSharingService.service';
 
 @Component({
   selector: 'app-main',
@@ -13,17 +13,17 @@ export class MainComponent implements OnInit, OnDestroy {
   isSortingVisible = false;
   private subscriptions: Subscription[] = [];
 
-  constructor(private dataSharingService: DataSharingService) {}
+  constructor(private searchService: SearchService) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.dataSharingService.videosSource.subscribe((videos) => {
+      this.searchService.videosSource.subscribe((videos) => {
         this.videos = videos;
       })
     );
 
     this.subscriptions.push(
-      this.dataSharingService.isSearchResultVisibleSource.subscribe((isVisible) => {
+      this.searchService.isSearchResultVisibleSource.subscribe((isVisible) => {
         this.isSortingVisible = isVisible;
       })
     );
