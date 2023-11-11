@@ -12,7 +12,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   @Input() videos: IYouTubeApiItem[] = [];
   private subscriptions: Subscription[] = [];
   searchText = '';
-  isSortingVisible = false;
 
   constructor(public searchService: SearchService) {}
 
@@ -20,12 +19,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.searchService.searchTextSource$.subscribe((searchText) => {
       this.searchText = searchText;
     }));
-
-    this.subscriptions.push(
-      this.searchService.isSearchResultVisibleSource$.subscribe((isVisible) => {
-        this.isSortingVisible = isVisible;
-      })
-    );
   }
 
   ngOnDestroy(): void {

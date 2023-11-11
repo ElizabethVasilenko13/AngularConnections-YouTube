@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SearchService } from '../../../services/searchService.service';
 
 @Component({
   selector: 'app-header',
@@ -10,13 +9,7 @@ import { SearchService } from '../../../services/searchService.service';
 export class HeaderComponent {
   isSortingBlockVisible = false;
 
-  constructor(private searchService: SearchService) {}
-
-  toggleShowSortBtn(): void {
+  toggleShowFiltersBtn(): void {
     this.isSortingBlockVisible = !this.isSortingBlockVisible;
-  }
-
-  handleSearchBtn(): void {
-    this.searchService.showSearchResult();
   }
 }

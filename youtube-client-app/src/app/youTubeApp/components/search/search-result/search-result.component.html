@@ -1,3 +1,3 @@
-<div class="search-results" *ngIf="isSortingVisible">
+<div class="search-results">
   <app-search-item *ngFor="let video of ((searchService.videosSource$ | async) || []) | titleFilter: searchText" [video]="video"></app-search-item>
 </div>

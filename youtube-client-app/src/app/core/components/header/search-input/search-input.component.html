@@ -1,0 +1,13 @@
+
+  <img src="assets/youTubeIcon.png" alt="youTubeIcon" class="header__icon">
+  <div class="search__block">
+    <input type="text" name="" id="" placeholder="What are you want to find out?">
+    <app-button [customClass]="'search__button'" (buttonClick)="handleSearchBtn()">
+      Search
+    </app-button>
+  </div>
+  <app-button [customClass]="'img__btn'" (buttonClick)="toggleFiltersBtn()">
+    <ng-template #buttonTemplate>
+      <img src="assets/searchSettingIcon.png" alt="youTubeIcon" class="btn__icon">
+    </ng-template>
+  </app-button>

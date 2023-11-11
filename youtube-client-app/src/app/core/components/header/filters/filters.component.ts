@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { SearchService } from 'src/app/services/searchService.service';
-import { SortingStateService } from '../../services/sortingState.service';
+import { SortingStateService } from 'src/app/core/services/sortingState.service';
+
 
 @Component({
-  selector: 'app-sorting',
-  templateUrl: './sorting.component.html',
-  styleUrls: ['./sorting.component.scss'],
+  selector: 'app-filters',
+  templateUrl: './filters.component.html',
+  styleUrls: ['./filters.component.scss'],
 })
 
-export class SortingComponent {
+export class FiltersComponent {
   searchText = '';
 
   constructor(

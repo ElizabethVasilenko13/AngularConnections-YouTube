@@ -5,10 +5,6 @@
   padding: 20px 0;
   justify-content: space-between;
 
-  .header__icon {
-    width: 50px;
-  }
-
   .header__search {
     max-width: 570px;
     width: 100%;
@@ -16,17 +12,10 @@
     column-gap: 20px;
     justify-content: space-between;
     align-items: center;
+  }
 
-    .search__block {
-      display: flex;
-      align-items: center;
-      flex-grow: 1;
-    }
-
-    input {
-      max-width: 396px;
-      border-radius: 7px 0 0 7px;
-    }
+  .header__icon {
+    width: 50px;
   }
 
   .header__user {

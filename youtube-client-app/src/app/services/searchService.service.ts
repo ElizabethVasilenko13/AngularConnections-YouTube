@@ -5,7 +5,6 @@ import { MockDataService } from './mockDataService.service';
 
 @Injectable({ providedIn: 'root' })
 export class SearchService  {
-  public isSearchResultVisibleSource$ = new BehaviorSubject<boolean>(false);
   public videosSource$ = new BehaviorSubject<IYouTubeApiItem[]>([]);
   public searchTextSource$ = new BehaviorSubject<string>('');
 
@@ -15,11 +14,6 @@ export class SearchService  {
     this.mockDataService.getData().subscribe((mockDataVideos) => {
       this.videosSource$.next(mockDataVideos);
     });
-  }
-
-  showSearchResult(): void {
-    this.requestVideos();
-    this.isSearchResultVisibleSource$.next(true);
   }
 
   setSearchText(searchText: string): void {
