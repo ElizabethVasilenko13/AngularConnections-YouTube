@@ -20,18 +20,9 @@ export class SearchService  {
     this.searchTextSource$.next(searchText);
   }
 
-  sortSearchResults(key: 'date' | 'views', ascending: boolean): void {
-    const videos = this.videosSource$.getValue().slice();
-    videos.sort((a, b) => {
-      const valueA = key === 'date' ? new Date(a.snippet.publishedAt).getTime() : +a.statistics.viewCount;
-      const valueB = key === 'date' ? new Date(b.snippet.publishedAt).getTime() : +b.statistics.viewCount;
-      if (valueA < valueB) {
-        return ascending ? -1 : 1;
-      } if (valueA > valueB) {
-        return ascending ? 1 : -1;
-      }
-      return 0;
-    });
-    this.videosSource$.next(videos);
+  sortSearchResults(comparator: (a: IYouTubeApiItem, b: IYouTubeApiItem) => number, ascending: boolean): void {
+    const currentVideos = this.videosSource$.getValue();
+    const sortedVideos = [...currentVideos].sort((a, b) => comparator(a, b) * (ascending ? 1 : -1));
+    this.videosSource$.next(sortedVideos);
   }
 }

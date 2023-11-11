@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { SortingService } from 'src/app/core/services/sorting.service';
 import { SearchService } from 'src/app/services/searchService.service';
-import { SortingStateService } from 'src/app/core/services/sortingState.service';
-
+import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 
 @Component({
   selector: 'app-filters',
@@ -14,21 +14,17 @@ export class FiltersComponent {
 
   constructor(
     private searchService: SearchService,
-    private sortingStateService: SortingStateService,
+    public sortingService: SortingService,
   ) {}
 
   updateSearchText(): void {
     this.searchService.setSearchText(this.searchText);
   }
 
-  isClassActive(key: 'date' | 'views', ascending: boolean): boolean {
-    return key === this.sortingStateService.activeSortKey
-      && ascending === this.sortingStateService.activeSortDirection;
-  }
-
-  sortResults(key: 'date' | 'views', ascending: boolean): void {
-    this.searchService.sortSearchResults(key, ascending);
-    this.sortingStateService.activeSortKey = key;
-    this.sortingStateService.activeSortDirection = ascending;
+  sortResults(key: string, comparator: (a: IYouTubeApiItem, b: IYouTubeApiItem) => number): void {
+    const ascending = this.sortingService.activeSortDirection === 'asc';
+    this.searchService.sortSearchResults(comparator, ascending);
+    this.sortingService.toggleSortDirection();
+    this.sortingService.activeSortKey = key;
   }
 }
