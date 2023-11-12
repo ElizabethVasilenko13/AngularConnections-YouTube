@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SortComparator, SortingState } from 'src/app/core/models/sorting.model';
 import { SortingService } from 'src/app/core/services/sorting.service';
 import { SearchService } from 'src/app/services/searchService.service';
-import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 
 @Component({
   selector: 'app-filters',
@@ -10,6 +10,8 @@ import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 })
 
 export class FiltersComponent {
+  @Output() sortingFunc = new EventEmitter<SortingState>();
+  @Input() sortingState!: SortingState;
   searchText = '';
 
   constructor(
@@ -21,10 +23,25 @@ export class FiltersComponent {
     this.searchService.setSearchText(this.searchText);
   }
 
-  sortResults(key: string, comparator: (a: IYouTubeApiItem, b: IYouTubeApiItem) => number): void {
-    const ascending = this.sortingService.activeSortDirection === 'asc';
-    this.searchService.sortSearchResults(comparator, ascending);
-    this.sortingService.toggleSortDirection();
-    this.sortingService.activeSortKey = key;
+  isDescSorting(key: string): boolean {
+    return this.sortingState.key === key && this.sortingState.order === 'desc';
+  }
+
+  isAscSorting(key: string): boolean {
+    return this.sortingState.key === key && this.sortingState.order === 'asc';
+  }
+
+  onSortClick(key: string, comparator: SortComparator): void {
+    const nextSortingOrder = this.isDescSorting(key) ? 'asc' : 'desc';
+    const multiplier = this.isDescSorting(key) ? -1 : 1;
+    const sortedComparator: SortComparator = (a, b) => comparator(a, b) * multiplier;
+
+    this.sortingState = {
+      key,
+      order: nextSortingOrder,
+      comparator: sortedComparator
+    };
+
+    this.sortingFunc.emit(this.sortingState)
   }
 }

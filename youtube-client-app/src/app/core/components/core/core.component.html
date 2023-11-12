@@ -1,0 +1,2 @@
+<app-header (filterPanel)="result.sortResults($event)"></app-header>
+<app-search-result #result [videos]="(searchService.videosSource$ | async) ?? []"></app-search-result>

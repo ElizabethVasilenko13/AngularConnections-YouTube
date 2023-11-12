@@ -10,7 +10,7 @@
       </app-button>
     </div>
   </div>
-  <app-filters *ngIf="isSortingBlockVisible"></app-filters>
+  <app-filters *ngIf="isSortingBlockVisible" [sortingState]="sortingState" (sortingFunc)="onSortResults($event)"></app-filters>
 </header>
 
 

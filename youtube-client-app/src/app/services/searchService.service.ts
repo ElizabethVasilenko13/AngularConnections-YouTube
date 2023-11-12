@@ -19,10 +19,4 @@ export class SearchService  {
   setSearchText(searchText: string): void {
     this.searchTextSource$.next(searchText);
   }
-
-  sortSearchResults(comparator: (a: IYouTubeApiItem, b: IYouTubeApiItem) => number, ascending: boolean): void {
-    const currentVideos = this.videosSource$.getValue();
-    const sortedVideos = [...currentVideos].sort((a, b) => comparator(a, b) * (ascending ? 1 : -1));
-    this.videosSource$.next(sortedVideos);
-  }
 }

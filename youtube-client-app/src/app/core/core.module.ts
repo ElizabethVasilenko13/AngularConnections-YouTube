@@ -8,10 +8,11 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
 import { SearchInputComponent } from './components/header/search-input/search-input.component';
 import { SortingService } from './services/sorting.service';
 import { FiltersComponent } from './components/header/filters/filters.component';
+import { CoreComponent } from './components/core/core.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FiltersComponent, SearchInputComponent],
-  exports: [HeaderComponent],
+  declarations: [HeaderComponent, FiltersComponent, SearchInputComponent, CoreComponent],
+  exports: [CoreComponent],
   imports: [
     CommonModule,
     SharedModule,

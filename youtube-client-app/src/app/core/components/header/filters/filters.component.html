@@ -3,20 +3,20 @@
     <div>Sorting by:</div>
     <app-button
       [customClass]="'sort__btn'"
-      (buttonClick)="sortResults('date', sortingService.dateComparator)">
+      (buttonClick)="onSortClick('date', sortingService.dateComparator)">
         <ng-template #buttonTemplate>
             Date
-          <span *ngIf="sortingService.isDescSorting('date')">▼</span>
-          <span *ngIf="sortingService.isAscSorting('date')">▲</span>
+          <span *ngIf="isDescSorting('date')">▼</span>
+          <span *ngIf="isAscSorting('date')">▲</span>
         </ng-template>
     </app-button>
     <app-button
       [customClass]="'sort__btn'"
-      (buttonClick)="sortResults('views', sortingService.viewsComparator)">
+      (buttonClick)="onSortClick('views', sortingService.viewsComparator)">
         <ng-template #buttonTemplate>
           Views
-          <span *ngIf="sortingService.isDescSorting('views')">▼</span>
-          <span *ngIf="sortingService.isAscSorting('views')">▲</span>
+          <span *ngIf="isDescSorting('views')">▼</span>
+          <span *ngIf="isAscSorting('views')">▲</span>
         </ng-template>
     </app-button>
     <div class="sort__input">

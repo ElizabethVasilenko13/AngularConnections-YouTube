@@ -26,4 +26,8 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       subscription.unsubscribe();
     })
   }
+
+  sortResults(comparator: (a: IYouTubeApiItem, b: IYouTubeApiItem) => number): void {
+    this.searchService.videosSource$.getValue().sort(comparator);
+  }
 }
