@@ -10,7 +10,7 @@ import { SearchService } from 'src/app/services/searchService.service';
 })
 
 export class FiltersComponent {
-  @Output() sortingFunc = new EventEmitter<SortingState>();
+  @Output() sortingObjState = new EventEmitter<SortingState>();
   @Input() sortingState!: SortingState;
   searchText = '';
 
@@ -42,6 +42,6 @@ export class FiltersComponent {
       comparator: sortedComparator
     };
 
-    this.sortingFunc.emit(this.sortingState)
+    this.sortingObjState.emit(this.sortingState);
   }
 }
