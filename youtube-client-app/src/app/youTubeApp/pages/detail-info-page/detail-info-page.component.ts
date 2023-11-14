@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MockDataService } from 'src/app/core/services/mockDataService.service';
+import { MockDataService } from 'src/app/services/mockDataService.service';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
 
 @Component({

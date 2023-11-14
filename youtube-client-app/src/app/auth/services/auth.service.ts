@@ -13,16 +13,16 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     return this.getToken() !== null;
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['auth']);
   }
 
-  login() {
+  login(): void {
     this.setToken('abcdefghi');
   }
 }

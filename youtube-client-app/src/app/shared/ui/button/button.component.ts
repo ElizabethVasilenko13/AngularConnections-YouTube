@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
-  Component, EventEmitter, Input, Output
+  Component, ContentChild, EventEmitter, Input, Output, TemplateRef,
 } from '@angular/core';
 
 @Component({
@@ -8,23 +8,21 @@ import {
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class ButtonComponent {
-  @Input() name: string | undefined;
-  @Input() className: string | undefined;
-  @Input() iconPath: string | undefined;
-  @Input() type: string | undefined;
+  @Input() customClass = '';
+  @ContentChild('buttonTemplate') buttonTemplate?: TemplateRef<unknown>;
 
   @Output() buttonClick: EventEmitter<Event> = new EventEmitter<Event>();
   @Output() buttonSubmit: EventEmitter<Event> = new EventEmitter<Event>();
 
-  onClick(event: MouseEvent) {
+  onClick(event: MouseEvent): void {
     event.preventDefault();
     this.buttonClick.emit(event);
   }
 
-  onSubmit(event: Event) {
+  onSubmit(event: Event): void {
     this.buttonSubmit.emit(event);
   }
 }

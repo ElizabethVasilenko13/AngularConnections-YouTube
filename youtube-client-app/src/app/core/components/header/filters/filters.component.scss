@@ -6,6 +6,7 @@
 
 .sort-section {
   justify-content: flex-start;
+
   .sort__container {
     column-gap: 30px;
     justify-content: flex-end;
@@ -26,18 +27,3 @@
   align-items: center;
 }
 
-.sort__btn {
-  &.active {
-    background-color: red;
-  }
-}
-
-button {
-  background-color: rgba(255,255,255,0.1);
-  padding: 8px;
-  font-weight: bold;
-
-  &:hover {
-    background-color: #3F3F3F;
-  }
-}

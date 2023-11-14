@@ -8,14 +8,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
-  loginBtnName = 'Login';
-  loginButtonClassName = 'item__button';
-  loginButtonType = 'submit';
-
   constructor(private auth: AuthService, private router: Router) {}
 
-  onSubmit() {
+  onSubmit(): void {
     this.auth.login();
-    this.router.navigate(['main']);
+    this.router.navigate(['/']);
   }
 }

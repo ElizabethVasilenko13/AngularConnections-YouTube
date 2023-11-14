@@ -1,29 +1,18 @@
 import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SortingComponent } from './components/sorting/sorting.component';
-import { MainComponent } from './pages/main/main.component';
 import { SharedModule } from '../shared/shared.module';
-import { SearchResultComponent } from './components/search-result/search-result.component';
-import { SearchItemComponent } from './components/search-item/search-item.component';
-import { SortingStateService } from './services/sortingState.service';
-import { YoutubeRoutingModule } from './youtube-routing.module';
-import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
+import { SearchResultComponent } from './components/search/search-result/search-result.component';
+import { SearchItemComponent } from './components/search/search-item/search-item.component';
 import { VideoStaticsComponent } from './components/video-statics/video-statics.component';
+import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
+import { YoutubeRoutingModule } from './youtube-routing.module';
 import { ButtonComponent } from '../shared/ui/button/button.component';
 import { DetailVideoItemComponent } from './components/detail-video-item/detail-video-item.component';
 
 @NgModule({
-  declarations: [
-    SortingComponent,
-    MainComponent,
-    SearchResultComponent,
-    SearchItemComponent,
-    DetailInfoPageComponent,
-    VideoStaticsComponent,
-    DetailVideoItemComponent
-  ],
-  exports: [SortingComponent, MainComponent],
+  declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent, DetailVideoItemComponent],
+  exports: [],
   imports: [
     CommonModule,
     SharedModule,
@@ -31,7 +20,7 @@ import { DetailVideoItemComponent } from './components/detail-video-item/detail-
     YoutubeRoutingModule,
     ButtonComponent
   ],
-  providers: [SortingStateService],
-  schemas: [NO_ERRORS_SCHEMA]
+  providers: [],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class YouTubeAppModule { }

@@ -1,4 +1,8 @@
-<button [ngClass]="[className]" (click)="onClick($event)"  [type]="type">
-  <img *ngIf="iconPath" [src]="iconPath" alt="Button Icon">
-  {{ name }}
+<button [class]="customClass" (click)="onClick($event)">
+  <ng-container *ngTemplateOutlet="buttonTemplate || defaultTemplate"></ng-container>
 </button>
+
+<ng-template #defaultTemplate>
+  Button
+</ng-template>
+
