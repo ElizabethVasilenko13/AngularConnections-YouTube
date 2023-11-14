@@ -12,6 +12,6 @@ export class LoginFormComponent {
 
   onSubmit(): void {
     this.auth.login();
-    this.router.navigate(['/']);
+    this.router.navigate(['/main']);
   }
 }
