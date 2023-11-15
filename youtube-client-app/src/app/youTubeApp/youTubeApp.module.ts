@@ -12,7 +12,7 @@ import { DetailVideoItemComponent } from './components/detail-video-item/detail-
 
 @NgModule({
   declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent, DetailVideoItemComponent],
-  exports: [],
+  exports: [SearchResultComponent],
   imports: [
     CommonModule,
     SharedModule,

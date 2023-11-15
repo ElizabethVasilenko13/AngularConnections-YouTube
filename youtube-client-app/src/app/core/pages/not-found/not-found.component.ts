@@ -7,9 +7,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./not-found.component.scss']
 })
 export class NotFoundComponent {
-  goBackButtonName = 'Go back';
-  goBackButtonClassName = 'item__button';
-
   constructor(private location: Location) {}
 
   goBack(): void {

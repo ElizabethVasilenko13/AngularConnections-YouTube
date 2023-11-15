@@ -1,20 +1,22 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {  Router } from '@angular/router';
 import { SearchService } from 'src/app/services/searchService.service';
 import { SearchResultComponent } from 'src/app/youTubeApp/pages/search-result-page/search-result.component';
-import { SortComparator } from '../../models/sorting.model';
 
 @Component({
   selector: 'app-core',
   templateUrl: './core.component.html',
   styleUrls: ['./core.component.scss']
 })
-export class CoreComponent {
-  constructor(public searchService: SearchService) {}
-  @ViewChild(SearchResultComponent) resultComponent: SearchResultComponent | undefined;
+export class CoreComponent implements OnInit{
+  @ViewChild('result') result!: SearchResultComponent;
+  isMainPageRoute = false;
 
-  onFilterPanel(event: SortComparator):void {
-    if (this.resultComponent) {
-      this.resultComponent.sortResults(event);
-    }
+  constructor(private router: Router, public searchService: SearchService) {}
+
+  ngOnInit(): void {
+    this.router.events.subscribe(() => {
+      this.isMainPageRoute = this.router.url === '/main';
+    });
   }
 }

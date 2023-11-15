@@ -1,2 +1,9 @@
-<app-header (filterPanel)="onFilterPanel($event)"></app-header>
-<app-search-result #result [videos]="searchService.videosSource$ | async"></app-search-result>
+<header>
+  <app-header (filterPanel)="result.sortResults($event)"></app-header>
+</header>
+<main>
+  <ng-container *ngIf="isMainPageRoute">
+    <app-search-result #result [videos]="(searchService.videosSource$ | async) ?? []"></app-search-result>
+  </ng-container>
+  <router-outlet></router-outlet>
+</main>
