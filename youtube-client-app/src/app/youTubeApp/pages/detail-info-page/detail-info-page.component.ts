@@ -23,7 +23,16 @@ export class DetailInfoPageComponent implements OnInit {
   getVideo(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.video = this.mockDataService.getVideoInfo(id);
+      this.mockDataService.getVideoInfo(id).subscribe({
+        next: (video) => {
+          if (video) {
+            this.video = video;
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching', error);
+        },
+      });
     }
   }
 }

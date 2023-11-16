@@ -6,8 +6,8 @@
       (buttonClick)="onSortClick('date', sortingService.dateComparator)">
         <ng-template #buttonTemplate>
             Date
-          <span *ngIf="isDescSorting('date')">▼</span>
-          <span *ngIf="isAscSorting('date')">▲</span>
+          <span *ngIf="sortingService.isDescSorting('date')">▼</span>
+          <span *ngIf="sortingService.isAscSorting('date')">▲</span>
         </ng-template>
     </app-button>
     <app-button
@@ -15,13 +15,13 @@
       (buttonClick)="onSortClick('views', sortingService.viewsComparator)">
         <ng-template #buttonTemplate>
           Views
-          <span *ngIf="isDescSorting('views')">▼</span>
-          <span *ngIf="isAscSorting('views')">▲</span>
+          <span *ngIf="sortingService.isDescSorting('views')">▼</span>
+          <span *ngIf="sortingService.isAscSorting('views')">▲</span>
         </ng-template>
     </app-button>
     <div class="sort__input">
       <div class="">by word or sentance</div>
-      <input type="text" [(ngModel)]="searchText" name="searchText" id="searchText" (input)="updateSearchText()">
+      <input type="text" [(ngModel)]="searchText" name="searchText" id="searchText" (input)="updateFilterSearchText()">
     </div>
   </div>
 </section>

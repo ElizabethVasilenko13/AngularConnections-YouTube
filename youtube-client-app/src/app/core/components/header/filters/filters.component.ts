@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SortComparator, SortingState } from 'src/app/core/models/sorting.model';
+import { Component } from '@angular/core';
+import { SortComparator } from 'src/app/core/models/sorting.model';
 import { SortingService } from 'src/app/core/services/sorting.service';
 import { SearchService } from 'src/app/services/searchService.service';
 
@@ -10,8 +10,6 @@ import { SearchService } from 'src/app/services/searchService.service';
 })
 
 export class FiltersComponent {
-  @Output() sortingObjState = new EventEmitter<SortingState>();
-  @Input() sortingState!: SortingState;
   searchText = '';
 
   constructor(
@@ -19,29 +17,20 @@ export class FiltersComponent {
     public sortingService: SortingService,
   ) {}
 
-  updateSearchText(): void {
-    this.searchService.setSearchText(this.searchText);
-  }
-
-  isDescSorting(key: string): boolean {
-    return this.sortingState.key === key && this.sortingState.order === 'desc';
-  }
-
-  isAscSorting(key: string): boolean {
-    return this.sortingState.key === key && this.sortingState.order === 'asc';
+  updateFilterSearchText(): void {
+    this.searchService.setFilterText(this.searchText);
   }
 
   onSortClick(key: string, comparator: SortComparator): void {
-    const nextSortingOrder = this.isDescSorting(key) ? 'asc' : 'desc';
-    const multiplier = this.isDescSorting(key) ? -1 : 1;
-    const sortedComparator: SortComparator = (a, b) => comparator(a, b) * multiplier;
+    const order = this.sortingService.isDescSorting(key) ? 'asc' : 'desc';
+    const sortedComparator = this.getSortedComparator(comparator, order);
 
-    this.sortingState = {
-      key,
-      order: nextSortingOrder,
-      comparator: sortedComparator
-    };
+    this.searchService.setSortingState({ key, order, comparator: sortedComparator });
+    this.searchService.requestVideos();
+  }
 
-    this.sortingObjState.emit(this.sortingState);
+  private getSortedComparator(comparator: SortComparator, order: string): SortComparator {
+    const multiplier = order === 'desc' ? -1 : 1;
+    return (a, b) => comparator(a, b) * multiplier;
   }
 }

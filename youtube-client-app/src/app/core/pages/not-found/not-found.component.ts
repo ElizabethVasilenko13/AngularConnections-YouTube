@@ -11,5 +11,7 @@ export class NotFoundComponent {
 
   goBack(): void {
     this.location.back();
+    console.log('bsck');
+    
   }
 }

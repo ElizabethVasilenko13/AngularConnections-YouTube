@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { IYouTubeApiResponse } from '../shared/models/search-response.model';
 import { IYouTubeApiItem } from '../shared/models/search-item.model';
 
@@ -765,8 +765,9 @@ export class MockDataService {
     return of(this.data[0].items as IYouTubeApiItem[]);
   }
 
-  getVideoInfo(id: string): IYouTubeApiItem {
-    const videoInfo = this.data[0].items.find((video) => video.id === id)!;
-    return videoInfo;
+  getVideoInfo(id: string): Observable<IYouTubeApiItem | undefined> {
+    return this.getData().pipe(
+      map(items => items.find((video) => video.id === id))
+    );
   }
 }
