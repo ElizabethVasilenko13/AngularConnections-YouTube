@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoggerService } from 'src/app/core/services/logger.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -8,10 +9,11 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router, private logger: LoggerService) {}
 
   onSubmit(): void {
     this.auth.login();
     this.router.navigate(['/main']);
+    this.logger.logMessage('Login');
   }
 }
