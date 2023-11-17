@@ -39,7 +39,7 @@
         <div *ngIf="hasError('creationDate', 'futureDate')">The date is invalid</div>
       </div>
     </div>
-    <ng-container formArrayName="tags">
+    <div formArrayName="tags" class="tags">
       <ng-container *ngFor="let tag of tags.controls; let i = index">
         <div [formGroupName]="i" class="form-group">
           <label for="tag">Tag {{i + 1}} *</label>
@@ -49,10 +49,10 @@
           </div>
         </div>
       </ng-container>
-    </ng-container>
-    <app-button [customClass]="'item__button'" (buttonClick)="addTag()" [disabled]="tags.controls.length >= 5">
-      <ng-template #buttonTemplate>Add tag</ng-template>
-    </app-button>
+      <app-button [customClass]="'plus__btn'" (buttonClick)="addTag()" [disabled]="tags.controls.length >= 5">
+        <ng-template #buttonTemplate>+</ng-template>
+      </app-button>
+    </div>
     <div class="button-container">
       <app-button [customClass]="'item__button'" (buttonClick)="resetForm()">
         <ng-template #buttonTemplate>Reset form</ng-template>

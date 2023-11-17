@@ -45,6 +45,7 @@ export class CreateCardFormComponent {
 
   onSubmit(): void {
     console.log('video created');
+    this.resetForm();
   }
 
   createTag(): FormGroup {
