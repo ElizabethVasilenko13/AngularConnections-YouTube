@@ -23,21 +23,21 @@ export class LoginFormComponent {
     password: ['', [ Validators.required, passwordStrengthValidator()]]
   });
 
-  get login(): AbstractControl | null {
-    return this.loginForm.get('login');
-  }
+  // get login(): AbstractControl | null {
+  //   return this.loginForm.get('login');
+  // }
 
-  get password(): AbstractControl | null {
-    return this.loginForm.get('password');
-  }
+  // get password(): AbstractControl | null {
+  //   return this.loginForm.get('password');
+  // }
 
-  isInvalid(control: AbstractControl | null): boolean {
-    return !!control && control.invalid && (control.dirty || control.touched);
-  }
+  // isInvalid(control: AbstractControl | null): boolean {
+  //   return !!control && control.invalid && (control.dirty || control.touched);
+  // }
 
-  hasError(control: AbstractControl | null, error: string): boolean {
-    return !!control && control.hasError(error);
-  }
+  // hasError(control: AbstractControl | null, error: string): boolean {
+  //   return !!control && control.hasError(error);
+  // }
 
   onSubmit(): void {
     this.auth.login();

@@ -19,16 +19,6 @@ export class CreateCardFormComponent {
     tags: this.fb.array([this.createTag()]),
   });
 
-  isInvalid(controlName: string): boolean {
-    const control = this.createCardForm.get(controlName);
-    return !!control && control.invalid && (control.dirty || control.touched);
-  }
-
-  hasError(controlName: string, error: string): boolean {
-    const control = this.createCardForm.get(controlName);
-    return !!control && control.hasError(error);
-  }
-
   get tags(): FormArray {
     return this.createCardForm.get('tags') as FormArray
   }
@@ -46,6 +36,7 @@ export class CreateCardFormComponent {
   onSubmit(): void {
     console.log('video created');
     this.resetForm();
+    console.log(this.createCardForm);
   }
 
   createTag(): FormGroup {

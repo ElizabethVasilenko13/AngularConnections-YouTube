@@ -18,7 +18,8 @@ import { AuthModule } from './auth/auth.module';
     SharedModule,
     CoreModule,
     YouTubeAppModule,
-    AuthModule],
+    AuthModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

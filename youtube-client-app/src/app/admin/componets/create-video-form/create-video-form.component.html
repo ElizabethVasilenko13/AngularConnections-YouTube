@@ -1,44 +1,11 @@
 <div class="container">
   <h2>Create new card</h2>
   <form class="form" [formGroup]="createCardForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="title">Title *</label>
-      <input type="text" id="title" name="title" formControlName="title" [class.invalidInput]="isInvalid('title')">
-      <div *ngIf="isInvalid('title')" [class.invalid]="isInvalid('title')">
-        <div *ngIf="hasError('title', 'required')"> Please enter a title </div>
-        <div *ngIf="hasError('title', 'minlength')"> The title is too short </div>
-        <div *ngIf="hasError('title', 'maxlength')"> The title is too long </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="description">Description </label>
-      <input type="text" id="description" name="description" formControlName="description" [class.invalidInput]="isInvalid('description')">
-      <div *ngIf="isInvalid('description')" [class.invalid]="isInvalid('description')">
-        <div *ngIf="hasError('description', 'maxlength')"> The description is too long</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="image">Img *</label>
-      <input type="text" id="image" name="image" formControlName="img" [class.invalidInput]="isInvalid('img')">
-      <div *ngIf="isInvalid('img')" [class.invalid]="isInvalid('img')">
-        <div *ngIf="hasError('img', 'required')"> Please enter a link to the image </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="videoLink">Link video *</label>
-      <input type="url" id="videoLink" name="videoLink" formControlName="videoLink" [class.invalidInput]="isInvalid('videoLink')">
-      <div *ngIf="isInvalid('videoLink')" [class.invalid]="isInvalid('videoLink')">
-        <div *ngIf="hasError('videoLink', 'required')"> Please enter a link to the video </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="creationDate">Creation date *</label>
-      <input type="date" id="creationDate" name="creationDate" formControlName="creationDate" [class.invalidInput]="isInvalid('creationDate')">
-      <div *ngIf="isInvalid('creationDate')" [class.invalid]="isInvalid('creationDate')">
-        <div *ngIf="hasError('creationDate', 'required')"> Please enter a creation date </div>
-        <div *ngIf="hasError('creationDate', 'futureDate')">The date is invalid</div>
-      </div>
-    </div>
+    <app-form-control label="Title" controlName="title" [control]="createCardForm.get('title')" [isRequired]="true"></app-form-control>
+    <app-form-control label="Description" controlName="description" [control]="createCardForm.get('description')"></app-form-control>
+    <app-form-control label="Img" controlName="img" [control]="createCardForm.get('img')" [isRequired]="true"></app-form-control>
+    <app-form-control label="Link video" controlName="videoLink" [control]="createCardForm.get('videoLink')" [isRequired]="true" type="url"></app-form-control>
+    <app-form-control label="Creation date" controlName="creationDate" [control]="createCardForm.get('creationDate')" [isRequired]="true" type="date"></app-form-control>
     <div formArrayName="tags" class="tags">
       <ng-container *ngFor="let tag of tags.controls; let i = index">
         <div [formGroupName]="i" class="form-group">
