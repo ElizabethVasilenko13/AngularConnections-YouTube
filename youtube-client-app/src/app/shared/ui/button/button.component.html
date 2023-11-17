@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-<button [class]="customClass" (click)="onClick($event)">
-  <!-- <ng-content></ng-content> -->
-=======
 <button [class]="customClass" (click)="onClick($event)" [type]="type" [disabled]="disabled">
->>>>>>> 63f5001 (feat: implemtn login form validation)
   <ng-container *ngTemplateOutlet="buttonTemplate || defaultTemplate"></ng-container>
 </button>
 

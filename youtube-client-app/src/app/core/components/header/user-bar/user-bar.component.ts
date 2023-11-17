@@ -16,4 +16,8 @@ export class UserBarComponent {
   logout(): void {
     this.auth.logout();
   }
+
+  redirectToAdmin(): void {
+    this.route.navigate(['/admin']);
+  }
 }

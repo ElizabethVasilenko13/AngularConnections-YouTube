@@ -1,0 +1,65 @@
+<div class="container">
+  <h2>Create new card</h2>
+  <form class="form" [formGroup]="createCardForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title *</label>
+      <input type="text" id="title" name="title" formControlName="title" [class.invalidInput]="isInvalid('title')">
+      <div *ngIf="isInvalid('title')" [class.invalid]="isInvalid('title')">
+        <div *ngIf="hasError('title', 'required')"> Please enter a title </div>
+        <div *ngIf="hasError('title', 'minlength')"> The title is too short </div>
+        <div *ngIf="hasError('title', 'maxlength')"> The title is too long </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description </label>
+      <input type="text" id="description" name="description" formControlName="description" [class.invalidInput]="isInvalid('description')">
+      <div *ngIf="isInvalid('description')" [class.invalid]="isInvalid('description')">
+        <div *ngIf="hasError('description', 'maxlength')"> The description is too long</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="image">Img *</label>
+      <input type="text" id="image" name="image" formControlName="img" [class.invalidInput]="isInvalid('img')">
+      <div *ngIf="isInvalid('img')" [class.invalid]="isInvalid('img')">
+        <div *ngIf="hasError('img', 'required')"> Please enter a link to the image </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="videoLink">Link video *</label>
+      <input type="url" id="videoLink" name="videoLink" formControlName="videoLink" [class.invalidInput]="isInvalid('videoLink')">
+      <div *ngIf="isInvalid('videoLink')" [class.invalid]="isInvalid('videoLink')">
+        <div *ngIf="hasError('videoLink', 'required')"> Please enter a link to the video </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="creationDate">Creation date *</label>
+      <input type="date" id="creationDate" name="creationDate" formControlName="creationDate" [class.invalidInput]="isInvalid('creationDate')">
+      <div *ngIf="isInvalid('creationDate')" [class.invalid]="isInvalid('creationDate')">
+        <div *ngIf="hasError('creationDate', 'required')"> Please enter a creation date </div>
+        <div *ngIf="hasError('creationDate', 'futureDate')">The date is invalid</div>
+      </div>
+    </div>
+    <ng-container formArrayName="tags">
+      <ng-container *ngFor="let tag of tags.controls; let i = index">
+        <div [formGroupName]="i" class="form-group">
+          <label for="tag">Tag {{i + 1}} *</label>
+          <input type="text" formControlName="tag" name="tag" [class.invalidInput]="isInvalidTag(i)">
+          <div *ngIf="isInvalidTag(i)" [class.invalid]="isInvalidTag(i)">
+            <div *ngIf="hasTagError(i, 'required')"> Please enter the tag </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <app-button [customClass]="'item__button'" (buttonClick)="addTag()" [disabled]="tags.controls.length >= 5">
+      <ng-template #buttonTemplate>Add tag</ng-template>
+    </app-button>
+    <div class="button-container">
+      <app-button [customClass]="'item__button'" (buttonClick)="resetForm()">
+        <ng-template #buttonTemplate>Reset form</ng-template>
+      </app-button>
+      <app-button [customClass]="'item__button'" [type]="'submit'" [disabled]="createCardForm.invalid">
+        <ng-template #buttonTemplate>Create card</ng-template>
+      </app-button>
+    </div>
+  </form>
+</div>

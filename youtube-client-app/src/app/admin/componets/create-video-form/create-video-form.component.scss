@@ -1,0 +1,42 @@
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: #1C1C1C;
+  border-radius: 5px;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+
+  label {
+    margin-bottom: 5px;
+    color: white;
+  }
+
+  input {
+    background-color: #282828;
+    padding: 10px;
+  }
+
+  input.invalidInput:focus {
+    outline: red;
+  }
+
+  .button-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .invalid {
+    color: red;
+    margin-top: 5px;
+  }
+
+  .invalidInput {
+    border-color: red;
+  }
+}
