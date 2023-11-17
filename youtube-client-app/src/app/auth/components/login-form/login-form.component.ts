@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { passwordStrengthValidator } from 'src/app/shared/validators/password-strength';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { AuthService } from '@services/auth.service';

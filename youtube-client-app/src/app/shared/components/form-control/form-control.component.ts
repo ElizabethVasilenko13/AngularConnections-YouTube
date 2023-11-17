@@ -32,6 +32,9 @@ export class FormControlComponent {
           case 'maxlength':
             errorMessages.push(`The ${this.label.toLowerCase()} is too long.`);
             break;
+          case 'email':
+            errorMessages.push(`The ${this.label.toLowerCase()} email is invalid`);
+            break;
           case 'passwordStrength':
             errorMessages.push(`Your password isn't strong enough (at least: 8 characters,
               1 number,
