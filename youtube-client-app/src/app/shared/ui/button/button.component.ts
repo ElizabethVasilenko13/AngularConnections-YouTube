@@ -10,12 +10,17 @@ import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/co
 })
 export class ButtonComponent {
   @Input() customClass = '';
+<<<<<<< HEAD
   @Input() buttonTemplate?: TemplateRef<unknown>;
+=======
+  @Input() type = 'button';
+  @Input() disabled = false;
+  @ContentChild('buttonTemplate') buttonTemplate?: TemplateRef<unknown>;
+>>>>>>> 63f5001 (feat: implemtn login form validation)
 
   @Output() buttonClick: EventEmitter<Event> = new EventEmitter<Event>();
 
   onClick(event: MouseEvent): void {
-    event.preventDefault();
     this.buttonClick.emit(event);
   }
 }

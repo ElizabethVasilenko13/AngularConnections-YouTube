@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Login</h2>
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="login">Login *</label>
+      <input type="email" id="login" name="login" formControlName="login" email="true" [class.invalidInput]="isInvalid(login)">
+      <div *ngIf="isInvalid(login)" [class.invalid]="isInvalid(login)">
+        <div *ngIf="hasError(login, 'required')">
+          Please enter a login email
+        </div>
+        <div *ngIf="hasError(login, 'email')">
+          The login email is invalid
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password *</label>
+      <input type="password" id="password" name="password" formControlName="password" [class.invalidInput]="isInvalid(password)">
+      <div *ngIf="isInvalid(password)" [class.invalid]="isInvalid(password)">
+        <div *ngIf="hasError(password, 'required')">
+          Please enter a password
+        </div>
+        <div *ngIf="hasError(password, 'passwordStrength')">
+          Your password isn't strong enough (at least: 8 characters,
+          1 number,
+          one special character, e.g., ! @ # ?,
+          uppercase and lowercase letters)
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <app-button [customClass]="'item__button'" [type]="'submit'" [disabled]="loginForm.invalid">
+        <ng-template #buttonTemplate>Login</ng-template>
+      </app-button>
+    </div>
+  </form>
+</div>
