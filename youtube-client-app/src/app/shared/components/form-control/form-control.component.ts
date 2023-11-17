@@ -14,7 +14,6 @@ export class FormControlComponent {
   @Input() type = 'text';
 
   isInvalid(): boolean {
-    console.log(this.control);
     return !!this.control && this.control.invalid && (this.control.dirty || this.control.touched);
   }
 

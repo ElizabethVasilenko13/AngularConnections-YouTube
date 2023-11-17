@@ -9,11 +9,7 @@
     <div formArrayName="tags" class="tags">
       <ng-container *ngFor="let tag of tags.controls; let i = index">
         <div [formGroupName]="i" class="form-group">
-          <label for="tag">Tag {{i + 1}} *</label>
-          <input type="text" formControlName="tag" name="tag" [class.invalidInput]="isInvalidTag(i)">
-          <div *ngIf="isInvalidTag(i)" [class.invalid]="isInvalidTag(i)">
-            <div *ngIf="hasTagError(i, 'required')"> Please enter the tag </div>
-          </div>
+          <app-form-control label="Tag {{i + 1}}" controlName="tag" [control]="tags.at(i).get('tag')" [isRequired]="true"></app-form-control>
         </div>
       </ng-container>
       <app-button [customClass]="'plus__btn'" (buttonClick)="addTag()" [disabled]="tags.controls.length >= 5">
