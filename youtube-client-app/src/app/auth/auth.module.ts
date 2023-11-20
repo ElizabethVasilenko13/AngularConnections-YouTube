@@ -4,13 +4,10 @@ import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginPageComponent } from './pages/login-page.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-
 
 @NgModule({
   declarations: [
-    LoginPageComponent,
-    LoginFormComponent
+    LoginPageComponent
   ],
   imports: [
     CommonModule,

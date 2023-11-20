@@ -1,17 +1,11 @@
 <div class="container">
   <h2>Login</h2>
-  <form>
-    <div class="form-group">
-      <label for="login">login:</label>
-      <input type="text" id="login" name="login" required />
-    </div>
-    <div class="form-group">
-      <label for="password">password:</label>
-      <input type="password" id="password" name="password" required />
-    </div>
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <app-form-control label="Login" controlName="login" [control]="loginForm.get('login')" [isRequired]="true"></app-form-control>
+    <app-form-control label="Password" controlName="password" [control]="loginForm.get('password')" [isRequired]="true" type="password"></app-form-control>
     <div class="button-container">
-      <app-button [customClass]="'item__button'" (buttonClick)="onSubmit()" [buttonTemplate]="loginBtnTemplate">
-        <ng-template #loginBtnTemplate> Login </ng-template>
+      <app-button [customClass]="'item__button'" [type]="'submit'" [disabled]="loginForm.invalid" [buttonTemplate]="loginBtnTemplate">
+        <ng-template #loginBtnTemplate>Login</ng-template>
       </app-button>
     </div>
   </form>

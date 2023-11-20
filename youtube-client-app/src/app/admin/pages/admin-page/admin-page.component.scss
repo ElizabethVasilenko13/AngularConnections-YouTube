@@ -1,0 +1,19 @@
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: #1C1C1C;
+  border-radius: 5px;
+
+  .button-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .tags {
+    input {
+      max-width: 250px;
+    }
+  }
+}
