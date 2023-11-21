@@ -1,7 +1,7 @@
 <section class="sort-section top-container">
   <div class="sort__container">
     <div>Sorting by:</div>
-    <!-- <app-button
+    <app-button
       [customClass]="'sort__btn'"
       (buttonClick)="onSortClick('date', sortingService.dateComparator)"
       [title]="'Sort by date'">
@@ -10,8 +10,8 @@
           <span *ngIf="sortingService.isDescSorting('date')">▼</span>
           <span *ngIf="sortingService.isAscSorting('date')">▲</span>
         </ng-template>
-    </app-button> -->
-    <!-- <app-button
+    </app-button>
+    <app-button
       [customClass]="'sort__btn'"
       (buttonClick)="onSortClick('views', sortingService.viewsComparator)"
       [title]="'Sort by views'">
@@ -20,7 +20,7 @@
           <span *ngIf="sortingService.isDescSorting('views')">▼</span>
           <span *ngIf="sortingService.isAscSorting('views')">▲</span>
         </ng-template>
-    </app-button> -->
+    </app-button>
     <div class="sort__input">
       <div class="">by word or sentance</div>
       <input

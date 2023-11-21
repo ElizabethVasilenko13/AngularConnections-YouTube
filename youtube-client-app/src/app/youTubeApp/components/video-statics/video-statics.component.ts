@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IYouTubeApiItem } from '@shared/models/search-item.model';
+import { IStatistics } from 'src/app/shared/models/search-item.model';
 
 @Component({
   selector: 'app-video-statics',
@@ -7,5 +7,5 @@ import { IYouTubeApiItem } from '@shared/models/search-item.model';
   styleUrls: ['./video-statics.component.scss'],
 })
 export class VideoStaticsComponent {
-  @Input() video!: IYouTubeApiItem;
+  @Input() statistics: IStatistics | undefined = undefined;
 }

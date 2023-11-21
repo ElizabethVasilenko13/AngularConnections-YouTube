@@ -10,7 +10,7 @@ import { YoutubeService } from '@services/youtubeService.service';
   styleUrls: ['./detail-info-page.component.scss'],
 })
 export class DetailInfoPageComponent implements OnInit {
-  video!: IYouTubeApiItem;
+  video: IYouTubeApiItem | null = null
 
   constructor(
     private route: ActivatedRoute,
@@ -19,26 +19,21 @@ export class DetailInfoPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('A');
-    
-    // this.getVideo();
+    this.getVideo();
   }
 
-  // getVideo(): void {
-  //   const id = this.route.snapshot.paramMap.get('id');
-  //   if (id) {
-  //     this.YoutubeService.getVideoInfo(id).subscribe({
-  //       next: (video) => {
-  //         if (video) {
-  //           this.video = video;
-  //         }
-  //       },
-  //       error: (error) => {
-  //         console.error('Error fetching', error);
-  //       },
-  //     });
-  //   }
-  // }
+  getVideo(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.youtubeService.getVideoInfo(id).subscribe({
+        next: (video) => {
+          if (video) {
+            this.video = video;
+          }
+        }
+      });
+    }
+  }
 
   goBack(): void {
     this.location.back();

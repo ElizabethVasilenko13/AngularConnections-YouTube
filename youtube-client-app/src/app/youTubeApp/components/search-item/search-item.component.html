@@ -5,7 +5,7 @@
     alt="{{ video.snippet.title }}"
   />
   <div class="video-info">
-    <!-- <app-video-statics [video]="video"></app-video-statics> -->
+    <app-video-statics [statistics]="video.statistics"></app-video-statics>
     <h3 class="video-title">{{ video.snippet.title }}</h3>
     <a routerLink="/detail/{{video.id}}">
       <app-button [customClass]="'item__button'" [title]="'Show more'" [buttonTemplate]="moreBtnTemplate">

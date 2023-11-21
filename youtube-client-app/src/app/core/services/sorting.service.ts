@@ -12,11 +12,14 @@ export class SortingService {
     return valueA - valueB;
   }
 
-  // viewsComparator(a: IYouTubeApiItem, b: IYouTubeApiItem): number {
-  //   const valueA = +a.statistics!.viewCount;
-  //   const valueB = +b.statistics!.viewCount;
-  //   return valueA - valueB;
-  // }
+  viewsComparator(a: IYouTubeApiItem, b: IYouTubeApiItem): number {
+    if (a.statistics && b.statistics) {
+      const valueA = +a.statistics.viewCount ;
+      const valueB = +b.statistics.viewCount;
+      return valueA - valueB;
+    }
+    return 0;
+  }
 
   isDescSorting(key: string): boolean {
     return (
