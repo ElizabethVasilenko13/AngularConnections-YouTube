@@ -8,10 +8,9 @@ import { VideoStaticsComponent } from './components/video-statics/video-statics.
 import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { ButtonComponent } from '../shared/ui/button/button.component';
-import { DetailVideoItemComponent } from './components/detail-video-item/detail-video-item.component';
 
 @NgModule({
-  declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent, DetailVideoItemComponent],
+  declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent],
   exports: [SearchResultComponent],
   imports: [
     CommonModule,

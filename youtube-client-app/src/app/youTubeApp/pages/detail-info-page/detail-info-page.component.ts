@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MockDataService } from 'src/app/services/mockDataService.service';
 import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
@@ -14,6 +15,7 @@ export class DetailInfoPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private mockDataService: MockDataService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -34,5 +36,9 @@ export class DetailInfoPageComponent implements OnInit {
         },
       });
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

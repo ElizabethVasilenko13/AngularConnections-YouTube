@@ -1,1 +1,18 @@
-<app-login-form></app-login-form>
+<div class="container">
+  <h2>Login</h2>
+  <form>
+    <div class="form-group">
+      <label for="login">login:</label>
+      <input type="text" id="login" name="login" required>
+    </div>
+    <div class="form-group">
+      <label for="password">password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div class="button-container">
+    <app-button [customClass]="'item__button'" (buttonClick)="onSubmit()">
+      Login
+    </app-button>
+    </div>
+  </form>
+</div>

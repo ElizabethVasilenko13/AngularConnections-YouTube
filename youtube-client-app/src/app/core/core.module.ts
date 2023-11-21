@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA, NgModule, OnInit, Optional, SkipSelf, isDevMode } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
