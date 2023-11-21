@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { IYouTubeApiItem } from '@shared/models/search-item.model';
 
 @Component({

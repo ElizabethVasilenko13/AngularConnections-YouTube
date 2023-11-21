@@ -19,15 +19,9 @@ export class SearchService {
 
   requestVideos(): void {
     this.youtubeService.getVideos().subscribe({
-      next: (mockDataVideos) => {
-        console.log(mockDataVideos);
-        const sortedVideos = mockDataVideos.slice().sort(this.sortingStateSource$.value.comparator);
+      next: (videosData) => {
+        const sortedVideos = videosData.slice().sort(this.sortingStateSource$.value.comparator);
         this.videosSource$.next(sortedVideos);
-      }
-    })
-    this.youtubeService.getVideoInfo('7whYyy7ssJ8').subscribe({
-      next: (mockDataVideos) => {
-        console.log(mockDataVideos);
       }
     })
   }
