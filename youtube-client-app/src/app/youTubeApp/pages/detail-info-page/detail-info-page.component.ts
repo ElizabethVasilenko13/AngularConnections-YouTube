@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MockDataService } from '@services/mockDataService.service';
 import { IYouTubeApiItem } from '@shared/models/search-item.model';
+import { YoutubeService } from '@services/youtubeService.service';
 
 @Component({
   selector: 'app-detail-info-page',
@@ -14,29 +14,31 @@ export class DetailInfoPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private mockDataService: MockDataService,
-    private location: Location,
+    private youtubeService: YoutubeService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
-    this.getVideo();
+    console.log('A');
+    
+    // this.getVideo();
   }
 
-  getVideo(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.mockDataService.getVideoInfo(id).subscribe({
-        next: (video) => {
-          if (video) {
-            this.video = video;
-          }
-        },
-        error: (error) => {
-          console.error('Error fetching', error);
-        },
-      });
-    }
-  }
+  // getVideo(): void {
+  //   const id = this.route.snapshot.paramMap.get('id');
+  //   if (id) {
+  //     this.YoutubeService.getVideoInfo(id).subscribe({
+  //       next: (video) => {
+  //         if (video) {
+  //           this.video = video;
+  //         }
+  //       },
+  //       error: (error) => {
+  //         console.error('Error fetching', error);
+  //       },
+  //     });
+  //   }
+  // }
 
   goBack(): void {
     this.location.back();

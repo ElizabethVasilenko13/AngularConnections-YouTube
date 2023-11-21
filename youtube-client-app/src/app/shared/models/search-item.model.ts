@@ -1,9 +1,18 @@
 export interface IYouTubeApiItem {
   kind: string;
   etag: string;
-  id: string;
+  id: {
+    kind: string;
+    videoId: string;
+  };
   snippet: ISnippet;
-  statistics: IStatistics;
+  statistics?: IStatistics;
+}
+
+export interface IYouTubeApiItemResponse {
+  kind: string;
+  etag: string;
+  items: IYouTubeApiItem[];
 }
 
 export interface ISnippet {

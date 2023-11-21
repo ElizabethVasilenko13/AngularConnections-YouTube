@@ -1,20 +1,17 @@
 <div class="video-card">
   <img
+    class="card__img"
     [src]="video.snippet.thumbnails.medium.url"
     alt="{{ video.snippet.title }}"
-    [style.width.px]="video.snippet.thumbnails.medium.width"
-    [style.height.px]="video.snippet.thumbnails.medium.height"
   />
   <div class="video-info">
-    <app-video-statics [video]="video"></app-video-statics>
+    <!-- <app-video-statics [video]="video"></app-video-statics> -->
     <h3 class="video-title">{{ video.snippet.title }}</h3>
-    <app-button
-      [customClass]="'item__button'"
-      (buttonClick)="navigateToDetailsPage()"
-      [buttonTemplate]="moreBtnTemplate"
-    >
-      <ng-template #moreBtnTemplate>more...</ng-template>
-    </app-button>
+    <a routerLink="/detail/{{video.id}}">
+      <app-button [customClass]="'item__button'" [title]="'Show more'" [buttonTemplate]="moreBtnTemplate">
+        <ng-template #moreBtnTemplate>more...</ng-template>
+      </app-button>
+    </a>
     <div class="bottom-line" [appDateColor]="video.snippet.publishedAt"></div>
   </div>
 </div>
