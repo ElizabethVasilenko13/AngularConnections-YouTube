@@ -1,6 +1,6 @@
 <div class="form-group">
   <label [for]="controlName">{{ label }} {{ isRequired ? '*' : '' }}</label>
-  <input [type]="type" [id]="controlName" [name]="controlName" [formControl]="control" [class.invalidInput]="isInvalid()">
+  <input [type]="type" [id]="controlName" [name]="controlName" [formControl]="$any(control)" [class.invalidInput]="isInvalid()">
   <div *ngIf="isInvalid()" [class.invalid]="isInvalid()">
     <div *ngFor="let error of errors">{{ error }}</div>
   </div>
