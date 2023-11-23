@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-eslint/schematics": "^17.1.0",
     "@angular/animations": "^17.0.4",
     "@angular/common": "^17.0.4",
     "@angular/compiler": "^17.0.4",
@@ -21,6 +22,8 @@
     "@angular/platform-browser": "^17.0.4",
     "@angular/platform-browser-dynamic": "^17.0.4",
     "@angular/router": "^17.0.4",
+    "@ngrx/effects": "^17.0.0",
+    "@ngrx/store": "^17.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
@@ -30,10 +33,10 @@
     "@angular-eslint/builder": "16.2.0",
     "@angular-eslint/eslint-plugin": "16.2.0",
     "@angular-eslint/eslint-plugin-template": "16.2.0",
-    "@angular-eslint/schematics": "16.2.0",
     "@angular-eslint/template-parser": "16.2.0",
     "@angular/cli": "^17.0.3",
     "@angular/compiler-cli": "^17.0.4",
+    "@ngrx/eslint-plugin": "^17.0.0",
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
