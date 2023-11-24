@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of, switchMap} from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IYouTubeApiResponse } from '../shared/models/search-response.model';
-import { IYouTubeApiItem, IYouTubeApiItemResponse } from '../shared/models/search-item.model';
+import { IYouTubeApiResponse } from '@shared/models/search-response.model';
+import { IYouTubeApiItemResponse, IYouTubeItem } from '@shared/models/search-item.model';
 
 @Injectable({ providedIn: 'root' })
 export class YoutubeService {
@@ -11,7 +11,7 @@ export class YoutubeService {
 
   constructor(private http: HttpClient) {}
 
-  getVideos(searchTerm: string): Observable<IYouTubeApiItem[]> {
+  getVideos(searchTerm: string): Observable<IYouTubeItem[]> {
     const searchParams = new HttpParams()
       .set('maxResults', this.LIMIT)
       .set('q', searchTerm)
@@ -38,7 +38,7 @@ export class YoutubeService {
     );
   }
 
-  getVideoInfo(id: string): Observable<IYouTubeApiItem> {
+  getVideoInfo(id: string): Observable<IYouTubeItem> {
     const videoParams = new HttpParams().set('part', 'statistics,snippet');
     return this.http.get<IYouTubeApiItemResponse>(`${this.BASE_URL}videos?id=${id}`, { params: videoParams }).pipe(
       map((response) => response.items[0] || [])

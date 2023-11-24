@@ -18,10 +18,18 @@ export interface IYouTubeApiItem {
   statistics?: IStatistics;
 }
 
+export interface IYouTubeItem {
+  kind: string;
+  etag: string;
+  id: string;
+  snippet: ISnippet;
+  statistics?: IStatistics;
+}
+
 export interface IYouTubeApiItemResponse {
   kind: string;
   etag: string;
-  items: IYouTubeApiItem[];
+  items: IYouTubeItem[];
 }
 
 export interface ISnippet {

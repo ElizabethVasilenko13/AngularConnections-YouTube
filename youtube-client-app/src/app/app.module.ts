@@ -24,7 +24,7 @@ import * as reducers from './redux/reducers/youtube.reducers';
     CoreModule,
     YouTubeAppModule,
     AuthModule,
-    StoreModule.forRoot({ apiVideos: reducers.youTubeApiReducers }),
+    StoreModule.forRoot({ videos: reducers.youTubeApiReducers }),
     EffectsModule.forRoot([YouTubeApiEffects]),
     StoreDevtoolsModule.instrument({
       logOnly: isDevMode(),

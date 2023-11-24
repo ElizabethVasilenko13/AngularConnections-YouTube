@@ -11,12 +11,12 @@ export class YouTubeApiEffects {
     private actions$: Actions,
   ) {}
 
-  loadBooks$ = createEffect(() =>
+  loadVideos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadVideos),
       exhaustMap(() =>
         this.youTubeService.getVideos().pipe(
-          map((apiVideos) => videosLoaded({ apiVideos })),
+          map((videos) => videosLoaded({ videos })),
         ),
       ),
     ),

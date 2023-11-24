@@ -1,11 +1,13 @@
-import { IYouTubeApiItem, IYouTubeCustomItem } from '@shared/models/search-item.model';
+import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
 
 export interface AppState {
-  apiVideos: IYouTubeApiItem[];
+  videos: Record<string, IYouTubeItem>;
   customVideos: IYouTubeCustomItem[];
+  favoriteVideos: string[];
 }
 
 export const initialState: AppState = {
-  apiVideos: [],
+  videos: {},
   customVideos: [],
+  favoriteVideos: [],
 };
