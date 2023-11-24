@@ -16,7 +16,8 @@ import { SortBy } from './pipes/sort-by.pipe';
     CommonModule,
     SharedModule,
     FormsModule,
-    YoutubeRoutingModule
+    YoutubeRoutingModule,
+    SortBy
   ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],

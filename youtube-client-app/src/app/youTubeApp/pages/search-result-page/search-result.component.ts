@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { SortingService } from '@core/services/sorting.service';
+import { Store } from '@ngrx/store';
 import { SearchService } from '@services/searchService.service';
+import { IYouTubeApiItem } from '@shared/models/search-item.model';
+import { Observable } from 'rxjs';
+import { selectVideos } from '@redux/selectors/videos.selector';
 
 @Component({
   selector: 'app-search-result',
@@ -8,8 +12,13 @@ import { SearchService } from '@services/searchService.service';
   styleUrls: ['./search-result.component.scss'],
 })
 export class SearchResultComponent {
+  videos$: Observable<IYouTubeApiItem[]>;
+
   constructor(
     public searchService: SearchService,
-    public sortingService: SortingService
-  ) {}
+    private store: Store,
+    public sortingService: SortingService,
+  ) {
+    this.videos$ = store.select(selectVideos);
+  }
 }

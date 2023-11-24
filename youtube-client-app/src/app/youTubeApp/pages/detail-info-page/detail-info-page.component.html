@@ -13,7 +13,7 @@
           </div>
           <div class="info__deskr">
             <b>Description:</b>
-            <p class="text-secondary">{{ video.snippet.description | slice: 0:2000 }}...</p>
+            <p class="text-secondary">{{ video.snippet.description | slice: 0 : 2000 }}...</p>
           </div>
         </div>
         <app-video-statics [statistics]="video.statistics"></app-video-statics>

@@ -1,7 +1,7 @@
 <div class="search-results">
   <app-search-item
     *ngFor="
-      let video of (searchService.videosSource$ | async) ?? []
+      let video of (videos$ | async) ?? []
         | titleFilter: (searchService.filterTextSource$ | async) ?? ''
         | sortBy: sortingService.sortingStateSource$.getValue().comparator
     "

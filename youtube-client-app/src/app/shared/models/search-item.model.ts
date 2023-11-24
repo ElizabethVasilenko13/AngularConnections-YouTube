@@ -1,3 +1,12 @@
+export interface IYouTubeCustomItem {
+  title: string;
+  description?: string;
+  img: string;
+  link: string;
+  date: string;
+  tags: string[];
+}
+
 export interface IYouTubeApiItem {
   kind: string;
   etag: string;

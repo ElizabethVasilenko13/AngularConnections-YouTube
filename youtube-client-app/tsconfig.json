@@ -32,7 +32,10 @@
       "@auth": ["./src/app/auth"],
       "@auth/*": ["./src/app/auth/*"],
       "@youtube": ["./src/app/youTubeApp"],
-      "@youtube/*": ["./src/app/youTubeApp/*"]
+      "@youtube/*": ["./src/app/youTubeApp/*"],
+      "@redux": ["./src/app/redux"],
+      "@redux/*": ["./src/app/redux/*"],
+
     }
   },
   "angularCompilerOptions": {

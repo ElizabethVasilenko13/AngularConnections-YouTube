@@ -6,7 +6,8 @@ export interface IYouTubeApiResponse {
   pageInfo: IPageInfo;
   items: IYouTubeApiItem[];
   redionCode: string;
-  nextPageToken: string;
+  nextPageToken?: string;
+  prevPageToken?: string;
 }
 
 export interface IPageInfo {
