@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { SortingService } from '../../services/sorting.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +11,6 @@ export class HeaderComponent {
   isSortingBlockVisible = false;
 
   constructor(
-    public sortingService: SortingService,
     private auth: AuthService
   ) {}
 

@@ -7,7 +7,6 @@ import { SearchItemComponent } from './components/search-item/search-item.compon
 import { VideoStaticsComponent } from './components/video-statics/video-statics.component';
 import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
 import { YoutubeRoutingModule } from './youtube-routing.module';
-import { ButtonComponent } from '../shared/ui/button/button.component';
 
 @NgModule({
   declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent],
@@ -16,8 +15,7 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
     CommonModule,
     SharedModule,
     FormsModule,
-    YoutubeRoutingModule,
-    ButtonComponent
+    YoutubeRoutingModule
   ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],

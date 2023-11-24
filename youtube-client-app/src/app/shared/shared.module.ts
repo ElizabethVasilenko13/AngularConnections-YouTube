@@ -7,7 +7,7 @@ import { DateColorDirective } from './directives/date-color.directive';
 
 @NgModule({
   declarations: [DateColorDirective, TitleFilterPipe],
-  exports: [DateColorDirective, TitleFilterPipe],
+  exports: [DateColorDirective, TitleFilterPipe, ButtonComponent],
   imports: [CommonModule, ButtonComponent],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA]

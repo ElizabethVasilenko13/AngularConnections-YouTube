@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginPageComponent } from './pages/login-page.component';
-import { ButtonComponent } from '../shared/ui/button/button.component';
 import { AuthService } from './services/auth.service';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { AuthService } from './services/auth.service';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ButtonComponent
+    SharedModule
   ],
   providers: [AuthService]
 })

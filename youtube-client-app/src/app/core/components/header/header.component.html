@@ -1,13 +1,13 @@
 <header>
   <div class="header">
     <app-search-input class="header__search" (showFilters)="toggleShowFiltersBtn()"></app-search-input>
-    <app-button [customClass]="'item__button'" (buttonClick)="logout()">
-      <ng-template #buttonTemplate>Logout</ng-template>
+    <app-button [customClass]="'item__button'" (buttonClick)="logout()" [buttonTemplate]="logoutBtnTemplate">
+      <ng-template #logoutBtnTemplate>Logout</ng-template>
     </app-button>
     <div class="header__user">
       <div class="user__name">Your Name</div>
-      <app-button [customClass]="'img__btn'">
-        <ng-template #buttonTemplate>
+      <app-button [customClass]="'img__btn'" [buttonTemplate]="userBtnTemplate">
+        <ng-template #userBtnTemplate>
           <img src="assets/userIcon.png" alt="youTubeIcon" class="btn__icon">
         </ng-template>
       </app-button>

@@ -8,8 +8,8 @@
   <div class="video-info">
     <app-video-statics [video]="video"></app-video-statics>
     <h3 class="video-title">{{ video.snippet.title }}</h3>
-      <app-button [customClass]="'item__button'" (buttonClick)="navigateToDetailsPage()">
-        <ng-template #buttonTemplate>more...</ng-template>
+      <app-button [customClass]="'item__button'" (buttonClick)="navigateToDetailsPage()" [buttonTemplate]="moreBtnTemplate">
+        <ng-template #moreBtnTemplate>more...</ng-template>
       </app-button>
     <div class="bottom-line" [appDateColor]="video.snippet.publishedAt"></div>
   </div>

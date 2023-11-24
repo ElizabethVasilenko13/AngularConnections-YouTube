@@ -10,8 +10,10 @@
       <input type="password" id="password" name="password" required>
     </div>
     <div class="button-container">
-    <app-button [customClass]="'item__button'" (buttonClick)="onSubmit()">
-      Login
+    <app-button [customClass]="'item__button'" (buttonClick)="onSubmit()" [buttonTemplate]="loginBtnTemplate">
+      <ng-template #loginBtnTemplate>
+        Login
+      </ng-template>
     </app-button>
     </div>
   </form>
