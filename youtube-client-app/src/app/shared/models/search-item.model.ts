@@ -2,8 +2,8 @@ export interface IYouTubeCustomItem {
   title: string;
   description?: string;
   img: string;
-  link: string;
-  date: string;
+  videoLink: string;
+  creationDate: string;
   tags: string[];
 }
 

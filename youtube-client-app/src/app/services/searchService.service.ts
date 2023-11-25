@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IYouTubeApiItem } from '@shared/models/search-item.model';
 
 @Injectable({ providedIn: 'root' })
 export class SearchService {

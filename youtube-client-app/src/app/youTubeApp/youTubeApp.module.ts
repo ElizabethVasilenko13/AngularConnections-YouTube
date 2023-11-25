@@ -8,9 +8,10 @@ import { VideoStaticsComponent } from './components/video-statics/video-statics.
 import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { SortBy } from './pipes/sort-by.pipe';
+import { CustomCardItemComponent } from './components/custom-card-item/custom-card-item.component';
 
 @NgModule({
-  declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent, SortBy],
+  declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent, CustomCardItemComponent, SortBy],
   exports: [SearchResultComponent],
   imports: [
     CommonModule,

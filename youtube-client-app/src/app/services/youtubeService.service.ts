@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of, switchMap} from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IYouTubeApiResponse } from '@shared/models/search-response.model';
 import { IYouTubeApiItemResponse, IYouTubeItem } from '@shared/models/search-item.model';
+import { deleteVideo } from '../redux/actions/admin-page.actions';
 
 @Injectable({ providedIn: 'root' })
 export class YoutubeService {
   LIMIT = 15;
   BASE_URL = 'https://www.googleapis.com/youtube/v3/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store) {}
+
+  deleteCard(index: number): void {
+    this.store.dispatch(deleteVideo({ videoId: index }));
+  }
 
   getVideos(searchTerm: string): Observable<IYouTubeItem[]> {
     const searchParams = new HttpParams()

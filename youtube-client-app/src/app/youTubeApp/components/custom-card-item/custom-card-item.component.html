@@ -1,0 +1,17 @@
+<div class="video-card" *ngIf="video">
+  <img class="card__img" [src]="video.img" alt="{{ video.title }}" />
+  <div class="video-info">
+    <h3 class="video-title">{{ video.title }}</h3>
+    <div class="button-container">
+      <app-button [customClass]="'item__button'" [title]="'Delete'" (buttonClick)="youtubeService.deleteCard(index)">
+        <ng-template #buttonTemplate>Delete item</ng-template>
+      </app-button>
+      <a routerLink="/detail/{{ index }}">
+        <app-button [customClass]="'item__button'" [title]="'Show more'">
+          <ng-template #buttonTemplate>more...</ng-template>
+        </app-button>
+      </a>
+    </div>
+    <div class="bottom-line" [appDateColor]="video.creationDate"></div>
+  </div>
+</div>

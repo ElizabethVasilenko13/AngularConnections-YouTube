@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { SortingService } from '@core/services/sorting.service';
 import { Store } from '@ngrx/store';
-import { selectVideoList } from '@redux/selectors/videos.selector';
+import { selectCustomVideosFeature, selectVideoList } from '@redux/selectors/videos.selector';
 import { SearchService } from '@services/searchService.service';
-import { IYouTubeItem } from '@shared/models/search-item.model';
+import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class SearchResultComponent {
   videos$: Observable<IYouTubeItem[]>;
+  customVideos$: Observable<IYouTubeCustomItem[]>
 
   constructor(
     public searchService: SearchService,
@@ -20,5 +21,6 @@ export class SearchResultComponent {
     public sortingService: SortingService,
   ) {
     this.videos$ = store.select(selectVideoList);
+    this.customVideos$ = store.select(selectCustomVideosFeature);
   }
 }

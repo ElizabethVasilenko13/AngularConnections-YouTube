@@ -1,4 +1,5 @@
 <div class="search-results">
+  <app-custom-card-item *ngFor="let video of (customVideos$ | async) ?? []; let i = index" [video]="video"  [index]="i"></app-custom-card-item>
   <app-search-item
     *ngFor="
       let video of (videos$ | async) ?? []

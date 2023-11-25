@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SortComparator } from '@core/models/sorting.model';
-import { IYouTubeApiItem, IYouTubeItem } from '@shared/models/search-item.model';
+import { IYouTubeItem } from '@shared/models/search-item.model';
 
 @Pipe({
   name: 'sortBy',

@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -24,7 +23,8 @@ import * as reducers from './redux/reducers/youtube.reducers';
     CoreModule,
     YouTubeAppModule,
     AuthModule,
-    StoreModule.forRoot({ videos: reducers.youTubeApiReducers }),
+    StoreModule.forRoot(),
+    StoreModule.forRoot({ videos: reducers.youTubeApiReducers, customVideos: reducers.videoCreateReducers }),
     EffectsModule.forRoot([YouTubeApiEffects]),
     StoreDevtoolsModule.instrument({
       logOnly: isDevMode(),

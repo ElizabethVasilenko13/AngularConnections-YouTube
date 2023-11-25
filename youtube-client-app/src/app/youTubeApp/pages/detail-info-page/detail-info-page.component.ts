@@ -7,8 +7,15 @@ import { YoutubeService } from '@services/youtubeService.service';
 import { Subscription } from 'rxjs';
 =======
 import { YoutubeService } from '@services/youtubeService.service';
+<<<<<<< HEAD
 import { IYouTubeItem } from '@shared/models/search-item.model';
 >>>>>>> 6e894d9 (feat: udpade store)
+=======
+import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectVideoByIndex } from 'src/app/redux/selectors/videos.selector';
+>>>>>>> 348c225 (feat: implement custom card store, delete and creation)
 
 @Component({
   selector: 'app-detail-info-page',
@@ -22,12 +29,21 @@ export class DetailInfoPageComponent implements OnInit, OnDestroy {
 =======
 export class DetailInfoPageComponent implements OnInit {
   video: IYouTubeItem | null = null;
+  customVideo$!: Observable<IYouTubeCustomItem>;
+  customVideo: IYouTubeCustomItem | null = null;
+  videoId = '';
 
 >>>>>>> 6e894d9 (feat: udpade store)
   constructor(
     private route: ActivatedRoute,
+<<<<<<< HEAD
     private youtubeService: YoutubeService,
     private location: Location
+=======
+    public youtubeService: YoutubeService,
+    private location: Location,
+    private store: Store
+>>>>>>> 348c225 (feat: implement custom card store, delete and creation)
   ) {}
 
   ngOnInit(): void {
@@ -35,9 +51,27 @@ export class DetailInfoPageComponent implements OnInit {
   }
 
   getVideo(): void {
+<<<<<<< HEAD
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.getVideoInfoSubscription = this.youtubeService.getVideoInfo(id).subscribe((video) => { this.video = video });
+=======
+    this.videoId = this.route.snapshot.paramMap.get('id') as string;
+    if (this.videoId) {
+      this.youtubeService.getVideoInfo(this.videoId).subscribe({
+        next: (video) => {
+          if (video && Object.keys(video).length > 0) {
+            this.video = video;
+          }
+          this.customVideo$ = this.store.select(selectVideoByIndex(+this.videoId));
+          this.customVideo$.subscribe((customvideo) => {
+            if (customvideo && Object.keys(customvideo).length > 0) {
+              this.customVideo = customvideo
+            }
+          })
+        }
+      });
+>>>>>>> 348c225 (feat: implement custom card store, delete and creation)
     }
   }
 
