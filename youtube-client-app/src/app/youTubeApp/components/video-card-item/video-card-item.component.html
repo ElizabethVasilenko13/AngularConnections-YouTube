@@ -1,0 +1,19 @@
+<div class="video-card">
+  <img class="card__img" [src]="video.snippet.thumbnails.medium.url" alt="{{ video.snippet.title }}" />
+  <div class="video-info">
+    <app-video-statics [statistics]="video.statistics"></app-video-statics>
+    <h3 class="video-title">{{ video.snippet.title }}</h3>
+    <div class="btns-container">
+      <a routerLink="/detail/{{ video.id }}">
+        <app-button [customClass]="'item__button'" [title]="'Show more'">
+          <ng-template #buttonTemplate>more...</ng-template>
+        </app-button>
+      </a>
+      <app-favorite-button [videoId]="video.id"
+        (addToFavorites)="favoriteService.addToFavorites(video.id)"
+        (removeFromFavorites)="favoriteService.removeFromFavorites(video.id)">
+      </app-favorite-button>
+    </div>
+    <div class="bottom-line" [appDateColor]="video.snippet.publishedAt"></div>
+  </div>
+</div>

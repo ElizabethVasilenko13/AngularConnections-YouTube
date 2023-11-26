@@ -15,7 +15,11 @@ import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.mod
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectVideoByIndex } from 'src/app/redux/selectors/videos.selector';
+<<<<<<< HEAD
 >>>>>>> 348c225 (feat: implement custom card store, delete and creation)
+=======
+import { FavoriteService } from '@services/favorite-service.service';
+>>>>>>> 943e393 (feat: implement favorites btns)
 
 @Component({
   selector: 'app-detail-info-page',
@@ -42,8 +46,13 @@ export class DetailInfoPageComponent implements OnInit {
 =======
     public youtubeService: YoutubeService,
     private location: Location,
+<<<<<<< HEAD
     private store: Store
 >>>>>>> 348c225 (feat: implement custom card store, delete and creation)
+=======
+    private store: Store,
+    readonly favoriteService: FavoriteService
+>>>>>>> 943e393 (feat: implement favorites btns)
   ) {}
 
   ngOnInit(): void {

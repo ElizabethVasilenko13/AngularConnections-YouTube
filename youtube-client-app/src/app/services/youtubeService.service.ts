@@ -44,6 +44,17 @@ export class YoutubeService {
     );
   }
 
+  getVideosByIds(videoIds: string[]): Observable<IYouTubeItem[]>  {
+    const videoParams = new HttpParams().set('part', 'statistics,snippet');
+    return this.http.get<IYouTubeApiItemResponse>(`videos?id=${videoIds}`, { params: videoParams }).pipe(
+      map((videoResponse: IYouTubeApiItemResponse) => videoResponse.items || []),
+      catchError((error: Error) => {
+        console.error('Error fetching video details:', error);
+        return of([]);
+      }),
+    );
+  }
+
   getVideoInfo(id: string): Observable<IYouTubeItem> {
     const videoParams = new HttpParams().set('part', 'statistics,snippet');
     return this.http.get<IYouTubeApiItemResponse>(`${this.BASE_URL}videos?id=${id}`, { params: videoParams }).pipe(

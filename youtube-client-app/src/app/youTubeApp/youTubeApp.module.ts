@@ -3,16 +3,24 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { SearchResultComponent } from './pages/search-result-page/search-result.component';
-import { SearchItemComponent } from './components/search-item/search-item.component';
 import { VideoStaticsComponent } from './components/video-statics/video-statics.component';
 import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { SortBy } from './pipes/sort-by.pipe';
 import { CustomCardItemComponent } from './components/custom-card-item/custom-card-item.component';
+import { VideoCardItemComponent } from './components/video-card-item/video-card-item.component';
+import { FavoriteButtonComponent } from './components/favorite-button/favorite-button.component';
 
 @NgModule({
-  declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent, CustomCardItemComponent, SortBy],
-  exports: [SearchResultComponent],
+  declarations: [
+    SearchResultComponent,
+    VideoStaticsComponent,
+    DetailInfoPageComponent,
+    CustomCardItemComponent,
+    VideoCardItemComponent,
+    FavoriteButtonComponent,
+    SortBy
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -20,6 +28,7 @@ import { CustomCardItemComponent } from './components/custom-card-item/custom-ca
     YoutubeRoutingModule,
     SortBy
   ],
+  exports: [SearchResultComponent, VideoStaticsComponent],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],
 })

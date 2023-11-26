@@ -12,6 +12,12 @@
         <ng-template #moreBtnTemplate>more...</ng-template>
       </app-button>
     </a>
+    <app-button [customClass]="'img__btn'">
+      <ng-template #buttonTemplate>
+        <img src="assets/favotiteIcon.png" alt="exitIcon" class="btn__icon" />
+      </ng-template>
+    </app-button>
+    </a>
     <div class="bottom-line" [appDateColor]="video.snippet.publishedAt"></div>
   </div>
 </div>

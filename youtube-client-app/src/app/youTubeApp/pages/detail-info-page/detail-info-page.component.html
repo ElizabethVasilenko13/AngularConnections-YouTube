@@ -6,6 +6,10 @@
     <div class="video-container" [appDateColor]="video.snippet.publishedAt" [cssProperty]="'box-shadow'">
       <img class="video__img" [src]="video.snippet.thumbnails.maxres.url" alt="videoImg" />
       <div class="video__info">
+        <app-favorite-button class="favorite-btn" [videoId]="video.id"
+          (addToFavorites)="favoriteService.addToFavorites(video.id)"
+          (removeFromFavorites)="favoriteService.removeFromFavorites(video.id)">
+      </app-favorite-button>
         <div class="info__main">
           <div class="info__header">
             <h1 class="video__title">{{ video.snippet.title }}</h1>

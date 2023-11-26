@@ -1,0 +1,14 @@
+<ng-container *ngIf="isInFavorites$ | async; else notFavoriteTemplate">
+  <app-button [customClass]="'img__btn'"  (buttonClick)="removeFromFavorites.emit()" class="favorite__btn">
+    <ng-template #buttonTemplate>
+      <img src="assets/likesIcon.png" alt="exitIcon" class="btn__icon" />
+    </ng-template>
+  </app-button>
+</ng-container>
+<ng-template #notFavoriteTemplate>
+  <app-button [customClass]="'img__btn'" (buttonClick)="addToFavorites.emit()" class="favorite__btn">
+    <ng-template #buttonTemplate>
+      <img src="assets/favotiteBtnIcon.png" alt="exitIcon" class="btn__icon" />
+    </ng-template>
+  </app-button>
+</ng-template>
