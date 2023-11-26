@@ -1,0 +1,10 @@
+<button [class]="customClass" (click)="onClick($event)">
+  <!-- <ng-content></ng-content> -->
+  <ng-container *ngTemplateOutlet="buttonTemplate || defaultTemplate"></ng-container>
+</button>
+
+<ng-template #defaultTemplate>
+  Button
+</ng-template>
+
+

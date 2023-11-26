@@ -1,0 +1,14 @@
+.icons-video {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+  column-gap: 10px;
+}
+
+.icon-block {
+  display: flex;
+  column-gap: 10px;
+  img {
+    width: 20px;
+  }
+}

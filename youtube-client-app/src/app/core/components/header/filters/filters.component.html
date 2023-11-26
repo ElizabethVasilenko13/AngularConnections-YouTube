@@ -1,0 +1,29 @@
+<section class="sort-section top-container">
+  <div class="sort__container">
+    <div>Sorting by:</div>
+    <app-button
+      [customClass]="'sort__btn'"
+      (buttonClick)="onSortClick('date', sortingService.dateComparator)"
+      [buttonTemplate]="dateBtnTemplate">
+        <ng-template #dateBtnTemplate>
+            Date
+          <span *ngIf="sortingService.isDescSorting('date')">▼</span>
+          <span *ngIf="sortingService.isAscSorting('date')">▲</span>
+        </ng-template>
+    </app-button>
+    <app-button
+      [customClass]="'sort__btn'"
+      (buttonClick)="onSortClick('views', sortingService.viewsComparator)"
+      [buttonTemplate]="viewsTemplate">
+        <ng-template #viewsTemplate>
+          Views
+          <span *ngIf="sortingService.isDescSorting('views')">▼</span>
+          <span *ngIf="sortingService.isAscSorting('views')">▲</span>
+        </ng-template>
+    </app-button>
+    <div class="sort__input">
+      <div class="">by word or sentance</div>
+      <input type="text" [(ngModel)]="searchText" name="searchText" id="searchText" (input)="updateFilterSearchText()">
+    </div>
+  </div>
+</section>

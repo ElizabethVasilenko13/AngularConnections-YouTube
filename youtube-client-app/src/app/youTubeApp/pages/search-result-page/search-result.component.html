@@ -1,0 +1,7 @@
+<div class="search-results">
+  <app-search-item
+    *ngFor="let video of (searchService.videosSource$ | async) ?? [] |
+    titleFilter: (searchService.filterTextSource$ | async) ?? '' "
+    [video]="video">
+  </app-search-item>
+</div>

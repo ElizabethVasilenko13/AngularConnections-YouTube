@@ -1,0 +1,65 @@
+$main-color: #0F0F0F;
+body {
+  background-color: $main-color;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+main {
+  flex: 1;
+  margin-top: 40px;
+}
+
+button {
+  font-family: "Roboto", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+input, button {
+  border-radius: 7px;
+}
+
+input {
+  border: 1px solid #312B2B;
+  background-color: #1c1c1c;
+  color: #ffffff;
+  padding: 0 0 0 5px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 34px;
+}
+
+h1 {
+  color: white;
+  margin: 0;
+}
+
+.text-secondary {
+  color: #A1A1A1;
+}
+
+.bottom-line {
+  height: 4px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #ff0000;
+  border-radius: 0 0 7px 7px;
+}
