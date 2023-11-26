@@ -10,13 +10,25 @@ import { deleteVideo, videoCreated } from '../actions/admin-page.actions';
 export const youTubeApiReducers = createReducer<Record<string, IYouTubeItem>>(
   initialState.videos,
   on(videosLoaded, (state, { videos }): Record<string, IYouTubeItem> => {
-    const apiVideos: Record<string, IYouTubeItem> = {};
+    const apiVideos: Record<string, IYouTubeItem> = { };
     videos.forEach((video) => {
       apiVideos[video.id] = video;
     });
-    return { ...apiVideos };
+    return { ...state, ...apiVideos };
   }),
   on(loadVideos, (state): Record<string, IYouTubeItem> => state),
+);
+
+export const youTubeApiReducers2 = createReducer<string[]>(
+  initialState.videosIds,
+  on(videosLoaded, (_, { videos }): string[] => {
+    const videosIds: string[] = [];
+    videos.forEach((video) => {
+      videosIds.push(video.id);
+    });
+    return [...videosIds];
+  }),
+  on(loadVideos, (state): string[] => state),
 );
 
 export const favoritesSlice = createSlice({
