@@ -33,7 +33,7 @@ export class SearchInputComponent implements OnDestroy {
       debounceTime(300),
       distinctUntilChanged(),
       filter((text: string) => text.length >= this.MIN_SEARCH_LENGTH)
-    ).subscribe(() => this.store.dispatch(loadVideos()))
+    ).subscribe(() => this.store.dispatch(loadVideos({ pageToken: undefined })))
   }
 
   ngOnDestroy(): void {

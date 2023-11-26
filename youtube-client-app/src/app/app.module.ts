@@ -30,7 +30,8 @@ import { FavoriteModule } from './favorite/favorite.module';
       videos: reducers.videosReducer,
       customVideos: reducers.videoCreateReducers,
       favoriteVideosIds: reducers.favoritesSlice.reducer,
-      videosIds: reducers.videosIdsReducer
+      videosIds: reducers.videosIdsReducer,
+      pageInfo: reducers.pageInfoReducer,
     }),
     EffectsModule.forRoot([YouTubeApiEffects]),
     StoreDevtoolsModule.instrument({

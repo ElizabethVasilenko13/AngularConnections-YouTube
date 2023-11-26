@@ -11,7 +11,10 @@ import { videoCreated } from 'src/app/redux/actions/admin-page.actions';
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent {
-  constructor(private fb: FormBuilder, private store: Store) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+  ) {}
 
   createCardForm = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
@@ -44,7 +47,7 @@ export class AdminPageComponent {
   }
 
   onSubmit(): void {
-    const videoData = { ...this.createCardForm.value as IYouTubeCustomItem };
+    const videoData = { ...(this.createCardForm.value as IYouTubeCustomItem) };
     this.store.dispatch(videoCreated({ video: videoData }));
     this.resetForm();
   }

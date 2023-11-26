@@ -1,5 +1,9 @@
 <div class="search-results">
-  <app-custom-card-item *ngFor="let video of (customVideos$ | async) ?? []; let i = index" [video]="video"  [index]="i"></app-custom-card-item>
+  <app-custom-card-item
+    *ngFor="let video of (customVideos$ | async) ?? []; let i = index"
+    [video]="video"
+    [index]="i"
+  ></app-custom-card-item>
   <app-search-item
     *ngFor="
       let video of (videos$ | async) ?? []
@@ -9,4 +13,20 @@
     [video]="video"
   >
   </app-search-item>
+</div>
+
+<div class="pagination-container">
+  <app-button [customClass]="'img__btn'" (buttonClick)="loadPrevPage()" [title]="''">
+    <ng-template #buttonTemplate>
+      <img src="assets/arrowLeft.png" alt="youTubeIcon" class="btn__icon" />
+    </ng-template>
+  </app-button>
+  <div class="page-num">
+    {{currentPageNum$ | async}}
+  </div>
+  <app-button [customClass]="'img__btn'" (buttonClick)="loadNextPage()" [title]="'Show filters'">
+    <ng-template #buttonTemplate>
+      <img src="assets/arrowRight.png" alt="youTubeIcon" class="btn__icon" />
+    </ng-template>
+  </app-button>
 </div>

@@ -7,7 +7,7 @@ import { selectFavoriteList } from 'src/app/redux/selectors/videos.selector';
 @Component({
   selector: 'app-favorite-page',
   templateUrl: './favorite-page.component.html',
-  styleUrl: './favorite-page.component.scss'
+  styleUrl: './favorite-page.component.scss',
 })
 export class FavoritePageComponent {
   favoriteVideos$: Observable<IYouTubeItem[]>;

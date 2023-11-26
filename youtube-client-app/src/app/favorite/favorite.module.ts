@@ -10,12 +10,6 @@ import { YouTubeAppModule } from '../youTubeApp/youTubeApp.module';
   declarations: [FavoritePageComponent],
   exports: [FavoritePageComponent],
   schemas: [NO_ERRORS_SCHEMA],
-  imports: [
-    CommonModule,
-    SharedModule,
-    FavoriteRoutingModule,
-    YouTubeAppModule,
-    ButtonComponent
-  ]
+  imports: [CommonModule, SharedModule, FavoriteRoutingModule, YouTubeAppModule, ButtonComponent],
 })
-export class FavoriteModule { }
+export class FavoriteModule {}

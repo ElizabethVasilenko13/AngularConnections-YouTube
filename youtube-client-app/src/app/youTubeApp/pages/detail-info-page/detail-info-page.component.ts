@@ -51,8 +51,12 @@ export class DetailInfoPageComponent implements OnInit {
 >>>>>>> 348c225 (feat: implement custom card store, delete and creation)
 =======
     private store: Store,
+<<<<<<< HEAD
     readonly favoriteService: FavoriteService
 >>>>>>> 943e393 (feat: implement favorites btns)
+=======
+    readonly favoriteService: FavoriteService,
+>>>>>>> 66dca0b (feat: update pagination)
   ) {}
 
   ngOnInit(): void {
@@ -75,10 +79,10 @@ export class DetailInfoPageComponent implements OnInit {
           this.customVideo$ = this.store.select(selectVideoByIndex(+this.videoId));
           this.customVideo$.subscribe((customvideo) => {
             if (customvideo && Object.keys(customvideo).length > 0) {
-              this.customVideo = customvideo
+              this.customVideo = customvideo;
             }
-          })
-        }
+          });
+        },
       });
 >>>>>>> 348c225 (feat: implement custom card store, delete and creation)
     }

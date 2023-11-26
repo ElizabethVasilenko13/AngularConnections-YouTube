@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
-import { initialState } from '../app.state';
+import { AppState, initialState } from '../app.state';
 
 import { loadVideos, videosLoaded } from '../actions/youtube-api.actions';
 import { deleteVideo, videoCreated } from '../actions/admin-page.actions';
@@ -16,13 +16,28 @@ export const videosReducer = createReducer<Record<string, IYouTubeItem>>(
     });
     return { ...state, ...apiVideos };
   }),
-  on(loadVideos, (state): Record<string, IYouTubeItem> => state)
+  on(loadVideos, (state): Record<string, IYouTubeItem> => state),
+);
+
+export const pageInfoReducer = createReducer(
+  initialState.pageInfo,
+  on(videosLoaded, (state, { pageInfo }): AppState['pageInfo'] => {
+    const page = {
+      currentPage: state.currentPage,
+      pageTokens: {
+        nextPageToken: pageInfo.nextPageToken,
+        prevPageToken: pageInfo.prevPageToken,
+      },
+    };
+    return { ...page };
+  }),
+  on(loadVideos, (state): AppState['pageInfo'] => state),
 );
 
 export const videosIdsReducer = createReducer<string[]>(
   initialState.videosIds,
   on(videosLoaded, (_, { videos }) => videos.map((video) => video.id)),
-  on(loadVideos, (state): string[] => state)
+  on(loadVideos, (state): string[] => state),
 );
 
 export const favoritesSlice = createSlice({
@@ -49,7 +64,5 @@ export const videoCreateReducers = createReducer<IYouTubeCustomItem[]>(
     const updatedVideos = [...state];
     updatedVideos.splice(videoId, 1);
     return updatedVideos;
-  })
+  }),
 );
-
-

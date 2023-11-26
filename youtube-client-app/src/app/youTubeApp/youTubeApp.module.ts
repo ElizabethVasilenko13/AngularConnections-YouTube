@@ -28,7 +28,7 @@ import { FavoriteButtonComponent } from './components/favorite-button/favorite-b
     YoutubeRoutingModule,
     SortBy
   ],
-  exports: [SearchResultComponent, VideoStaticsComponent],
+  exports: [SearchResultComponent, VideoStaticsComponent, VideoCardItemComponent],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],
 })

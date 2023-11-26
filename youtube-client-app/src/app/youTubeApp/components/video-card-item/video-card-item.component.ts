@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FavoriteService } from '@services/favorite-service.service';
-import { IYouTubeItem} from '@shared/models/search-item.model';
+import { IYouTubeItem } from '@shared/models/search-item.model';
 
 @Component({
   selector: 'app-search-item',
@@ -9,8 +9,5 @@ import { IYouTubeItem} from '@shared/models/search-item.model';
 })
 export class VideoCardItemComponent {
   @Input() video!: IYouTubeItem;
-  constructor(
-    readonly favoriteService: FavoriteService
-  ) {}
-
+  constructor(readonly favoriteService: FavoriteService) {}
 }

@@ -9,9 +9,11 @@
           <ng-template #buttonTemplate>more...</ng-template>
         </app-button>
       </a>
-      <app-favorite-button [videoId]="video.id"
+      <app-favorite-button
+        [videoId]="video.id"
         (addToFavorites)="favoriteService.addToFavorites(video.id)"
-        (removeFromFavorites)="favoriteService.removeFromFavorites(video.id)">
+        (removeFromFavorites)="favoriteService.removeFromFavorites(video.id)"
+      >
       </app-favorite-button>
     </div>
     <div class="bottom-line" [appDateColor]="video.snippet.publishedAt"></div>

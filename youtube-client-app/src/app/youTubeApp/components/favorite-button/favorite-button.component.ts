@@ -6,9 +6,8 @@ import { selectVideoInFavorites } from 'src/app/redux/selectors/videos.selector'
 @Component({
   selector: 'app-favorite-button',
   templateUrl: './favorite-button.component.html',
-  styleUrl: './favorite-button.component.scss'
+  styleUrl: './favorite-button.component.scss',
 })
-
 export class FavoriteButtonComponent implements OnInit {
   @Input() videoId!: string;
   @Output() addToFavorites = new EventEmitter<void>();
