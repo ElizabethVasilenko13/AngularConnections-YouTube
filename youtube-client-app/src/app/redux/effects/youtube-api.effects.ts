@@ -16,7 +16,7 @@ export class YouTubeApiEffects {
       ofType(loadVideos),
       exhaustMap(() =>
         this.youTubeService.getVideos().pipe(
-          map((videos) => videosLoaded({ videos })),
+          map((videos) => videosLoaded({ videos, pageInfo })),
         ),
       ),
     ),

@@ -6,6 +6,14 @@ import { IYouTubeApiResponse } from '@shared/models/search-response.model';
 import { IYouTubeApiItemResponse, IYouTubeItem } from '@shared/models/search-item.model';
 import { deleteVideo } from '../redux/actions/admin-page.actions';
 
+interface IResponse {
+  videos: IYouTubeItem[];
+  pageInfo: {
+    nextPageToken?: string;
+    prevPageToken?: string;
+  };
+}
+
 @Injectable({ providedIn: 'root' })
 export class YoutubeService {
   LIMIT = 15;
@@ -17,7 +25,7 @@ export class YoutubeService {
     this.store.dispatch(deleteVideo({ videoId: index }));
   }
 
-  getVideos(searchTerm: string): Observable<IYouTubeItem[]> {
+  getVideos(searchTerm: string): Observable<IResponse> {
     const searchParams = new HttpParams()
       .set('maxResults', this.LIMIT)
       .set('q', searchTerm)
@@ -26,6 +34,11 @@ export class YoutubeService {
 
     return this.http.get<IYouTubeApiResponse>(`${this.BASE_URL}search`, { params: searchParams }).pipe(
       switchMap((response: IYouTubeApiResponse) => {
+        console.log(response);
+        const pageInfo = {
+          nextPageToken: response.nextPageToken,
+          prevPageToken: response.prevPageToken
+        }
         const idsArray: string[] = (response.items || []).map((item) => item.id.videoId);
         const videoIds = idsArray.join(',');
         if (!videoIds) return of([]);

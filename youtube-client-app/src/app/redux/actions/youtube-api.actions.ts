@@ -3,7 +3,10 @@ import { IYouTubeItem } from '@shared/models/search-item.model';
 
 export const videosLoaded = createAction(
   '[YouTube API] Videos Loaded Success',
-  props<{ videos: IYouTubeItem[] }>(),
+  props<{ videos: IYouTubeItem[]; pageInfo: {
+    nextPageToken?: string;
+    prevPageToken?: string;
+  };}>(),
 );
 
 export const loadVideos = createAction('[YouTube API] Load Videos');

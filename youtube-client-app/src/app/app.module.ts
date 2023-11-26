@@ -27,10 +27,10 @@ import { FavoriteModule } from './favorite/favorite.module';
     FavoriteModule,
     StoreModule.forRoot(),
     StoreModule.forRoot({
-      videos: reducers.youTubeApiReducers,
+      videos: reducers.videosReducer,
       customVideos: reducers.videoCreateReducers,
       favoriteVideosIds: reducers.favoritesSlice.reducer,
-      videosIds: reducers.youTubeApiReducers2
+      videosIds: reducers.videosIdsReducer
     }),
     EffectsModule.forRoot([YouTubeApiEffects]),
     StoreDevtoolsModule.instrument({

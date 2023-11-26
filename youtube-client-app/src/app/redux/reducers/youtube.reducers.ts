@@ -7,28 +7,22 @@ import { initialState } from '../app.state';
 import { loadVideos, videosLoaded } from '../actions/youtube-api.actions';
 import { deleteVideo, videoCreated } from '../actions/admin-page.actions';
 
-export const youTubeApiReducers = createReducer<Record<string, IYouTubeItem>>(
+export const videosReducer = createReducer<Record<string, IYouTubeItem>>(
   initialState.videos,
-  on(videosLoaded, (state, { videos }): Record<string, IYouTubeItem> => {
-    const apiVideos: Record<string, IYouTubeItem> = { };
+  on(videosLoaded, (state, { videos }) => {
+    const apiVideos: Record<string, IYouTubeItem> = {};
     videos.forEach((video) => {
       apiVideos[video.id] = video;
     });
     return { ...state, ...apiVideos };
   }),
-  on(loadVideos, (state): Record<string, IYouTubeItem> => state),
+  on(loadVideos, (state): Record<string, IYouTubeItem> => state)
 );
 
-export const youTubeApiReducers2 = createReducer<string[]>(
+export const videosIdsReducer = createReducer<string[]>(
   initialState.videosIds,
-  on(videosLoaded, (_, { videos }): string[] => {
-    const videosIds: string[] = [];
-    videos.forEach((video) => {
-      videosIds.push(video.id);
-    });
-    return [...videosIds];
-  }),
-  on(loadVideos, (state): string[] => state),
+  on(videosLoaded, (_, { videos }) => videos.map((video) => video.id)),
+  on(loadVideos, (state): string[] => state)
 );
 
 export const favoritesSlice = createSlice({

@@ -5,8 +5,10 @@ export interface AppState {
   customVideos: IYouTubeCustomItem[];
   favoriteVideosIds: string[];
   videosIds: string[];
-  currentPage: 1;
-  pageTokens: Record<number, string>;
+  pageInfo: {
+    currentPage: number;
+    pageTokens: Record<number, string>;
+  };
 }
 
 export const initialState: AppState = {
@@ -14,6 +16,8 @@ export const initialState: AppState = {
   customVideos: [],
   favoriteVideosIds: [],
   videosIds: [],
-  currentPage: 1,
-  pageTokens: {},
+  pageInfo: {
+    currentPage: 1,
+    pageTokens: {}
+  }
 };
