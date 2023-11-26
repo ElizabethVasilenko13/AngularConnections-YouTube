@@ -8,7 +8,7 @@ import { FormControlComponent } from './components/form-control/form-control.com
 
 @NgModule({
   declarations: [DateColorDirective, TitleFilterPipe, FormControlComponent],
-  exports: [DateColorDirective, TitleFilterPipe, ButtonComponent, FormControlComponent],
+  exports: [DateColorDirective, TitleFilterPipe, FormControlComponent, ButtonComponent],
   imports: [CommonModule, ButtonComponent, ReactiveFormsModule],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],

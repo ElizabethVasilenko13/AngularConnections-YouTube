@@ -2,6 +2,7 @@
 <img src="assets/youTubeIcon.png" alt="youTubeIcon" class="header__icon">
 <div class="search__block">
   <div class="search__block">
+<<<<<<< HEAD
     <input
       #searchInput
       type="text"
@@ -11,8 +12,8 @@
       (input)="search(searchInput.value)"
     />
   </div>
-  <app-button [customClass]="'img__btn'" (buttonClick)="toggleFiltersBtn()" [title]="'Show filters'" [buttonTemplate]="showFiltersBtnTemplate">
-    <ng-template #showFiltersBtnTemplate>
+  <app-button [customClass]="'img__btn'" (buttonClick)="toggleFiltersBtn()" [buttonTemplate]="settingsTemplate">
+    <ng-template #settingsTemplate>
       <img src="assets/searchSettingIcon.png" alt="youTubeIcon" class="btn__icon">
     </ng-template>
   </app-button>

@@ -5,6 +5,7 @@
       [customClass]="'sort__btn'"
       (buttonClick)="onSortClick('date', sortingService.dateComparator)"
       [title]="'Sort by date'"
+      (buttonClick)="onSortClick('date', sortingService.dateComparator)" 
       [buttonTemplate]="dateBtnTemplate">
         <ng-template #dateBtnTemplate>
             Date
@@ -16,6 +17,7 @@
       [customClass]="'sort__btn'"
       (buttonClick)="onSortClick('views', sortingService.viewsComparator)"
       [title]="'Sort by views'"
+      (buttonClick)="onSortClick('views', sortingService.viewsComparator)" 
       [buttonTemplate]="viewsTemplate">
         <ng-template #viewsTemplate>
           Views

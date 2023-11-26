@@ -13,7 +13,6 @@ export class ButtonComponent {
   @Input() buttonTemplate?: TemplateRef<unknown>;
   @Input() type = 'button';
   @Input() disabled = false;
-
   @Output() buttonClick: EventEmitter<Event> = new EventEmitter<Event>();
 
   onClick(event: MouseEvent): void {

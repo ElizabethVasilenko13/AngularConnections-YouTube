@@ -12,16 +12,28 @@
           <app-form-control label="Tag {{i + 1}}" controlName="tag" [control]="tags.at(i).get('tag')" [isRequired]="true"></app-form-control>
         </div>
       </ng-container>
-      <app-button [customClass]="'plus__btn'" (buttonClick)="addTag()" [disabled]="tags.controls.length >= 5">
-        <ng-template #buttonTemplate>+</ng-template>
+      <app-button
+        [customClass]="'plus__btn'"
+        (buttonClick)="addTag()"
+        [disabled]="tags.controls.length >= 5"
+        [title]="'Add tag'"
+        [buttonTemplate]="addTagBtnTemplate"
+      >
+        <ng-template #addTagBtnTemplate>+</ng-template>
       </app-button>
     </div>
     <div class="button-container">
-      <app-button [customClass]="'item__button'" (buttonClick)="resetForm()">
-        <ng-template #buttonTemplate>Reset form</ng-template>
+      <app-button [customClass]="'item__button'" (buttonClick)="resetForm()" [title]="'Reset form'" [buttonTemplate]="resetBtnTemplate">
+        <ng-template #resetBtnTemplate>Reset form</ng-template>
       </app-button>
-      <app-button [customClass]="'item__button'" [type]="'submit'" [disabled]="createCardForm.invalid">
-        <ng-template #buttonTemplate>Create card</ng-template>
+      <app-button
+        [customClass]="'item__button'"
+        [type]="'submit'"
+        [disabled]="createCardForm.invalid"
+        [title]="'Create card'"
+        [buttonTemplate]="createCardBtnTemplate"
+      >
+        <ng-template #createCardBtnTemplate>Create card</ng-template>
       </app-button>
     </div>
   </form>

@@ -12,7 +12,12 @@ import { SortBy } from './pipes/sort-by.pipe';
 @NgModule({
   declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent, SortBy],
   exports: [SearchResultComponent],
-  imports: [CommonModule, SharedModule, FormsModule, YoutubeRoutingModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    YoutubeRoutingModule
+  ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],
 })

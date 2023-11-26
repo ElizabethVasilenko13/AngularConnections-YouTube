@@ -6,6 +6,11 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 import { YouTubeAppModule } from '@youtube/youTubeApp.module';
 import { HeaderComponent } from './components/header/header.component';
+<<<<<<< HEAD
+=======
+import { SharedModule } from '../shared/shared.module';
+import { YouTubeAppModule } from '../youTubeApp/youTubeApp.module';
+>>>>>>> 7039811 (refactor: update btns)
 import { SearchInputComponent } from './components/header/search-input/search-input.component';
 import { SortingService } from './services/sorting.service';
 import { FiltersComponent } from './components/header/filters/filters.component';
@@ -20,7 +25,13 @@ import { ApiKeyInterceptor } from './interceprors/api-key-interceptor.service';
 @NgModule({
   declarations: [HeaderComponent, FiltersComponent, SearchInputComponent, CoreComponent, NotFoundComponent, UserBarComponent],
   exports: [CoreComponent, NotFoundComponent],
-  imports: [CommonModule, SharedModule, YouTubeAppModule, FormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    YouTubeAppModule,
+    FormsModule,
+    RouterModule
+  ],
   providers: [
     SortingService,
     {
