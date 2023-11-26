@@ -3,7 +3,8 @@ import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.mod
 export interface AppState {
   videos: Record<string, IYouTubeItem>;
   customVideos: IYouTubeCustomItem[];
-  favoriteVideos: string[];
+  favoriteVideosIds: string[];
+  // favoriteVideos: IYouTubeItem[];
   currentPage: 1;
   pageTokens: Record<number, string>;
 }
@@ -11,7 +12,8 @@ export interface AppState {
 export const initialState: AppState = {
   videos: {},
   customVideos: [],
-  favoriteVideos: [],
+  favoriteVideosIds: [],
+  // favoriteVideos: [],
   currentPage: 1,
   pageTokens: {},
 };

@@ -2,12 +2,10 @@ import { createReducer, on } from '@ngrx/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
-import { AppState, initialState } from '../app.state';
-
+import { initialState } from '../app.state';
 
 import { loadVideos, videosLoaded } from '../actions/youtube-api.actions';
 import { deleteVideo, videoCreated } from '../actions/admin-page.actions';
-
 
 export const youTubeApiReducers = createReducer<Record<string, IYouTubeItem>>(
   initialState.videos,
@@ -21,22 +19,9 @@ export const youTubeApiReducers = createReducer<Record<string, IYouTubeItem>>(
   on(loadVideos, (state): Record<string, IYouTubeItem> => state),
 );
 
-
-// export const favoriteReducers = createReducer<string[]>(
-//   initialState.favoriteVideos,
-//   on(addToFavorites, (state, { videoId }): string[] => {
-//     const favoriteVideos = [...state, videoId];
-//     return favoriteVideos;
-//   }),
-//   on(removeFromFavorites, (state, { videoId }) => {
-//     const favoriteVideos = state.filter((id) => id !== videoId);
-//     return favoriteVideos;
-//   }),
-// );
-
 export const favoritesSlice = createSlice({
   name: 'favorites',
-  initialState: initialState.favoriteVideos,
+  initialState: initialState.favoriteVideosIds,
   reducers: {
     addToFavorites: (state, action: PayloadAction<{ videoId: string }>) => {
       state.push(action.payload.videoId);
@@ -47,8 +32,6 @@ export const favoritesSlice = createSlice({
 });
 
 export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions;
-
-// export const selectFavoriteVideos = (state: { favorite: string[] }) => state.favorite;
 
 export const videoCreateReducers = createReducer<IYouTubeCustomItem[]>(
   initialState.customVideos,
