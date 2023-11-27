@@ -1,16 +1,17 @@
-import {
-  Directive, ElementRef, Input, OnInit, Renderer2
-} from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { BorderColor } from '../enums/search-item-enum';
 
 @Directive({
-  selector: '[appDateColor]'
+  selector: '[appDateColor]',
 })
 export class DateColorDirective implements OnInit {
   @Input('appDateColor') publicationDate!: string;
   @Input() cssProperty = 'background-color';
 
-  constructor(private el: ElementRef, private render: Renderer2) {}
+  constructor(
+    private el: ElementRef,
+    private render: Renderer2,
+  ) {}
 
   ngOnInit(): void {
     const publicationDate = new Date(this.publicationDate);

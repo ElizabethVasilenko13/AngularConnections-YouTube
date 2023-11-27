@@ -8,7 +8,7 @@ describe('DetailInfoPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DetailInfoPageComponent]
+      declarations: [DetailInfoPageComponent],
     });
     fixture = TestBed.createComponent(DetailInfoPageComponent);
     component = fixture.componentInstance;

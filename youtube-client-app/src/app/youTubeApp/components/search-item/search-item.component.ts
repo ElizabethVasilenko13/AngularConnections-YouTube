@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
+import { IYouTubeApiItem } from '@shared/models/search-item.model';
 
 @Component({
   selector: 'app-search-item',
   templateUrl: './search-item.component.html',
   styleUrls: ['./search-item.component.scss'],
 })
-
 export class SearchItemComponent {
   @Input() video!: IYouTubeApiItem;
 

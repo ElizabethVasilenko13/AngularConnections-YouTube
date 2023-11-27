@@ -1,11 +1,11 @@
 button {
-  background-color: #FF0000;
+  background-color: #ff0000;
   display: flex;
   align-items: center;
   justify-content: center;
 
   &.active {
-    box-shadow: 0px 0px 8px 0px rgba(255,0,0,1);
+    box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
   }
 
   &:hover {
@@ -13,7 +13,7 @@ button {
   }
 
   &:disabled {
-    background-color: #B1B1B1;
+    background-color: #b1b1b1;
   }
 }
 
@@ -29,16 +29,16 @@ button {
 }
 
 .img__btn {
-  background-color: #FF0000;
+  background-color: #ff0000;
   padding: 5px;
 }
 
 .sort__btn {
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 8px;
   font-weight: bold;
 
   &:hover {
-    background-color: #3F3F3F;
+    background-color: #3f3f3f;
   }
 }

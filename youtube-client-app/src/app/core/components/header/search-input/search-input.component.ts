@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { SearchService } from 'src/app/services/searchService.service';
+import { SearchService } from '@services/searchService.service';
 
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
-  styleUrls: ['./search-input.component.scss']
+  styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent {
-
   @Output() showFilters: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private searchService: SearchService) {}

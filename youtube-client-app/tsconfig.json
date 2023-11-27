@@ -20,10 +20,20 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"],
+    "paths": {
+      "@core": ["./src/app/core"],
+      "@core/*": ["./src/app/core/*"],
+      "@services/*": ["./src/app/services/*"],
+      "@shared": ["./src/app/shared"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@admin": ["./src/app/admin"],
+      "@admin/*": ["./src/app/admin/*"],
+      "@auth": ["./src/app/auth"],
+      "@auth/*": ["./src/app/auth/*"],
+      "@youtube": ["./src/app/youTubeApp"],
+      "@youtube/*": ["./src/app/youTubeApp/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MockDataService } from 'src/app/services/mockDataService.service';
-import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
+import { MockDataService } from '@services/mockDataService.service';
+import { IYouTubeApiItem } from '@shared/models/search-item.model';
 
 @Component({
   selector: 'app-detail-info-page',
   templateUrl: './detail-info-page.component.html',
-  styleUrls: ['./detail-info-page.component.scss']
+  styleUrls: ['./detail-info-page.component.scss'],
 })
 export class DetailInfoPageComponent implements OnInit {
   video!: IYouTubeApiItem;
@@ -15,7 +15,7 @@ export class DetailInfoPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private mockDataService: MockDataService,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit(): void {

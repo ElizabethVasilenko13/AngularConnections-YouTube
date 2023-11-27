@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { SortComparator } from 'src/app/core/models/sorting.model';
-import { SortingService } from 'src/app/core/services/sorting.service';
-import { SearchService } from 'src/app/services/searchService.service';
+import { SortComparator } from '@core/models/sorting.model';
+import { SortingService } from '@core/services/sorting.service';
+import { SearchService } from '@services/searchService.service';
 
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss'],
 })
-
 export class FiltersComponent {
   searchText = '';
 

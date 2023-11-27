@@ -1,8 +1,8 @@
-$main-color: #0F0F0F;
+$main-color: #0f0f0f;
 body {
   background-color: $main-color;
   color: #ffffff;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: normal;
   margin: 0;
@@ -23,7 +23,7 @@ main {
 }
 
 button {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
@@ -31,12 +31,13 @@ button {
   font-size: 14px;
 }
 
-input, button {
+input,
+button {
   border-radius: 7px;
 }
 
 input {
-  border: 1px solid #312B2B;
+  border: 1px solid #312b2b;
   background-color: #1c1c1c;
   color: #ffffff;
   padding: 0 0 0 5px;
@@ -51,7 +52,7 @@ h1 {
 }
 
 .text-secondary {
-  color: #A1A1A1;
+  color: #a1a1a1;
 }
 
 .bottom-line {
@@ -62,4 +63,9 @@ h1 {
   right: 0;
   background-color: #ff0000;
   border-radius: 0 0 7px 7px;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px rgb(29, 29, 29) inset !important;
+  -webkit-text-fill-color: white !important;
 }

@@ -8,13 +8,10 @@
       <div class="user__name">Your Name</div>
       <app-button [customClass]="'img__btn'" [buttonTemplate]="userBtnTemplate">
         <ng-template #userBtnTemplate>
-          <img src="assets/userIcon.png" alt="youTubeIcon" class="btn__icon">
+          <img src="assets/userIcon.png" alt="youTubeIcon" class="btn__icon" />
         </ng-template>
       </app-button>
     </div>
   </div>
   <app-filters *ngIf="isSortingBlockVisible"></app-filters>
 </header>
-
-
-

@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { SearchService } from 'src/app/services/searchService.service';
-import { IYouTubeApiItem } from 'src/app/shared/models/search-item.model';
+import { SearchService } from '@services/searchService.service';
+import { IYouTubeApiItem } from '@shared/models/search-item.model';
 
 @Injectable()
 export class SortingService {
-
-  constructor(
-    private searchService: SearchService,
-  ) {}
+  constructor(private searchService: SearchService) {}
 
   dateComparator(a: IYouTubeApiItem, b: IYouTubeApiItem): number {
     const valueA = new Date(a.snippet.publishedAt).getTime();
@@ -22,12 +19,16 @@ export class SortingService {
   }
 
   isDescSorting(key: string): boolean {
-    return this.searchService.sortingStateSource$.value.key === key &&
-      this.searchService.sortingStateSource$.value.order === 'desc';
+    return (
+      this.searchService.sortingStateSource$.value.key === key &&
+      this.searchService.sortingStateSource$.value.order === 'desc'
+    );
   }
 
   isAscSorting(key: string): boolean {
-    return this.searchService.sortingStateSource$.value.key === key
-      && this.searchService.sortingStateSource$.value.order === 'asc';
+    return (
+      this.searchService.sortingStateSource$.value.key === key &&
+      this.searchService.sortingStateSource$.value.order === 'asc'
+    );
   }
 }

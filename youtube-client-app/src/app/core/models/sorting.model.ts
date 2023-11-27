@@ -1,4 +1,4 @@
-import { IYouTubeApiItem } from "src/app/shared/models/search-item.model";
+import { IYouTubeApiItem } from '@shared/models/search-item.model';
 
 export interface SortingState {
   key: string;
