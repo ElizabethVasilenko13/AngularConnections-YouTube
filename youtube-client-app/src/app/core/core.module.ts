@@ -14,8 +14,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoggerService } from './services/logger.service';
 import { LoggerDevService } from './services/logger-dev.service';
 import { LoggerProdService } from './services/logger-prod.service';
-import { YouTubeApiService } from './interceprors/you-tube-api.service';
 import { UserBarComponent } from './components/header/user-bar/user-bar.component';
+import { ApiKeyInterceptor } from './interceprors/api-key-interceptor.service';
 
 @NgModule({
   declarations: [HeaderComponent, FiltersComponent, SearchInputComponent, CoreComponent, NotFoundComponent, UserBarComponent],
@@ -27,7 +27,7 @@ import { UserBarComponent } from './components/header/user-bar/user-bar.componen
       provide: LoggerService,
       useClass: isDevMode() ? LoggerDevService : LoggerProdService,
     },
-    { provide: HTTP_INTERCEPTORS, useClass: YouTubeApiService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true },
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

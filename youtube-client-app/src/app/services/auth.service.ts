@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { AUTH_PAGE_ROUTE } from '@core/consts';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -26,7 +27,7 @@ export class AuthService {
   logout(): void {
     this.isLoggedIn.next(false);
     localStorage.removeItem('token');
-    this.router.navigate(['auth']);
+    this.router.navigate([AUTH_PAGE_ROUTE]);
   }
 
   login(): void {
