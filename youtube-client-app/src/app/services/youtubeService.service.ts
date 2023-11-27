@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IVideosPageInfoResponse, IYouTubeApiResponse } from '@shared/models/search-response.model';
+import { IVideosResponse, IYouTubeApiResponse } from '@shared/models/search-response.model';
 import { IYouTubeApiItemResponse, IYouTubeItem } from '@shared/models/search-item.model';
 import { deleteVideo } from '../redux/actions/admin-page.actions';
 
 @Injectable({ providedIn: 'root' })
 export class YoutubeService {
-  LIMIT = 15;
   BASE_URL = 'https://www.googleapis.com/youtube/v3/';
+  public videoSearchTextSource$ = new BehaviorSubject<string>('');
+  LIMIT = 20;
 
   constructor(
     private http: HttpClient,
@@ -20,8 +21,8 @@ export class YoutubeService {
     this.store.dispatch(deleteVideo({ videoId: index }));
   }
 
+  getVideos(searchTerm: string, pageToken?: string): Observable<IVideosResponse> {
 
-  getVideos(searchTerm: string, pageToken?: string): Observable<IVideosPageInfoResponse> {
     let searchParams = new HttpParams()
       .set('maxResults', this.LIMIT)
       .set('q', searchTerm)
@@ -36,8 +37,8 @@ export class YoutubeService {
     return this.http.get<IYouTubeApiResponse>(`${this.BASE_URL}search`, { params: searchParams }).pipe(
       switchMap((response: IYouTubeApiResponse) => {
         const pageInfo = {
-          nextPageToken: response.nextPageToken,
-          prevPageToken: response.prevPageToken,
+            nextPageToken: response.nextPageToken,
+            prevPageToken: response.prevPageToken,
         };
         const idsArray: string[] = (response.items || []).map((item) => item.id.videoId);
         const videoIds = idsArray.join(',');

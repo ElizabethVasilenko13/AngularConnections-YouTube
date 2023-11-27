@@ -5,7 +5,7 @@ import { loadVideos } from '@redux/actions/youtube-api.actions';
 import { selectCurrnetPageNumList, selectCustomVideosFeature, selectPageIngoFeature, selectVideosList } from '@redux/selectors/videos.selector';
 import { SearchService } from '@services/searchService.service';
 import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
-import { IpageInfoO } from '@shared/models/search-response.model';
+import { IPaginationPageInfo } from '@shared/models/search-response.model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,8 +16,8 @@ import { Observable } from 'rxjs';
 export class SearchResultComponent {
   videos$: Observable<IYouTubeItem[]>;
   customVideos$: Observable<IYouTubeCustomItem[]>;
-  pageInfo$: Observable<IpageInfoO>;
-  currentPageNum$: Observable<number>;
+  pageInfo$: Observable<IPaginationPageInfo>;
+  currentPageNum$: Observable<number | undefined>;
 
   constructor(
     public searchService: SearchService,
@@ -33,7 +33,8 @@ export class SearchResultComponent {
   loadNextPage(): void {
     this.pageInfo$.subscribe((pageInfo) => {
       if (pageInfo && pageInfo.pageTokens.nextPageToken) {
-        this.store.dispatch(loadVideos({ pageToken: pageInfo.pageTokens.nextPageToken }));
+        if( pageInfo.currentPage )
+        this.store.dispatch(loadVideos({ pageToken: pageInfo.pageTokens.nextPageToken, currentPage: pageInfo.currentPage + 1 }));
       }
     });
   }
@@ -41,7 +42,8 @@ export class SearchResultComponent {
   loadPrevPage(): void {
     this.pageInfo$.subscribe((pageInfo) => {
       if (pageInfo && pageInfo.pageTokens.prevPageToken) {
-        this.store.dispatch(loadVideos({ pageToken: pageInfo.pageTokens.prevPageToken}));
+        if( pageInfo.currentPage )
+        this.store.dispatch(loadVideos({ pageToken: pageInfo.pageTokens.prevPageToken, currentPage: pageInfo.currentPage - 1}));
       }
     });
   }

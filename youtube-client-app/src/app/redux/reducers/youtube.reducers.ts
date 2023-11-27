@@ -21,9 +21,9 @@ export const videosReducer = createReducer<Record<string, IYouTubeItem>>(
 
 export const pageInfoReducer = createReducer(
   initialState.pageInfo,
-  on(videosLoaded, (state, { pageInfo }): AppState['pageInfo'] => {
+  on(videosLoaded, (state, { pageInfo, currentPage }): AppState['pageInfo'] => {
     const page = {
-      currentPage: state.currentPage,
+      currentPage,
       pageTokens: {
         nextPageToken: pageInfo.nextPageToken,
         prevPageToken: pageInfo.prevPageToken,
@@ -32,6 +32,7 @@ export const pageInfoReducer = createReducer(
     return { ...page };
   }),
   on(loadVideos, (state): AppState['pageInfo'] => state),
+
 );
 
 export const videosIdsReducer = createReducer<string[]>(

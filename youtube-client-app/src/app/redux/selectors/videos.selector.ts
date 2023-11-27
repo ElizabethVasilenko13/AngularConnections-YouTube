@@ -1,12 +1,12 @@
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
 import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
-import { IpageInfoO } from '@shared/models/search-response.model';
+import { IPaginationPageInfo } from '@shared/models/search-response.model';
 
 export const selectVideosFeature = createFeatureSelector<Record<string, IYouTubeItem>>('videos');
 export const selectCustomVideosFeature = createFeatureSelector<IYouTubeCustomItem[]>('customVideos');
 export const selectFavoriteVideosIdsFeature = createFeatureSelector<string[]>('favoriteVideosIds');
 export const selectVideosIdsFeature = createFeatureSelector<string[]>('videosIds');
-export const selectPageIngoFeature = createFeatureSelector<IpageInfoO>('pageInfo');
+export const selectPageIngoFeature = createFeatureSelector<IPaginationPageInfo>('pageInfo');
 
 export const selectVideosList = createSelector(selectVideosFeature, selectVideosIdsFeature, (videos, videosIds) =>
   videosIds.map((id) => videos[id]),

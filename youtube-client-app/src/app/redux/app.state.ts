@@ -1,5 +1,5 @@
 import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
-import { IpageInfo } from '@shared/models/search-response.model';
+import { IPageTokens } from '@shared/models/search-response.model';
 
 export interface AppState {
   videos: Record<string, IYouTubeItem>;
@@ -8,7 +8,7 @@ export interface AppState {
   videosIds: string[];
   pageInfo: {
     currentPage: number;
-    pageTokens: IpageInfo;
+    pageTokens: IPageTokens;
   };
 }
 
@@ -18,7 +18,7 @@ export const initialState: AppState = {
   favoriteVideosIds: [],
   videosIds: [],
   pageInfo: {
-    currentPage: 0,
+    currentPage: 1,
     pageTokens: {},
   },
 };

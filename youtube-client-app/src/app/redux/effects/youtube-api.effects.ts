@@ -14,12 +14,19 @@ export class YouTubeApiEffects {
   ) {}
 
   loadVideos$ = createEffect(() =>
+    // eslint-disable-next-line @ngrx/prefer-effect-callback-in-block-statement
     this.actions$.pipe(
       ofType(loadVideos),
-      exhaustMap(({ pageToken }) =>
-        this.youTubeService
-          .getVideos(pageToken)
-          .pipe(map(({ videos, pageInfo }) => videosLoaded({ videos, pageInfo }))),
+      exhaustMap(({ pageToken, currentPage = 1 }) =>
+      {
+        console.log(currentPage);
+        
+        return this.youTubeService
+        .getVideos(pageToken)
+        .pipe(map(({ videos, pageInfo }) => videosLoaded({ videos, pageInfo, currentPage })))
+
+      }
+       ,
       ),
     ),
   );

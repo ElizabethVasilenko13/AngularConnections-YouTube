@@ -10,19 +10,19 @@ export interface IYouTubeApiResponse {
   prevPageToken?: string;
 }
 
-export interface IVideosPageInfoResponse {
+export interface IVideosResponse {
   videos: IYouTubeItem[];
-  pageInfo: IpageInfo;
+  pageInfo: IPageTokens;
 }
 
-export interface IpageInfo {
+export interface IPageTokens {
   nextPageToken?: string;
   prevPageToken?: string;
 }
 
-export interface IpageInfoO {
+export interface IPaginationPageInfo {
   currentPage: number;
-  pageTokens: IpageInfo;
+  pageTokens: IPageTokens;
 }
 
 export interface IPageInfo {
