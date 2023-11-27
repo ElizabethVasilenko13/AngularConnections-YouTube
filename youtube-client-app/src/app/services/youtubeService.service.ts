@@ -4,12 +4,11 @@ import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IVideosResponse, IYouTubeApiResponse } from '@shared/models/search-response.model';
 import { IYouTubeApiItemResponse, IYouTubeItem } from '@shared/models/search-item.model';
-import { deleteVideo } from '../redux/actions/admin-page.actions';
+import { deleteVideo } from '../redux/actions/admin.actions';
 
 @Injectable({ providedIn: 'root' })
 export class YoutubeService {
   BASE_URL = 'https://www.googleapis.com/youtube/v3/';
-  public videoSearchTextSource$ = new BehaviorSubject<string>('');
   LIMIT = 20;
 
   constructor(

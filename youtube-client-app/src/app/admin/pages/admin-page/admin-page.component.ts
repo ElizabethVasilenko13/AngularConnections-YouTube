@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { IYouTubeCustomItem } from '@shared/models/search-item.model';
 import { futureDate } from '@shared/validators/future-date';
-import { videoCreated } from 'src/app/redux/actions/admin-page.actions';
+import { videoCreated } from '@redux/actions/admin.actions';
 
 @Component({
   selector: 'app-admin-page',

@@ -17,7 +17,6 @@
         "prettier"
       ],
       "rules": {
-        "@ngrx/prefer-effect-callback-in-block-statement'": "off",
         "import/extensions": "off",
         "class-methods-use-this": "off",
         "@typescript-eslint/lines-between-class-members": "off",

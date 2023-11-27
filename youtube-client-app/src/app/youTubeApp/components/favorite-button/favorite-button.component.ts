@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectVideoInFavorites } from 'src/app/redux/selectors/videos.selector';
+import { selectVideoInFavorites } from '@redux/selectors/videos.selector';
 
 @Component({
   selector: 'app-favorite-button',

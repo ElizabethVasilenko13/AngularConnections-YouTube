@@ -10,6 +10,7 @@ import { SortBy } from './pipes/sort-by.pipe';
 import { CustomCardItemComponent } from './components/custom-card-item/custom-card-item.component';
 import { VideoCardItemComponent } from './components/video-card-item/video-card-item.component';
 import { FavoriteButtonComponent } from './components/favorite-button/favorite-button.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +20,16 @@ import { FavoriteButtonComponent } from './components/favorite-button/favorite-b
     CustomCardItemComponent,
     VideoCardItemComponent,
     FavoriteButtonComponent,
-    SortBy
+    SortBy,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
     YoutubeRoutingModule,
-    SortBy
+    SortBy,
+    PaginationComponent
   ],
   exports: [SearchResultComponent, VideoStaticsComponent, VideoCardItemComponent],
   providers: [],

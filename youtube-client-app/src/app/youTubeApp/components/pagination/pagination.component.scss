@@ -1,0 +1,12 @@
+.pagination-container {
+  max-width: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+
+  img {
+    width: 30px;
+  }
+}

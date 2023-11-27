@@ -5,7 +5,7 @@ import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.mod
 import { AppState, initialState } from '../app.state';
 
 import { loadVideos, videosLoaded } from '../actions/youtube-api.actions';
-import { deleteVideo, videoCreated } from '../actions/admin-page.actions';
+import { deleteVideo, videoCreated } from '../actions/admin.actions';
 
 export const videosReducer = createReducer<Record<string, IYouTubeItem>>(
   initialState.videos,
@@ -21,7 +21,7 @@ export const videosReducer = createReducer<Record<string, IYouTubeItem>>(
 
 export const pageInfoReducer = createReducer(
   initialState.pageInfo,
-  on(videosLoaded, (state, { pageInfo, currentPage }): AppState['pageInfo'] => {
+  on(videosLoaded, (_, { pageInfo, currentPage }): AppState['pageInfo'] => {
     const page = {
       currentPage,
       pageTokens: {
