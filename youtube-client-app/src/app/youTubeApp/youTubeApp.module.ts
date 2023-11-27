@@ -7,9 +7,10 @@ import { SearchItemComponent } from './components/search-item/search-item.compon
 import { VideoStaticsComponent } from './components/video-statics/video-statics.component';
 import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
 import { YoutubeRoutingModule } from './youtube-routing.module';
+import { SortBy } from './pipes/sort-by.pipe';
 
 @NgModule({
-  declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent],
+  declarations: [SearchResultComponent, SearchItemComponent, VideoStaticsComponent, DetailInfoPageComponent, SortBy],
   exports: [SearchResultComponent],
   imports: [CommonModule, SharedModule, FormsModule, YoutubeRoutingModule],
   providers: [],
