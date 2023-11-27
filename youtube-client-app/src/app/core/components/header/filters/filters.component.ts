@@ -24,8 +24,7 @@ export class FiltersComponent {
     const order = this.sortingService.isDescSorting(key) ? 'asc' : 'desc';
     const sortedComparator = this.getSortedComparator(comparator, order);
 
-    this.searchService.setSortingState({ key, order, comparator: sortedComparator });
-    this.searchService.requestVideos();
+    this.sortingService.setSortingState({ key, order, comparator: sortedComparator });
   }
 
   private getSortedComparator(comparator: SortComparator, order: string): SortComparator {

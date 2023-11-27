@@ -3,6 +3,7 @@
     *ngFor="
       let video of (searchService.videosSource$ | async) ?? []
         | titleFilter: (searchService.filterTextSource$ | async) ?? ''
+        | sortBy: sortingService.sortingStateSource$.getValue().comparator
     "
     [video]="video"
   >

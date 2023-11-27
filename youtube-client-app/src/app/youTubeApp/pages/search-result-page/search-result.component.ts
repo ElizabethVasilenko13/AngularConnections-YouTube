@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SortingService } from '@core/services/sorting.service';
 import { SearchService } from '@services/searchService.service';
 
 @Component({
@@ -7,5 +8,8 @@ import { SearchService } from '@services/searchService.service';
   styleUrls: ['./search-result.component.scss'],
 })
 export class SearchResultComponent {
-  constructor(public searchService: SearchService) {}
+  constructor(
+    public searchService: SearchService,
+    public sortingService: SortingService
+  ) {}
 }
