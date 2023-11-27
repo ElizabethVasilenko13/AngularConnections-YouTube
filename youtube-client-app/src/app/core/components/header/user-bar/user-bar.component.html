@@ -1,0 +1,22 @@
+<div class="user">
+  <div class="header__user">
+    <div *ngIf="auth.isLoggedIn.value" class="user__name">Your name</div>
+    <app-button *ngIf="!auth.isLoggedIn.value; else loggedIn" [customClass]="'img__btn'" [title]="'Login'" [buttonTemplate]="loginBtnTemplate">
+      <ng-template #loginBtnTemplate>
+        <img src="assets/loginIcon.png" alt="exitIcon" class="btn__icon" />
+      </ng-template>
+    </app-button>
+    <ng-template #loggedIn>
+      <app-button [customClass]="'img__btn'" (buttonClick)="logout()" [title]="'Logout'" [buttonTemplate]="logoutBtnTemplate">
+        <ng-template #logoutBtnTemplate>
+          <img src="assets/exiIcon.svg" alt="exitIcon" class="btn__icon" />
+        </ng-template>
+      </app-button>
+    </ng-template>
+    <app-button [customClass]="'img__btn'" *ngIf="auth.isLoggedIn.value" [buttonTemplate]="userBtnTemplate">
+      <ng-template #userBtnTemplate>
+        <img src="assets/userIcon.png" alt="youTubeIcon" class="btn__icon" />
+      </ng-template>
+    </app-button>
+  </div>
+</div>

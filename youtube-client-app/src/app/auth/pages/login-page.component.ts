@@ -17,7 +17,7 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.auth.isLoggedIn()) {
+    if (this.auth.isLoggedIn.value) {
       this.router.navigate([MAIN_PAGE_ROUTE]);
     }
   }

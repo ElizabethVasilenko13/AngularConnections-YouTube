@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +7,8 @@ import { AuthService } from '@auth/services/auth.service';
 })
 export class HeaderComponent {
   isSortingBlockVisible = false;
-  constructor(private auth: AuthService) {}
 
   toggleShowFiltersBtn(): void {
     this.isSortingBlockVisible = !this.isSortingBlockVisible;
-  }
-
-  logout(): void {
-    this.auth.logout();
   }
 }

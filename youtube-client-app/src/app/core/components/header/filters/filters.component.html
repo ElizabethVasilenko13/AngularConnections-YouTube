@@ -4,8 +4,9 @@
     <app-button
       [customClass]="'sort__btn'"
       (buttonClick)="onSortClick('date', sortingService.dateComparator)"
-      [title]="'Sort by date'">
-        <ng-template #buttonTemplate>
+      [title]="'Sort by date'"
+      [buttonTemplate]="dateBtnTemplate">
+        <ng-template #dateBtnTemplate>
             Date
           <span *ngIf="sortingService.isDescSorting('date')">▼</span>
           <span *ngIf="sortingService.isAscSorting('date')">▲</span>
@@ -14,8 +15,9 @@
     <app-button
       [customClass]="'sort__btn'"
       (buttonClick)="onSortClick('views', sortingService.viewsComparator)"
-      [title]="'Sort by views'">
-        <ng-template #buttonTemplate>
+      [title]="'Sort by views'"
+      [buttonTemplate]="viewsTemplate">
+        <ng-template #viewsTemplate>
           Views
           <span *ngIf="sortingService.isDescSorting('views')">▼</span>
           <span *ngIf="sortingService.isAscSorting('views')">▲</span>

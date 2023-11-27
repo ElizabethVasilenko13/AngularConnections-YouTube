@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
+  isLoggedIn = new BehaviorSubject(false);
   constructor(private router: Router) {}
 
   setToken(token: string): void {
@@ -13,16 +17,20 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  isLoggedIn(): boolean {
-    return this.getToken() !== null;
+  checkAuth(): void {
+    if (this.getToken() !== null) {
+      this.isLoggedIn.next(true);
+    }
   }
 
   logout(): void {
+    this.isLoggedIn.next(false);
     localStorage.removeItem('token');
     this.router.navigate(['auth']);
   }
 
   login(): void {
+    this.isLoggedIn.next(true);
     this.setToken('abcdefghi');
   }
 }
