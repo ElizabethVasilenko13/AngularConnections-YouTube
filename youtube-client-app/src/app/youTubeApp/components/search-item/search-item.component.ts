@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { IYouTubeApiItem } from '@shared/models/search-item.model';
 
 @Component({
@@ -9,10 +8,4 @@ import { IYouTubeApiItem } from '@shared/models/search-item.model';
 })
 export class SearchItemComponent {
   @Input() video!: IYouTubeApiItem;
-
-  constructor(private router: Router) {}
-
-  navigateToDetailsPage(): void {
-    this.router.navigate(['detail', this.video.id]);
-  }
 }

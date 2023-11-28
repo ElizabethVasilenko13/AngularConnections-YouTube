@@ -1,11 +1,12 @@
 import { IYouTubeApiItem } from './search-item.model';
 
 export interface IYouTubeApiResponse {
-  TODO: string;
   kind: string;
   etag: string;
   pageInfo: IPageInfo;
   items: IYouTubeApiItem[];
+  redionCode: string;
+  nextPageToken: string;
 }
 
 export interface IPageInfo {

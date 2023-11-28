@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MAIN_PAGE_ROUTE } from '@core/consts';
 import { LoggerService } from '@core/services/logger.service';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -17,7 +17,7 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.auth.isLoggedIn()) {
+    if (this.auth.isLoggedIn.value) {
       this.router.navigate([MAIN_PAGE_ROUTE]);
     }
   }

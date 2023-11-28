@@ -1,18 +1,20 @@
 <div class="icons-video">
-  <div class="icon-block">
-    <img src="assets/eyeIcon.png" alt="" />
-    <div class="">{{ video.statistics.viewCount }}</div>
-  </div>
-  <div class="icon-block">
-    <img src="assets/likesIcon.png" alt="" />
-    <div class="">{{ video.statistics.likeCount }}</div>
-  </div>
-  <div class="icon-block">
-    <img src="assets/dislikesIcon.png" alt="" />
-    <div class="">{{ video.statistics.dislikeCount }}</div>
-  </div>
-  <div class="icon-block">
-    <img src="assets/commentIcon.png" alt="" />
-    <div class="">{{ video.statistics.commentCount }}</div>
-  </div>
+  <ng-container *ngIf="statistics">
+    <div class="icon-block">
+      <img src="assets/eyeIcon.png" alt="">
+      <div class="">{{ statistics.viewCount }}</div>
+    </div>
+    <div class="icon-block">
+      <img src="assets/likesIcon.png" alt="">
+      <div class="">{{ statistics.likeCount }}</div>
+    </div>
+    <div class="icon-block">
+      <img src="assets/dislikesIcon.png" alt="">
+      <div class="">{{ statistics.dislikeCount }}</div>
+    </div>
+    <div class="icon-block">
+      <img src="assets/commentIcon.png" alt="">
+      <div class="">{{ statistics.commentCount }}</div>
+    </div>
+  </ng-container>
 </div>
