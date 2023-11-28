@@ -7,6 +7,7 @@ export const selectCustomVideosFeature = createFeatureSelector<IYouTubeCustomIte
 export const selectFavoriteVideosIdsFeature = createFeatureSelector<string[]>('favoriteVideosIds');
 export const selectVideosIdsFeature = createFeatureSelector<string[]>('videosIds');
 export const selectPageIngoFeature = createFeatureSelector<IPaginationPageInfo>('pageInfo');
+
 type VideoInFavoriteType = MemoizedSelector<object, boolean, (s1: string[]) => boolean>;
 type VideoByIndexType = MemoizedSelector<object, IYouTubeCustomItem, (s1: IYouTubeCustomItem[]) => IYouTubeCustomItem>;
 

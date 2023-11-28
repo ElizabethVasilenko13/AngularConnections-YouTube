@@ -1,13 +1,12 @@
-
-import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
-import { Subscription, of } from 'rxjs';
-import { Router } from '@angular/router';
-import { MAIN_PAGE_ROUTE } from '@core/consts';
-import { loadVideos } from '@redux/actions/youtube-api.actions';
-import { YoutubeService } from '@services/youtubeService.service';
-import { AuthService } from '@services/auth.service';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { AuthService } from '@services/auth.service';
+import { YoutubeService } from '@services/youtubeService.service';
+import { loadVideos } from 'src/app/redux/actions/youtube-api.actions';
+import { MAIN_PAGE_ROUTE, MIN_SEARCH_LENGTH } from 'src/app/core/consts';
+import { Subscription, of } from 'rxjs';
 
 
 @Component({

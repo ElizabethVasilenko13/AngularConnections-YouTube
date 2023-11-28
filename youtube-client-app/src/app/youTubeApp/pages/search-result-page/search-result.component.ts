@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { SortingService } from '@core/services/sorting.service';
+import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { SortingService } from '@core/services/sorting.service';
 import { loadVideos } from '@redux/actions/youtube-api.actions';
 import { selectCurrnetPageNumList, selectCustomVideosFeature, selectPageIngoFeature, selectVideosList } from '@redux/selectors/videos.selector';
 import { SearchService } from '@services/searchService.service';
@@ -14,11 +14,12 @@ import { IPaginationPageInfo } from '@shared/models/search-response.model';
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
 })
-export class SearchResultComponent {
+export class SearchResultComponent implements OnDestroy {
   videos$: Observable<IYouTubeItem[]>;
   customVideos$: Observable<IYouTubeCustomItem[]>;
   pageInfo$: Observable<IPaginationPageInfo>;
   currentPageNum$: Observable<number | null>;
+  paginationSubscrions: Subscription[] = [];
 
   constructor(
     public searchService: SearchService,
@@ -32,20 +33,30 @@ export class SearchResultComponent {
   }
 
   loadNextPage(): void {
-    this.pageInfo$.subscribe((pageInfo) => {
-      if (pageInfo && pageInfo.pageTokens.nextPageToken) {
-        if( pageInfo.currentPage )
-        this.store.dispatch(loadVideos({ pageToken: pageInfo.pageTokens.nextPageToken, currentPage: pageInfo.currentPage + 1 }));
-      }
-    });
+    this.paginationSubscrions.push(
+      this.pageInfo$.subscribe(({ pageTokens, currentPage }) => {
+        const nextPageToken = pageTokens?.nextPageToken;
+        if (nextPageToken && currentPage) {
+          this.store.dispatch(loadVideos({ pageToken: nextPageToken, currentPage: currentPage + 1 }));
+        }
+      })
+    )
   }
 
   loadPrevPage(): void {
-    this.pageInfo$.subscribe((pageInfo) => {
-      if (pageInfo && pageInfo.pageTokens.prevPageToken) {
-        if( pageInfo.currentPage )
-        this.store.dispatch(loadVideos({ pageToken: pageInfo.pageTokens.prevPageToken, currentPage: pageInfo.currentPage - 1}));
-      }
+    this.paginationSubscrions.push(
+      this.pageInfo$.subscribe(({ pageTokens, currentPage }) => {
+        const prevPageToken = pageTokens?.prevPageToken;
+        if (prevPageToken && currentPage) {
+          this.store.dispatch(loadVideos({ pageToken: prevPageToken, currentPage: currentPage - 1 }));
+        }
+      })
+    )
+  }
+
+  ngOnDestroy(): void {
+    this.paginationSubscrions.forEach((subscription) => {
+      subscription.unsubscribe();
     });
   }
 }

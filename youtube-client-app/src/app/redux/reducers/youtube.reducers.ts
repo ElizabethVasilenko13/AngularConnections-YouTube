@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { IPaginationPageInfo } from '@shared/models/search-response.model';
 import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
-import { AppState, initialState } from '../app.state';
+import { initialState } from '@redux/app.state';
 
 import { loadVideos, videosLoaded } from '../actions/youtube-api.actions';
 import { deleteVideo, videoCreated } from '../actions/admin.actions';
@@ -21,7 +21,7 @@ export const videosReducer = createReducer<Record<string, IYouTubeItem>>(
 
 export const pageInfoReducer = createReducer(
   initialState.pageInfo,
-  on(videosLoaded, (_, { pageInfo, currentPage }): AppState['pageInfo'] => {
+  on(videosLoaded, (_, { pageInfo, currentPage }): IPaginationPageInfo => {
     const page = {
       currentPage,
       pageTokens: {
@@ -31,7 +31,7 @@ export const pageInfoReducer = createReducer(
     };
     return { ...page };
   }),
-  on(loadVideos, (state): AppState['pageInfo'] => state),
+  on(loadVideos, (state): IPaginationPageInfo => state),
 
 );
 
