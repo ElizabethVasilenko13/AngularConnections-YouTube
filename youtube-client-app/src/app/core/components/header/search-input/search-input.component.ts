@@ -3,6 +3,8 @@ import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { SearchService } from '@services/searchService.service';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 import { Subscription, of } from 'rxjs';
+import { MAIN_PAGE_ROUTE } from '@core/consts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-input',
@@ -15,7 +17,7 @@ export class SearchInputComponent implements OnDestroy {
   @Output() showFilters: EventEmitter<boolean> = new EventEmitter<boolean>();
   private searchSubscription: Subscription = new Subscription();
 
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService,  private router: Router) {}
 
   search(term: string): void {
     this.searchSubscription = of(term).pipe(
@@ -27,6 +29,10 @@ export class SearchInputComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe();
+  }
+
+  navigateToMain(): void {
+    this.router.navigate([MAIN_PAGE_ROUTE]);
   }
 
   toggleFiltersBtn(): void {

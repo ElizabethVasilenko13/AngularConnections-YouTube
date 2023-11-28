@@ -3,6 +3,7 @@
   align-items: center;
   padding: 20px 0;
   justify-content: space-between;
+  gap: 30px;
 
   .header__search {
     max-width: 570px;
@@ -11,23 +12,5 @@
     column-gap: 20px;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .header__icon {
-    width: 50px;
-  }
-
-  .header__user {
-    display: flex;
-    column-gap: 10px;
-    align-items: center;
-  }
-
-  .btn__icon {
-    width: 20px;
-  }
-
-  .btn {
-    background-color: yellow;
   }
 }

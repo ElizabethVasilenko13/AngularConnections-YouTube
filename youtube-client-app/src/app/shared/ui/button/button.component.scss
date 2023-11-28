@@ -48,3 +48,11 @@ button {
   width: 30px;
   height: 30px;
 }
+
+.header__icon-btn {
+  background-color: transparent;
+
+  &:hover {
+    background-color: transparent;
+  }
+}

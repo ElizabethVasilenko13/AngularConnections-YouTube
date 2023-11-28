@@ -1,19 +1,17 @@
 .search__block {
-  display: flex;
-  align-items: center;
   flex-grow: 1;
 }
 
 input {
   width: 100%;
-  max-width: 396px;
   border-radius: 7px;
 }
+
 
 .btn__icon {
   width: 20px;
 }
 
-.header__icon {
+.header__icon-img {
   width: 50px;
 }

@@ -41,7 +41,6 @@ export class AdminPageComponent {
   }
 
   onSubmit(): void {
-    console.log('video created');
     this.resetForm();
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ADMIN_PAGE_ROUTE } from '@core/consts';
 import { AuthService } from '@services/auth.service';
 
 @Component({
@@ -18,6 +19,6 @@ export class UserBarComponent {
   }
 
   redirectToAdmin(): void {
-    this.route.navigate(['/admin']);
+    this.route.navigate([ADMIN_PAGE_ROUTE]);
   }
 }
