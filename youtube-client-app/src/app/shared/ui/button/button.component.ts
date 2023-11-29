@@ -11,11 +11,11 @@ import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/co
 export class ButtonComponent {
   @Input() customClass = '';
   @Input() buttonTemplate?: TemplateRef<unknown>;
-
+  @Input() type = 'button';
+  @Input() disabled = false;
   @Output() buttonClick: EventEmitter<Event> = new EventEmitter<Event>();
 
   onClick(event: MouseEvent): void {
-    event.preventDefault();
     this.buttonClick.emit(event);
   }
 }

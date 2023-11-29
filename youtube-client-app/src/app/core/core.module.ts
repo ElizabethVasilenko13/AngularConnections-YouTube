@@ -20,7 +20,13 @@ import { ApiKeyInterceptor } from './interceprors/api-key-interceptor.service';
 @NgModule({
   declarations: [HeaderComponent, FiltersComponent, SearchInputComponent, CoreComponent, NotFoundComponent, UserBarComponent],
   exports: [CoreComponent, NotFoundComponent],
-  imports: [CommonModule, SharedModule, YouTubeAppModule, FormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    YouTubeAppModule,
+    FormsModule,
+    RouterModule
+  ],
   providers: [
     SortingService,
     {

@@ -1,6 +1,15 @@
 <div class="user">
+  <app-button
+    *ngIf="auth.isLoggedIn.value"
+    [customClass]="'item__button'"
+    (buttonClick)="redirectToAdmin()"
+    [title]="'Admin page'"
+    [buttonTemplate]="adminBtnTemplate"
+  >
+    <ng-template #adminBtnTemplate>Admin</ng-template>
+  </app-button>
   <div class="header__user">
-    <div *ngIf="auth.isLoggedIn.value" class="user__name">Your name</div>
+    <div *ngIf="auth.isLoggedIn.value" class="user__name">{{ auth.login.value }}</div>
     <app-button *ngIf="!auth.isLoggedIn.value; else loggedIn" [customClass]="'img__btn'" [title]="'Login'" [buttonTemplate]="loginBtnTemplate">
       <ng-template #loginBtnTemplate>
         <img src="assets/loginIcon.png" alt="exitIcon" class="btn__icon" />

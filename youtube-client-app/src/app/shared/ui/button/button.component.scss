@@ -42,3 +42,17 @@ button {
     background-color: #3f3f3f;
   }
 }
+
+.plus__btn {
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+}
+
+.header__icon-btn {
+  background-color: transparent;
+
+  &:hover {
+    background-color: transparent;
+  }
+}

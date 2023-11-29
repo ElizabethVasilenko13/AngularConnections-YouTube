@@ -1,5 +1,4 @@
-<button [class]="customClass" (click)="onClick($event)">
-  <!-- <ng-content></ng-content> -->
+<button [class]="customClass" (click)="onClick($event)" [type]="type" [disabled]="disabled">
   <ng-container *ngTemplateOutlet="buttonTemplate || defaultTemplate"></ng-container>
 </button>
 
