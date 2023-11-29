@@ -49,10 +49,11 @@
         </div>
         <app-button
           [customClass]="'item__button'"
-          [title]="'Delete'"
-          (buttonClick)="youtubeService.deleteCard(+videoId)"
+          [title]="'Delete Card'"
+          (buttonClick)="youtubeService.deleteCustomCard(+videoId)"
+          [buttonTemplate]="deleteCardBtnTemplate"
         >
-          <ng-template #buttonTemplate>Delete item</ng-template>
+          <ng-template #deleteCardBtnTemplate>Delete item</ng-template>
         </app-button>
         <div class="bottom-line" [appDateColor]="customVideo.creationDate"></div>
       </div>

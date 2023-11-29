@@ -3,12 +3,21 @@
   <div class="video-info">
     <h3 class="video-title">{{ video.title }}</h3>
     <div class="button-container">
-      <app-button [customClass]="'item__button'" [title]="'Delete'" (buttonClick)="youtubeService.deleteCard(index)">
-        <ng-template #buttonTemplate>Delete item</ng-template>
+      <app-button
+        [customClass]="'item__button'"
+        [title]="'Delete'"
+        (buttonClick)="youtubeService.deleteCustomCard(index)"
+        [buttonTemplate]="deleteCustomCardBtnTemplate"
+      >
+        <ng-template #deleteCustomCardBtnTemplate>Delete item</ng-template>
       </app-button>
       <a routerLink="/detail/{{ index }}">
-        <app-button [customClass]="'item__button'" [title]="'Show more'">
-          <ng-template #buttonTemplate>more...</ng-template>
+        <app-button
+          [customClass]="'item__button'"
+          [title]="'Show more'"
+          [buttonTemplate]="showMoreBtnTemplate"
+        >
+          <ng-template #showMoreBtnTemplate>more...</ng-template>
         </app-button>
       </a>
     </div>

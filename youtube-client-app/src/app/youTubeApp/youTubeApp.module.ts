@@ -20,16 +20,14 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     CustomCardItemComponent,
     VideoCardItemComponent,
     FavoriteButtonComponent,
-    SortBy,
-    PaginationComponent
+    PaginationComponent,
+    SortBy
   ],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
-    YoutubeRoutingModule,
-    SortBy,
-    PaginationComponent
+    YoutubeRoutingModule
   ],
   exports: [SearchResultComponent, VideoStaticsComponent, VideoCardItemComponent],
   providers: [],

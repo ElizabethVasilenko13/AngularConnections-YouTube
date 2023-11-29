@@ -15,15 +15,16 @@ import { selectVideoByIndex } from '@redux/selectors/videos.selector';
   styleUrls: ['./detail-info-page.component.scss'],
 })
 
-export class DetailInfoPageComponent implements OnInit {
+export class DetailInfoPageComponent implements OnInit, OnDestroy {
   video: IYouTubeItem | null = null;
   customVideo$!: Observable<IYouTubeCustomItem>;
   customVideo: IYouTubeCustomItem | null = null;
   videoId = '';
+  suscriptionArray: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private youtubeService: YoutubeService,
+    public youtubeService: YoutubeService,
     private location: Location,
     private store: Store,
     readonly favoriteService: FavoriteService
@@ -34,32 +35,33 @@ export class DetailInfoPageComponent implements OnInit {
   }
 
   getVideo(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
     this.videoId = this.route.snapshot.paramMap.get('id') as string;
+    this.customVideo$ = this.store.select(selectVideoByIndex(+this.videoId));
+
     if (this.videoId) {
-      this.youtubeService.getVideoInfo(this.videoId).subscribe({
-        next: (video) => {
+      this.suscriptionArray.push(
+        this.youtubeService.getVideoInfo(this.videoId).subscribe((video) => {
           if (video && Object.keys(video).length > 0) {
             this.video = video;
           }
-          this.customVideo$ = this.store.select(selectVideoByIndex(+this.videoId));
-          this.customVideo$.subscribe((customvideo) => {
-            if (customvideo && Object.keys(customvideo).length > 0) {
-              this.customVideo = customvideo;
-            }
-          });
-        },
-      });
+        })
+      );
+
+      this.suscriptionArray.push(
+        this.customVideo$.subscribe((customvideo) => {
+          if (customvideo && Object.keys(customvideo).length > 0) {
+            this.customVideo = customvideo;
+          }
+        })
+      )
     }
-  }
 }
 
   goBack(): void {
     this.location.back();
   }
 
-  // ngOnDestroy(): void {
-  //   this.getVideoInfoSubscription.unsubscribe();
-  // }
+  ngOnDestroy(): void {
+    this.suscriptionArray.forEach((subscription) => subscription.unsubscribe());
+  }
 }

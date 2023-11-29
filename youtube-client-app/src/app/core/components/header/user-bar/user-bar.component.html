@@ -11,8 +11,8 @@
   <div class="header__user">
     <div *ngIf="auth.isLoggedIn.value" class="user__name">{{ auth.login.value }}</div>
     <a routerLink="favorites">
-      <app-button [customClass]="'img__btn'" *ngIf="auth.isLoggedIn.value">
-        <ng-template #buttonTemplate>
+      <app-button [customClass]="'img__btn'" *ngIf="auth.isLoggedIn.value" [buttonTemplate]="favoriteBtnTemplate">
+        <ng-template #favoriteBtnTemplate>
           <img src="assets/favotiteBtnIcon.png" alt="exitIcon" class="btn__icon" />
         </ng-template>
       </app-button>
