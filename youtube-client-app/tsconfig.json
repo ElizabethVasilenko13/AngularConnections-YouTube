@@ -31,18 +31,10 @@
       "@admin/*": ["./src/app/admin/*"],
       "@auth": ["./src/app/auth"],
       "@auth/*": ["./src/app/auth/*"],
-<<<<<<< HEAD
       "@youtube": ["./src/app/youTubeApp"],
       "@youtube/*": ["./src/app/youTubeApp/*"],
       "@redux": ["./src/app/redux"],
       "@redux/*": ["./src/app/redux/*"],
-
-=======
-      "@youtube": ["./src/app/youTubeApp/index"],
-      "@youtube/*": ["./src/app/youTubeApp/index*"],
-      "@redux": ["./src/app/redux/"],
-      "@redux/*": ["./src/app/redux/*"]
->>>>>>> f580f7c (feat: implement pagination component,  refactor code)
     }
   },
   "angularCompilerOptions": {
