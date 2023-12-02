@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, catchError, map, of, switchMap } from 'rxj
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IVideosResponse, IYouTubeApiResponse } from '@shared/models/search-response.model';
 import { IYouTubeApiItemResponse, IYouTubeItem } from '@shared/models/search-item.model';
-import { deleteVideo } from '../redux/actions/admin.actions';
+import { deleteVideo } from '@redux/actions/videos.actions';
 
 @Injectable({ providedIn: 'root' })
 export class YoutubeService {
@@ -40,18 +40,18 @@ export class YoutubeService {
         };
         const idsArray: string[] = (response.items || []).map((item) => item.id.videoId);
         const videoIds = idsArray.join(',');
-        if (!videoIds) return of({ videos: [], pageInfo: {} });
+        if (!videoIds) return of({ allVideos: [], pageInfo: {} });
         return this.http.get<IYouTubeApiItemResponse>(`${this.BASE_URL}videos?id=${videoIds}`, { params: videoParams }).pipe(
-          map((videoResponse: IYouTubeApiItemResponse) => ({ videos: videoResponse.items || [], pageInfo })),
+          map((videoResponse: IYouTubeApiItemResponse) => ({ allVideos: videoResponse.items || [], pageInfo })),
           catchError((error: Error) => {
             console.error('Error fetching video details:', error);
-            return of({ videos: [], pageInfo: {} });
+            return of({ allVideos: [], pageInfo: {} });
           }),
         );
       }),
       catchError((error: Error) => {
         console.error('Error fetching search results:', error);
-        return of({ videos: [], pageInfo: {} });
+        return of({ allVideos: [], pageInfo: {} });
       }),
     );
   }

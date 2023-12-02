@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { videosReducer } from '@redux/reducers/app.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +12,6 @@ import { CoreModule } from './core/core.module';
 import { YouTubeAppModule } from './youTubeApp/youTubeApp.module';
 import { AuthModule } from './auth/auth.module';
 import { YouTubeApiEffects } from './redux/effects/youtube-api.effects';
-import * as reducers from './redux/reducers/app.reducers';
 import { FavoriteModule } from './favorite/favorite.module';
 
 @NgModule({
@@ -26,11 +26,7 @@ import { FavoriteModule } from './favorite/favorite.module';
     AuthModule,
     FavoriteModule,
     StoreModule.forRoot({
-      videos: reducers.videosReducer,
-      customVideos: reducers.videoCreateReducers,
-      favoriteVideosIds: reducers.favoritesSlice.reducer,
-      videosIds: reducers.videosIdsReducer,
-      pageInfo: reducers.pageInfoReducer,
+      videos: videosReducer
     }),
     EffectsModule.forRoot([YouTubeApiEffects]),
     StoreDevtoolsModule.instrument({

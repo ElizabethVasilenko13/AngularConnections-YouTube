@@ -1,27 +1,14 @@
-import { createReducer, on } from '@ngrx/store';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IPaginationPageInfo } from '@shared/models/search-response.model';
-import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
-import { initialState } from '@redux/app.state';
+import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
+import { IYouTubeItem } from '@shared/models/search-item.model';
+import { addToFavorites, deleteVideo, loadVideos, removeFromFavorites, videoCreated, videosLoadedSuccesful } from '@redux/actions/videos.actions';
+import { State, initialState } from '@redux/app.state';
 
-import { loadVideos, videosLoaded } from '../actions/youtube-api.actions';
-import { deleteVideo, videoCreated } from '../actions/admin.actions';
-
-export const videosReducer = createReducer<Record<string, IYouTubeItem>>(
-  initialState.videos,
-  on(videosLoaded, (state, { videos }) => {
+const appReducer = createReducer(
+  initialState,
+  on(loadVideos, (state): State => ({...state, isLoading: true})),
+  on(videosLoadedSuccesful, (state, { allVideos, pageInfo, currentPage }) => {
     const apiVideos: Record<string, IYouTubeItem> = {};
-    videos.forEach((video) => {
-      apiVideos[video.id] = video;
-    });
-    return { ...state, ...apiVideos };
-  }),
-  on(loadVideos, (state): Record<string, IYouTubeItem> => state),
-);
-
-export const pageInfoReducer = createReducer(
-  initialState.pageInfo,
-  on(videosLoaded, (_, { pageInfo, currentPage }): IPaginationPageInfo => {
+    const videosIds = allVideos.map((video) => video.id);
     const page = {
       currentPage,
       pageTokens: {
@@ -29,41 +16,30 @@ export const pageInfoReducer = createReducer(
         prevPageToken: pageInfo.prevPageToken,
       },
     };
-    return { ...page };
+
+    allVideos.forEach((video) => {
+      apiVideos[video.id] = video;
+    });
+    return { ...state, isLoading: false, allVideos: apiVideos, pageInfo: page, videosIds };
   }),
-  on(loadVideos, (state): IPaginationPageInfo => state),
-
-);
-
-export const videosIdsReducer = createReducer<string[]>(
-  initialState.videosIds,
-  on(videosLoaded, (_, { videos }) => videos.map((video) => video.id)),
-  on(loadVideos, (state): string[] => state),
-);
-
-export const favoritesSlice = createSlice({
-  name: 'favorites',
-  initialState: initialState.favoriteVideosIds,
-  reducers: {
-    addToFavorites: (state, action: PayloadAction<{ videoId: string }>) => {
-      state.push(action.payload.videoId);
-    },
-    removeFromFavorites: (state, action: PayloadAction<{ videoId: string }>) =>
-      state.filter((id) => id !== action.payload.videoId),
-  },
-});
-
-export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions;
-
-export const videoCreateReducers = createReducer<IYouTubeCustomItem[]>(
-  initialState.customVideos,
-  on(videoCreated, (state, { video }): IYouTubeCustomItem[] => {
-    const customVideos = [...state, video];
-    return customVideos;
+  on(videoCreated, (state, { video }): State => {
+    const customVideos = [...state.customVideos]
+    customVideos.push(video);
+    return {...state, customVideos};
   }),
-  on(deleteVideo, (state, { videoId }): IYouTubeCustomItem[] => {
-    const updatedVideos = [...state];
-    updatedVideos.splice(videoId, 1);
-    return updatedVideos;
+  on(deleteVideo, (state, { videoId }): State => {
+    const updatedVideos = [...state.customVideos].splice(videoId, 1);
+    return { ...state, ...updatedVideos};
+  }),
+  on(addToFavorites, (state, { videoId }) => {
+    const favoriteVideosIds = [...state.favoriteVideosIds];
+    favoriteVideosIds.push(videoId);
+    return {...state, favoriteVideosIds}
+  }),
+  on(removeFromFavorites, (state, { videoId }) => {
+    const favoriteVideosIds = [...state.favoriteVideosIds].filter((id) => id !== videoId);
+    return {...state, favoriteVideosIds};
   }),
 );
+
+export const videosReducer: ActionReducer<State, Action> = (state, action) => appReducer(state, action);

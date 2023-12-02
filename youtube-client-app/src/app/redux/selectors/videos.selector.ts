@@ -1,32 +1,56 @@
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
-import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
-import { IPaginationPageInfo } from '@shared/models/search-response.model';
-
-export const selectVideosFeature = createFeatureSelector<Record<string, IYouTubeItem>>('videos');
-export const selectCustomVideosFeature = createFeatureSelector<IYouTubeCustomItem[]>('customVideos');
-export const selectFavoriteVideosIdsFeature = createFeatureSelector<string[]>('favoriteVideosIds');
-export const selectVideosIdsFeature = createFeatureSelector<string[]>('videosIds');
-export const selectPageIngoFeature = createFeatureSelector<IPaginationPageInfo>('pageInfo');
+import { State } from '@redux/app.state';
+import { IYouTubeCustomItem } from '@shared/models/search-item.model';
 
 type VideoInFavoriteType = MemoizedSelector<object, boolean, (s1: string[]) => boolean>;
 type VideoByIndexType = MemoizedSelector<object, IYouTubeCustomItem, (s1: IYouTubeCustomItem[]) => IYouTubeCustomItem>;
 
-export const selectVideosList = createSelector(
-  selectVideosFeature, selectVideosIdsFeature, (videos, videosIds) =>
-  videosIds.map((id) => videos[id]),
+export const selectVideosFeature = createFeatureSelector<State>('videos');
+
+export const selectVideoLoading = createSelector(
+  selectVideosFeature, (state: State) => state.isLoading
 );
 
-export const selectCurrnetPageNumList = createSelector(selectPageIngoFeature, (pageInfo) => pageInfo.currentPage)
+export const selectAllVideos = createSelector(
+  selectVideosFeature, (state: State) => state.allVideos
+);
+
+export const selectCustomVideos = createSelector(
+  selectVideosFeature, (state: State) => state.customVideos
+);
+
+export const selectFavoriteVideosIds = createSelector(
+  selectVideosFeature, (state: State) => state.favoriteVideosIds
+);
+
+export const selectVideosIds = createSelector(
+  selectVideosFeature, (state: State) => state.videosIds
+);
+
+export const selectPageIngo = createSelector(
+  selectVideosFeature, (state: State) => state.pageInfo
+);
+
+export const selectVideosList = createSelector(
+  selectAllVideos,
+  selectVideosIds,
+  (videos, videosIds) => videosIds.map((id) => videos[id]),
+);
+
+export const selectCurrnetPageNumList = createSelector(
+  selectPageIngo,
+  (pageInfo) => pageInfo.currentPage
+);
 
 export const selectFavoriteList = createSelector(
-  selectVideosFeature,
-  selectFavoriteVideosIdsFeature,
+  selectAllVideos,
+  selectFavoriteVideosIds,
   (videos, favoriteVideosIds) => favoriteVideosIds.map((id) => videos[id]),
 );
 
 export const selectVideoInFavorites = (videoId: string): VideoInFavoriteType =>
-  createSelector(selectFavoriteVideosIdsFeature, (favoriteVideosIds) => favoriteVideosIds.includes(videoId));
+  createSelector(selectFavoriteVideosIds, (favoriteVideosIds) => favoriteVideosIds.includes(videoId));
 
 export const selectVideoByIndex = (id: number): VideoByIndexType =>
-  createSelector(selectCustomVideosFeature, (customVideos: IYouTubeCustomItem[]) => customVideos[id]);
+  createSelector(selectCustomVideos, (customVideos: IYouTubeCustomItem[]) => customVideos[id]);
 

@@ -11,7 +11,7 @@ export interface IYouTubeApiResponse {
 }
 
 export interface IVideosResponse {
-  videos: IYouTubeItem[];
+  allVideos: IYouTubeItem[];
   pageInfo: IPageTokens;
 }
 

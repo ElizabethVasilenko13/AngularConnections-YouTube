@@ -1,22 +1,28 @@
-<div class="search-results">
-  <app-custom-card-item
-    *ngFor="let video of (customVideos$ | async); let i = index"
-    [video]="video"
-    [index]="i"
-  ></app-custom-card-item>
-  <app-search-item
-    *ngFor="
-      let video of (videos$ | async) ?? []
-        | titleFilter: (searchService.filterTextSource$ | async) ?? ''
-        | sortBy: sortingService.sortingStateSource$.getValue().comparator
-    "
-    [video]="video"
-  >
-  </app-search-item>
-</div>
-<app-pagination
-  *ngIf="(videos$ | async)!.length > 0"
-  [currentPage]="currentPageNum$ | async"
-  (nextClicked)="loadNextPage()"
-  (prevClicked)="loadPrevPage()"
-></app-pagination>
+<ng-container *ngIf="(videoloading$ | async); else loadedVideos">
+  <div class="loader"></div>
+</ng-container>
+<ng-template #loadedVideos>
+  <div class="search-results">
+    <app-custom-card-item
+      *ngFor="let video of (customVideos$ | async); let i = index"
+      [video]="video"
+      [index]="i"
+    ></app-custom-card-item>
+    <app-search-item
+      *ngFor="
+        let video of (videos$ | async) ?? []
+          | titleFilter: (searchService.filterTextSource$ | async) ?? ''
+          | sortBy: sortingService.sortingStateSource$.getValue().comparator
+      "
+      [video]="video"
+    >
+    </app-search-item>
+  </div>
+  <app-pagination
+    *ngIf="(videos$ | async)!.length > 0"
+    [currentPage]="currentPageNum$ | async"
+    (nextClicked)="loadNextPage()"
+    (prevClicked)="loadPrevPage()"
+  ></app-pagination>
+</ng-template>
+

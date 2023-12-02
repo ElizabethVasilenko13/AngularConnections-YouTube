@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { videoCreated } from '@redux/actions/videos.actions';
 import { IYouTubeCustomItem } from '@shared/models/search-item.model';
 import { futureDate } from '@shared/validators/future-date';
-import { videoCreated } from '@redux/actions/admin.actions';
 
 @Component({
   selector: 'app-admin-page',

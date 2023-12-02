@@ -1,8 +1,9 @@
-import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
-import { IPageTokens } from '@shared/models/search-response.model';
+import { IYouTubeCustomItem, IYouTubeItem } from "@shared/models/search-item.model";
+import { IPageTokens } from "@shared/models/search-response.model";
 
-export interface AppState {
-  videos: Record<string, IYouTubeItem>;
+export interface State {
+  isLoading: boolean;
+  allVideos: Record<string, IYouTubeItem>;
   customVideos: IYouTubeCustomItem[];
   favoriteVideosIds: string[];
   videosIds: string[];
@@ -12,8 +13,9 @@ export interface AppState {
   };
 }
 
-export const initialState: AppState = {
-  videos: {},
+export const initialState: State = {
+  isLoading: false,
+  allVideos: {},
   customVideos: [],
   favoriteVideosIds: [],
   videosIds: [],

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IYouTubeItem } from '@shared/models/search-item.model';
 import { Observable } from 'rxjs';
-import { selectFavoriteList } from 'src/app/redux/selectors/videos.selector';
+import { selectFavoriteList } from '@redux/selectors/videos.selector';
 
 @Component({
   selector: 'app-favorite-page',

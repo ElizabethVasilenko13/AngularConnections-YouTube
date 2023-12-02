@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { addToFavorites, removeFromFavorites } from '../redux/reducers/app.reducers';
+import { addToFavorites, removeFromFavorites } from '@redux/actions/videos.actions';
 
 @Injectable({
   providedIn: 'root',
