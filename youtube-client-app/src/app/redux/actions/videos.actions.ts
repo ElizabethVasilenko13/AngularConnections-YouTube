@@ -4,7 +4,6 @@ import { IPageTokens } from "@shared/models/search-response.model";
 
 export const videosLoadedSuccesful = createAction('[YouTube API] Videos Loaded Success', props<{allVideos: IYouTubeItem[]; pageInfo: IPageTokens; currentPage: number}>());
 export const loadVideos = createAction('[YouTube API] Load Videos', props<{ pageToken?: string; currentPage?: number }>());
-export const loadVideosWithPageToken = createAction('[YouTube API] Load Videos', props<{ pageToken?: string }>());
 
 export const openVideo = createAction('[Result Page] Open Video', props<{ videoId: string }>());
 
