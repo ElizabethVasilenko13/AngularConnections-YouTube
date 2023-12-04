@@ -19,7 +19,7 @@
     </app-search-item>
   </div>
   <app-pagination
-    *ngIf="(videos$ | async)!.length > 0"
+    *ngIf="((videos$ | async) ?? []).length > 0"
     [currentPage]="currentPageNum$ | async"
     (nextClicked)="loadNextPage()"
     (prevClicked)="loadPrevPage()"

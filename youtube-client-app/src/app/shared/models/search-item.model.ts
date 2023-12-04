@@ -4,7 +4,7 @@ export interface IYouTubeCustomItem {
   img: string;
   videoLink: string;
   creationDate: string;
-  tags: string[];
+  tags: { tag: string }[];
 }
 
 export interface IYouTubeApiItem {
