@@ -1,0 +1,26 @@
+<div class="pagination-container">
+  <app-button
+    [customClass]="'img__btn'"
+    (buttonClick)="prevClicked.emit()"
+    [title]="'Load Prev'"
+    [disabled]="currentPage === 1"
+    [buttonTemplate]="loadPrevBtnTemplate"
+  >
+    <ng-template #loadPrevBtnTemplate>
+      <img src="assets/arrowLeft.png" alt="Load Prev" class="btn__icon" />
+    </ng-template>
+  </app-button>
+  <div class="page-num">
+    {{ currentPage }}
+  </div>
+  <app-button
+    [customClass]="'img__btn'"
+    (buttonClick)="nextClicked.emit()"
+    [title]="'Load Next'"
+    [buttonTemplate]="loadNextBtnTemplate"
+  >
+    <ng-template #loadNextBtnTemplate>
+      <img src="assets/arrowRight.png" alt="Load Next" class="btn__icon" />
+    </ng-template>
+  </app-button>
+</div>

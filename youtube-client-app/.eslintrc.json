@@ -17,6 +17,7 @@
         "prettier"
       ],
       "rules": {
+        "import/extensions": "off",
         "class-methods-use-this": "off",
         "@typescript-eslint/lines-between-class-members": "off",
         "@typescript-eslint/member-delimiter-style": "error",
@@ -49,6 +50,10 @@
         "plugin:@angular-eslint/template/accessibility",
         "prettier"
       ]
+    },
+    {
+      "files": ["*.ts"],
+      "extends": ["plugin:@ngrx/recommended-requiring-type-checking"]
     }
   ]
 }

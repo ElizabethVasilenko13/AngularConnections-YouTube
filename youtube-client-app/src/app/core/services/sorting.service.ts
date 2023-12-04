@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SortingState } from '@core/models/sorting.model';
-import { IYouTubeApiItem } from '@shared/models/search-item.model';
+import { IYouTubeItem } from '@shared/models/search-item.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
@@ -15,13 +15,13 @@ export class SortingService {
     this.sortingStateSource$.next(sortingState);
   }
 
-  dateComparator(a: IYouTubeApiItem, b: IYouTubeApiItem): number {
+  dateComparator(a: IYouTubeItem, b: IYouTubeItem): number {
     const valueA = new Date(a.snippet.publishedAt).getTime();
     const valueB = new Date(b.snippet.publishedAt).getTime();
     return valueA - valueB;
   }
 
-  viewsComparator(a: IYouTubeApiItem, b: IYouTubeApiItem): number {
+  viewsComparator(a: IYouTubeItem, b: IYouTubeItem): number {
     if (a.statistics && b.statistics) {
       const valueA = +a.statistics.viewCount;
       const valueB = +b.statistics.viewCount;

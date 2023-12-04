@@ -1,4 +1,4 @@
-import { IYouTubeApiItem } from '@shared/models/search-item.model';
+import { IYouTubeItem } from '@shared/models/search-item.model';
 
 export interface SortingState {
   key: string;
@@ -6,4 +6,4 @@ export interface SortingState {
   comparator: SortComparator;
 }
 
-export type SortComparator = (a: IYouTubeApiItem, b: IYouTubeApiItem) => number;
+export type SortComparator = (a: IYouTubeItem, b: IYouTubeItem) => number;

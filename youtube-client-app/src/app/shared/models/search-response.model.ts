@@ -1,4 +1,4 @@
-import { IYouTubeApiItem } from './search-item.model';
+import { IYouTubeApiItem, IYouTubeItem } from './search-item.model';
 
 export interface IYouTubeApiResponse {
   kind: string;
@@ -6,7 +6,23 @@ export interface IYouTubeApiResponse {
   pageInfo: IPageInfo;
   items: IYouTubeApiItem[];
   redionCode: string;
-  nextPageToken: string;
+  nextPageToken?: string;
+  prevPageToken?: string;
+}
+
+export interface IVideosResponse {
+  allVideos: IYouTubeItem[];
+  pageInfo: IPageTokens;
+}
+
+export interface IPageTokens {
+  nextPageToken?: string;
+  prevPageToken?: string;
+}
+
+export interface IPaginationPageInfo {
+  currentPage: number;
+  pageTokens: IPageTokens;
 }
 
 export interface IPageInfo {

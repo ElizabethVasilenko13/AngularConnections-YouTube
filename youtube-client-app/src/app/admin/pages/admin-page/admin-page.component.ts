@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { futureDate } from 'src/app/shared/validators/future-date';
+import { Store } from '@ngrx/store';
+import { videoCreated } from '@redux/actions/videos.actions';
+import { IYouTubeCustomItem } from '@shared/models/search-item.model';
+import { futureDate } from '@shared/validators/future-date';
 
 @Component({
   selector: 'app-admin-page',
@@ -8,7 +11,10 @@ import { futureDate } from 'src/app/shared/validators/future-date';
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+  ) {}
 
   createCardForm = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
@@ -41,6 +47,8 @@ export class AdminPageComponent {
   }
 
   onSubmit(): void {
+    const videoData = { ...(this.createCardForm.value as IYouTubeCustomItem) };
+    this.store.dispatch(videoCreated({ video: videoData }));
     this.resetForm();
   }
 }

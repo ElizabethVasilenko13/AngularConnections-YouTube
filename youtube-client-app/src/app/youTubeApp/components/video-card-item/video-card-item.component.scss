@@ -1,0 +1,42 @@
+.video-card {
+  height: 100%;
+  box-sizing: border-box;
+  max-width: 340px;
+  padding: 10px;
+  display: flex;
+  background-color: #fff;
+  flex-direction: column;
+  border-radius: 7px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: relative;
+
+  .btns-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .card__img {
+    width: 320px;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .video-info {
+    padding: 0 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 1;
+    color: white;
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    h3 {
+      text-align: right;
+      flex-grow: 1;
+    }
+  }
+}

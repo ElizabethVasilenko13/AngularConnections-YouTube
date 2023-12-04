@@ -1,11 +1,18 @@
 <div class="container">
-  <ng-container *ngIf="video; else noVideoMessage">
+  <ng-container *ngIf="video">
     <button class="video__back-btn" [appDateColor]="video.snippet.publishedAt" (click)="goBack()">
       <img src="assets/moveBackIcon.png" alt="Go back" />
     </button>
     <div class="video-container" [appDateColor]="video.snippet.publishedAt" [cssProperty]="'box-shadow'">
       <img class="video__img" [src]="video.snippet.thumbnails.maxres.url" alt="videoImg" />
       <div class="video__info">
+        <app-favorite-button
+          class="favorite-btn"
+          [videoId]="video.id"
+          (addToFavorites)="favoriteService.addToFavorites(video.id)"
+          (removeFromFavorites)="favoriteService.removeFromFavorites(video.id)"
+        >
+        </app-favorite-button>
         <div class="info__main">
           <div class="info__header">
             <h1 class="video__title">{{ video.snippet.title }}</h1>
@@ -13,7 +20,7 @@
           </div>
           <div class="info__deskr">
             <b>Description:</b>
-            <p class="text-secondary">{{ video.snippet.description | slice: 0:2000 }}...</p>
+            <p class="text-secondary">{{ video.snippet.description | slice: 0 : 2000 }}...</p>
           </div>
         </div>
         <app-video-statics [statistics]="video.statistics"></app-video-statics>
@@ -21,9 +28,40 @@
       </div>
     </div>
   </ng-container>
-  <ng-template #noVideoMessage>
+  <ng-container *ngIf="customVideo">
+    <button class="video__back-btn" [appDateColor]="customVideo.creationDate" (click)="goBack()">
+      <img src="assets/moveBackIcon.png" alt="Go back" />
+    </button>
+    <div class="video-container" [appDateColor]="customVideo.creationDate" [cssProperty]="'box-shadow'">
+      <div class="video__img">
+        <img [src]="customVideo.img" alt="videoImg" />
+      </div>
+      <div class="video__info">
+        <div class="info__main">
+          <div class="info__header">
+            <h1 class="video__title">{{ customVideo.title }}</h1>
+            <div class="video__date text-secondary">{{ customVideo.creationDate | date: 'fullDate' }}</div>
+          </div>
+          <div class="info__deskr">
+            <b>Description:</b>
+            <p class="text-secondary">{{ customVideo.description | slice: 0 : 2000 }}...</p>
+          </div>
+        </div>
+        <app-button
+          [customClass]="'item__button'"
+          [title]="'Delete Card'"
+          (buttonClick)="youtubeService.deleteCustomCard(+videoId)"
+          [buttonTemplate]="deleteCardBtnTemplate"
+        >
+          <ng-template #deleteCardBtnTemplate>Delete item</ng-template>
+        </app-button>
+        <div class="bottom-line" [appDateColor]="customVideo.creationDate"></div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!video && !customVideo">
     <div class="no-found">
       <h1>Opps... No video found.</h1>
     </div>
-  </ng-template>
+  </ng-container>
 </div>
