@@ -25,7 +25,6 @@ describe('SortingService', () => {
     };
 
     sortingService.setSortingState(sortingState);
-
     expect(sortingService.sortingStateSource$.value).toEqual(sortingState);
   });
 
@@ -34,7 +33,6 @@ describe('SortingService', () => {
     const item2: IYouTubeItem = { snippet: { publishedAt: '2023-01-02T00:00:00Z' } } as IYouTubeItem;
 
     const result = sortingService.dateComparator(item1, item2);
-
     expect(result).toBeLessThan(0);
   });
 
@@ -43,7 +41,6 @@ describe('SortingService', () => {
     const item2: IYouTubeItem = { statistics: { viewCount: '200' } } as IYouTubeItem;
 
     const result = sortingService.viewsComparator(item1, item2);
-
     expect(result).toBeLessThan(0);
   });
 
@@ -52,7 +49,6 @@ describe('SortingService', () => {
     sortingService.setSortingState(sortingState);
 
     const result = sortingService.isDescSorting('date');
-
     expect(result).toBeTruthy();
   });
 
@@ -61,7 +57,6 @@ describe('SortingService', () => {
     sortingService.setSortingState(sortingState);
 
     const result = sortingService.isAscSorting('views');
-
     expect(result).toBeTruthy();
   });
   it('should return false for isAscSorting', () => {
@@ -69,7 +64,6 @@ describe('SortingService', () => {
     sortingService.setSortingState(sortingState);
 
     const result = sortingService.isAscSorting('views');
-
     expect(result).toBeFalsy();
   });
 });
