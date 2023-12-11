@@ -23,14 +23,20 @@
             "polyfills": [
               "zone.js"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/scss"
+              ]
+            },
+            "styles": [
+              "src/styles.scss",
+              "src/assets/scss/vars.scss"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -92,8 +98,14 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/scss"
+              ]
+            },
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/scss/vars.scss"
             ],
             "scripts": []
           }
