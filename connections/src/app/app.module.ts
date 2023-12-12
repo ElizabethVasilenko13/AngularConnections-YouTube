@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from '@core/core.module';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CoreModule } from '@core/core.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatButtonModule,
     CoreModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([])

@@ -1,0 +1,30 @@
+<section class="container auth">
+  <div class="auth__form">
+    <h2>Sign up</h2>
+    <form class="form" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <app-form-control
+        label="FirstName"
+        controlName="firstName"
+        [control]="registrationForm.get('firstName')"
+        [isRequired]="true"
+      ></app-form-control>
+      <app-form-control
+        label="Email"
+        controlName="email"
+        [control]="registrationForm.get('email')"
+        [isRequired]="true"
+        type="email"
+      ></app-form-control>
+      <app-form-control
+        label="Password"
+        controlName="password"
+        [control]="registrationForm.get('password')"
+        [isRequired]="true"
+        type="password"
+      ></app-form-control>
+      <div class="btn__container">
+        <button type="submit" class="auth__btn" [disabled]="registrationForm.invalid">Sign up</button>
+      </div>
+    </form>
+  </div>
+</section>
