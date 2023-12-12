@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store, select } from '@ngrx/store';
+import { sighUpAction } from '../../store/auth.actions';
+import { Observable } from 'rxjs';
+import { isSubmittingSelector } from '../../store/auth.selectors';
 
 @Component({
   selector: 'app-registration-page',
@@ -8,11 +12,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegistrationPageComponent implements OnInit {
   registrationForm!: FormGroup;
+  isSubmitting$!: Observable<boolean>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
     this.initForm();
+    this.initValues();
+  }
+
+  initValues(): void {
+    this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector))
   }
 
   initForm(): void {
@@ -28,6 +38,7 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.store.dispatch(sighUpAction());
     console.log(this.registrationForm.value);
   }
 

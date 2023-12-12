@@ -23,7 +23,7 @@
         type="password"
       ></app-form-control>
       <div class="btn__container">
-        <button type="submit" class="auth__btn" [disabled]="registrationForm.invalid">Sign up</button>
+        <button type="submit" class="auth__btn" [disabled]="registrationForm.invalid || (isSubmitting$ | async)">Sign up</button>
       </div>
     </form>
   </div>
