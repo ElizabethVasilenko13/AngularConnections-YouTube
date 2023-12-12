@@ -1,5 +1,9 @@
-
-<app-button [customClass]="'header__icon-btn'" [title]="'Main page'" (buttonClick)="navigateToMain()" [buttonTemplate]="mainPageBtnTemplate">
+<app-button
+  [customClass]="'header__icon-btn'"
+  [title]="'Main page'"
+  (buttonClick)="navigateToMain()"
+  [buttonTemplate]="mainPageBtnTemplate"
+>
   <ng-template #mainPageBtnTemplate>
     <img src="assets/youTubeIcon.png" alt="youTubeIcon" class="header__icon-img" />
   </ng-template>
@@ -16,7 +20,6 @@
 </div>
 <app-button [customClass]="'img__btn'" (buttonClick)="toggleFiltersBtn()" [buttonTemplate]="settingsTemplate">
   <ng-template #settingsTemplate>
-    <img src="assets/searchSettingIcon.png" alt="youTubeIcon" class="btn__icon">
+    <img src="assets/searchSettingIcon.png" alt="youTubeIcon" class="btn__icon" />
   </ng-template>
 </app-button>
-

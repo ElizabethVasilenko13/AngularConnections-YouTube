@@ -12,11 +12,7 @@
         <ng-template #deleteCustomCardBtnTemplate>Delete item</ng-template>
       </app-button>
       <a routerLink="/detail/{{ index }}">
-        <app-button
-          [customClass]="'item__button'"
-          [title]="'Show more'"
-          [buttonTemplate]="showMoreBtnTemplate"
-        >
+        <app-button [customClass]="'item__button'" [title]="'Show more'" [buttonTemplate]="showMoreBtnTemplate">
           <ng-template #showMoreBtnTemplate>more...</ng-template>
         </app-button>
       </a>

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { UserAuthError } from '@shared/types/user';
 
 @Component({
   selector: 'app-form-control',
@@ -12,15 +13,16 @@ export class FormControlComponent {
   @Input() control: AbstractControl | null = null;
   @Input() isRequired = false;
   @Input() type = 'text';
+  @Input() backendError: UserAuthError | null = null;
 
   isInvalid(): boolean {
-    return !!this.control && this.control.invalid && (this.control.dirty || this.control.touched);
+    return !!this.control && this.control.invalid && (this.control.dirty || this.control.touched) || !!this.backendError;
   }
 
   get errors(): string[] {
     const { control } = this;
     const errorMessages: string[] = [];
-
+    if (this.backendError) errorMessages.push(this.backendError.message);
     if (control?.errors) {
       Object.entries(control.errors).forEach((error) => {
         const [key, message] = error;

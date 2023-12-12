@@ -11,6 +11,10 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { Features } from '@store/features.enum';
 import { authReducer } from './store/auth.reduces';
+import { SignUpService } from './services/sign-up.service';
+import { AuthEffects } from './store/auth.effects';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -24,8 +28,10 @@ import { authReducer } from './store/auth.reduces';
     MatButtonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
     StoreModule.forFeature(Features.Auth, authReducer),
-    // EffectsModule.forFeature([UserEffects]),
-  ]
+    EffectsModule.forFeature([AuthEffects]),
+  ],
+  providers: [SignUpService]
 })
 export class AuthModule { }

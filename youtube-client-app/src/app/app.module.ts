@@ -26,7 +26,7 @@ import { FavoriteModule } from './favorite/favorite.module';
     AuthModule,
     FavoriteModule,
     StoreModule.forRoot({
-      videos: videosReducer
+      videos: videosReducer,
     }),
     EffectsModule.forRoot([YouTubeApiEffects]),
     StoreDevtoolsModule.instrument({

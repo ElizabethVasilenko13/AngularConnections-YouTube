@@ -17,8 +17,8 @@ export class YouTubeApiEffects {
       ofType(loadVideos),
       exhaustMap(({ pageToken, currentPage = 1 }) =>
         this.youTubeService
-        .getVideos(pageToken)
-        .pipe(map(({ allVideos, pageInfo }) => videosLoadedSuccesful({ allVideos, pageInfo, currentPage }))),
+          .getVideos(pageToken)
+          .pipe(map(({ allVideos, pageInfo }) => videosLoadedSuccesful({ allVideos, pageInfo, currentPage }))),
       ),
     ),
   );
