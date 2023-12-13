@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyStyles } from '../../models/auth.enum';
 import { Router } from '@angular/router';
 import { sighInAction, sighInFailureAction, sighInSuccessAction } from './signin.actions';
+import { LocalStorageService } from '@core/services/local-storage.service';
 
 @Injectable()
 export class SignInEffects {
@@ -14,6 +15,7 @@ export class SignInEffects {
     private actions$: Actions,
     private signUpService: SignUpService,
     private router: Router,
+    private localStorageService: LocalStorageService
   ) {}
 
   register$ = createEffect(() =>
@@ -26,6 +28,10 @@ export class SignInEffects {
               'You`ve been succesfully logined',
               NotifyStyles.Success,
             );
+            this.localStorageService.set('userData', {
+              email: userData.email,
+              token, uid
+            })
             this.router.navigateByUrl(`/`);
             return sighInSuccessAction({ userData, token, uid });
           }),
