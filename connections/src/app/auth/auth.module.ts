@@ -10,18 +10,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { Features } from '@store/features.enum';
-import { authReducer } from './store/auth.reduces';
+import { authReducer } from './store/signup/signup.reduces';
 import { SignUpService } from './services/sign-up.service';
-import { AuthEffects } from './store/auth.effects';
+import { AuthEffects } from './store/signup/signup.effects';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-
 
 @NgModule({
   declarations: [
     RegistrationPageComponent,
     LoginPageComponent,
-    FormControlComponent
+    FormControlComponent,
   ],
   imports: [
     CommonModule,
@@ -29,9 +27,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AuthRoutingModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    StoreModule.forFeature(Features.Auth, authReducer),
+    StoreModule.forFeature(Features.SignUp, authReducer),
     EffectsModule.forFeature([AuthEffects]),
   ],
-  providers: [SignUpService]
+  providers: [SignUpService],
 })
-export class AuthModule { }
+export class AuthModule {}

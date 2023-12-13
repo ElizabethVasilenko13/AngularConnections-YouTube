@@ -1,9 +1,9 @@
 export const enum SignUpErrorsTypes {
   InvalidFormData = 'InvalidFormDataException',
-  Duplication = 'PrimaryDuplicationException'
+  Duplication = 'PrimaryDuplicationException',
 }
 
 export const enum NotifyStyles {
   Success = 'snackbar-success',
-  Error = 'snackbar-error'
+  Error = 'snackbar-error',
 }

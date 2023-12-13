@@ -4,11 +4,14 @@ import { AUTH_ROUTE } from '@core/constants/routing';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
-  { path: AUTH_ROUTE, loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
+  {
+    path: AUTH_ROUTE,
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

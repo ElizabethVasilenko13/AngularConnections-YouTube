@@ -8,7 +8,10 @@ import { NotifyStyles } from '../models/auth.enum';
 
 @Injectable()
 export class SignUpService {
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
+  constructor(
+    private http: HttpClient,
+    private snackBar: MatSnackBar,
+  ) {}
 
   signUp(data: UserSignUpProps): Observable<null> {
     const url = `${environment.apiUrl}registration`;

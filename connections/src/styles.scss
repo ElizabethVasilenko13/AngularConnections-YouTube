@@ -1,5 +1,5 @@
 @import 'vars';
-@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body {
   background-color: $background-color;
@@ -21,7 +21,7 @@ app-root {
 .custom-snackbar {
   .mat-mdc-snack-bar-container .mdc-snackbar__surface {
     border-radius: 8px !important;
-    background-color:  $accent-color-light !important;
+    background-color: $accent-color-light !important;
   }
 
   .mat-mdc-button.mat-mdc-snack-bar-action {
@@ -31,7 +31,7 @@ app-root {
 
 .snackbar-success {
   .mdc-snackbar__surface {
-    background-color:  $success-color !important;
+    background-color: $success-color !important;
   }
 
   .mdc-snackbar__label {

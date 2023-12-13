@@ -1,4 +1,4 @@
 export enum Features {
-  Auth = 'auth',
+  SignUp = 'signup',
   User = 'user',
 }
