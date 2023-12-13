@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { UserAuthError } from '@shared/types/user';
+import { UserAuthError } from '../../models/auth';
 
 @Component({
   selector: 'app-form-control',

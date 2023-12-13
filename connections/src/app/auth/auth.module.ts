@@ -14,6 +14,8 @@ import { authReducer } from './store/signup/signup.reduces';
 import { SignUpService } from './services/sign-up.service';
 import { AuthEffects } from './store/signup/signup.effects';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { signinReducer } from './store/signin/signin.reducer';
+import { SignInEffects } from './store/signin/signin.effects';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     MatSnackBarModule,
     StoreModule.forFeature(Features.SignUp, authReducer),
-    EffectsModule.forFeature([AuthEffects]),
+    StoreModule.forFeature(Features.SignIn, signinReducer),
+    EffectsModule.forFeature([AuthEffects, SignInEffects]),
   ],
   providers: [SignUpService],
 })

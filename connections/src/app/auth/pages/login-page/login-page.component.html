@@ -1,1 +1,39 @@
-<p>login-page works!</p>
+<section class="container auth">
+  <div class="auth__form">
+    <h2>Sign up</h2>
+    <div class="" *ngIf="backendError$ | async">
+      {{ (backendError$ | async)?.message }}
+    </div>
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <app-form-control
+        label="Email"
+        controlName="email"
+        [control]="loginForm.get('email')"
+        [isRequired]="true"
+        type="email"
+        [backendError]="backendError$ | async"
+      ></app-form-control>
+      <app-form-control
+        label="Password"
+        controlName="password"
+        [control]="loginForm.get('password')"
+        [isRequired]="true"
+        type="password"
+      ></app-form-control>
+      <div class="btn__container">
+        <button
+          type="submit"
+          class="auth__btn"
+          [disabled]="
+            loginForm.invalid ||
+            (isSubmitting$ | async) ||
+            hasBackendError
+          "
+        >
+          Sign up
+        </button>
+        <a routerLink="/auth/signup"> Dont have an account? Sign Up </a>
+      </div>
+    </form>
+  </div>
+</section>

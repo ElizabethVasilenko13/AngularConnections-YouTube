@@ -8,8 +8,8 @@ import {
   backendErrorSelector,
   isSubmittingSelector,
 } from '../../store/signup/signup.selectors';
-import { UserAuthError, UserSignUpProps } from '@shared/types/user';
 import { SignUpErrorsTypes } from '../../models/auth.enum';
+import { UserAuthError, UserSignUpProps } from '../../models/auth';
 
 @Component({
   selector: 'app-registration-page',
