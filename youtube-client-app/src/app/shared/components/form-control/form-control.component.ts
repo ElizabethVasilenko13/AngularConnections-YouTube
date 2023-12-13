@@ -4,12 +4,12 @@ import { AbstractControl } from '@angular/forms';
 @Component({
   selector: 'app-form-control',
   templateUrl: './form-control.component.html',
-  styleUrls: ['./form-control.component.scss']
+  styleUrls: ['./form-control.component.scss'],
 })
 export class FormControlComponent {
   @Input() label = '';
   @Input() controlName = '';
-  @Input() control:  AbstractControl | null= null;
+  @Input() control: AbstractControl | null = null;
   @Input() isRequired = false;
   @Input() type = 'text';
 
@@ -41,7 +41,8 @@ export class FormControlComponent {
               one special character, e.g., ! @ # ?,
               uppercase and lowercase letters)`);
             break;
-          default: errorMessages.push(`The ${this.label.toLowerCase()} is invalid`)
+          default:
+            errorMessages.push(`The ${this.label.toLowerCase()} is invalid`);
         }
       });
     }

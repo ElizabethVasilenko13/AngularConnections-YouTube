@@ -17,13 +17,23 @@
         </ng-template>
       </app-button>
     </a>
-    <app-button *ngIf="!auth.isLoggedIn.value; else loggedIn" [customClass]="'img__btn'" [title]="'Login'" [buttonTemplate]="loginBtnTemplate">
+    <app-button
+      *ngIf="!auth.isLoggedIn.value; else loggedIn"
+      [customClass]="'img__btn'"
+      [title]="'Login'"
+      [buttonTemplate]="loginBtnTemplate"
+    >
       <ng-template #loginBtnTemplate>
         <img src="assets/loginIcon.png" alt="exitIcon" class="btn__icon" />
       </ng-template>
     </app-button>
     <ng-template #loggedIn>
-      <app-button [customClass]="'img__btn'" (buttonClick)="logout()" [title]="'Logout'" [buttonTemplate]="logoutBtnTemplate">
+      <app-button
+        [customClass]="'img__btn'"
+        (buttonClick)="logout()"
+        [title]="'Logout'"
+        [buttonTemplate]="logoutBtnTemplate"
+      >
         <ng-template #logoutBtnTemplate>
           <img src="assets/exiIcon.svg" alt="exitIcon" class="btn__icon" />
         </ng-template>

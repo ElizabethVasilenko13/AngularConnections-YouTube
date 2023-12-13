@@ -13,7 +13,6 @@ import { selectVideoByIndex } from '@redux/selectors/videos.selector';
   templateUrl: './detail-info-page.component.html',
   styleUrls: ['./detail-info-page.component.scss'],
 })
-
 export class DetailInfoPageComponent implements OnInit {
   video: IYouTubeItem | null = null;
   customVideo$!: Observable<IYouTubeCustomItem>;
@@ -25,7 +24,7 @@ export class DetailInfoPageComponent implements OnInit {
     public youtubeService: YoutubeService,
     private location: Location,
     private store: Store,
-    readonly favoriteService: FavoriteService
+    readonly favoriteService: FavoriteService,
   ) {}
 
   ngOnInit(): void {
@@ -37,11 +36,14 @@ export class DetailInfoPageComponent implements OnInit {
     this.customVideo$ = this.store.select(selectVideoByIndex(+this.videoId));
 
     if (this.videoId) {
-      this.youtubeService.getVideoInfo(this.videoId).pipe(take(1)).subscribe((video) => {
-        if (video && Object.keys(video).length > 0) {
-          this.video = video;
-        }
-      });
+      this.youtubeService
+        .getVideoInfo(this.videoId)
+        .pipe(take(1))
+        .subscribe((video) => {
+          if (video && Object.keys(video).length > 0) {
+            this.video = video;
+          }
+        });
 
       this.customVideo$.pipe(take(1)).subscribe((customvideo) => {
         if (customvideo && Object.keys(customvideo).length > 0) {

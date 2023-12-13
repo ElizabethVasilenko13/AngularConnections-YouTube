@@ -6,7 +6,7 @@ import { passwordStrengthValidator } from '@shared/validators/password-strength'
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   isLoggedIn = new BehaviorSubject(false);

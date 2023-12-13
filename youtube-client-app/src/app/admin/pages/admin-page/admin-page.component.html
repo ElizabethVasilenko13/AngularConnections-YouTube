@@ -1,15 +1,46 @@
 <div class="container">
   <h2>Create new card</h2>
   <form class="form" [formGroup]="createCardForm" (ngSubmit)="onSubmit()">
-    <app-form-control label="Title" controlName="title" [control]="createCardForm.get('title')" [isRequired]="true"></app-form-control>
-    <app-form-control label="Description" controlName="description" [control]="createCardForm.get('description')"></app-form-control>
-    <app-form-control label="Img" controlName="img" [control]="createCardForm.get('img')" [isRequired]="true"></app-form-control>
-    <app-form-control label="Link video" controlName="videoLink" [control]="createCardForm.get('videoLink')" [isRequired]="true" type="url"></app-form-control>
-    <app-form-control label="Creation date" controlName="creationDate" [control]="createCardForm.get('creationDate')" [isRequired]="true" type="date"></app-form-control>
+    <app-form-control
+      label="Title"
+      controlName="title"
+      [control]="createCardForm.get('title')"
+      [isRequired]="true"
+    ></app-form-control>
+    <app-form-control
+      label="Description"
+      controlName="description"
+      [control]="createCardForm.get('description')"
+    ></app-form-control>
+    <app-form-control
+      label="Img"
+      controlName="img"
+      [control]="createCardForm.get('img')"
+      [isRequired]="true"
+    ></app-form-control>
+    <app-form-control
+      label="Link video"
+      controlName="videoLink"
+      [control]="createCardForm.get('videoLink')"
+      [isRequired]="true"
+      type="url"
+    ></app-form-control>
+    <app-form-control
+      label="Creation date"
+      controlName="creationDate"
+      [control]="createCardForm.get('creationDate')"
+      [isRequired]="true"
+      type="date"
+    ></app-form-control>
     <div formArrayName="tags" class="tags">
       <ng-container *ngFor="let tag of tags.controls; let i = index">
         <div [formGroupName]="i" class="form-group">
-          <app-form-control label="Tag {{i + 1}}" controlName="tag" [control]="tags.at(i).get('tag')" [isRequired]="true"></app-form-control>
+          <app-form-control
+            label="Tag {{ i + 1 }}"
+            controlName="tag"
+            [control]="tags.at(i).get('tag')"
+            [isRequired]="true"
+          ></app-form-control>
         </div>
       </ng-container>
       <app-button
@@ -23,7 +54,12 @@
       </app-button>
     </div>
     <div class="button-container">
-      <app-button [customClass]="'item__button'" (buttonClick)="resetForm()" [title]="'Reset form'" [buttonTemplate]="resetBtnTemplate">
+      <app-button
+        [customClass]="'item__button'"
+        (buttonClick)="resetForm()"
+        [title]="'Reset form'"
+        [buttonTemplate]="resetBtnTemplate"
+      >
         <ng-template #resetBtnTemplate>Reset form</ng-template>
       </app-button>
       <app-button

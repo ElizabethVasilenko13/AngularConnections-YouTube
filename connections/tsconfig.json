@@ -20,15 +20,12 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "lib": ["ES2022", "dom"],
     "paths": {
       "@core/*": ["./src/app/core/*"],
       "@shared/*": ["./src/app/shared/*"],
       "@store/*": ["./src/app/store/*"],
-      "@env/*": ["./src/environments/*"],
+      "@env/*": ["./src/environments/*"]
     }
   },
   "angularCompilerOptions": {

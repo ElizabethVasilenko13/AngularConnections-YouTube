@@ -21,14 +21,9 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     VideoCardItemComponent,
     FavoriteButtonComponent,
     PaginationComponent,
-    SortBy
+    SortBy,
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    FormsModule,
-    YoutubeRoutingModule
-  ],
+  imports: [CommonModule, SharedModule, FormsModule, YoutubeRoutingModule],
   exports: [SearchResultComponent, VideoStaticsComponent, VideoCardItemComponent],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],

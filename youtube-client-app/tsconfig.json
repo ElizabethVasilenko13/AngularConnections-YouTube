@@ -34,13 +34,13 @@
       "@youtube": ["./src/app/youTubeApp"],
       "@youtube/*": ["./src/app/youTubeApp/*"],
       "@redux": ["./src/app/redux"],
-      "@redux/*": ["./src/app/redux/*"],
+      "@redux/*": ["./src/app/redux/*"]
     }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true,
+    "strictTemplates": true
   }
 }

@@ -6,7 +6,7 @@ import { AuthService } from '@services/auth.service';
 @Component({
   selector: 'app-user-bar',
   templateUrl: './user-bar.component.html',
-  styleUrls: ['./user-bar.component.scss']
+  styleUrls: ['./user-bar.component.scss'],
 })
 export class UserBarComponent {
   constructor(

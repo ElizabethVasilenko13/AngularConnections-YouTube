@@ -1,0 +1,94 @@
+@import 'vars';
+@import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body {
+  background-color: $background-color;
+  font-size: 14px;
+  margin: 0;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.custom-snackbar {
+  .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    border-radius: 8px !important;
+    background-color: $accent-color-light !important;
+  }
+
+  .mat-mdc-button.mat-mdc-snack-bar-action {
+    color: $primary-text-color !important;
+  }
+}
+
+.snackbar-success {
+  .mdc-snackbar__surface {
+    background-color: $success-color !important;
+  }
+
+  .mdc-snackbar__label {
+    color: $primary-text-color !important;
+  }
+}
+
+.snackbar-error {
+  .mdc-snackbar__surface {
+    background-color: $error-color !important;
+  }
+
+  .mdc-snackbar__label {
+    color: $primary-text-color !important;
+  }
+}
+
+body,
+a {
+  color: $primary-text-color;
+  font-family: $main-font;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+a {
+  transition: 0.1s all ease-in;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+main {
+  flex: 1;
+}
+
+input {
+  border: none;
+}
+
+ul,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
