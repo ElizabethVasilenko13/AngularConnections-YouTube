@@ -1,9 +1,6 @@
 <section class="container auth">
   <div class="auth__form">
     <h2>Sign up</h2>
-    <div class="" *ngIf="backendError$ | async">
-      {{ (backendError$ | async)?.message }}
-    </div>
     <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <app-form-control
         label="Email"
@@ -19,7 +16,11 @@
         [control]="loginForm.get('password')"
         [isRequired]="true"
         type="password"
+        [backendError]="backendError$ | async"
       ></app-form-control>
+      <div class="error" *ngIf="backendError$ | async">
+        {{ (backendError$ | async)?.message }}
+      </div>
       <div class="btn__container">
         <button
           type="submit"
@@ -30,7 +31,7 @@
             hasBackendError
           "
         >
-          Sign up
+          Sign in
         </button>
         <a routerLink="/auth/signup"> Dont have an account? Sign Up </a>
       </div>

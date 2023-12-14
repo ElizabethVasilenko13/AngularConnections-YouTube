@@ -10,3 +10,6 @@ export const sighUpFailureAction = createAction(
   '[Auth] Sign Up Failure',
   props<{ error: UserAuthError }>(),
 );
+
+export const sighUpResetAction = createAction('[Auth] Sign Up Reset');
+

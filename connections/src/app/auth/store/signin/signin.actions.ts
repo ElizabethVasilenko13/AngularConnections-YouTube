@@ -10,3 +10,6 @@ export const sighInFailureAction = createAction(
   '[Auth] Sign In Failure',
   props<{ error: UserAuthError }>(),
 );
+
+export const sighInResetAction = createAction('[Auth] Sign In Reset');
+

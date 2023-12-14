@@ -30,7 +30,6 @@ export class FormControlComponent {
   get errors(): string[] {
     const { control } = this;
     const errorMessages: string[] = [];
-    if (this.backendError) errorMessages.push(this.backendError.message);
     if (control?.errors) {
       Object.entries(control.errors).forEach((error) => {
         const [key, message] = error;

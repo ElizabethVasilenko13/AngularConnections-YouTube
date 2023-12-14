@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { UserAuthError, UserSignInProps } from '../../models/auth';
 import { Store, select } from '@ngrx/store';
 import { backendSignInErrorSelector, isSubmittingSignInSelector } from '../../store/signin/signin.selectors';
-import { sighInAction } from '../../store/signin/signin.actions';
+import { sighInAction, sighInResetAction } from '../../store/signin/signin.actions';
 
 @Component({
   selector: 'app-login-page',
@@ -29,6 +29,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   initValues(): void {
+    this.store.dispatch(sighInResetAction());
+
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSignInSelector));
     this.backendError$ = this.store.pipe(select(backendSignInErrorSelector));
     // this.userEmail$ = this.store.pipe(select(authEmailSelector));

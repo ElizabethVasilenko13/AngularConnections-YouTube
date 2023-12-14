@@ -8,6 +8,12 @@
   }
 }
 
+
+.error {
+  color: $error-color;
+  margin-top: 10px;
+}
+
 .auth__form {
   border: 1px solid $primaty-color-light;
   padding: 30px;

@@ -1,15 +1,13 @@
 <section class="container auth">
   <div class="auth__form">
     <h2>Sign up</h2>
-    <div class="" *ngIf="backendError$ | async">
-      {{ (backendError$ | async)?.message }}
-    </div>
     <form class="form" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
       <app-form-control
         label="FirstName"
         controlName="name"
         [control]="registrationForm.get('name')"
         [isRequired]="true"
+        [backendError]="backendError$ | async"
       ></app-form-control>
       <app-form-control
         label="Email"
@@ -25,7 +23,11 @@
         [control]="registrationForm.get('password')"
         [isRequired]="true"
         type="password"
+        [backendError]="backendError$ | async"
       ></app-form-control>
+      <div class="error" *ngIf="backendError$ | async">
+        {{ (backendError$ | async)?.message }}
+      </div>
       <div class="btn__container">
         <button
           type="submit"

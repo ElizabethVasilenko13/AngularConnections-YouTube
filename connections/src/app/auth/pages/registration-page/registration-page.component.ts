@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { sighUpAction } from '../../store/signup/signup.actions';
+import { sighUpAction, sighUpResetAction } from '../../store/signup/signup.actions';
 import { Observable } from 'rxjs';
 import {
   authEmailSelector,
@@ -34,6 +34,7 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   initValues(): void {
+    this.store.dispatch(sighUpResetAction());
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
     this.backendError$ = this.store.pipe(select(backendErrorSelector));
     this.userEmail$ = this.store.pipe(select(authEmailSelector));

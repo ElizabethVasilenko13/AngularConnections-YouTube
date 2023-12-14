@@ -1,6 +1,6 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 import { SignInStateInterface } from "./signin.interface";
-import { sighInAction, sighInFailureAction, sighInSuccessAction } from "./signin.actions";
+import { sighInAction, sighInFailureAction, sighInResetAction, sighInSuccessAction } from "./signin.actions";
 
 const initialState: SignInStateInterface = {
   isSubmitting: false,
@@ -39,6 +39,13 @@ const reducer = createReducer(
       validationsError: action.error,
     }),
   ),
+  on(sighInResetAction,
+    (state): SignInStateInterface => ({
+      ...state,
+      isSubmitting: false,
+      validationsError: null,
+    }),
+  )
 );
 export const signinReducer: ActionReducer<SignInStateInterface, Action> = (
   state,

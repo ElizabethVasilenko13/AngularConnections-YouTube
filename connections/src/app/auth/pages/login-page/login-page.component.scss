@@ -31,6 +31,11 @@
   }
 }
 
+.error {
+  color: $error-color;
+  margin-top: 10px;
+}
+
 .auth__btn {
   margin-top: 10px;
   background-color: $accent-color;
