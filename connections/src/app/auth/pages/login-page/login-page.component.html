@@ -28,7 +28,7 @@
           [disabled]="
             loginForm.invalid ||
             (isSubmitting$ | async) ||
-            hasBackendError
+            disableSubmitButton
           "
         >
           Sign in

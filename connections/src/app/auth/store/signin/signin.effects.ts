@@ -8,6 +8,7 @@ import { NotifyStyles } from '../../models/auth.enum';
 import { Router } from '@angular/router';
 import { sighInAction, sighInFailureAction, sighInSuccessAction } from './signin.actions';
 import { LocalStorageService } from '@core/services/local-storage.service';
+import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
 
 @Injectable()
 export class SignInEffects {
@@ -25,14 +26,14 @@ export class SignInEffects {
         return this.signUpService.signIn(userData).pipe(
           map(({ token, uid }) => {
             this.signUpService.openSnackBar(
-              'You`ve been succesfully logined',
+              `Welcome ${userData.email}`,
               NotifyStyles.Success,
             );
             this.localStorageService.set('userData', {
               email: userData.email,
               token, uid
             })
-            this.router.navigateByUrl(`/`);
+            this.router.navigateByUrl(MAIN_PAGE_ROUTE);
             return sighInSuccessAction({ userData, token, uid });
           }),
           catchError((error: HttpErrorResponse) => {

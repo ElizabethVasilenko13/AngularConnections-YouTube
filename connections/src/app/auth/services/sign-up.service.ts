@@ -23,7 +23,7 @@ export class SignUpService {
     return this.http.post<SignInResponse>(url, data);
   }
 
-  openSnackBar(message = 'Temporary Server Error', statusStyle = NotifyStyles.Success): void {
+  openSnackBar(message = 'Oops... Temporary Server Error :(', statusStyle = NotifyStyles.Success): void {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
       horizontalPosition: 'end',
