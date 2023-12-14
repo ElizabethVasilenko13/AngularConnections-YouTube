@@ -3,6 +3,7 @@ import { SignUpStateInterface } from './signup.interface';
 import {
   sighUpAction,
   sighUpFailureAction,
+  sighUpResetAction,
   sighUpSuccessAction,
 } from './signup.actions';
 
@@ -38,6 +39,13 @@ const reducer = createReducer(
       validationsError: action.error,
     }),
   ),
+  on(sighUpResetAction,
+    (state): SignUpStateInterface => ({
+      ...state,
+      isSubmitting: false,
+      validationsError: null,
+    }),
+  )
 );
 export const authReducer: ActionReducer<SignUpStateInterface, Action> = (
   state,

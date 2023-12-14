@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { sighUpAction } from '../../store/signup/signup.actions';
+import { sighUpAction, sighUpResetAction } from '../../store/signup/signup.actions';
 import { Observable } from 'rxjs';
 import {
-  authEmailSelector,
   backendErrorSelector,
   isSubmittingSelector,
 } from '../../store/signup/signup.selectors';
-import { UserAuthError, UserSignUpProps } from '@shared/types/user';
 import { SignUpErrorsTypes } from '../../models/auth.enum';
+import { UserAuthError, UserSignUpProps } from '../../models/auth';
 
 @Component({
   selector: 'app-registration-page',
@@ -34,9 +33,9 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   initValues(): void {
+    this.store.dispatch(sighUpResetAction());
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
     this.backendError$ = this.store.pipe(select(backendErrorSelector));
-    this.userEmail$ = this.store.pipe(select(authEmailSelector));
     this.registrationForm.get('email')?.valueChanges.subscribe((emailValue) => {
       if (emailValue) this.hasBackendError = false;
     });
