@@ -5,6 +5,9 @@ import { UserAuthError, UserSignInProps } from '../../models/auth';
 import { Store, select } from '@ngrx/store';
 import { backendSignInErrorSelector, isSubmittingSignInSelector } from '../../store/signin/signin.selectors';
 import { sighInAction, sighInResetAction } from '../../store/signin/signin.actions';
+import { AuthService } from '@core/services/auth.service';
+import { Router } from '@angular/router';
+import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
 
 @Component({
   selector: 'app-login-page',
@@ -18,16 +21,21 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   disableSubmitButton = false;
   private formValueChangesSubscription!: Subscription;
 
-
   constructor(
     private fb: FormBuilder,
     private store: Store,
+    private auth: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.initValues();
     this.initFormValueChanges();
+
+    if (this.auth.isLoggedIn.value) {
+      this.router.navigate([MAIN_PAGE_ROUTE]);
+    }
   }
 
   initFormValueChanges(): void {

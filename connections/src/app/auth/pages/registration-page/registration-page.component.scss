@@ -1,7 +1,18 @@
 @import 'vars';
+
+h1 {
+  text-align: center;
+  margin-top: 80px;
+  color: $accent-color;
+}
+
 .auth {
   max-width: 500px;
-  margin: 100px auto 0;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   h2 {
     margin-bottom: 20px;

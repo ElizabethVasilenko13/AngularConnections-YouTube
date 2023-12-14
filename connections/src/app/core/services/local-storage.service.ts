@@ -14,9 +14,8 @@ export class LocalStorageService {
 
   get(key: string): unknown {
     try {
-      return JSON.parse(localStorage.getItem(key || '') || '{}');
+      return JSON.parse(localStorage.getItem(key) || '');
     } catch(e) {
-      console.error('Error while getting data', e);
       return null;
     }
   }

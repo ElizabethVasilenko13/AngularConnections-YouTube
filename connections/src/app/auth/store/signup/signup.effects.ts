@@ -12,6 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyStyles } from '../../models/auth.enum';
 import { Router } from '@angular/router';
 import { AUTH_ROUTE, LOGIN_PAGE_ROUTE } from '@core/constants/routing';
+import { NotifyService } from '@core/services/notify.service';
 
 @Injectable()
 export class AuthEffects {
@@ -19,6 +20,7 @@ export class AuthEffects {
     private actions$: Actions,
     private signUpService: SignUpService,
     private router: Router,
+    private snackBar: NotifyService,
   ) {}
 
   register$ = createEffect(() =>
@@ -27,7 +29,7 @@ export class AuthEffects {
       exhaustMap(({ userData }) => {
         return this.signUpService.signUp(userData).pipe(
           map(() => {
-            this.signUpService.openSnackBar(
+            this.snackBar.openSnackBar(
               'You`ve been succesfully registered',
               NotifyStyles.Success,
             );
@@ -35,7 +37,7 @@ export class AuthEffects {
             return sighUpSuccessAction();
           }),
           catchError((error: HttpErrorResponse) => {
-            this.signUpService.openSnackBar(
+            this.snackBar.openSnackBar(
               error.error.message,
               NotifyStyles.Error,
             );

@@ -4,7 +4,6 @@ import { Store, select } from '@ngrx/store';
 import { sighUpAction, sighUpResetAction } from '../../store/signup/signup.actions';
 import { Observable } from 'rxjs';
 import {
-  authEmailSelector,
   backendErrorSelector,
   isSubmittingSelector,
 } from '../../store/signup/signup.selectors';
@@ -37,7 +36,6 @@ export class RegistrationPageComponent implements OnInit {
     this.store.dispatch(sighUpResetAction());
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
     this.backendError$ = this.store.pipe(select(backendErrorSelector));
-    this.userEmail$ = this.store.pipe(select(authEmailSelector));
     this.registrationForm.get('email')?.valueChanges.subscribe((emailValue) => {
       if (emailValue) this.hasBackendError = false;
     });
