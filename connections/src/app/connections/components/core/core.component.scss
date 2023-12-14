@@ -1,0 +1,45 @@
+@import 'vars';
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+
+  h1 {
+    color: $accent-color;
+  }
+
+  .navigation {
+    margin-top: 20px;
+  }
+
+  .navigation__item {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 10px;
+    padding: 5px 0;
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
+}
+
+.active-route {
+  color: $accent-color;
+  border-bottom: 2px solid $accent-color;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: $primaty-color-light;
+  color: $primary-text-color;
+  padding: 20px;
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+  box-sizing: border-box;
+}
