@@ -13,8 +13,3 @@ export interface SignInResponse {
   token: string;
   uid: string;
 }
-
-export interface UserAuthError {
-  type: string;
-  message: string;
-}

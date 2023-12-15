@@ -12,7 +12,8 @@ export class LocalStorageService {
     }
   }
 
-  get(key: string): unknown {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  get(key: string): any {
     try {
       return JSON.parse(localStorage.getItem(key) || '');
     } catch(e) {

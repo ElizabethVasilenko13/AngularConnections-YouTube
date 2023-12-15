@@ -9,10 +9,10 @@ import {
 import { SignUpService } from '../../services/sign-up.service';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NotifyStyles } from '../../models/auth.enum';
 import { Router } from '@angular/router';
 import { AUTH_ROUTE, LOGIN_PAGE_ROUTE } from '@core/constants/routing';
 import { NotifyService } from '@core/services/notify.service';
+import { NotifyStyles } from '@shared/enums/notify.enum';
 
 @Injectable()
 export class AuthEffects {

@@ -4,13 +4,13 @@ import { map, exhaustMap, catchError } from 'rxjs/operators';
 import { SignUpService } from '../../services/sign-up.service';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NotifyStyles } from '../../models/auth.enum';
 import { Router } from '@angular/router';
 import { sighInAction, sighInFailureAction, sighInSuccessAction } from './signin.actions';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
 import { NotifyService } from '@core/services/notify.service';
 import { AuthService } from '@core/services/auth.service';
+import { NotifyStyles } from '@shared/enums/notify.enum';
 
 @Injectable()
 export class SignInEffects {

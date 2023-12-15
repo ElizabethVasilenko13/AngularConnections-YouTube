@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { UserAuthError, UserSignInProps } from '../../models/auth';
+import { UserSignInProps } from '../../models/auth';
 import { Store, select } from '@ngrx/store';
 import { backendSignInErrorSelector, isSubmittingSignInSelector } from '../../store/signin/signin.selectors';
 import { sighInAction, sighInResetAction } from '../../store/signin/signin.actions';
 import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
+import { AuthError } from '@shared/types/user';
 
 @Component({
   selector: 'app-login-page',
@@ -17,7 +18,7 @@ import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
 export class LoginPageComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
   isSubmitting$!: Observable<boolean>;
-  backendError$!: Observable<UserAuthError | null>;
+  backendError$!: Observable<AuthError | null>;
   disableSubmitButton = false;
   private formValueChangesSubscription!: Subscription;
 

@@ -1,22 +1,23 @@
 <div class="content">
+  <mat-progress-spinner mode="indeterminate" *ngIf="isUserLoading$ | async" diameter="60"></mat-progress-spinner>
   <div class="container user">
   <h2>USER PROFILE</h2>
   <form [formGroup]="userProfileForm" class="user__form">
     <div class="form-group">
       <label for="name">{{'Name:' | uppercase}}</label>
-      <input type="text" formControlName="name" id="name" />
+      <input type="text" formControlName="name" id="name" readonly/>
     </div>
     <div class="form-group">
       <label for="email">{{'Email:' | uppercase}}</label>
-      <input type="text" formControlName="email" id="email" />
+      <input type="text" formControlName="email" id="email" readonly/>
     </div>
     <div class="form-group">
       <label for="uid">{{'User ID:' | uppercase}}</label>
-      <input type="text" formControlName="uid" id="uid" />
+      <input type="text" formControlName="uid" id="uid" readonly/>
     </div>
     <div class="form-group">
       <label for="createdAt">{{'Created At:' | uppercase}}</label>
-      <input type="text" formControlName="createdAt" id="createdAt" />
+      <input type="text" formControlName="createdAt" id="createdAt" readonly/>
     </div>
   </form>
 </div>

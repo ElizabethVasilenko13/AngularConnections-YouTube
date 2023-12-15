@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { UserAuthError } from '../../models/auth';
+import { AuthError } from '@shared/types/user';
 
 @Component({
   selector: 'app-form-control',
@@ -13,7 +13,7 @@ export class FormControlComponent {
   @Input() control: AbstractControl | null = null;
   @Input() isRequired = false;
   @Input() type = 'text';
-  @Input() backendError: UserAuthError | null = null;
+  @Input() backendError: AuthError | null = null;
 
   isInvalid(): boolean {
     const isControlInvalidAndTouched =
