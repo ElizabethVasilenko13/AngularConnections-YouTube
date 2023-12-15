@@ -12,9 +12,12 @@ import { UserResponseInterface } from 'src/app/connections/models/user';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService,
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService,
     private router: Router,
-    private auth: AuthService) {}
+    private auth: AuthService,
+  ) {}
 
   loadUser(): Observable<UserResponseInterface> {
     const url = `${environment.apiUrl}profile`;
@@ -32,7 +35,7 @@ export class UserService {
     return this.http.delete<null>(url);
   }
 
-  handleLodout():void {
+  handleLodout(): void {
     this.localStorageService.clearStorage();
     this.auth.isLoggedIn.next(false);
     this.clearAllCookies();
@@ -47,5 +50,4 @@ export class UserService {
       document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
     }
   }
-
 }

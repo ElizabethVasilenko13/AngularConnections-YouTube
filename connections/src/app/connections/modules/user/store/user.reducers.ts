@@ -81,12 +81,12 @@ const reducer = createReducer(
       ...state,
       isLoading: false,
       backendErrors: null,
-      userData: null
+      userData: null,
     }),
   ),
   on(
     LogoutFailedAction,
-    (state, {error}): UserStateInterface => ({
+    (state, { error }): UserStateInterface => ({
       ...state,
       isLoading: false,
       backendErrors: error,

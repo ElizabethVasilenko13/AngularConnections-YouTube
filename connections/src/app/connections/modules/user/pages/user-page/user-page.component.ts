@@ -3,7 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { UserProfileFormInterface } from 'src/app/connections/models/user';
 import { Store, select } from '@ngrx/store';
-import { LogoutAction, UpdateUserNameAction, loadUserAction } from '../../store/user.actions';
+import {
+  LogoutAction,
+  UpdateUserNameAction,
+  loadUserAction,
+} from '../../store/user.actions';
 import {
   isUserLoadinSgelector,
   userSelector,

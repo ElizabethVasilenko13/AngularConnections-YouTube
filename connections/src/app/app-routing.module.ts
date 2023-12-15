@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: AUTH_ROUTE,
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    canActivate: [AuthRedirectGuard]
+    canActivate: [AuthRedirectGuard],
   },
   {
     path: '',

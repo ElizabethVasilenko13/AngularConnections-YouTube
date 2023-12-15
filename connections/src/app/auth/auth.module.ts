@@ -16,10 +16,7 @@ import { SignInEffects } from './store/signin/signin.effects';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  declarations: [
-    RegistrationPageComponent,
-    LoginPageComponent,
-  ],
+  declarations: [RegistrationPageComponent, LoginPageComponent],
   imports: [
     CommonModule,
     MatButtonModule,
