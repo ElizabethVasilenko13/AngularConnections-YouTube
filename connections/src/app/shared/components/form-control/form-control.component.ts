@@ -9,11 +9,13 @@ import { AuthError } from '@shared/types/user';
 })
 export class FormControlComponent {
   @Input() label = '';
+  @Input() className = 'form-group';
   @Input() controlName = '';
   @Input() control: AbstractControl | null = null;
   @Input() isRequired = false;
   @Input() type = 'text';
   @Input() backendError: AuthError | null = null;
+  @Input() readonly = false;
 
   isInvalid(): boolean {
     const isControlInvalidAndTouched =

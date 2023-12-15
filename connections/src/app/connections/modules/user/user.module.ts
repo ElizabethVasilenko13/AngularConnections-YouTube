@@ -8,22 +8,20 @@ import { EffectsModule } from '@ngrx/effects';
 import { Features } from '@store/features.enum';
 import { userReducer } from './store/user.reducers';
 import { UserEffects } from './store/user.effects';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  declarations: [
-    UserPageComponent
-  ],
+  declarations: [UserPageComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    SharedModule,
     StoreModule.forFeature(Features.User, userReducer),
     EffectsModule.forFeature([UserEffects]),
   ],
-  providers: [
-    DatePipe,
-  ],
-  exports: [UserPageComponent]
+  providers: [DatePipe],
+  exports: [UserPageComponent],
 })
-export class UserModule { }
+export class UserModule {}

@@ -2,13 +2,17 @@ import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { SignInResponse, UserSignInProps, UserSignUpProps } from '../models/auth';
+import {
+  SignInResponse,
+  UserSignInProps,
+  UserSignUpProps,
+} from '../models/auth';
 
 @Injectable()
 export class SignUpService {
   private http: HttpClient;
 
-  constructor( handler: HttpBackend) {
+  constructor(handler: HttpBackend) {
     this.http = new HttpClient(handler);
   }
 

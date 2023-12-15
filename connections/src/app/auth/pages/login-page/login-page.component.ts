@@ -3,8 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { UserSignInProps } from '../../models/auth';
 import { Store, select } from '@ngrx/store';
-import { backendSignInErrorSelector, isSubmittingSignInSelector } from '../../store/signin/signin.selectors';
-import { sighInAction, sighInResetAction } from '../../store/signin/signin.actions';
+import {
+  backendSignInErrorSelector,
+  isSubmittingSignInSelector,
+} from '../../store/signin/signin.selectors';
+import {
+  sighInAction,
+  sighInResetAction,
+} from '../../store/signin/signin.actions';
 import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
@@ -26,7 +32,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -40,9 +46,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   initFormValueChanges(): void {
-    this.formValueChangesSubscription = this.loginForm.valueChanges.subscribe(() => {
-      this.disableSubmitButton = false;
-    });
+    this.formValueChangesSubscription = this.loginForm.valueChanges.subscribe(
+      () => {
+        this.disableSubmitButton = false;
+      },
+    );
   }
 
   initValues(): void {
@@ -54,9 +62,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   initForm(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: [
-        '', [ Validators.required],
-      ],
+      password: ['', [Validators.required]],
     });
   }
 

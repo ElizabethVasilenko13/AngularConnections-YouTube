@@ -1,24 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { UserProfileFormInterface } from 'src/app/connections/models/user';
 import { Store, select } from '@ngrx/store';
-import { loadUserAction } from '../../store/user.actions';
-import { isUserLoadinSgelector, userSelector } from '../../store/user.selectors';
+import { UpdateUserNameAction } from '../../store/user.actions';
+import {
+  isUserLoadinSgelector,
+  userSelector,
+} from '../../store/user.selectors';
 
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
-  styleUrls: ['./user-page.component.scss']
+  styleUrls: ['./user-page.component.scss'],
 })
 export class UserPageComponent implements OnInit {
   userProfileForm!: FormGroup;
-  userProfileData$: Observable<UserProfileFormInterface | null>
-  isUserLoading$!: Observable<boolean>
+  userProfileData$: Observable<UserProfileFormInterface | null>;
+  isUserLoading$!: Observable<boolean>;
+  originalFormValues: UserProfileFormInterface | null = null;
+  isEditMode = false;
 
   constructor(
     private fb: FormBuilder,
-    private store: Store
+    private store: Store,
   ) {
     this.userProfileData$ = this.store.pipe(select(userSelector));
   }
@@ -31,7 +36,14 @@ export class UserPageComponent implements OnInit {
 
   initForm(): void {
     this.userProfileForm = this.fb.group({
-      name: [''],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(40),
+          Validators.pattern(/^[a-zA-Z\s]+$/),
+        ],
+      ],
       email: [''],
       uid: [''],
       createdAt: [''],
@@ -53,5 +65,24 @@ export class UserPageComponent implements OnInit {
 
   loadData(): void {
     // this.store.dispatch(loadUserAction());
+  }
+
+  enterEditMode(): void {
+    this.isEditMode = true;
+    this.originalFormValues = { ...this.userProfileForm.value };
+  }
+
+  cancelEdit(): void {
+    this.isEditMode = false;
+    this.originalFormValues &&
+      this.userProfileForm.setValue(this.originalFormValues);
+  }
+
+  saveChanges(): void {
+    this.isEditMode = false;
+    const newName = this.userProfileForm.get('name')?.value;
+    if (newName !== this.originalFormValues?.name) {
+      this.store.dispatch(UpdateUserNameAction({ name: newName }));
+    }
   }
 }

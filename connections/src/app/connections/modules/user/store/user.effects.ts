@@ -6,7 +6,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { UserService } from '../services/user.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
-import { loadUserAction, loadUserFailedAction, loadUserSuccessfulAction } from './user.actions';
+import {
+  UpdateUserFailedNameAction,
+  UpdateUserNameAction,
+  UpdateUserSuccessfulNameAction,
+  loadUserAction,
+  loadUserFailedAction,
+  loadUserSuccessfulAction,
+} from './user.actions';
 import { DatePipe } from '@angular/common';
 
 @Injectable()
@@ -15,7 +22,7 @@ export class UserEffects {
     private actions$: Actions,
     private userService: UserService,
     private snackBar: NotifyService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {}
 
   register$ = createEffect(() =>
@@ -32,14 +39,37 @@ export class UserEffects {
               uid: response.uid.S,
               email: response.email.S,
               name: response.name.S,
-              createdAt: this.datePipe.transform(parseInt(response.createdAt.S), 'yyyy-MM-dd HH:mm:ss') || 'Date',})
+              createdAt:
+                this.datePipe.transform(
+                  parseInt(response.createdAt.S),
+                  'yyyy-MM-dd HH:mm:ss',
+                ) || 'Date',
+            });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(
-              error.error.message,
-              NotifyStyles.Error,
-            );
+            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
             return of(loadUserFailedAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  updateUserName$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UpdateUserNameAction),
+      exhaustMap(({ name }) => {
+        return this.userService.updateUser(name).pipe(
+          map(() => {
+            this.snackBar.openSnackBar(
+              `User name has been updated successfully`,
+              NotifyStyles.Success,
+            );
+            return UpdateUserSuccessfulNameAction({ name });
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            return of(UpdateUserFailedNameAction({ error: error.error }));
           }),
         );
       }),

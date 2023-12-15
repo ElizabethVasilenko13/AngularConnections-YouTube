@@ -4,7 +4,6 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormControlComponent } from './components/form-control/form-control.component';
 import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -14,18 +13,19 @@ import { SignUpService } from './services/sign-up.service';
 import { AuthEffects } from './store/signup/signup.effects';
 import { signinReducer } from './store/signin/signin.reducer';
 import { SignInEffects } from './store/signin/signin.effects';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
     RegistrationPageComponent,
     LoginPageComponent,
-    FormControlComponent,
   ],
   imports: [
     CommonModule,
     MatButtonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
     StoreModule.forFeature(Features.SignUp, authReducer),
     StoreModule.forFeature(Features.SignIn, signinReducer),
     EffectsModule.forFeature([AuthEffects, SignInEffects]),

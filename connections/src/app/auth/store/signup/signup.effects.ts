@@ -38,11 +38,8 @@ export class AuthEffects {
           }),
           catchError((error: HttpErrorResponse) => {
             const errorMes = error && error.error;
-            const errorSnakBar = errorMes ? errorMes.message : error.message
-            this.snackBar.openSnackBar(
-              errorSnakBar,
-              NotifyStyles.Error,
-            );
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.openSnackBar(errorSnakBar, NotifyStyles.Error);
             return of(sighUpFailureAction({ error: error.error }));
           }),
         );

@@ -39,13 +39,14 @@ const reducer = createReducer(
       validationsError: action.error,
     }),
   ),
-  on(sighUpResetAction,
+  on(
+    sighUpResetAction,
     (state): SignUpStateInterface => ({
       ...state,
       isSubmitting: false,
       validationsError: null,
     }),
-  )
+  ),
 );
 export const authReducer: ActionReducer<SignUpStateInterface, Action> = (
   state,

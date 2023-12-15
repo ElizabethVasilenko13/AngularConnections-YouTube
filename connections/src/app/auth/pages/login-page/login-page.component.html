@@ -27,9 +27,7 @@
           type="submit"
           class="auth__btn"
           [disabled]="
-            loginForm.invalid ||
-            (isSubmitting$ | async) ||
-            disableSubmitButton
+            loginForm.invalid || (isSubmitting$ | async) || disableSubmitButton
           "
         >
           Sign in

@@ -11,13 +11,13 @@ const routes: Routes = [
     component: CoreComponent,
     children: [
       { path: MAIN_PAGE_ROUTE, component: HomeComponent },
-      { path: USER_PAGE_ROUTE, component: UserPageComponent }
+      { path: USER_PAGE_ROUTE, component: UserPageComponent },
     ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ConnectionsRoutingModule { }
+export class ConnectionsRoutingModule {}

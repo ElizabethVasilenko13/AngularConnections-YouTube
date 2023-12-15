@@ -5,12 +5,19 @@ import { Observable } from 'rxjs';
 import { UserResponseInterface } from 'src/app/connections/models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+
   loadUser(): Observable<UserResponseInterface> {
     const url = `${environment.apiUrl}profile`;
     return this.http.get<UserResponseInterface>(url);
+  }
+
+  updateUser(name: string): Observable<null> {
+    const url = `${environment.apiUrl}profile`;
+    const body = { name: name };
+    return this.http.put<null>(url, body);
   }
 }
