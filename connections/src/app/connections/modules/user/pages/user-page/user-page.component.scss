@@ -1,17 +1,76 @@
 @import 'vars';
+
+.content {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+
 .user {
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   background-color: $primaty-color-light;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   padding: 20px;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
 
   h2 {
     margin-bottom: 20px;
     color: $accent-color;
   }
+
+  .user__form {
+    max-width: 300px;
+    width: 100%;
+    align-self: center;
+    margin-bottom: 20px;
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+.form-group {
+  display: flex;
+  margin-bottom: 15px;
+  column-gap: 10px;
+  align-items: center;
+  border-top: 1px solid $accent-color;
+  border-bottom: 1px solid $accent-color;
+}
+
+label {
+  color: $controls-text-color;
+  max-width: 60px;
+  width: 100%;
+}
+
+input {
+  background-color: $primaty-color-light;
+  padding: 10px;
+  color: $controls-text-color;
+}
+
+input.invalidInput:focus {
+  outline: $error-color;
+}
+
+.invalid {
+  color: $error-color;
+  margin-top: 5px;
+}
+
+.invalidInput {
+  border-color: $error-color;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px $background-color inset !important;
+  -webkit-text-fill-color: $controls-text-color !important;
 }

@@ -6,6 +6,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { CoreComponent } from './components/core/core.component';
 import {MatIconModule} from '@angular/material/icon';
 
+import { UserModule } from './modules/user/user.module';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import {MatIconModule} from '@angular/material/icon';
   imports: [
     CommonModule,
     ConnectionsRoutingModule,
-    MatIconModule
+    MatIconModule,
+    UserModule
   ]
 })
 export class ConnectionsModule { }
