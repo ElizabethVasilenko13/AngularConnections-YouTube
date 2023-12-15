@@ -13,3 +13,18 @@ export const loadUserFailedAction = createAction(
   '[User] Load User Failed',
   props<{ error: AuthError }>(),
 );
+
+export const UpdateUserNameAction = createAction(
+  '[User] Update User Name',
+  props<{ name: string }>(),
+);
+
+export const UpdateUserSuccessfulNameAction = createAction(
+  '[User] Update User Name Successful',
+  props<{ name: string }>(),
+);
+
+export const UpdateUserFailedNameAction = createAction(
+  '[User] Update User Name Failed',
+  props<{ error: AuthError }>(),
+);

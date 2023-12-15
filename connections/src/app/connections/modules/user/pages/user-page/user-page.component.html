@@ -5,7 +5,7 @@
   <form [formGroup]="userProfileForm" class="user__form">
     <div class="form-group">
       <label for="name">{{'Name:' | uppercase}}</label>
-      <input type="text" formControlName="name" id="name" readonly/>
+      <input type="text" formControlName="name" id="name" [readonly]="!isEditMode"/>
     </div>
     <div class="form-group">
       <label for="email">{{'Email:' | uppercase}}</label>
@@ -18,6 +18,12 @@
     <div class="form-group">
       <label for="createdAt">{{'Created At:' | uppercase}}</label>
       <input type="text" formControlName="createdAt" id="createdAt" readonly/>
+    </div>
+    <div class="button-container">
+      <!-- disabled="isUserLoading$ | async" -->
+      <button *ngIf="!isEditMode" (click)="enterEditMode()">{{'Edit' | uppercase}}</button>
+      <button *ngIf="isEditMode" (click)="cancelEdit()">{{'Cancel' | uppercase}}</button>
+      <button *ngIf="isEditMode" (click)="saveChanges()">{{'Save' | uppercase}}</button>
     </div>
   </form>
 </div>

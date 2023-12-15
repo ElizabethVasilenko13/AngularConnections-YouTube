@@ -35,6 +35,28 @@
   }
 }
 
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  column-gap: 20px;
+  justify-content: flex-end;
+
+  button {
+    background-color: $accent-color;
+    color: $primary-text-color;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    max-width: 100px;
+    width: 100%;
+    font-weight: bold;
+    letter-spacing: 2px;
+    &:disabled {
+      background-color: $disabled-solor;
+    }
+  }
+}
+
 .form-group {
   display: flex;
   box-sizing: border-box;
@@ -60,6 +82,9 @@ input.invalidInput:focus {
   outline: $error-color;
 }
 
+input:not([readonly]) {
+  background-color: $background-color;
+}
 
 input:focus {
   outline: none

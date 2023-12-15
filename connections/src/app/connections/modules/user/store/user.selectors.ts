@@ -15,3 +15,8 @@ export const userSelector = createSelector(
   authFeatureSelector,
   (state: UserStateInterface) => state.userData,
 );
+
+export const userEmailSelector = createSelector(
+  authFeatureSelector,
+  (state: UserStateInterface) => state.userData?.email,
+);

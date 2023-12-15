@@ -1,6 +1,6 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 import { UserStateInterface } from "./user.interface";
-import { loadUserAction, loadUserFailedAction, loadUserSuccessfulAction } from "./user.actions";
+import { UpdateUserNameAction, UpdateUserSuccessfulNameAction, loadUserAction, loadUserFailedAction, loadUserSuccessfulAction } from "./user.actions";
 
 const initialState: UserStateInterface = {
   isLoading: false,
@@ -38,7 +38,32 @@ const reducer = createReducer(
       backendErrors: error,
     }),
   ),
+  on(
+    UpdateUserNameAction,
+    (state): UserStateInterface => ({
+      ...state,
+      isLoading: true,
+      backendErrors: null
+    }),
+  ),
+  on(
+    UpdateUserSuccessfulNameAction,
+    (state, action): UserStateInterface => {
+      const updatedUserData = {
+        name: action.name,
+        uid: state.userData?.uid || '',
+        email: state.userData?.email || '',
+        createdAt: state.userData?.createdAt || '',
+      };
 
+      return {
+        ...state,
+        isLoading: false,
+        backendErrors: null,
+        userData: updatedUserData,
+      };
+    },
+  ),
 );
 export const userReducer: ActionReducer<UserStateInterface, Action> = (
   state,
