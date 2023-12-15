@@ -20,4 +20,9 @@ export class LocalStorageService {
       return null;
     }
   }
+
+  clearStorage(): void {
+    localStorage.clear();
+    sessionStorage.clear();
+  }
 }

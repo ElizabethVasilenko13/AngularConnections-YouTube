@@ -5,7 +5,10 @@
     diameter="60"
   ></mat-progress-spinner>
   <div class="container user">
-    <h2>USER PROFILE</h2>
+    <div class="user__header">
+      <h2>USER PROFILE</h2>
+      <button (click)="logout()" [disabled]="isUserLoading$ | async">{{ 'logout' | uppercase }}</button>
+    </div>
     <form [formGroup]="userProfileForm" class="user__form">
       <app-form-control
         className="form-profile"

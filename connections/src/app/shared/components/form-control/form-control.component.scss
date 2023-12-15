@@ -62,11 +62,11 @@
 }
 
 input.invalidInput:focus {
-  outline: $error-color;
+  outline: $error-color !important;
 }
 
 .invalidInput {
-  border-color: $error-color;
+  border-color: $error-color !important;
 }
 
 input:-webkit-autofill,
