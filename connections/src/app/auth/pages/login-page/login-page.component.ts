@@ -13,7 +13,6 @@ import {
 } from '../../store/signin/signin.actions';
 import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
-import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
 import { AuthError } from '@shared/types/user';
 
 @Component({
@@ -39,10 +38,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.initForm();
     this.initValues();
     this.initFormValueChanges();
-
-    if (this.auth.isLoggedIn.value) {
-      this.router.navigate([MAIN_PAGE_ROUTE]);
-    }
   }
 
   initFormValueChanges(): void {

@@ -7,6 +7,9 @@ import { NotifyService } from '@core/services/notify.service';
 import { UserService } from '../services/user.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
 import {
+  LogoutAction,
+  LogoutFailedAction,
+  LogoutSuccessfulAction,
   UpdateUserFailedNameAction,
   UpdateUserNameAction,
   UpdateUserSuccessfulNameAction,
@@ -22,10 +25,10 @@ export class UserEffects {
     private actions$: Actions,
     private userService: UserService,
     private snackBar: NotifyService,
-    private datePipe: DatePipe,
+    private datePipe: DatePipe
   ) {}
 
-  register$ = createEffect(() =>
+  loadUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadUserAction),
       exhaustMap(() => {
@@ -70,6 +73,25 @@ export class UserEffects {
           catchError((error: HttpErrorResponse) => {
             this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
             return of(UpdateUserFailedNameAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LogoutAction),
+      exhaustMap(() => {
+        return this.userService.logout().pipe(
+          map(() => {
+            this.snackBar.openSnackBar('Logout successful', NotifyStyles.Success);
+            this.userService.handleLodout();
+            return LogoutSuccessfulAction();
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            return of(LogoutFailedAction({ error: error.error }));
           }),
         );
       }),

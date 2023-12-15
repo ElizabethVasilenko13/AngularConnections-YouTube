@@ -19,7 +19,6 @@
   flex-direction: column;
 
   h2 {
-    margin-bottom: 20px;
     color: $accent-color;
   }
 
@@ -35,24 +34,31 @@
   }
 }
 
+.user__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: $accent-color;
+  color: $primary-text-color;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  max-width: 100px;
+  width: 100%;
+  font-weight: bold;
+  letter-spacing: 2px;
+  &:disabled {
+    background-color: $disabled-solor;
+  }
+}
+
 .button-container {
   margin-top: 10px;
   display: flex;
   column-gap: 20px;
   justify-content: flex-end;
-
-  button {
-    background-color: $accent-color;
-    color: $primary-text-color;
-    padding: 8px;
-    border: none;
-    border-radius: 8px;
-    max-width: 100px;
-    width: 100%;
-    font-weight: bold;
-    letter-spacing: 2px;
-    &:disabled {
-      background-color: $disabled-solor;
-    }
-  }
 }

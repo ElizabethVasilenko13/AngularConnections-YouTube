@@ -28,3 +28,9 @@ export const UpdateUserFailedNameAction = createAction(
   '[User] Update User Name Failed',
   props<{ error: AuthError }>(),
 );
+
+export const LogoutAction = createAction('[User] Logout');
+export const LogoutSuccessfulAction = createAction('[User] Logout Successful');
+export const LogoutFailedAction = createAction('[User] Logout Failed', props<{ error: AuthError }>());
+
+

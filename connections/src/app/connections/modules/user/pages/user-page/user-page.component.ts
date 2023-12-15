@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { UserProfileFormInterface } from 'src/app/connections/models/user';
 import { Store, select } from '@ngrx/store';
-import { UpdateUserNameAction } from '../../store/user.actions';
+import { LogoutAction, UpdateUserNameAction } from '../../store/user.actions';
 import {
   isUserLoadinSgelector,
   userSelector,
@@ -84,5 +84,9 @@ export class UserPageComponent implements OnInit {
     if (newName !== this.originalFormValues?.name) {
       this.store.dispatch(UpdateUserNameAction({ name: newName }));
     }
+  }
+
+  logout(): void {
+    this.store.dispatch(LogoutAction());
   }
 }
