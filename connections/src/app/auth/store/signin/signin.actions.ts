@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
-import { UserAuthError, UserSignInProps } from "../../models/auth";
+import { UserSignInProps } from "../../models/auth";
+import { AuthError } from "@shared/types/user";
 
 export const sighInAction = createAction(
   '[Auth] Sign In',
@@ -8,7 +9,7 @@ export const sighInAction = createAction(
 export const sighInSuccessAction = createAction('[Auth] Sign In Success', props<{userData: UserSignInProps; token: string; uid: string}>());
 export const sighInFailureAction = createAction(
   '[Auth] Sign In Failure',
-  props<{ error: UserAuthError }>(),
+  props<{ error: AuthError }>(),
 );
 
 export const sighInResetAction = createAction('[Auth] Sign In Reset');

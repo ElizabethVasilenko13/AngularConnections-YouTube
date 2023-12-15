@@ -8,7 +8,8 @@ import {
   isSubmittingSelector,
 } from '../../store/signup/signup.selectors';
 import { SignUpErrorsTypes } from '../../models/auth.enum';
-import { UserAuthError, UserSignUpProps } from '../../models/auth';
+import { UserSignUpProps } from '../../models/auth';
+import { AuthError } from '@shared/types/user';
 
 @Component({
   selector: 'app-registration-page',
@@ -18,7 +19,7 @@ import { UserAuthError, UserSignUpProps } from '../../models/auth';
 export class RegistrationPageComponent implements OnInit {
   registrationForm!: FormGroup;
   isSubmitting$!: Observable<boolean>;
-  backendError$!: Observable<UserAuthError | null>;
+  backendError$!: Observable<AuthError | null>;
   userEmail$?: Observable<string>;
   hasBackendError = false;
 

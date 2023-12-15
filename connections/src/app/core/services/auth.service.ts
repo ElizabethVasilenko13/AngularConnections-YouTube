@@ -11,8 +11,6 @@ export class AuthService {
 
   checkAuth(): void {
     if (this.localStorageService.get('userData') !== null) {
-      console.log(this.localStorageService.get('userData'));
-      console.log('check');
       this.isLoggedIn.next(true);
     }
   }

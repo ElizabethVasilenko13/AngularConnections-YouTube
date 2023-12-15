@@ -9,10 +9,10 @@ import {
 import { SignUpService } from '../../services/sign-up.service';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NotifyStyles } from '../../models/auth.enum';
 import { Router } from '@angular/router';
 import { AUTH_ROUTE, LOGIN_PAGE_ROUTE } from '@core/constants/routing';
 import { NotifyService } from '@core/services/notify.service';
+import { NotifyStyles } from '@shared/enums/notify.enum';
 
 @Injectable()
 export class AuthEffects {
@@ -37,8 +37,10 @@ export class AuthEffects {
             return sighUpSuccessAction();
           }),
           catchError((error: HttpErrorResponse) => {
+            const errorMes = error && error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message
             this.snackBar.openSnackBar(
-              error.error.message,
+              errorSnakBar,
               NotifyStyles.Error,
             );
             return of(sighUpFailureAction({ error: error.error }));

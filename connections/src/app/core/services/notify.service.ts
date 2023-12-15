@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NotifyStyles } from 'src/app/auth/models/auth.enum';
+import { NotifyStyles } from '@shared/enums/notify.enum';
 
 @Injectable({
   providedIn: 'root'

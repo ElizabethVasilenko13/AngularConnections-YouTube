@@ -1,7 +1,7 @@
-import { UserAuthError } from "../../models/auth";
+import { AuthError } from "@shared/types/user";
 
 export interface SignUpStateInterface {
   isSubmitting: boolean;
-  validationsError: UserAuthError | null;
+  validationsError: AuthError | null;
   email: string;
 }
