@@ -1,6 +1,6 @@
-import { createAction, props } from "@ngrx/store";
-import { AuthError } from "@shared/types/user";
-import { UserProfileFormInterface } from "src/app/connections/models/user";
+import { createAction, props } from '@ngrx/store';
+import { AuthError } from '@shared/types/user';
+import { UserProfileFormInterface } from 'src/app/connections/models/user';
 
 export const loadUserAction = createAction('[User] Load User');
 

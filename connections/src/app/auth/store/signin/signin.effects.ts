@@ -5,7 +5,11 @@ import { SignUpService } from '../../services/sign-up.service';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { sighInAction, sighInFailureAction, sighInSuccessAction } from './signin.actions';
+import {
+  sighInAction,
+  sighInFailureAction,
+  sighInSuccessAction,
+} from './signin.actions';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
 import { NotifyService } from '@core/services/notify.service';
@@ -20,7 +24,7 @@ export class SignInEffects {
     private router: Router,
     private localStorageService: LocalStorageService,
     private snackBar: NotifyService,
-    private auth: AuthService
+    private auth: AuthService,
   ) {}
 
   register$ = createEffect(() =>
@@ -35,19 +39,17 @@ export class SignInEffects {
             );
             this.localStorageService.set('userData', {
               email: userData.email,
-              token, uid
-            })
-            this.auth.isLoggedIn.next(true)
+              token,
+              uid,
+            });
+            this.auth.isLoggedIn.next(true);
             this.router.navigateByUrl(MAIN_PAGE_ROUTE);
             return sighInSuccessAction({ userData, token, uid });
           }),
           catchError((error: HttpErrorResponse) => {
             const errorMes = error && error.error;
-            const errorSnakBar = errorMes ? errorMes.message : error.message
-            this.snackBar.openSnackBar(
-              errorSnakBar,
-              NotifyStyles.Error,
-            );
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.openSnackBar(errorSnakBar, NotifyStyles.Error);
             return of(sighInFailureAction({ error: error.error }));
           }),
         );

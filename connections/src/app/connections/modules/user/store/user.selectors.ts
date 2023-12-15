@@ -1,6 +1,6 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { Features } from "@store/features.enum";
-import { UserStateInterface } from "./user.interface";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Features } from '@store/features.enum';
+import { UserStateInterface } from './user.interface';
 
 export const authFeatureSelector = createFeatureSelector<UserStateInterface>(
   Features.User,

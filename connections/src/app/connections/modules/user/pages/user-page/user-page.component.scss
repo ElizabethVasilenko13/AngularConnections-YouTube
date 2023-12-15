@@ -36,7 +36,7 @@
 }
 
 .button-container {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   column-gap: 20px;
   justify-content: flex-end;
@@ -55,53 +55,4 @@
       background-color: $disabled-solor;
     }
   }
-}
-
-.form-group {
-  display: flex;
-  box-sizing: border-box;
-  column-gap: 10px;
-  align-items: center;
-  border-top: 1px solid $accent-color;
-  border-bottom: 1px solid $accent-color;
-}
-
-label {
-  color: $controls-text-color;
-  max-width: 60px;
-  width: 100%;
-}
-
-input {
-  background-color: $primaty-color-light;
-  padding: 10px;
-  color: $controls-text-color;
-}
-
-input.invalidInput:focus {
-  outline: $error-color;
-}
-
-input:not([readonly]) {
-  background-color: $background-color;
-}
-
-input:focus {
-  outline: none
-}
-
-.invalid {
-  color: $error-color;
-  margin-top: 5px;
-}
-
-.invalidInput {
-  border-color: $error-color;
-}
-
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px $background-color inset !important;
-  -webkit-text-fill-color: $controls-text-color !important;
 }

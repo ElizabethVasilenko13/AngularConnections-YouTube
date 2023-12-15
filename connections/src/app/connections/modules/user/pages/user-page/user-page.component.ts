@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { UserProfileFormInterface } from 'src/app/connections/models/user';
 import { Store, select } from '@ngrx/store';
-import { UpdateUserNameAction, loadUserAction } from '../../store/user.actions';
-import { isUserLoadinSgelector, userSelector } from '../../store/user.selectors';
-import { UserService } from '../../services/user.service';
+import { UpdateUserNameAction } from '../../store/user.actions';
+import {
+  isUserLoadinSgelector,
+  userSelector,
+} from '../../store/user.selectors';
 
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
-  styleUrls: ['./user-page.component.scss']
+  styleUrls: ['./user-page.component.scss'],
 })
 export class UserPageComponent implements OnInit {
   userProfileForm!: FormGroup;
@@ -22,7 +24,6 @@ export class UserPageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store,
-    private user: UserService
   ) {
     this.userProfileData$ = this.store.pipe(select(userSelector));
   }
@@ -35,7 +36,14 @@ export class UserPageComponent implements OnInit {
 
   initForm(): void {
     this.userProfileForm = this.fb.group({
-      name: [''],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(40),
+          Validators.pattern(/^[a-zA-Z\s]+$/),
+        ],
+      ],
       email: [''],
       uid: [''],
       createdAt: [''],
@@ -66,7 +74,8 @@ export class UserPageComponent implements OnInit {
 
   cancelEdit(): void {
     this.isEditMode = false;
-    this.originalFormValues && this.userProfileForm.setValue(this.originalFormValues);
+    this.originalFormValues &&
+      this.userProfileForm.setValue(this.originalFormValues);
   }
 
   saveChanges(): void {

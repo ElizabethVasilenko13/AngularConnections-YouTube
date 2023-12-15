@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { sighUpAction, sighUpResetAction } from '../../store/signup/signup.actions';
+import {
+  sighUpAction,
+  sighUpResetAction,
+} from '../../store/signup/signup.actions';
 import { Observable } from 'rxjs';
 import {
   backendErrorSelector,

@@ -1,5 +1,5 @@
-import { AuthError } from "@shared/types/user";
-import { UserProfileFormInterface } from "src/app/connections/models/user";
+import { AuthError } from '@shared/types/user';
+import { UserProfileFormInterface } from 'src/app/connections/models/user';
 
 export interface UserStateInterface {
   isLoading: boolean;

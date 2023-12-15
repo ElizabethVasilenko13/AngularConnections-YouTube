@@ -12,7 +12,11 @@ import { UserCredentialInterceptor } from './interceptors/user-interseptor.servi
   exports: [HeaderComponent, FooterComponent, NotFoundComponent],
   imports: [CommonModule, SharedModule],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: UserCredentialInterceptor, multi: true },
-  ]}
-)
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserCredentialInterceptor,
+      multi: true,
+    },
+  ],
+})
 export class CoreModule {}

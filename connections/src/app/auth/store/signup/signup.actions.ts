@@ -13,4 +13,3 @@ export const sighUpFailureAction = createAction(
 );
 
 export const sighUpResetAction = createAction('[Auth] Sign Up Reset');
-
