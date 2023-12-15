@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: '',
-     canActivate: [authGuard],
+    canActivate: [authGuard],
     loadChildren: () => import('./connections/connections.module').then((m) => m.ConnectionsModule),
   },
 ];

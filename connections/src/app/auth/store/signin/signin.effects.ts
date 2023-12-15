@@ -42,8 +42,10 @@ export class SignInEffects {
             return sighInSuccessAction({ userData, token, uid });
           }),
           catchError((error: HttpErrorResponse) => {
+            const errorMes = error && error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message
             this.snackBar.openSnackBar(
-              error.error.message,
+              errorSnakBar,
               NotifyStyles.Error,
             );
             return of(sighInFailureAction({ error: error.error }));

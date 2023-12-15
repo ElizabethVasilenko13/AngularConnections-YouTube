@@ -37,8 +37,10 @@ export class AuthEffects {
             return sighUpSuccessAction();
           }),
           catchError((error: HttpErrorResponse) => {
+            const errorMes = error && error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message
             this.snackBar.openSnackBar(
-              error.error.message,
+              errorSnakBar,
               NotifyStyles.Error,
             );
             return of(sighUpFailureAction({ error: error.error }));
