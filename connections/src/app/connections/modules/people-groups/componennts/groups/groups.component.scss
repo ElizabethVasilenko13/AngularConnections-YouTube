@@ -1,0 +1,31 @@
+@import 'vars';
+
+h2 {
+  color: $accent-color;
+}
+
+.content__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.btns__container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.control__btn {
+  background-color: $accent-color;
+  color: $primary-text-color;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  &:disabled {
+    background-color: $disabled-solor;
+  }
+}

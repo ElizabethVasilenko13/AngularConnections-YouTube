@@ -32,7 +32,7 @@
 }
 
 .sidebar {
-  width: 200px;
+  width: 120px;
   background-color: $primaty-color-light;
   color: $primary-text-color;
   padding: 20px;
@@ -40,6 +40,5 @@
 
 .main-content {
   flex: 1;
-  // position: relative;
   box-sizing: border-box;
 }
