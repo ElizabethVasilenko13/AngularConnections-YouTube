@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
 
 @Component({
   selector: 'app-not-found',
@@ -15,6 +14,6 @@ export class NotFoundComponent {
   }
 
   goToMain(): void {
-    this.router.navigate([MAIN_PAGE_ROUTE]);
+    this.router.navigate(['/']);
   }
 }
