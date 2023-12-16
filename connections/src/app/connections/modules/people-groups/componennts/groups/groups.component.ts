@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupsService } from '../../services/groups.service';
 import { Store, select } from '@ngrx/store';
 import { loadGroupsAction } from '../../store/groups/groups.actions';
-import { Observable } from 'rxjs';
+import { Observable} from 'rxjs';
 import { GroupsProps } from '../../models/groups';
 import { groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
+import { CountdownService } from '../../services/countdown.service';
 
 @Component({
   selector: 'app-groups',
@@ -14,7 +14,8 @@ import { groupsSelector, isGroupsLoadinSelector } from '../../store/groups/group
 export class GroupsComponent implements OnInit {
   groupsData$: Observable<GroupsProps | null>;
   isGroupsLoading$!: Observable<boolean>;
-  constructor(private groups: GroupsService, private store: Store) {
+
+  constructor(private store: Store, public countdownService: CountdownService) {
     this.groupsData$ = this.store.pipe(select(groupsSelector));
   }
 
@@ -29,6 +30,11 @@ export class GroupsComponent implements OnInit {
 
   loadData(): void {
     // this.store.dispatch(loadGroupsAction());
+  }
+
+  updateGroupsList(): void {
+    this.loadData();
+    this.countdownService.handleGroupsCoutdown();
   }
 
   subscribeToGroupsData(): void {

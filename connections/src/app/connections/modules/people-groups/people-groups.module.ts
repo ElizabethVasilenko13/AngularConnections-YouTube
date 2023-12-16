@@ -16,9 +16,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     MainPageComponent,
-    GroupsComponent,
     PeopleComponent,
-    GroupsItemComponent
+    GroupsItemComponent,
+    GroupsComponent
   ],
   exports: [MainPageComponent],
   imports: [
