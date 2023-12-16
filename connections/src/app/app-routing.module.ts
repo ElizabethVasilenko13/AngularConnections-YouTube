@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AUTH_ROUTE } from '@core/constants/routing';
 import { authGuard } from './auth/guards/auth.guard';
 import { AuthRedirectGuard } from '@auth/guards/auth-redirect-guard.guard';
+import { NotFoundComponent } from '@core/components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
         (m) => m.ConnectionsModule,
       ),
   },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
