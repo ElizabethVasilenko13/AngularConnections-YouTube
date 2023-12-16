@@ -1,7 +1,20 @@
 <div class="content__header">
   <h2>GROUPS</h2>
   <div class="btns__container">
-    <button class="control__btn">{{'Update List' | uppercase}}</button>
-    <button class="control__btn">{{'create group' | uppercase}}</button>
+    <button class="control__btn" [disabled]="(isGroupsLoading$ | async)">{{'Update List' | uppercase}}</button>
+    <button class="control__btn" [disabled]="(isGroupsLoading$ | async)">{{'create group' | uppercase}}</button>
+  </div>
+</div>
+<mat-progress-spinner
+    class="loader"
+    mode="indeterminate"
+    *ngIf="isGroupsLoading$ | async"
+    diameter="60"
+  ></mat-progress-spinner>
+<div class="content__items">
+  <div *ngFor="let group of (groupsData$ | async)?.items">
+    <a class="group-item">
+      <div class="group-property">{{ group.name.S }}</div>
+    </a>
   </div>
 </div>

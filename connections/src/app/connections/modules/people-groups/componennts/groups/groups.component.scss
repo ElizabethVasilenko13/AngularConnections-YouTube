@@ -9,6 +9,7 @@ h2 {
   flex-wrap: wrap;
   gap: 20px;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .btns__container {
@@ -28,4 +29,20 @@ h2 {
   &:disabled {
     background-color: $disabled-solor;
   }
+}
+
+.content__items {
+  height: 80%;
+  overflow: auto;
+  contain: strict;
+}
+
+.loader {
+  margin: 0 auto;
+}
+
+.group-item {
+  display: block;
+  border-bottom: 1px solid $accent-color;
+  padding: 10px;
 }
