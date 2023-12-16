@@ -42,8 +42,22 @@ h2 {
   margin: 0 auto;
 }
 
+.groupCurrent {
+  background-color: $primaty-color-light;
+}
+
 .group-item {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid $accent-color;
   padding: 10px;
+}
+
+.delete__btn {
+  cursor: pointer;
+  background-color: $accent-color;
+  padding: 0 5px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
 }

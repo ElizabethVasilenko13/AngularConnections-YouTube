@@ -5,9 +5,8 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
-import { DatePipe } from '@angular/common';
 import { GroupsService } from '../../services/groups.service';
-import { loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction } from './groups.actions';
+import { createGroupAction, createGroupFailedAction, createGroupSuccessAction, loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction } from './groups.actions';
 
 @Injectable()
 export class GroupsEffects {
@@ -15,7 +14,6 @@ export class GroupsEffects {
     private actions$: Actions,
     private groupsService: GroupsService,
     private snackBar: NotifyService,
-    private datePipe: DatePipe,
   ) {}
 
   loadGroups$ = createEffect(() =>
@@ -36,6 +34,27 @@ export class GroupsEffects {
           catchError((error: HttpErrorResponse) => {
             this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
             return of(loadGroupsFailedAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  createGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createGroupAction),
+      exhaustMap(({ name, userId }) => {
+        return this.groupsService.createGroup(name).pipe(
+          map((response) => {
+            this.snackBar.openSnackBar(
+              `Groups have been succesfully created`,
+              NotifyStyles.Success,
+            );
+            return createGroupSuccessAction({name, groupID: response.groupID, userId});
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            return of(createGroupFailedAction({ error: error.error }));
           }),
         );
       }),

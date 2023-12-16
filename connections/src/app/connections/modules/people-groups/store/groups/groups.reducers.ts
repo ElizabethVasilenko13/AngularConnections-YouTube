@@ -1,6 +1,6 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 import { GroupsStateInterface } from "./groups.interface";
-import { loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction } from "./groups.actions";
+import { createGroupAction, createGroupFailedAction, createGroupSuccessAction, loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction } from "./groups.actions";
 
 const initialState: GroupsStateInterface = {
   isLoading: false,
@@ -11,6 +11,7 @@ const initialState: GroupsStateInterface = {
 const reducer = createReducer(
   initialState,
   on(loadGroupsAction,
+    createGroupAction,
     (state): GroupsStateInterface => ({
       ...state,
       isLoading: true,
@@ -26,12 +27,36 @@ const reducer = createReducer(
     }),
   ),
   on(loadGroupsFailedAction,
+    createGroupFailedAction,
     (state, action): GroupsStateInterface => ({
       ...state,
       isLoading: false,
       backendErrors: action.error,
     }),
-  )
+  ),
+  on(createGroupSuccessAction, (state, action): GroupsStateInterface => {
+    const updatedGroups = state.groups
+      ? {
+          ...state.groups,
+          items: [
+            ...state.groups.items,
+            {
+              id: { S: action.groupID },
+              name: { S: action.name },
+              createdAt: { S: 'someValue' },
+              createdBy: { S: action.userId },
+            },
+          ],
+        }
+      : null;
+
+    return {
+      ...state,
+      isLoading: false,
+      backendErrors: null,
+      groups: updatedGroups,
+    };
+  }),
 )
 export const groupsReducer: ActionReducer<GroupsStateInterface, Action> = (
   state,

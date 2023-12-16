@@ -10,6 +10,8 @@ import { groupsReducer } from './store/groups/groups.reducers';
 import { GroupsEffects } from './store/groups/groups.effects';
 import { GroupsItemComponent } from './componennts/groups/groups-item/groups-item.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -23,6 +25,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   exports: [MainPageComponent],
   imports: [
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    SharedModule,
     StoreModule.forFeature(Features.Groups, groupsReducer),
     EffectsModule.forFeature([GroupsEffects]),
     CommonModule

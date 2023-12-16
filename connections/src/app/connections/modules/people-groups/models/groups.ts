@@ -10,6 +10,11 @@ export interface GroupsResponse  {
   Items: Group[];
 }
 
+export interface GroupCreateResponse  {
+  groupID: string;
+}
+
+
 export interface GroupsProps  {
   count: string;
   items: Group[];

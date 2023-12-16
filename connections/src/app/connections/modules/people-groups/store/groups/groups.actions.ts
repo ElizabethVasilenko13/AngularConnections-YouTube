@@ -8,3 +8,9 @@ export const loadGroupsSuccessAction = createAction('[Groups] Load Groups Succes
 export const loadGroupsFailedAction = createAction(
   '[Groups] Load Groups Failed',
 props<{ error: AuthError }>());
+
+export const createGroupAction = createAction('[Groups] Create Group', props<{ name: string; userId: string }>());
+export const createGroupSuccessAction = createAction('[Groups] Create Group Success', props<{ name: string; groupID: string; userId: string}>());
+export const createGroupFailedAction = createAction(
+  '[Groups] Create Group Failed',
+props<{ error: AuthError }>());

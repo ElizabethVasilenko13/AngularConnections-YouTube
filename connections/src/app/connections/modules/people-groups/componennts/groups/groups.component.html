@@ -3,7 +3,7 @@
   <div class="div" *ngIf="!countdownService.isGroupsCountdownEnded()">{{ 'Please wait ' + countdownService.getGroupsCountdownValue() + ' seconds, until update button will become enabled'}}</div>
   <div class="btns__container">
     <button class="control__btn" [disabled]="!countdownService.isGroupsCountdownEnded() || (isGroupsLoading$ | async) || (groupsData$ | async)=== null" (click)="updateGroupsList()">{{'Update List' | uppercase}}</button>
-    <button class="control__btn" [disabled]="(isGroupsLoading$ | async) || (groupsData$ | async) === null">{{'create group' | uppercase}}</button>
+    <button class="control__btn" (click)="createGroup()" [disabled]="(isGroupsLoading$ | async)">{{'create group' | uppercase}}</button>
   </div>
 </div>
 <mat-progress-spinner
@@ -14,8 +14,22 @@
   ></mat-progress-spinner>
 <div class="content__items">
   <div *ngFor="let group of (groupsData$ | async)?.items">
-    <a class="group-item">
+    <a class="group-item" [class.groupCurrent]="currentUserId === group.createdBy.S">
       <div class="group-property">{{ group.name.S }}</div>
+      <button class="delete__btn" *ngIf="currentUserId === group.createdBy.S">✕</button>
     </a>
   </div>
 </div>
+
+<ng-template #modalTemplate>
+  <form [formGroup]="groupCreateForm">
+    <app-form-control
+        label="name"
+        controlName="name"
+        [control]="groupCreateForm.get('name')"
+        type="text"
+        [readonly]="false"
+      ></app-form-control>
+    <button>Sub</button>
+  </form>
+</ng-template>
