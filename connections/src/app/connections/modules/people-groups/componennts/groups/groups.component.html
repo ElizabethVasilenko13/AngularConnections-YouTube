@@ -11,25 +11,12 @@
     mode="indeterminate"
     *ngIf="isGroupsLoading$ | async"
     diameter="60"
-  ></mat-progress-spinner>
+></mat-progress-spinner>
 <div class="content__items">
   <div *ngFor="let group of (groupsData$ | async)?.items">
     <a routerLink="/group/{{ group.id.S }}" class="group-item" [class.groupCurrent]="currentUserId === group.createdBy.S">
       <div class="group-property">{{ group.name.S }}</div>
-      <button class="delete__btn" *ngIf="currentUserId === group.createdBy.S" (click)="deleteGroup(group.id.S)">✕</button>
+      <button class="delete__btn" *ngIf="currentUserId === group.createdBy.S" (click)="onDeleteGroup(group.id.S)">✕</button>
     </a>
   </div>
 </div>
-
-<ng-template #modalTemplate>
-  <form [formGroup]="groupCreateForm">
-    <app-form-control
-        label="name"
-        controlName="name"
-        [control]="groupCreateForm.get('name')"
-        type="text"
-        [readonly]="false"
-      ></app-form-control>
-    <button>Sub</button>
-  </form>
-</ng-template>

@@ -8,6 +8,8 @@ import { CountdownService } from '../../services/countdown.service';
 import { ModalService } from '@core/services/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from '@core/services/local-storage.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { DialogService } from '@core/services/dialog.service';
 
 @Component({
   selector: 'app-groups',
@@ -26,6 +28,8 @@ export class GroupsComponent implements OnInit {
     private modalService: ModalService,
     private localStorageService: LocalStorageService,
     private fb: FormBuilder,
+    public dialogRef: MatDialogRef<GroupsComponent>,
+    private dialogService: DialogService
     ) {
     this.groupsData$ = this.store.pipe(select(groupsSelector));
   }
@@ -47,7 +51,7 @@ export class GroupsComponent implements OnInit {
   initForm(): void {
     this.groupCreateForm = this.fb.group({
       name: [
-        '',
+        'Liza',
         [
           Validators.required,
           Validators.maxLength(30),
@@ -64,10 +68,6 @@ export class GroupsComponent implements OnInit {
 
   loadData(): void {
     // this.store.dispatch(loadGroupsAction());
-  }
-
-  deleteGroup(id: string):void {
-    this.store.dispatch(deleteGroupAction({groupID: id}));
   }
 
   createGroup(): void {
@@ -87,6 +87,19 @@ export class GroupsComponent implements OnInit {
         this.loadData();
       }
     });
+  }
+
+  onDeleteGroup(id: string):void {
+    this.dialogService.openConfirmDialog('Are you sure you want to delete this group?')
+    .afterClosed().subscribe(res =>{
+      if(res){
+        this.store.dispatch(deleteGroupAction({groupID: id}));
+      }
+    });
+  }
+
+  onDialogClose(): void {
+    this.dialogRef.close();
   }
 
 }
