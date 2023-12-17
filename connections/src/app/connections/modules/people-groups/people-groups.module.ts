@@ -16,6 +16,8 @@ import { RouterModule } from '@angular/router';
 import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { UsersEffects } from './store/users/users.effects';
 import { usersReducer } from './store/users/users.reducers';
+import { ConversationPageComponent } from './pages/conversation-page/conversation-page.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -25,10 +27,12 @@ import { usersReducer } from './store/users/users.reducers';
     PeopleComponent,
     GroupsItemComponent,
     GroupsComponent,
-    GroupPageComponent
+    GroupPageComponent,
+    ConversationPageComponent
   ],
   exports: [MainPageComponent],
   imports: [
+    MatIconModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     SharedModule,

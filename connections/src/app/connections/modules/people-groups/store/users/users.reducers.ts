@@ -1,6 +1,6 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 import { UsersStateInterface } from "./users.interface";
-import { loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from "./users.actions";
+import { createConversationAction, createConversationFailedAction, createConversationSuccessAction, loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from "./users.actions";
 
 const initialState: UsersStateInterface = {
   isLoading: false,
@@ -13,6 +13,7 @@ const reducer = createReducer(
   initialState,
   on(loadUsersAction,
     loadConversationsAction,
+    createConversationAction,
     (state): UsersStateInterface => ({
       ...state,
       isLoading: true,
@@ -29,6 +30,7 @@ const reducer = createReducer(
   ),
   on(loadUsersFailedAction,
     loadConversationsFailedAction,
+    createConversationFailedAction,
     (state, action): UsersStateInterface => ({
       ...state,
       isLoading: false,
@@ -42,6 +44,29 @@ const reducer = createReducer(
       backendErrors: null,
       conversations: action.conversations
     }),
+  ),
+  on(createConversationSuccessAction,
+    (state, action): UsersStateInterface => {
+      const updatedConversations = state.conversations
+      ? {
+          ...state.conversations,
+          items: [
+            ...state.conversations.items,
+            {
+              id: { S: action.conversationId },
+              companionID: { S: action.companion },
+            },
+          ],
+        }
+      : null;
+
+      return {
+        ...state,
+        isLoading: false,
+        backendErrors: null,
+        conversations: updatedConversations
+      }
+    },
   )
 )
 export const usersReducer: ActionReducer<UsersStateInterface, Action> = (

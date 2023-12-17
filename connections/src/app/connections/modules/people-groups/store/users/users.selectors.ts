@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { UsersStateInterface } from "./users.interface";
 import { Features } from "@store/features.enum";
-import { ConversationsProps } from "../../models/users";
 
 export const usersFeatureSelector = createFeatureSelector<UsersStateInterface>(
   Features.Users,

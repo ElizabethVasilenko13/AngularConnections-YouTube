@@ -5,15 +5,17 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
-import { loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from './users.actions';
+import { createConversationAction, createConversationFailedAction, createConversationSuccessAction, loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from './users.actions';
 import { UsersService } from '../../services/users.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UsersEffects {
   constructor(
     private actions$: Actions,
     private snackBar: NotifyService,
-    private users: UsersService
+    private users: UsersService,
+    private router: Router,
   ) {}
 
   loadUsers$ = createEffect(() =>
@@ -61,6 +63,28 @@ export class UsersEffects {
           catchError((error: HttpErrorResponse) => {
             this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
             return of(loadConversationsFailedAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  createConversation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createConversationAction),
+      exhaustMap(({companion}) => {
+        return this.users.createConversation(companion).pipe(
+          map(({conversationID}) => {
+            this.snackBar.openSnackBar(
+              `Conversation have been succesfully created`,
+              NotifyStyles.Success,
+            );
+            this.router.navigate([`conversation/${conversationID}`]);
+            return createConversationSuccessAction({companion, conversationId: conversationID});
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            return of(createConversationFailedAction({ error: error.error }));
           }),
         );
       }),

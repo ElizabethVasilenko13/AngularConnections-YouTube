@@ -5,7 +5,9 @@ import { Store, select } from '@ngrx/store';
 import { companionsIDsSelector, conversationsSelector, isUsersLoadinSelector, usersSelector } from '../../store/users/users.selectors';
 import { CountdownService } from '../../services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
-import { loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
+import { createConversationAction, loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
+import { UsersService } from '../../services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-people',
@@ -21,7 +23,10 @@ export class PeopleComponent implements OnInit {
 
   constructor(private store: Store,
     public countdownService: CountdownService,
-    private localStorageService: LocalStorageService) {
+    private localStorageService: LocalStorageService,
+    private users: UsersService,
+    private router: Router,
+    ) {
     this.usersData$ = this.store.pipe(select(usersSelector));
   }
 
@@ -53,6 +58,17 @@ export class PeopleComponent implements OnInit {
         this.loadUsers();
       }
     });
+  }
+
+  toConversationPage(id:string): void{
+    this.companionsIDs$.subscribe((companions) => {
+      const isConversationExist = companions?.includes(id);
+      if (isConversationExist) {
+        this.router.navigate([`conversation/${id}`]);
+      } else {
+        this.store.dispatch(createConversationAction({companion: id}))
+      }
+    })
   }
 
   updateUsersList(): void {

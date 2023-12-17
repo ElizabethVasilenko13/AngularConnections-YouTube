@@ -3,7 +3,7 @@
   <div class="div" *ngIf="!countdownService.isCountdownEnded('groups')">{{ 'Please wait ' + countdownService.getCountdownValue('groups') + ' seconds, until update button will become enabled'}}</div>
   <div class="btns__container">
     <button class="control__btn" [disabled]="!countdownService.isCountdownEnded('groups') || (isGroupsLoading$ | async) || (groupsData$ | async)=== null" (click)="updateGroupsList()">{{'Update List' | uppercase}}</button>
-    <button class="control__btn" (click)="onCreateGroup(createForm)" [disabled]="(isGroupsLoading$ | async)">{{'create group' | uppercase}}</button>
+    <button class="control__btn create__btn" title="Create group" (click)="onCreateGroup(createForm)" [disabled]="(isGroupsLoading$ | async) || (groupsData$ | async)=== null"><mat-icon>add</mat-icon></button>
   </div>
 </div>
 <mat-progress-spinner

@@ -13,6 +13,11 @@ export interface ConversationsResponse  {
   Items: Conversation[];
 }
 
+export interface CreateConversationsResponse  {
+  conversationID: string;
+}
+
+
 export interface ConversationsProps  {
   count: string;
   items: Conversation[];

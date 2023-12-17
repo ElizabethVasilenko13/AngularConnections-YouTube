@@ -10,6 +10,7 @@ import { userReducer } from './store/user.reducers';
 import { UserEffects } from './store/user.effects';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from '@shared/shared.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [UserPageComponent],
@@ -18,6 +19,7 @@ import { SharedModule } from '@shared/shared.module';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     SharedModule,
+    MatIconModule,
     StoreModule.forFeature(Features.User, userReducer),
     EffectsModule.forFeature([UserEffects]),
   ],

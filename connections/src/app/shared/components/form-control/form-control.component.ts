@@ -16,9 +16,11 @@ export class FormControlComponent {
   @Input() type = 'text';
   @Input() backendError: AuthError | null = null;
   @Input() readonly = false;
+  @Input() disabled = false;
 
   isInvalid(): boolean {
     const isControlInvalidAndTouched =
+      !this.readonly &&
       !!this.control &&
       this.control.invalid &&
       (this.control.dirty || this.control.touched);

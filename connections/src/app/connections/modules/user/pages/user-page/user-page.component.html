@@ -6,9 +6,12 @@
   ></mat-progress-spinner>
   <div class="container user">
     <div class="user__header">
-      <h2>USER PROFILE</h2>
-      <button (click)="logout()" [disabled]="isUserLoading$ | async">
-        {{ 'logout' | uppercase }}
+      <div class="header__title">
+        <mat-icon class="icon">account_circle</mat-icon>
+        <h2>{{userProfileForm.get('name')?.getRawValue()}}</h2>
+      </div>
+      <button (click)="logout()" [disabled]="isUserLoading$ | async" class="exit__btn" title="Logout">
+        <mat-icon>exit_to_app</mat-icon>
       </button>
     </div>
     <form [formGroup]="userProfileForm" class="user__form">

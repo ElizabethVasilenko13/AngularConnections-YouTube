@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ConversationsResponse, UsersResponse } from '../models/users';
+import { ConversationsResponse, CreateConversationsResponse, UsersResponse } from '../models/users';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -19,5 +19,11 @@ export class UsersService {
   loadConversation(): Observable<ConversationsResponse> {
     const url = `${environment.apiUrl}conversations/list`;
     return this.http.get<ConversationsResponse>(url);
+  }
+
+  createConversation(companionId: string): Observable<CreateConversationsResponse> {
+    const url = `${environment.apiUrl}conversations/create`;
+    const body = {companion: companionId}
+    return this.http.post<CreateConversationsResponse>(url, body);
   }
 }
