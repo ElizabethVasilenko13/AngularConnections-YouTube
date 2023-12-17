@@ -16,7 +16,8 @@ export class CountdownService {
   }
 
   getCountdownValue(key: string): number {
-    return this.countdowns.has(key) ? this.countdowns.get(key)!.getValue() : 0;
+    const countdown = this.countdowns.get(key);
+    return countdown ? countdown.getValue() : 0;
   }
 
   handleCountdown(key: string, duration: number): void {

@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
-import { loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from './users.actions';
+import { loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from './users.actions';
 import { UsersService } from '../../services/users.service';
 
 @Injectable()
@@ -42,4 +42,28 @@ export class UsersEffects {
     ),
   );
 
+  loadConversations$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadConversationsAction),
+      exhaustMap(() => {
+        return this.users.loadConversation().pipe(
+          map((response) => {
+            this.snackBar.openSnackBar(
+              `Conversations have been succesfully loaded`,
+              NotifyStyles.Success,
+            );
+
+            return loadConversationsSuccessAction({ conversations : {
+              count: response.Count,
+              items: response.Items
+            }});
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            return of(loadConversationsFailedAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  );
 }

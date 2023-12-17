@@ -12,9 +12,12 @@
     diameter="60"
 ></mat-progress-spinner>
 <div class="content__items">
-  <div *ngFor="let user of (usersData$ | async)?.items" class="group-item">
+  <div *ngFor="let user of (usersData$ | async)?.items" class="group-item" [class.groupCurrent]="(companionsIDs$ | async)?.includes(user.uid.S)">
     <a routerLink="" class="group__link">
-      <div class="group-property">{{ user.name.S }}</div>
+      <div class="group-property">
+        {{ user.name.S }}
+        <span *ngIf="(companionsIDs$ | async)?.includes(user.uid.S)"> *****</span>
+      </div>
     </a>
   </div>
 </div>
