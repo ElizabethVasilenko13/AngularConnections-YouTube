@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GroupCreateResponse, GroupsResponse } from '../models/groups';
+import { GroupApiProps, GroupsResponse } from '../models/groups';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -16,8 +16,13 @@ export class GroupsService {
     return this.http.get<GroupsResponse>(url);
   }
 
-  createGroup(name: string): Observable<GroupCreateResponse> {
+  createGroup(name: string): Observable<GroupApiProps> {
     const url = `${environment.apiUrl}groups/create`;
-    return this.http.post<GroupCreateResponse>(url, { name });
+    return this.http.post<GroupApiProps>(url, { name });
+  }
+
+  deleteGroup(id: string): Observable<GroupApiProps> {
+    const url = `${environment.apiUrl}groups/delete?groupID=${id.trim()}`;
+    return this.http.delete<GroupApiProps>(url);
   }
 }

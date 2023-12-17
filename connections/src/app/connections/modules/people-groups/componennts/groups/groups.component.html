@@ -16,7 +16,7 @@
   <div *ngFor="let group of (groupsData$ | async)?.items">
     <a class="group-item" [class.groupCurrent]="currentUserId === group.createdBy.S">
       <div class="group-property">{{ group.name.S }}</div>
-      <button class="delete__btn" *ngIf="currentUserId === group.createdBy.S">✕</button>
+      <button class="delete__btn" *ngIf="currentUserId === group.createdBy.S" (click)="deleteGroup(group.id.S)">✕</button>
     </a>
   </div>
 </div>

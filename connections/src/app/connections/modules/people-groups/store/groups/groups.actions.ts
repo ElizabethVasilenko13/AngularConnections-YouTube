@@ -14,3 +14,10 @@ export const createGroupSuccessAction = createAction('[Groups] Create Group Succ
 export const createGroupFailedAction = createAction(
   '[Groups] Create Group Failed',
 props<{ error: AuthError }>());
+
+
+export const deleteGroupAction = createAction('[Groups] Delete Group', props<{ groupID: string }>());
+export const deleteGroupSuccessAction = createAction('[Groups] Delete Group Success', props<{ groupID: string}>());
+export const deleteGroupFailedAction = createAction(
+  '[Groups] Delete Group Failed',
+props<{ error: AuthError }>());

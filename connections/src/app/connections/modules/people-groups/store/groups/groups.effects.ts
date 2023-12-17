@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
 import { GroupsService } from '../../services/groups.service';
-import { createGroupAction, createGroupFailedAction, createGroupSuccessAction, loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction } from './groups.actions';
+import { createGroupAction, createGroupFailedAction, createGroupSuccessAction, deleteGroupAction, deleteGroupFailedAction, deleteGroupSuccessAction, loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction } from './groups.actions';
 
 @Injectable()
 export class GroupsEffects {
@@ -47,7 +47,7 @@ export class GroupsEffects {
         return this.groupsService.createGroup(name).pipe(
           map((response) => {
             this.snackBar.openSnackBar(
-              `Groups have been succesfully created`,
+              `Group have been succesfully created`,
               NotifyStyles.Success,
             );
             return createGroupSuccessAction({name, groupID: response.groupID, userId});
@@ -55,6 +55,27 @@ export class GroupsEffects {
           catchError((error: HttpErrorResponse) => {
             this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
             return of(createGroupFailedAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  deleteGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteGroupAction),
+      exhaustMap(({ groupID }) => {
+        return this.groupsService.deleteGroup(groupID).pipe(
+          map(() => {
+            this.snackBar.openSnackBar(
+              `Group have been succesfully deleted`,
+              NotifyStyles.Success,
+            );
+            return deleteGroupSuccessAction({groupID});
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            return of(deleteGroupFailedAction({ error: error.error }));
           }),
         );
       }),

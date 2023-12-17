@@ -43,7 +43,7 @@ h2 {
 }
 
 .groupCurrent {
-  background-color: $primaty-color-light;
+  background-color: rgb(52,57,78);
 }
 
 .group-item {
@@ -51,6 +51,10 @@ h2 {
   justify-content: space-between;
   border-bottom: 1px solid $accent-color;
   padding: 10px;
+
+  &:hover {
+    background-color: $primaty-color-light;
+  }
 }
 
 .delete__btn {

@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { createGroupAction, loadGroupsAction } from '../../store/groups/groups.actions';
+import { createGroupAction, deleteGroupAction, loadGroupsAction } from '../../store/groups/groups.actions';
 import { Observable} from 'rxjs';
 import { GroupsProps } from '../../models/groups';
 import { groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
@@ -63,7 +63,11 @@ export class GroupsComponent implements OnInit {
   }
 
   loadData(): void {
-    // this.store.dispatch(loadGroupsAction());
+    //  this.store.dispatch(loadGroupsAction());
+  }
+
+  deleteGroup(id: string):void {
+    this.store.dispatch(deleteGroupAction({groupID: id}));
   }
 
   createGroup(): void {

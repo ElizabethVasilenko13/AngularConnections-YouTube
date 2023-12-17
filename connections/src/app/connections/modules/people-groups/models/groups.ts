@@ -10,7 +10,7 @@ export interface GroupsResponse  {
   Items: Group[];
 }
 
-export interface GroupCreateResponse  {
+export interface GroupApiProps  {
   groupID: string;
 }
 
