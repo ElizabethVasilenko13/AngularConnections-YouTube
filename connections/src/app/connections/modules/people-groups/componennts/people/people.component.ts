@@ -42,7 +42,17 @@ export class PeopleComponent implements OnInit {
   subscribeToUsersData(): void {
     this.usersData$.subscribe((usersData) => {
       if (!usersData) {
-        // this.loadUsers();
+        this.loadUsers();
+      }
+    });
+  }
+
+  updateUsersList(): void {
+    this.loadUsers();
+
+    this.isUsersLoading$.subscribe((value) => {
+      if (!value) {
+        this.countdownService.handleCountdown('users', 60);
       }
     });
   }

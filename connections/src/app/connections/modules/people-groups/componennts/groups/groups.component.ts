@@ -63,7 +63,7 @@ export class GroupsComponent implements OnInit {
   }
 
   loadGroups(): void {
-    // this.store.dispatch(loadGroupsAction());
+    this.store.dispatch(loadGroupsAction());
   }
 
   onCreateGroup(template: TemplateRef<unknown>): void {
@@ -93,7 +93,7 @@ export class GroupsComponent implements OnInit {
       if (!value) {
         this.backendErrors$.subscribe((error) => {
           if (!error) {
-            this.countdownService.handleGroupsCoutdown();
+            this.countdownService.handleCountdown('groups', 60);
           }
         })
       }

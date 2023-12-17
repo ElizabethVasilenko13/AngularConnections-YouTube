@@ -5,35 +5,42 @@ import { BehaviorSubject, Subscription, timer } from 'rxjs';
   providedIn: 'root'
 })
 export class CountdownService {
-  groupsCountdown$ = new BehaviorSubject<number>(0);
-  timerSubscription: Subscription | undefined;
+  private countdowns: Map<string, BehaviorSubject<number>> = new Map<string, BehaviorSubject<number>>();
+  private timerSubscriptions: Map<string, Subscription> = new Map<string, Subscription>();
 
-  setCountdown(value: number): void {
-    this.groupsCountdown$.next(value);
+  setCountdown(key: string, value: number): void {
+    if (!this.countdowns.has(key)) {
+      this.countdowns.set(key, new BehaviorSubject<number>(0));
+    }
+    this.countdowns.get(key)?.next(value);
   }
 
-  getGroupsCountdownValue(): number {
-    return this.groupsCountdown$.getValue();
+  getCountdownValue(key: string): number {
+    return this.countdowns.has(key) ? this.countdowns.get(key)!.getValue() : 0;
   }
 
-  handleGroupsCoutdown(): void {
-    const humanReadableTimerTime = 60;
-    const machineTimerTime = 1000;
+  handleCountdown(key: string, duration: number): void {
+    if (!this.countdowns.has(key)) {
+      this.countdowns.set(key, new BehaviorSubject<number>(0));
+    }
 
-    this.setCountdown(humanReadableTimerTime);
-    this.timerSubscription = timer(0, machineTimerTime).subscribe(() => {
-      const currentCountdown = this.groupsCountdown$.getValue();
+    if (this.timerSubscriptions.has(key)) {
+      this.timerSubscriptions.get(key)?.unsubscribe();
+    }
+
+    this.setCountdown(key, duration);
+
+    this.timerSubscriptions.set(key, timer(0, 1000).subscribe(() => {
+      const currentCountdown = this.getCountdownValue(key);
       if (currentCountdown > 0) {
-        this.setCountdown(currentCountdown - 1);
+        this.setCountdown(key, currentCountdown - 1);
       } else {
-        if (this.timerSubscription) {
-          this.timerSubscription.unsubscribe();
-        }
+        this.timerSubscriptions.get(key)?.unsubscribe();
       }
-    });
+    }));
   }
 
-  isGroupsCountdownEnded(): boolean {
-    return this.getGroupsCountdownValue() > 0 ? false : true;
+  isCountdownEnded(key: string): boolean {
+    return this.getCountdownValue(key) > 0 ? false : true;
   }
 }
