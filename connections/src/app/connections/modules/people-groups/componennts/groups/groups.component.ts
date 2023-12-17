@@ -63,7 +63,7 @@ export class GroupsComponent implements OnInit {
   }
 
   loadGroups(): void {
-    this.store.dispatch(loadGroupsAction());
+    // this.store.dispatch(loadGroupsAction());
   }
 
   onCreateGroup(template: TemplateRef<unknown>): void {

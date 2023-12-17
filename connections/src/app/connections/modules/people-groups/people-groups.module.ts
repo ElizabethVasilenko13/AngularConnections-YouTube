@@ -14,6 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { GroupPageComponent } from './pages/group-page/group-page.component';
+import { UsersEffects } from './store/users/users.effects';
+import { usersReducer } from './store/users/users.reducers';
 
 
 
@@ -32,7 +34,8 @@ import { GroupPageComponent } from './pages/group-page/group-page.component';
     SharedModule,
     RouterModule,
     StoreModule.forFeature(Features.Groups, groupsReducer),
-    EffectsModule.forFeature([GroupsEffects]),
+    StoreModule.forFeature(Features.Users, usersReducer),
+    EffectsModule.forFeature([GroupsEffects, UsersEffects]),
     CommonModule
   ]
 })

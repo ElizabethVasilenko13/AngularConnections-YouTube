@@ -14,7 +14,6 @@ export interface GroupApiProps  {
   groupID: string;
 }
 
-
 export interface GroupsProps  {
   count: string;
   items: Group[];

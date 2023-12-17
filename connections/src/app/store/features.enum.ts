@@ -3,4 +3,5 @@ export enum Features {
   SignIn = 'signin',
   User = 'user',
   Groups = 'groups',
+  Users = 'users',
 }

@@ -4,3 +4,16 @@
     <button class="control__btn">{{'Update List' | uppercase}}</button>
   </div>
 </div>
+<mat-progress-spinner
+    class="loader"
+    mode="indeterminate"
+    *ngIf="isUsersLoading$ | async"
+    diameter="60"
+></mat-progress-spinner>
+<div class="content__items">
+  <div *ngFor="let user of (usersData$ | async)?.items" class="group-item">
+    <a routerLink="" class="group__link">
+      <div class="group-property">{{ user.name.S }}</div>
+    </a>
+  </div>
+</div>
