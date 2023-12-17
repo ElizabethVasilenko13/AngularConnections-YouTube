@@ -50,9 +50,11 @@ export class GroupsEffects {
               `Group have been succesfully created`,
               NotifyStyles.Success,
             );
+            this.groupsService.isCreateGroupModalClosed.next(true);
             return createGroupSuccessAction({name, groupID: response.groupID, userId});
           }),
           catchError((error: HttpErrorResponse) => {
+            this.groupsService.isCreateGroupModalClosed.next(false);
             this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
             return of(createGroupFailedAction({ error: error.error }));
           }),

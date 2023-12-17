@@ -68,7 +68,7 @@ export class UserPageComponent implements OnInit {
   }
 
   loadData(): void {
-    // this.store.dispatch(loadUserAction());
+    this.store.dispatch(loadUserAction());
   }
 
   enterEditMode(): void {

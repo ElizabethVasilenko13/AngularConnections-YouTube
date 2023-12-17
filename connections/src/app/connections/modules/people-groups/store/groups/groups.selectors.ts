@@ -15,3 +15,8 @@ export const groupsSelector = createSelector(
   groupsFeatureSelector,
   (state: GroupsStateInterface) => state.groups,
 );
+
+export const backendGroupErrorSelector = createSelector(
+  groupsFeatureSelector,
+  (state: GroupsStateInterface) => state.backendErrors,
+);

@@ -62,7 +62,11 @@ a {
   font-family: $main-font;
 }
 
-button:hover {
+button:disabled {
+  background-color: $disabled-solor !important;
+}
+
+button:not([disabled]):hover {
   background-color: #EE90B0 !important;
 }
 

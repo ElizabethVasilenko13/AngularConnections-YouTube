@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { GroupApiProps, GroupsResponse } from '../models/groups';
 import { environment } from '@env/environment';
 
@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
   providedIn: 'root'
 })
 export class GroupsService {
-
+  isCreateGroupModalClosed = new BehaviorSubject(false);
   constructor(private http: HttpClient) { }
 
   loadGroups(): Observable<GroupsResponse> {

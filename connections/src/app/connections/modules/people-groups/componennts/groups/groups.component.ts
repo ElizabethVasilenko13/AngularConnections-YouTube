@@ -3,13 +3,14 @@ import { Store, select } from '@ngrx/store';
 import { createGroupAction, deleteGroupAction, loadGroupsAction } from '../../store/groups/groups.actions';
 import { Observable} from 'rxjs';
 import { GroupsProps } from '../../models/groups';
-import { groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
+import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
 import { CountdownService } from '../../services/countdown.service';
-import { ModalService } from '@core/services/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from '@core/services/local-storage.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
+import { AuthError } from '@shared/types/user';
+import { GroupsService } from '../../services/groups.service';
 
 @Component({
   selector: 'app-groups',
@@ -21,25 +22,19 @@ export class GroupsComponent implements OnInit {
   isGroupsLoading$!: Observable<boolean>;
   groupCreateForm!: FormGroup;
   currentUserId?: string;
+  backendErrors$!: Observable<AuthError | null>
 
   constructor(
     private store: Store,
     public countdownService: CountdownService,
-    private modalService: ModalService,
     private localStorageService: LocalStorageService,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     public dialogRef: MatDialogRef<GroupsComponent>,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private groupService: GroupsService
     ) {
     this.groupsData$ = this.store.pipe(select(groupsSelector));
-  }
-
-  openModal(modalTemplate: TemplateRef<unknown>): void {
-    this.modalService
-      .open(modalTemplate, { title: 'Create Group' })
-      .subscribe((action) => {
-        console.log('modalAction', action);
-      });
   }
 
   ngOnInit(): void {
@@ -51,7 +46,7 @@ export class GroupsComponent implements OnInit {
   initForm(): void {
     this.groupCreateForm = this.fb.group({
       name: [
-        'Liza',
+        '',
         [
           Validators.required,
           Validators.maxLength(30),
@@ -64,42 +59,67 @@ export class GroupsComponent implements OnInit {
   initValues(): void {
     this.currentUserId = this.localStorageService.get('userData')?.uid;
     this.isGroupsLoading$ = this.store.pipe(select(isGroupsLoadinSelector));
+    this.backendErrors$ = this.store.pipe(select(backendGroupErrorSelector));
   }
 
-  loadData(): void {
-    // this.store.dispatch(loadGroupsAction());
+  loadGroups(): void {
+    this.store.dispatch(loadGroupsAction());
   }
 
-  createGroup(): void {
+  onCreateGroup(template: TemplateRef<unknown>): void {
+    this.groupCreateForm.reset();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "40%";
+    this.dialog.open(template,dialogConfig);
+  }
+
+  onCreateFormSubmit(): void {
     const name: string = this.groupCreateForm.get('name')?.value;
     const userId = this.currentUserId || '';
     this.store.dispatch(createGroupAction({ name, userId }));
+
+    this.isGroupsLoading$.subscribe((value) => {
+      if (!value) {
+        if (this.groupService.isCreateGroupModalClosed.getValue() === true) {
+          this.onDialogClose();
+        }
+      }
+    });
   }
 
   updateGroupsList(): void {
-    this.loadData();
-    this.countdownService.handleGroupsCoutdown();
+    this.loadGroups();
+    this.isGroupsLoading$.subscribe((value) => {
+      if (!value) {
+        this.backendErrors$.subscribe((error) => {
+          if (!error) {
+            this.countdownService.handleGroupsCoutdown();
+          }
+        })
+      }
+    });
   }
 
   subscribeToGroupsData(): void {
     this.groupsData$.subscribe((groupData) => {
       if (!groupData) {
-        this.loadData();
+        this.loadGroups();
       }
     });
   }
 
-  onDeleteGroup(id: string):void {
+  onDeleteGroup(event: Event, groupId: string):void {
+    event.stopPropagation();
     this.dialogService.openConfirmDialog('Are you sure you want to delete this group?')
     .afterClosed().subscribe(res =>{
       if(res){
-        this.store.dispatch(deleteGroupAction({groupID: id}));
+        this.store.dispatch(deleteGroupAction({ groupID: groupId }));
       }
     });
   }
 
   onDialogClose(): void {
-    this.dialogRef.close();
+    this.dialog.closeAll();
   }
 
 }
