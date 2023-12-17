@@ -13,7 +13,7 @@ export class NotifyService {
   ): void {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
-      horizontalPosition: 'center',
+      horizontalPosition: 'right',
       verticalPosition: 'top',
       panelClass: ['custom-snackbar', statusStyle],
     });

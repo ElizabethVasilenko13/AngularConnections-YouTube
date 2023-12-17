@@ -1,0 +1,13 @@
+@import 'vars';
+
+.main__container {
+  display: flex;
+  height: 100%;
+}
+
+.main__content {
+  padding: 20px;
+  border: 1px solid $accent-color;
+  flex: 1;
+}
+

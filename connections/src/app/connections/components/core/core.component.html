@@ -4,15 +4,16 @@
     <nav class="navigation">
       <a
         class="navigation__item"
-        routerLink="/main"
+        [routerLink]="['']"
         routerLinkActive="active-route"
+        [routerLinkActiveOptions]="{ exact: true }"
       >
         <mat-icon>home</mat-icon>
         <div>{{ 'Home' | uppercase }}</div>
       </a>
       <a
         class="navigation__item"
-        routerLink="/profile"
+        [routerLink]="['profile']"
         routerLinkActive="active-route"
       >
         <mat-icon>account_circle</mat-icon>

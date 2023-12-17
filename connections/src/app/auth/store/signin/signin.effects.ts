@@ -11,7 +11,6 @@ import {
   sighInSuccessAction,
 } from './signin.actions';
 import { LocalStorageService } from '@core/services/local-storage.service';
-import { MAIN_PAGE_ROUTE } from '@core/constants/routing';
 import { NotifyService } from '@core/services/notify.service';
 import { AuthService } from '@core/services/auth.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
@@ -43,7 +42,7 @@ export class SignInEffects {
               uid,
             });
             this.auth.isLoggedIn.next(true);
-            this.router.navigateByUrl(MAIN_PAGE_ROUTE);
+            this.router.navigate(['/']);
             return sighInSuccessAction({ userData, token, uid });
           }),
           catchError((error: HttpErrorResponse) => {

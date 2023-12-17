@@ -25,7 +25,7 @@ export class UserEffects {
     private actions$: Actions,
     private userService: UserService,
     private snackBar: NotifyService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {}
 
   loadUser$ = createEffect(() =>
@@ -85,7 +85,10 @@ export class UserEffects {
       exhaustMap(() => {
         return this.userService.logout().pipe(
           map(() => {
-            this.snackBar.openSnackBar('Logout successful', NotifyStyles.Success);
+            this.snackBar.openSnackBar(
+              'Logout successful',
+              NotifyStyles.Success,
+            );
             this.userService.handleLodout();
             return LogoutSuccessfulAction();
           }),

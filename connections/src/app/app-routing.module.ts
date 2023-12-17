@@ -6,11 +6,10 @@ import { AuthRedirectGuard } from '@auth/guards/auth-redirect-guard.guard';
 import { NotFoundComponent } from '@core/components/not-found/not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
   {
     path: AUTH_ROUTE,
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    canActivate: [AuthRedirectGuard]
+    canActivate: [AuthRedirectGuard],
   },
   {
     path: '',

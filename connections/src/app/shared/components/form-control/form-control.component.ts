@@ -8,7 +8,7 @@ import { AuthError } from '@shared/types/user';
   styleUrls: ['./form-control.component.scss'],
 })
 export class FormControlComponent {
-  @Input() label = '';
+  @Input() label = 'Label';
   @Input() className = 'form-group';
   @Input() controlName = '';
   @Input() control: AbstractControl | null = null;
@@ -16,9 +16,11 @@ export class FormControlComponent {
   @Input() type = 'text';
   @Input() backendError: AuthError | null = null;
   @Input() readonly = false;
+  @Input() disabled = false;
 
   isInvalid(): boolean {
     const isControlInvalidAndTouched =
+      !this.readonly &&
       !!this.control &&
       this.control.invalid &&
       (this.control.dirty || this.control.touched);
