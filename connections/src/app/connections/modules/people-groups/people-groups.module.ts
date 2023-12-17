@@ -12,6 +12,8 @@ import { GroupsItemComponent } from './componennts/groups/groups-item/groups-ite
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { GroupPageComponent } from './pages/group-page/group-page.component';
 
 
 
@@ -20,13 +22,15 @@ import { SharedModule } from '@shared/shared.module';
     MainPageComponent,
     PeopleComponent,
     GroupsItemComponent,
-    GroupsComponent
+    GroupsComponent,
+    GroupPageComponent
   ],
   exports: [MainPageComponent],
   imports: [
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     SharedModule,
+    RouterModule,
     StoreModule.forFeature(Features.Groups, groupsReducer),
     EffectsModule.forFeature([GroupsEffects]),
     CommonModule

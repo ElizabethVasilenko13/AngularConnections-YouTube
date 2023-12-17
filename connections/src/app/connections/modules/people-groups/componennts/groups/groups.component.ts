@@ -63,7 +63,7 @@ export class GroupsComponent implements OnInit {
   }
 
   loadData(): void {
-    //  this.store.dispatch(loadGroupsAction());
+    // this.store.dispatch(loadGroupsAction());
   }
 
   deleteGroup(id: string):void {
