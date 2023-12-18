@@ -9,7 +9,7 @@
     </div>
     <div class="header__controls">
       <button (click)="updateGroupDialog()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('groupDailog') || (isGroupDialogLoading$ | async) || (groupDialogData$ | async)=== null" >{{'Update messages' | uppercase}}</button>
-      <button class="header__control header__control-delete" [disabled]="(isGroupDialogLoading$ | async) || (groupDialogData$ | async)=== null" title="Delete group"><mat-icon>delete</mat-icon></button>
+      <button *ngIf="isGroupCreatedByCurrnetUser" (click)="onDeleteGroup(groupId)" class="header__control header__control-delete" [disabled]="(isGroupDialogLoading$ | async) || (groupDialogData$ | async)=== null" title="Delete group"><mat-icon>delete</mat-icon></button>
     </div>
   </div>
   <div class="user__message" *ngIf="!countdownService.isCountdownEnded('groupDailog')">{{ 'Please wait ' + countdownService.getCountdownValue('groupDailog') + ' seconds, until update button will become enabled'}}</div>

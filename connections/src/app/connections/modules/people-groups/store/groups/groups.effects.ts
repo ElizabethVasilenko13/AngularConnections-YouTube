@@ -7,6 +7,7 @@ import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
 import { GroupsService } from '../../services/groups.service';
 import { createGroupAction, createGroupFailedAction, createGroupSuccessAction, deleteGroupAction, deleteGroupFailedAction, deleteGroupSuccessAction, loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction } from './groups.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class GroupsEffects {
@@ -14,6 +15,7 @@ export class GroupsEffects {
     private actions$: Actions,
     private groupsService: GroupsService,
     private snackBar: NotifyService,
+    private router: Router
   ) {}
 
   loadGroups$ = createEffect(() =>
@@ -66,13 +68,14 @@ export class GroupsEffects {
   deleteGroup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteGroupAction),
-      exhaustMap(({ groupID }) => {
+      exhaustMap(({ groupID, redirect }) => {
         return this.groupsService.deleteGroup(groupID).pipe(
           map(() => {
             this.snackBar.openSnackBar(
               `Group have been succesfully deleted`,
               NotifyStyles.Success,
             );
+            if (redirect) this.router.navigate(['/']);
             return deleteGroupSuccessAction({groupID});
           }),
           catchError((error: HttpErrorResponse) => {

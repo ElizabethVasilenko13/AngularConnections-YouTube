@@ -23,10 +23,11 @@ export class GroupDialodEffects {
         return this.groupDialog.loadAllMesages(groupID).pipe(
           map((response) => {
             this.snackBar.openSnackBar(
-              `Groups have been succesfully loaded`,
+              `Group have been succesfully loaded`,
               NotifyStyles.Success,
             );
             return loadGroupMessagesSuccessAction({ groupData : {
+              groupID,
               count: response.Count,
               items: response.Items
             } });

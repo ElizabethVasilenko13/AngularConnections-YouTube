@@ -4,6 +4,7 @@ export interface GroupMessagesResponse {
 }
 
 export interface GroupMessagesProps {
+  groupID: string;
   count: string;
   items: MessageItem[];
 }

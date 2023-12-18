@@ -21,6 +21,11 @@ export const groupMessagesAuthorsIdsSelector = createSelector(
   (messages) => messages?.items.map((conversation) => conversation.authorID.S),
 );
 
+export const loadedGroupsIdsSelector = createSelector(
+  groupDialogFeatureSelector,
+  (state: GroupDialogStateInterface) => state.loadedGroupIds
+);
+
 export const backendGroupDialogErrorSelector = createSelector(
   groupDialogFeatureSelector,
   (state: GroupDialogStateInterface) => state.backendErrors,

@@ -5,4 +5,5 @@ export interface GroupDialogStateInterface {
   isLoading: boolean;
   backendErrors: AuthError | null;
   messages: GroupMessagesProps | null;
+  loadedGroupIds: string[] | null;
 }
