@@ -1,1 +1,25 @@
-<p>group-page works!</p>
+<section class="group-dialog">
+<div class="group-dialog__header">
+  <div class="content">
+    <div class="header__title">
+      <a routerLink="/" class="header__control" title="Go to main page">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </a>
+      <h2>{{'Group Dialog' | uppercase}}</h2>
+    </div>
+    <div class="header__controls">
+      <button (click)="updateGroupDialog()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('groupDailog') || (isGroupDialogLoading$ | async) || (groupDialogData$ | async)=== null" >{{'Update messages' | uppercase}}</button>
+      <button class="header__control header__control-delete" [disabled]="(isGroupDialogLoading$ | async) || (groupDialogData$ | async)=== null" title="Delete group"><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+  <div class="user__message" *ngIf="!countdownService.isCountdownEnded('groupDailog')">{{ 'Please wait ' + countdownService.getCountdownValue('groupDailog') + ' seconds, until update button will become enabled'}}</div>
+</div>
+  <div class="loader">
+    <mat-progress-spinner
+      class="loader"
+      mode="indeterminate"
+      *ngIf="isGroupDialogLoading$ | async"
+      diameter="60"
+      ></mat-progress-spinner>
+  </div>
+</section>

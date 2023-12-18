@@ -4,7 +4,7 @@ import { createGroupAction, deleteGroupAction, loadGroupsAction } from '../../st
 import { Observable} from 'rxjs';
 import { GroupsProps } from '../../models/groups';
 import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
-import { CountdownService } from '../../services/countdown.service';
+import { CountdownService } from '../../../../../core/services/countdown.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
