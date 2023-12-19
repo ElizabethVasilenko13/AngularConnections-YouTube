@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CountdownService } from '@core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { Store, select } from '@ngrx/store';
-import { Observable, take } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 import { GroupMessagesProps } from '../../models/group-dialog';
 import { backendGroupDialogErrorSelector, groupMessagesSelector, isGroupDialogLoadinSelector, loadedGroupsIdsSelector } from '../../store/group-dialog/group-dialog.selectors';
 import { loadGroupMessagesAction } from '../../store/group-dialog/group-dialog.actions';
@@ -52,6 +52,15 @@ export class GroupPageComponent implements OnInit {
       this.groupDialogData$ = this.store.pipe(select(groupMessagesSelector));
       this.groupsData$ = this.store.pipe(select(groupsSelector));
       this.usersData$ = this.store.pipe(select(usersSelector));
+  }
+
+  getMessageCreatorName(authorId: string): Observable<string> {
+    return this.usersData$.pipe(
+      map(usersData => {
+        const user = usersData?.items.find(user => user.uid.S === authorId);
+        return user?.name.S || 'Me';
+      })
+    );
   }
 
   ngOnInit(): void {
