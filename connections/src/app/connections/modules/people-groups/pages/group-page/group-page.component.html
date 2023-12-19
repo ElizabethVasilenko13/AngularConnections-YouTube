@@ -22,14 +22,13 @@
       diameter="60"
       ></mat-progress-spinner>
   </div>
-  <!-- *ngIf="(groupDialogData$ | async) && (isGroupDialogLoading$ | async) === false" -->
   <div class="group-dialog__main" >
     <div class="messages">
-      <div *ngFor="let message of (groupDialogData$ | async)?.items" class="message" [class.currentUser]="message.authorID.S === currentUserId">
+      <div *ngFor="let message of (groupDialogData$ | async)?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserId">
           <div class="message__creator">
             {{ message.authorID.S === currentUserId ? 'Me' : message.authorID.S}}
           </div>
-          <div class="message__test">{{message.message.S}}</div>
+          <div class="message__text">{{message.message.S}}</div>
           <div class="message__date">{{message.createdAt.S  | date:'short'}}</div>
         </div>
     </div>

@@ -87,6 +87,7 @@
     max-height: 370px;
     height: 100%;
     overflow: auto;
+    margin-bottom: 100px;
   }
 
   .message {
@@ -101,6 +102,10 @@
     max-width: 50%;
     background-color: $primaty-color-light;
     align-self: flex-start;
+  }
+
+  .message__text {
+    word-wrap: break-word;
   }
 
   .messages::-webkit-scrollbar {
@@ -137,9 +142,6 @@
     flex: 1;
   }
 
-  .send__btn {
-
-  }
 
   .message__form {
     padding: 20px;

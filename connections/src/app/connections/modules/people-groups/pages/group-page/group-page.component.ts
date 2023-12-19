@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CountdownService } from '@core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { Store, select } from '@ngrx/store';
-import { Observable, take, takeLast } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { GroupMessagesProps } from '../../models/group-dialog';
 import { backendGroupDialogErrorSelector, groupMessagesSelector, isGroupDialogLoadinSelector, loadedGroupsIdsSelector } from '../../store/group-dialog/group-dialog.selectors';
 import { loadGroupMessagesAction } from '../../store/group-dialog/group-dialog.actions';
