@@ -24,7 +24,7 @@ export class GroupsEffects {
       exhaustMap(() => {
         return this.groupsService.loadGroups().pipe(
           map((response) => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Groups have been succesfully loaded`,
               NotifyStyles.Success,
             );
@@ -34,7 +34,7 @@ export class GroupsEffects {
             } });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(loadGroupsFailedAction({ error: error.error }));
           }),
         );
@@ -48,7 +48,7 @@ export class GroupsEffects {
       exhaustMap(({ name, userId }) => {
         return this.groupsService.createGroup(name).pipe(
           map((response) => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Group have been succesfully created`,
               NotifyStyles.Success,
             );
@@ -57,7 +57,7 @@ export class GroupsEffects {
           }),
           catchError((error: HttpErrorResponse) => {
             this.groupsService.isCreateGroupModalClosed.next(false);
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(createGroupFailedAction({ error: error.error }));
           }),
         );
@@ -71,7 +71,7 @@ export class GroupsEffects {
       exhaustMap(({ groupID, redirect }) => {
         return this.groupsService.deleteGroup(groupID).pipe(
           map(() => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Group have been succesfully deleted`,
               NotifyStyles.Success,
             );
@@ -79,7 +79,7 @@ export class GroupsEffects {
             return deleteGroupSuccessAction({groupID});
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(deleteGroupFailedAction({ error: error.error }));
           }),
         );

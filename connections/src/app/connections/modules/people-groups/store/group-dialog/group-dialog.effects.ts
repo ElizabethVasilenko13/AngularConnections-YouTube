@@ -24,7 +24,7 @@ export class GroupDialodEffects {
       exhaustMap(({groupID}) => {
         return this.groupDialog.loadAllMesages(groupID).pipe(
           map((response) => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Group have been succesfully loaded`,
               NotifyStyles.Success,
             );
@@ -35,7 +35,7 @@ export class GroupDialodEffects {
             } });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(loadGroupMessagesFailedAction({ error: error.error }));
           }),
         );

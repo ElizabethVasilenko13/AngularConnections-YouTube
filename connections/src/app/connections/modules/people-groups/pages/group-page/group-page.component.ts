@@ -127,8 +127,8 @@ export class GroupPageComponent implements OnInit {
 
   loadUsers(): void {
     const { currentUserId = '' } = this;
-    // this.store.dispatch(loadUsersAction({ currentUserId}));
-    // this.loadConversations()
+    this.store.dispatch(loadUsersAction({ currentUserId}));
+    this.loadConversations()
   }
 
   loadConversations(): void {
@@ -138,7 +138,7 @@ export class GroupPageComponent implements OnInit {
   subscribeToUsersData(): void {
     this.usersData$.subscribe((usersData) => {
       if (!usersData) {
-        // this.loadUsers();
+        this.loadUsers();
       }
     });
   }
@@ -146,7 +146,7 @@ export class GroupPageComponent implements OnInit {
   subscribeToGroupDialogData(): void {
     this.groupsIds$?.pipe(take(1)).subscribe((ids) => {
       if (!ids?.includes(this.groupId)) {
-        // this.loadAllMessages()
+        this.loadAllMessages()
       }
     })
   }
