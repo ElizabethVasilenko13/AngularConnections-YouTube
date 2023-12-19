@@ -2,18 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { CountdownService } from '@core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take, takeLast } from 'rxjs';
 import { GroupMessagesProps } from '../../models/group-dialog';
-import { backendGroupDialogErrorSelector, groupMessagesAuthorsIdsSelector, groupMessagesSelector, isGroupDialogLoadinSelector, loadedGroupsIdsSelector } from '../../store/group-dialog/group-dialog.selectors';
+import { backendGroupDialogErrorSelector, groupMessagesSelector, isGroupDialogLoadinSelector, loadedGroupsIdsSelector } from '../../store/group-dialog/group-dialog.selectors';
 import { loadGroupMessagesAction } from '../../store/group-dialog/group-dialog.actions';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthError } from '@shared/types/user';
 import { GroupsProps } from '../../models/groups';
-import { groupsIdsSelector, groupsSelector } from '../../store/groups/groups.selectors';
+import { groupsSelector } from '../../store/groups/groups.selectors';
 import { deleteGroupAction, loadGroupsAction } from '../../store/groups/groups.actions';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { GroupsComponent } from '../../componennts/groups/groups.component';
 import { DialogService } from '@core/services/dialog.service';
+import { UsersProps } from '../../models/users';
+import { isUsersLoadinSelector, usersSelector } from '../../store/users/users.selectors';
+import { loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-group-page',
@@ -24,32 +28,53 @@ export class GroupPageComponent implements OnInit {
   groupDialogData$: Observable<GroupMessagesProps | null>;
   groupsData$: Observable<GroupsProps | null>;
   isGroupDialogLoading$!: Observable<boolean>;
+  isUsersDataLoading$!: Observable<boolean>;
   groupId = '';
   isGroupCreatedByCurrnetUser = false;
   currentUserId!: string;
   groupAuthorsIds$!: Observable<string[] | undefined>;
   backendErrors$!: Observable<AuthError | null>;
   groupsIds$!: Observable<string[] | null>;
+  usersData$!: Observable<UsersProps | null>;
+  messageCreatorId = '';
+  messageCreatorName = '';
+  createMessageForm!: FormGroup;
 
-  constructor(private store: Store,
+  constructor(
+    private store: Store,
     public countdownService: CountdownService,
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
     public dialogRef: MatDialogRef<GroupsComponent>,
-    private dialogService: DialogService,) {
+    private dialogService: DialogService,
+    private fb: FormBuilder,
+    ) {
       this.groupDialogData$ = this.store.pipe(select(groupMessagesSelector));
       this.groupsData$ = this.store.pipe(select(groupsSelector));
+      this.usersData$ = this.store.pipe(select(usersSelector));
   }
 
   ngOnInit(): void {
     this.initValues();
+    this.initForm();
     this.subscribeToGroupDialogData();
     this.subscribeToGroupsData();
+    this.subscribeToUsersData();
+  }
+
+  initForm():void {
+    this.createMessageForm = this.fb.group({
+      text: [
+        '',
+        [
+          Validators.required,
+        ],
+      ],
+    });
   }
 
   subscribeToGroupsData(): void {
-    this.groupsData$.subscribe((groupData) => {
+    this.groupsData$.pipe(take(1)).subscribe((groupData) => {
       if (!groupData) {
         this.loadGroups();
       }
@@ -71,6 +96,7 @@ export class GroupPageComponent implements OnInit {
     this.groupsIds$ = this.store.pipe(select(loadedGroupsIdsSelector));
     this.isGroupDialogLoading$ = this.store.pipe(select(isGroupDialogLoadinSelector));
     this.backendErrors$ = this.store.pipe(select(backendGroupDialogErrorSelector));
+    this.isUsersDataLoading$ = this.store.pipe(select(isUsersLoadinSelector));
   }
 
   updateGroupDialog(): void {
@@ -99,10 +125,28 @@ export class GroupPageComponent implements OnInit {
     });
   }
 
+  loadUsers(): void {
+    const { currentUserId = '' } = this;
+    // this.store.dispatch(loadUsersAction({ currentUserId}));
+    // this.loadConversations()
+  }
+
+  loadConversations(): void {
+    this.store.dispatch(loadConversationsAction());
+  }
+
+  subscribeToUsersData(): void {
+    this.usersData$.subscribe((usersData) => {
+      if (!usersData) {
+        // this.loadUsers();
+      }
+    });
+  }
+
   subscribeToGroupDialogData(): void {
-    this.groupsIds$?.subscribe((ids) => {
+    this.groupsIds$?.pipe(take(1)).subscribe((ids) => {
       if (!ids?.includes(this.groupId)) {
-        this.loadAllMessages()
+        // this.loadAllMessages()
       }
     })
   }

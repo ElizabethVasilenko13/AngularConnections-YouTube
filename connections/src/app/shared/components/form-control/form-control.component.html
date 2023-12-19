@@ -8,6 +8,7 @@
     [class.invalidInput]="isInvalid()"
     [readonly]="readonly"
     [disabled]="disabled"
+    [placeholder]="placeholder"
   />
   <div *ngIf="isInvalid()" [class.invalid]="isInvalid()">
     <div *ngFor="let error of errors">{{ error }}</div>

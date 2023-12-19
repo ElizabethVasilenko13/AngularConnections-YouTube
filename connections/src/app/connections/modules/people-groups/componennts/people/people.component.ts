@@ -44,8 +44,8 @@ export class PeopleComponent implements OnInit {
 
   loadUsers(): void {
     const { currentUserId = '' } = this;
-    // this.store.dispatch(loadUsersAction({ currentUserId}));
-    // this.loadConversations()
+    this.store.dispatch(loadUsersAction({ currentUserId}));
+    this.loadConversations()
   }
 
   loadConversations(): void {

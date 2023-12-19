@@ -7,6 +7,7 @@ import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
 import { loadGroupMessagesAction, loadGroupMessagesFailedAction, loadGroupMessagesSuccessAction } from './group-dialog.actions';
 import { GroupDialogService } from '../../services/group-dialog.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable()
 export class GroupDialodEffects {
@@ -14,6 +15,7 @@ export class GroupDialodEffects {
     private actions$: Actions,
     private groupDialog: GroupDialogService,
     private snackBar: NotifyService,
+    private datePipe: DatePipe,
   ) {}
 
   loadGroupDialog$ = createEffect(() =>
