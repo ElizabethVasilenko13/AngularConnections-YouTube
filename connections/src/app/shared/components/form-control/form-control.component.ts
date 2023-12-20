@@ -17,6 +17,7 @@ export class FormControlComponent {
   @Input() backendError: AuthError | null = null;
   @Input() readonly = false;
   @Input() disabled = false;
+  @Input() placeholder = '';
 
   isInvalid(): boolean {
     const isControlInvalidAndTouched =
@@ -40,25 +41,25 @@ export class FormControlComponent {
 
         switch (key) {
           case 'required':
-            errorMessages.push(`The ${this.label.toLowerCase()} is required.`);
+            errorMessages.push(`The ${this.controlName.toLowerCase()} is required.`);
             break;
           case 'minlength':
             errorMessages.push(
-              `The ${this.label.toLowerCase()} is too short. Min length - ${
+              `The ${this.controlName.toLowerCase()} is too short. Min length - ${
                 message.requiredLength
               }`,
             );
             break;
           case 'maxlength':
             errorMessages.push(
-              `The ${this.label.toLowerCase()} is too long. Max length - ${
+              `The ${this.controlName.toLowerCase()} is too long. Max length - ${
                 message.requiredLength
               }`,
             );
             break;
           case 'email':
             errorMessages.push(
-              `The ${this.label.toLowerCase()} email is invalid`,
+              `The ${this.controlName.toLowerCase()} email is invalid`,
             );
             break;
           default:
@@ -73,7 +74,7 @@ export class FormControlComponent {
                 );
               }
             } else {
-              errorMessages.push(`The ${this.label.toLowerCase()} is invalid`);
+              errorMessages.push(`The ${this.controlName.toLowerCase()} is invalid`);
             }
         }
       });

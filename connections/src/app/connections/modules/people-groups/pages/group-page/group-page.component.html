@@ -1,1 +1,57 @@
-<p>group-page works!</p>
+<section class="group-dialog">
+<div class="group-dialog__header">
+  <div class="content">
+    <div class="header__title">
+      <a routerLink="/" class="header__control" title="Go to main page">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </a>
+      <h2>{{'Group Dialog' | uppercase}}</h2>
+    </div>
+    <div class="header__controls">
+      <button (click)="updateGroupDialog()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('groupDailog') || (isGroupDialogLoading$ | async) || (groupDialogData$ | async)=== null" >{{'Update messages' | uppercase}}</button>
+      <button *ngIf="(isGroupDialogLoading$ | async) === false && (isUsersDataLoading$ | async) === false&&  isGroupCreatedByCurrnetUser" (click)="onDeleteGroup(groupId)" class="header__control header__control-delete" [disabled]="(isGroupDialogLoading$ | async) || (groupDialogData$ | async)=== null" title="Delete group"><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+  <div class="user__message" *ngIf="!countdownService.isCountdownEnded('groupDailog')">{{ 'Please wait ' + countdownService.getCountdownValue('groupDailog') + ' seconds, until update button will become enabled'}}</div>
+</div>
+  <div class="loader">
+    <mat-progress-spinner
+      class="loader"
+      mode="indeterminate"
+      *ngIf="isGroupDialogLoading$ | async"
+      diameter="60"
+      ></mat-progress-spinner>
+  </div>
+  <div class="group-dialog__main" >
+    <div class="messages">
+      <div *ngFor="let message of (groupDialogData$ | async)?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserId">
+          <div class="message__creator">
+            {{ getMessageCreatorName(message.authorID.S) | async }}
+          </div>
+          <div class="message__text">{{message.message.S}}</div>
+          <div class="message__date">{{message.createdAt.S  | date:'short'}}</div>
+        </div>
+    </div>
+    <div class="create__message">
+      <form  [formGroup]="createMessageForm" class="message__form">
+        <div class="message__input">
+          <app-form-control
+          className="message-form"
+          label="{{ '' | uppercase }}"
+          controlName="text"
+          [control]="createMessageForm.get('text')"
+          type="text"
+          [readonly]="false"
+        ></app-form-control>
+        </div>
+        <button
+          (click)="sendMessage()"
+          class="group__btn"
+          [disabled]="(isGroupDialogLoading$ | async) || createMessageForm.invalid"
+        >
+        {{ 'send' | uppercase }}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

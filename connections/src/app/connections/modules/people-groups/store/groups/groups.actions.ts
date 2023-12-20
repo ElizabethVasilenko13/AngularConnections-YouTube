@@ -16,7 +16,7 @@ export const createGroupFailedAction = createAction(
 props<{ error: AuthError }>());
 
 
-export const deleteGroupAction = createAction('[Groups] Delete Group', props<{ groupID: string }>());
+export const deleteGroupAction = createAction('[Groups] Delete Group', props<{ groupID: string; redirect?: boolean }>());
 export const deleteGroupSuccessAction = createAction('[Groups] Delete Group Success', props<{ groupID: string}>());
 export const deleteGroupFailedAction = createAction(
   '[Groups] Delete Group Failed',

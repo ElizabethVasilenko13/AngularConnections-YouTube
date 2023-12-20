@@ -34,10 +34,7 @@ export class UserEffects {
       exhaustMap(() => {
         return this.userService.loadUser().pipe(
           map((response) => {
-            this.snackBar.openSnackBar(
-              `${response.email.S} been succesfully loaded`,
-              NotifyStyles.Success,
-            );
+            this.snackBar.addMessage(`${response.email.S} been succesfully loaded`, NotifyStyles.Success);
             return loadUserSuccessfulAction({
               uid: response.uid.S,
               email: response.email.S,
@@ -50,7 +47,7 @@ export class UserEffects {
             });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(loadUserFailedAction({ error: error.error }));
           }),
         );
@@ -64,14 +61,14 @@ export class UserEffects {
       exhaustMap(({ name }) => {
         return this.userService.updateUser(name).pipe(
           map(() => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `User name has been updated successfully`,
               NotifyStyles.Success,
             );
             return UpdateUserSuccessfulNameAction({ name });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(UpdateUserFailedNameAction({ error: error.error }));
           }),
         );
@@ -85,7 +82,7 @@ export class UserEffects {
       exhaustMap(() => {
         return this.userService.logout().pipe(
           map(() => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               'Logout successful',
               NotifyStyles.Success,
             );
@@ -93,7 +90,7 @@ export class UserEffects {
             return LogoutSuccessfulAction();
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(LogoutFailedAction({ error: error.error }));
           }),
         );
