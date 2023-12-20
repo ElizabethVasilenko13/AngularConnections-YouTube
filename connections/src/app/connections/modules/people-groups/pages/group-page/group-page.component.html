@@ -8,11 +8,11 @@
       <h2>{{'Group Dialog' | uppercase}}</h2>
     </div>
     <div class="header__controls">
-      <button (click)="updateGroupDialog()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('groupDailog') || (isGroupDialogLoading$ | async) || (groupDialogData$ | async)=== null" >{{'Update messages' | uppercase}}</button>
-      <button *ngIf="(isGroupDialogLoading$ | async) === false && (isUsersDataLoading$ | async) === false&&  isGroupCreatedByCurrnetUser" (click)="onDeleteGroup(groupId)" class="header__control header__control-delete" [disabled]="(isGroupDialogLoading$ | async) || (groupDialogData$ | async)=== null" title="Delete group"><mat-icon>delete</mat-icon></button>
+      <button (click)="updateGroupDialog()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('groupDailog' + groupId) || (isGroupDialogLoading$ | async)" >{{'Update messages' | uppercase}}</button>
+      <button *ngIf="(isGroupDialogLoading$ | async) === false && (isUsersDataLoading$ | async) === false&&  isGroupCreatedByCurrnetUser" (click)="onDeleteGroup(groupId)" class="header__control header__control-delete" [disabled]="(isGroupDialogLoading$ | async)" title="Delete group"><mat-icon>delete</mat-icon></button>
     </div>
   </div>
-  <div class="user__message" *ngIf="!countdownService.isCountdownEnded('groupDailog')">{{ 'Please wait ' + countdownService.getCountdownValue('groupDailog') + ' seconds, until update button will become enabled'}}</div>
+  <div class="user__message" *ngIf="!countdownService.isCountdownEnded('groupDailog' + groupId)">{{ 'Please wait ' + countdownService.getCountdownValue('groupDailog' + groupId) + ' seconds, until update button will become enabled'}}</div>
 </div>
   <div class="loader">
     <mat-progress-spinner
