@@ -5,23 +5,25 @@
       [customClass]="'sort__btn'"
       (buttonClick)="onSortClick('date', sortingService.dateComparator)"
       [title]="'Sort by date'"
-      [buttonTemplate]="dateBtnTemplate">
-        <ng-template #dateBtnTemplate>
-            Date
-          <span *ngIf="sortingService.isDescSorting('date')">▼</span>
-          <span *ngIf="sortingService.isAscSorting('date')">▲</span>
-        </ng-template>
+      [buttonTemplate]="dateBtnTemplate"
+    >
+      <ng-template #dateBtnTemplate>
+        Date
+        <span *ngIf="sortingService.isDescSorting('date')">▼</span>
+        <span *ngIf="sortingService.isAscSorting('date')">▲</span>
+      </ng-template>
     </app-button>
     <app-button
       [customClass]="'sort__btn'"
       (buttonClick)="onSortClick('views', sortingService.viewsComparator)"
       [title]="'Sort by views'"
-      [buttonTemplate]="viewsTemplate">
-        <ng-template #viewsTemplate>
-          Views
-          <span *ngIf="sortingService.isDescSorting('views')">▼</span>
-          <span *ngIf="sortingService.isAscSorting('views')">▲</span>
-        </ng-template>
+      [buttonTemplate]="viewsTemplate"
+    >
+      <ng-template #viewsTemplate>
+        Views
+        <span *ngIf="sortingService.isDescSorting('views')">▼</span>
+        <span *ngIf="sortingService.isAscSorting('views')">▲</span>
+      </ng-template>
     </app-button>
     <div class="sort__input">
       <div class="">by word or sentance</div>

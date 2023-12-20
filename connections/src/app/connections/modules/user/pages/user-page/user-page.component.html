@@ -1,0 +1,77 @@
+<div class="content">
+  <mat-progress-spinner
+    mode="indeterminate"
+    *ngIf="isUserLoading$ | async"
+    diameter="60"
+  ></mat-progress-spinner>
+  <div class="container user">
+    <div class="user__header">
+      <div class="header__title">
+        <mat-icon class="icon">account_circle</mat-icon>
+        <h2>{{userProfileForm.get('name')?.getRawValue()}}</h2>
+      </div>
+      <button (click)="logout()" [disabled]="isUserLoading$ | async" class="exit__btn" title="Logout">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </div>
+    <form [formGroup]="userProfileForm" class="user__form">
+      <app-form-control
+        className="form-profile"
+        label="{{ 'name:' | uppercase }}"
+        controlName="name"
+        [control]="userProfileForm.get('name')"
+        type="text"
+        [readonly]="!isEditMode"
+      ></app-form-control>
+      <app-form-control
+        className="form-profile"
+        label="{{ 'email:' | uppercase }}"
+        controlName="name"
+        [control]="userProfileForm.get('email')"
+        type="email"
+        [readonly]="true"
+      ></app-form-control>
+      <app-form-control
+        className="form-profile"
+        label="{{ 'User ID:' | uppercase }}"
+        controlName="uid"
+        [control]="userProfileForm.get('uid')"
+        type="text"
+        [readonly]="true"
+      ></app-form-control>
+      <app-form-control
+        className="form-profile"
+        label="{{ 'Created At:' | uppercase }}"
+        controlName="createdAt"
+        [control]="userProfileForm.get('createdAt')"
+        type="text"
+        [readonly]="true"
+      ></app-form-control>
+      <div class="button-container">
+        <button
+          *ngIf="!isEditMode"
+          [disabled]="
+            (isUserLoading$ | async) || (userProfileData$ | async) === null
+          "
+          (click)="enterEditMode()"
+        >
+          {{ 'Edit' | uppercase }}
+        </button>
+        <button
+          *ngIf="isEditMode"
+          [disabled]="isUserLoading$ | async"
+          (click)="cancelEdit()"
+        >
+          {{ 'Cancel' | uppercase }}
+        </button>
+        <button
+          *ngIf="isEditMode"
+          [disabled]="(isUserLoading$ | async) || userProfileForm.invalid"
+          (click)="saveChanges()"
+        >
+          {{ 'Save' | uppercase }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

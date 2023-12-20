@@ -35,19 +35,21 @@ export class YoutubeService {
     return this.http.get<IYouTubeApiResponse>(`${this.BASE_URL}search`, { params: searchParams }).pipe(
       switchMap((response: IYouTubeApiResponse) => {
         const pageInfo = {
-            nextPageToken: response.nextPageToken,
-            prevPageToken: response.prevPageToken,
+          nextPageToken: response.nextPageToken,
+          prevPageToken: response.prevPageToken,
         };
         const idsArray: string[] = (response.items || []).map((item) => item.id.videoId);
         const videoIds = idsArray.join(',');
         if (!videoIds) return of({ allVideos: [], pageInfo: {} });
-        return this.http.get<IYouTubeApiItemResponse>(`${this.BASE_URL}videos?id=${videoIds}`, { params: videoParams }).pipe(
-          map((videoResponse: IYouTubeApiItemResponse) => ({ allVideos: videoResponse.items || [], pageInfo })),
-          catchError((error: Error) => {
-            console.error('Error fetching video details:', error);
-            return of({ allVideos: [], pageInfo: {} });
-          }),
-        );
+        return this.http
+          .get<IYouTubeApiItemResponse>(`${this.BASE_URL}videos?id=${videoIds}`, { params: videoParams })
+          .pipe(
+            map((videoResponse: IYouTubeApiItemResponse) => ({ allVideos: videoResponse.items || [], pageInfo })),
+            catchError((error: Error) => {
+              console.error('Error fetching video details:', error);
+              return of({ allVideos: [], pageInfo: {} });
+            }),
+          );
       }),
       catchError((error: Error) => {
         console.error('Error fetching search results:', error);

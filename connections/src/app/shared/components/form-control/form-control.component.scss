@@ -1,0 +1,106 @@
+@import 'vars';
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+
+  label {
+    margin-bottom: 5px;
+    color: $controls-text-color;
+  }
+
+  input {
+    background-color: $background-color;
+    padding: 10px;
+    border: 1px solid $controls-text-color;
+    border-radius: 8px;
+    color: $controls-text-color;
+  }
+
+  .invalid {
+    color: $error-color;
+    margin-top: 5px;
+  }
+}
+
+
+
+.form-profile {
+  display: flex;
+  box-sizing: border-box;
+  column-gap: 10px;
+  align-items: center;
+  border-top: 1px solid $accent-color;
+  border-bottom: 1px solid $accent-color;
+
+  label {
+    color: $controls-text-color;
+    max-width: 60px;
+    width: 100%;
+  }
+
+  input {
+    background-color: $primaty-color-light;
+    padding: 10px;
+    color: $controls-text-color;
+    width: 100%;
+  }
+
+  input.invalidInput:focus {
+    outline: $error-color;
+  }
+
+  input:not([readonly]) {
+    background-color: $background-color;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .invalid {
+    color: $error-color;
+  }
+}
+
+.message-form {
+  input {
+    width: 100%;
+    background-color: $background-color;
+    padding: 10px;
+    border-radius: 8px;
+    color: $controls-text-color;
+  }
+
+  .invalid {
+    color: $error-color;
+    margin-top: 5px;
+  }
+
+  input.invalidInput:focus {
+    outline: $error-color;
+  }
+
+  input:not([readonly]) {
+    background-color: $background-color;
+  }
+
+  input:focus {
+    outline: none;
+  }
+}
+
+input.invalidInput:focus {
+  outline: $error-color !important;
+}
+
+.invalidInput {
+  border-color: $error-color !important;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px $background-color inset !important;
+  -webkit-text-fill-color: $controls-text-color !important;
+}

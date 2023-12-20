@@ -2,7 +2,13 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { SortingService } from '@core/services/sorting.service';
-import { selectCurrnetPageNumList,  selectCustomVideos,  selectPageIngo, selectVideoLoading,  selectVideosList } from '@redux/selectors/videos.selector';
+import {
+  selectCurrnetPageNumList,
+  selectCustomVideos,
+  selectPageIngo,
+  selectVideoLoading,
+  selectVideosList,
+} from '@redux/selectors/videos.selector';
 import { SearchService } from '@services/searchService.service';
 import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
 import { IPaginationPageInfo } from '@shared/models/search-response.model';
@@ -38,7 +44,7 @@ export class SearchResultComponent {
       if (nextPageToken && currentPage) {
         this.store.dispatch(loadVideos({ pageToken: nextPageToken, currentPage: currentPage + 1 }));
       }
-    })
+    });
   }
 
   loadPrevPage(): void {
@@ -47,7 +53,6 @@ export class SearchResultComponent {
       if (prevPageToken && currentPage) {
         this.store.dispatch(loadVideos({ pageToken: prevPageToken, currentPage: currentPage - 1 }));
       }
-    })
+    });
   }
-
 }

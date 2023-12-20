@@ -7,14 +7,7 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AdminPageComponent
-  ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    ReactiveFormsModule,
-    SharedModule
-  ]
+  declarations: [AdminPageComponent],
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule, SharedModule],
 })
-export class AdminModule { }
+export class AdminModule {}

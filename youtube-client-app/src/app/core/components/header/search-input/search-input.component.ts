@@ -12,7 +12,6 @@ import { MAIN_PAGE_ROUTE, MIN_SEARCH_LENGTH } from '@core/consts';
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss'],
 })
-
 export class SearchInputComponent implements OnInit, OnDestroy {
   @Output() showFilters: EventEmitter<boolean> = new EventEmitter<boolean>();
   private searchSubscription: Subscription = new Subscription();
@@ -24,13 +23,13 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.searchSubscription = this.youtubeService.searchTerm$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      filter((text: string) => text.length >= MIN_SEARCH_LENGTH)
-    ).subscribe(() =>
-      this.store.dispatch(loadVideos({ pageToken: undefined }))
-    );
+    this.searchSubscription = this.youtubeService.searchTerm$
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        filter((text: string) => text.length >= MIN_SEARCH_LENGTH),
+      )
+      .subscribe(() => this.store.dispatch(loadVideos({ pageToken: undefined })));
   }
 
   search(term: string): void {

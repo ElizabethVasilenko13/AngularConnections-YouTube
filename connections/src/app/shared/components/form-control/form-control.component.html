@@ -1,0 +1,16 @@
+<div [class]="className">
+  <label [for]="controlName">{{ label }} {{ isRequired ? '*' : '' }}</label>
+  <input
+    [type]="type"
+    [id]="controlName"
+    [name]="controlName"
+    [formControl]="$any(control)"
+    [class.invalidInput]="isInvalid()"
+    [readonly]="readonly"
+    [disabled]="disabled"
+    [placeholder]="placeholder"
+  />
+  <div *ngIf="isInvalid()" [class.invalid]="isInvalid()">
+    <div *ngFor="let error of errors">{{ error }}</div>
+  </div>
+</div>

@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: ADMIN_PAGE_ROUTE,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule)
+    loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
   },
   {
     path: FAVORITE_PAGE_ROUTE,

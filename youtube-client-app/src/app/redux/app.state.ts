@@ -1,5 +1,5 @@
-import { IYouTubeCustomItem, IYouTubeItem } from "@shared/models/search-item.model";
-import { IPageTokens } from "@shared/models/search-response.model";
+import { IYouTubeCustomItem, IYouTubeItem } from '@shared/models/search-item.model';
+import { IPageTokens } from '@shared/models/search-response.model';
 
 export interface State {
   isLoading: boolean;
