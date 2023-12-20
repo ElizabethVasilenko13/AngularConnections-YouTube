@@ -32,7 +32,7 @@ export class SignInEffects {
       exhaustMap(({ userData }) => {
         return this.signUpService.signIn(userData).pipe(
           map(({ token, uid }) => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Welcome ${userData.email}`,
               NotifyStyles.Success,
             );
@@ -48,7 +48,7 @@ export class SignInEffects {
           catchError((error: HttpErrorResponse) => {
             const errorMes = error && error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
-            this.snackBar.openSnackBar(errorSnakBar, NotifyStyles.Error);
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(sighInFailureAction({ error: error.error }));
           }),
         );

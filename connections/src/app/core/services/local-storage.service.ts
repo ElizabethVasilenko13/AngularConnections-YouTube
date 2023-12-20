@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -12,8 +13,7 @@ export class LocalStorageService {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get(key: string): any {
+  get(key: string) {
     try {
       return JSON.parse(localStorage.getItem(key) || '');
     } catch (e) {

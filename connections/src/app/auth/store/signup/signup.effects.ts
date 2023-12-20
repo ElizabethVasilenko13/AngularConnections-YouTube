@@ -29,7 +29,7 @@ export class AuthEffects {
       exhaustMap(({ userData }) => {
         return this.signUpService.signUp(userData).pipe(
           map(() => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               'You`ve been succesfully registered',
               NotifyStyles.Success,
             );
@@ -39,7 +39,7 @@ export class AuthEffects {
           catchError((error: HttpErrorResponse) => {
             const errorMes = error && error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
-            this.snackBar.openSnackBar(errorSnakBar, NotifyStyles.Error);
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(sighUpFailureAction({ error: error.error }));
           }),
         );

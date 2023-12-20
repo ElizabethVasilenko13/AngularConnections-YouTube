@@ -7,6 +7,7 @@ import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
 import { GroupsService } from '../../services/groups.service';
 import { createGroupAction, createGroupFailedAction, createGroupSuccessAction, deleteGroupAction, deleteGroupFailedAction, deleteGroupSuccessAction, loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction } from './groups.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class GroupsEffects {
@@ -14,6 +15,7 @@ export class GroupsEffects {
     private actions$: Actions,
     private groupsService: GroupsService,
     private snackBar: NotifyService,
+    private router: Router
   ) {}
 
   loadGroups$ = createEffect(() =>
@@ -22,7 +24,7 @@ export class GroupsEffects {
       exhaustMap(() => {
         return this.groupsService.loadGroups().pipe(
           map((response) => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Groups have been succesfully loaded`,
               NotifyStyles.Success,
             );
@@ -32,7 +34,7 @@ export class GroupsEffects {
             } });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(loadGroupsFailedAction({ error: error.error }));
           }),
         );
@@ -46,7 +48,7 @@ export class GroupsEffects {
       exhaustMap(({ name, userId }) => {
         return this.groupsService.createGroup(name).pipe(
           map((response) => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Group have been succesfully created`,
               NotifyStyles.Success,
             );
@@ -55,7 +57,7 @@ export class GroupsEffects {
           }),
           catchError((error: HttpErrorResponse) => {
             this.groupsService.isCreateGroupModalClosed.next(false);
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(createGroupFailedAction({ error: error.error }));
           }),
         );
@@ -66,17 +68,18 @@ export class GroupsEffects {
   deleteGroup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteGroupAction),
-      exhaustMap(({ groupID }) => {
+      exhaustMap(({ groupID, redirect }) => {
         return this.groupsService.deleteGroup(groupID).pipe(
           map(() => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Group have been succesfully deleted`,
               NotifyStyles.Success,
             );
+            if (redirect) this.router.navigate(['/']);
             return deleteGroupSuccessAction({groupID});
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(deleteGroupFailedAction({ error: error.error }));
           }),
         );

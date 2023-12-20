@@ -23,6 +23,8 @@
   }
 }
 
+
+
 .form-profile {
   display: flex;
   box-sizing: border-box;
@@ -58,6 +60,33 @@
 
   .invalid {
     color: $error-color;
+  }
+}
+
+.message-form {
+  input {
+    width: 100%;
+    background-color: $background-color;
+    padding: 10px;
+    border-radius: 8px;
+    color: $controls-text-color;
+  }
+
+  .invalid {
+    color: $error-color;
+    margin-top: 5px;
+  }
+
+  input.invalidInput:focus {
+    outline: $error-color;
+  }
+
+  input:not([readonly]) {
+    background-color: $background-color;
+  }
+
+  input:focus {
+    outline: none;
   }
 }
 

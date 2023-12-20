@@ -24,7 +24,7 @@ export class UsersEffects {
       exhaustMap(({currentUserId}) => {
         return this.users.loadUsers().pipe(
           map((response) => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Users have been succesfully loaded`,
               NotifyStyles.Success,
             );
@@ -36,7 +36,7 @@ export class UsersEffects {
             }, currentUserId});
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(loadUsersFailedAction({ error: error.error }));
           }),
         );
@@ -50,7 +50,7 @@ export class UsersEffects {
       exhaustMap(() => {
         return this.users.loadConversation().pipe(
           map((response) => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Conversations have been succesfully loaded`,
               NotifyStyles.Success,
             );
@@ -61,7 +61,7 @@ export class UsersEffects {
             }});
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(loadConversationsFailedAction({ error: error.error }));
           }),
         );
@@ -75,7 +75,7 @@ export class UsersEffects {
       exhaustMap(({companion}) => {
         return this.users.createConversation(companion).pipe(
           map(({conversationID}) => {
-            this.snackBar.openSnackBar(
+            this.snackBar.addMessage(
               `Conversation have been succesfully created`,
               NotifyStyles.Success,
             );
@@ -83,7 +83,7 @@ export class UsersEffects {
             return createConversationSuccessAction({companion, conversationId: conversationID});
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.openSnackBar(error.error.message, NotifyStyles.Error);
+            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
             return of(createConversationFailedAction({ error: error.error }));
           }),
         );

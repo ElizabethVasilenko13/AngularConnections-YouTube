@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ConversationsProps, UsersProps } from '../../models/users';
 import { Store, select } from '@ngrx/store';
 import { companionsIDsSelector, conversationsSelector, isUsersLoadinSelector, usersSelector } from '../../store/users/users.selectors';
-import { CountdownService } from '../../services/countdown.service';
+import { CountdownService } from '../../../../../core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { createConversationAction, loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
 import { UsersService } from '../../services/users.service';
