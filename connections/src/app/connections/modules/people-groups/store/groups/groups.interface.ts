@@ -5,4 +5,5 @@ export interface GroupsStateInterface {
   isLoading: boolean;
   backendErrors: AuthError | null;
   groups: GroupsProps | null;
+  loadedGroupIds: string[] | null;
 }

@@ -5,7 +5,7 @@
       <a routerLink="/" class="header__control" title="Go to main page">
         <mat-icon>keyboard_arrow_left</mat-icon>
       </a>
-      <h2>{{'Group Dialog' | uppercase}}</h2>
+      <h2>{{'Group ' + '"'+((groupDialogData$ | async)?.name?.S || '') + '"' | uppercase}}</h2>
     </div>
     <div class="header__controls">
       <button (click)="updateGroupDialog()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('groupDailog' + groupId) || (isGroupDialogLoading$ | async)" >{{'Update messages' | uppercase}}</button>
@@ -24,7 +24,7 @@
   </div>
   <div class="group-dialog__main" >
     <div class="messages">
-      <div *ngFor="let message of (groupDialogData$ | async)?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserId">
+      <div *ngFor="let message of (groupDialogData$ | async)?.messages?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserId">
           <div class="message__creator">
             {{ getMessageCreatorName(message.authorID.S) | async }}
           </div>
