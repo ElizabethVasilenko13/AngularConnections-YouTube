@@ -5,4 +5,5 @@ export enum Features {
   Groups = 'groups',
   Users = 'users',
   GroupDialog = 'groupDialog',
+  Conversation = 'conversation'
 }

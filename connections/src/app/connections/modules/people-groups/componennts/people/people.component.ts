@@ -19,7 +19,8 @@ export class PeopleComponent implements OnInit {
   isUsersLoading$!: Observable<boolean>;
   currentUserId?: string;
   activeConversations$!: Observable<ConversationsProps | null>
-  companionsIDs$!: Observable<string[] | undefined>
+  companionsIDs$!: Observable<string[] | undefined>;
+  isPageCliked = false;
 
   constructor(private store: Store,
     public countdownService: CountdownService,
@@ -61,10 +62,12 @@ export class PeopleComponent implements OnInit {
   }
 
   toConversationPage(id:string): void{
+    this.isPageCliked = true;
     this.companionsIDs$.subscribe((companions) => {
       const isConversationExist = companions?.includes(id);
-      if (isConversationExist) {
+      if (isConversationExist && this.isPageCliked) {
         this.router.navigate([`conversation/${id}`]);
+        this.isPageCliked = false;
       } else {
         this.store.dispatch(createConversationAction({companion: id}))
       }

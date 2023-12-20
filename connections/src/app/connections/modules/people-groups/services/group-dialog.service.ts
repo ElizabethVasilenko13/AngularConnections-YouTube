@@ -9,6 +9,8 @@ import { environment } from '@env/environment';
 })
 export class GroupDialogService {
 
+timeServie = new Date().getTime()
+
   constructor(private http: HttpClient) { }
 
   loadAllMesages(groupID: string): Observable<GroupMessagesResponse> {
@@ -25,7 +27,7 @@ export class GroupDialogService {
   }
 
   loadMessageSince(groupID: string, time: number): Observable<GroupMessagesResponse> {
-    const url = `${environment.apiUrl}groups/read?groupID=${groupID}&since=${time}`;
+    const url = `${environment.apiUrl}groups/read?groupID=${groupID}&since=${this.timeServie}`;
     return this.http.get<GroupMessagesResponse>(url);
   }
 }

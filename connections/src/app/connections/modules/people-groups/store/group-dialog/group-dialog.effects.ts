@@ -48,7 +48,7 @@ export class GroupDialodEffects {
   postNewMessage$ = createEffect(() =>
   this.actions$.pipe(
     ofType(postNewMessageAction),
-    exhaustMap(({groupID, message}) => {
+    exhaustMap(({groupID, message, time}) => {
       return this.groupDialog.postNewMessage(groupID, message).pipe(
         map(() => {
           this.snackBar.addMessage(
@@ -56,13 +56,24 @@ export class GroupDialodEffects {
             NotifyStyles.Success,
           );
 
-          const time = new Date().getTime()
 
           // this.store.dispatch(loadGroupMessagesAction({groupID}))
 
           // this.groupDialog.loadMessageSince(groupID, time).subscribe()
           // const time2 = new Date().getTime()
-          // this.groupDialog.loadMessageSince(groupID, time2).subscribe()
+          // console.log(time * 100);
+          setTimeout(() => {
+            if (time) {
+              this.groupDialog.loadMessageSince(groupID, time).subscribe()
+              this.groupDialog.loadMessageSince(groupID,  time).subscribe()
+            }
+ 
+           
+          }, 1000
+          )
+          // this.groupDialog.loadMessageSince(groupID, time).subscribe()
+          // this.groupDialog.loadMessageSince(groupID,  time).subscribe()
+          // this.groupDialog.loadMessageSince(groupID, 1703101966507).subscribe()
           return postNewMessageSuccessAction();
         }),
         catchError((error: HttpErrorResponse) => {

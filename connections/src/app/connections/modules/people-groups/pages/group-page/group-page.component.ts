@@ -46,7 +46,7 @@ export class GroupPageComponent implements OnInit {
     public countdownService: CountdownService,
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
-    public dialogRef: MatDialogRef<GroupsComponent>,
+    public dialogRef: MatDialogRef<GroupPageComponent>,
     private dialogService: DialogService,
     private fb: FormBuilder,
     private service: GroupDialogService
@@ -60,7 +60,8 @@ export class GroupPageComponent implements OnInit {
     const message: string = this.createMessageForm.get('text')?.value;
     const props = {
       groupID: this.groupId,
-      message
+      message,
+      time: 1703102929903
     }
     this.store.dispatch(postNewMessageAction(props));
     this.createMessageForm.reset();
@@ -127,7 +128,7 @@ export class GroupPageComponent implements OnInit {
       if (!value) {
         this.backendErrors$.subscribe((error) => {
           if (!error) {
-            this.countdownService.handleCountdown('groupDailog', 60);
+            this.countdownService.handleCountdown('groupDailog' + this.groupId, 60);
           }
         })
       }
