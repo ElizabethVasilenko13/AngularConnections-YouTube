@@ -6,4 +6,5 @@ export interface GroupDialogStateInterface {
   backendErrors: AuthError | null;
   messages: GroupMessagesProps | null;
   loadedGroupIds: string[] | null;
+  lastUpdated: number | null;
 }

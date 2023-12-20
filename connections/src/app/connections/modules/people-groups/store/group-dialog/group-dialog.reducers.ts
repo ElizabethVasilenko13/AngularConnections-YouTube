@@ -1,21 +1,24 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 import { GroupDialogStateInterface } from "./group-dialog.interface";
-import { loadGroupMessagesAction, loadGroupMessagesFailedAction, loadGroupMessagesSuccessAction } from "./group-dialog.actions";
+import { loadGroupMessagesAction, loadGroupMessagesFailedAction, loadGroupMessagesSuccessAction, postNewMessageAction, postNewMessageFailedAction, postNewMessageSuccessAction } from "./group-dialog.actions";
 
 const initialState: GroupDialogStateInterface = {
   isLoading: false,
   backendErrors: null,
   messages: null,
-  loadedGroupIds: null
+  loadedGroupIds: null,
+  lastUpdated: null
 };
 
 const reducer = createReducer(
   initialState,
   on(loadGroupMessagesAction,
+    postNewMessageAction,
     (state): GroupDialogStateInterface => ({
       ...state,
       isLoading: true,
       backendErrors: null,
+      messages: null
     }),
   ),
   on(loadGroupMessagesSuccessAction, (state, action): GroupDialogStateInterface => {
@@ -29,12 +32,20 @@ const reducer = createReducer(
     };
   }),
   on(loadGroupMessagesFailedAction,
+    postNewMessageFailedAction,
     (state, action): GroupDialogStateInterface => ({
       ...state,
       isLoading: false,
       backendErrors: action.error,
     }),
   ),
+  on(postNewMessageSuccessAction, (state): GroupDialogStateInterface => {
+    return {
+      ...state,
+      isLoading: false,
+      backendErrors: null
+    };
+  }),
 )
 export const groupDialogReducer: ActionReducer<GroupDialogStateInterface, Action> = (
   state,

@@ -8,3 +8,10 @@ export const  loadGroupMessagesSuccessAction = createAction('[Group] Load Group 
 export const  loadGroupMessagesFailedAction = createAction(
   '[Group] Load Group Failed',
 props<{ error: AuthError }>());
+
+export const postNewMessageAction = createAction('[Group] Post Message', props<{ groupID: string; message: string }>());
+
+export const postNewMessageSuccessAction = createAction('[Group] Post Message Success');
+export const postNewMessageFailedAction = createAction(
+  '[Group] Post Message Failed',
+props<{ error: AuthError }>());

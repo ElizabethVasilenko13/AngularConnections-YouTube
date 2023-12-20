@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable, map, take } from 'rxjs';
 import { GroupMessagesProps } from '../../models/group-dialog';
 import { backendGroupDialogErrorSelector, groupMessagesSelector, isGroupDialogLoadinSelector, loadedGroupsIdsSelector } from '../../store/group-dialog/group-dialog.selectors';
-import { loadGroupMessagesAction } from '../../store/group-dialog/group-dialog.actions';
+import { loadGroupMessagesAction, postNewMessageAction } from '../../store/group-dialog/group-dialog.actions';
 import { ActivatedRoute } from '@angular/router';
 import { AuthError } from '@shared/types/user';
 import { GroupsProps } from '../../models/groups';
@@ -18,6 +18,7 @@ import { UsersProps } from '../../models/users';
 import { isUsersLoadinSelector, usersSelector } from '../../store/users/users.selectors';
 import { loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GroupDialogService } from '../../services/group-dialog.service';
 
 @Component({
   selector: 'app-group-page',
@@ -48,10 +49,21 @@ export class GroupPageComponent implements OnInit {
     public dialogRef: MatDialogRef<GroupsComponent>,
     private dialogService: DialogService,
     private fb: FormBuilder,
+    private service: GroupDialogService
     ) {
       this.groupDialogData$ = this.store.pipe(select(groupMessagesSelector));
       this.groupsData$ = this.store.pipe(select(groupsSelector));
       this.usersData$ = this.store.pipe(select(usersSelector));
+  }
+
+  sendMessage(): void {
+    const message: string = this.createMessageForm.get('text')?.value;
+    const props = {
+      groupID: this.groupId,
+      message
+    }
+    this.store.dispatch(postNewMessageAction(props));
+    this.createMessageForm.reset();
   }
 
   getMessageCreatorName(authorId: string): Observable<string> {
@@ -83,16 +95,17 @@ export class GroupPageComponent implements OnInit {
   }
 
   subscribeToGroupsData(): void {
-    this.groupsData$.pipe(take(1)).subscribe((groupData) => {
+    this.groupsData$.subscribe((groupData) => {
       if (!groupData) {
         this.loadGroups();
       }
       const currentGroup = groupData?.items.find((group) => group.id.S === this.groupId);
       if(currentGroup) {
         if(currentGroup.createdBy.S === this.currentUserId)
-        this.isGroupCreatedByCurrnetUser = true;
+            this.isGroupCreatedByCurrnetUser = true;
       }
-    });
+        })
+
   }
 
   loadGroups(): void {

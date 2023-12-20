@@ -7,6 +7,7 @@ export interface GroupMessagesProps {
   groupID: string;
   count: string;
   items: MessageItem[];
+  lastUpdated?: number;
 }
 
 export interface MessageItem {

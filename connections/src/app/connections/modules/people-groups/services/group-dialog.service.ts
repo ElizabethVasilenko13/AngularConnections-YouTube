@@ -15,4 +15,17 @@ export class GroupDialogService {
     const url = `${environment.apiUrl}groups/read?groupID=${groupID}`;
     return this.http.get<GroupMessagesResponse>(url);
   }
+
+  postNewMessage(groupID: string, message: string): Observable<null> {
+    const url = `${environment.apiUrl}groups/append`;
+    const body = {
+      groupID, message
+    }
+    return this.http.post<null>(url, body);
+  }
+
+  loadMessageSince(groupID: string, time: number): Observable<GroupMessagesResponse> {
+    const url = `${environment.apiUrl}groups/read?groupID=${groupID}&since=${time}`;
+    return this.http.get<GroupMessagesResponse>(url);
+  }
 }
