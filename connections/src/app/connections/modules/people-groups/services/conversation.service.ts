@@ -12,7 +12,7 @@ export class ConversationService {
   constructor(private http: HttpClient) { }
 
   loadAllMesages(conversationID: string): Observable<ConverastionMessagesResponse> {
-    const url = `${environment.apiUrl}conversations/read?conversationID=${conversationID}`;
+    const url = `${environment.apiUrl}conversations/read?conversationID=${conversationID}&since=${0}`;
     return this.http.get<ConverastionMessagesResponse>(url);
   }
 
