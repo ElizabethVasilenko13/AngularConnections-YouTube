@@ -6,22 +6,22 @@ import { SearchResultComponent } from './pages/search-result-page/search-result.
 import { VideoStaticsComponent } from './components/video-statics/video-statics.component';
 import { DetailInfoPageComponent } from './pages/detail-info-page/detail-info-page.component';
 import { YoutubeRoutingModule } from './youtube-routing.module';
-import { SortBy } from './pipes/sort-by.pipe';
 import { CustomCardItemComponent } from './components/custom-card-item/custom-card-item.component';
 import { VideoCardItemComponent } from './components/video-card-item/video-card-item.component';
 import { FavoriteButtonComponent } from './components/favorite-button/favorite-button.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { SortBy } from './pipes/sort-by.pipe';
 
 @NgModule({
   declarations: [
+    SortBy,
     SearchResultComponent,
     VideoStaticsComponent,
     DetailInfoPageComponent,
     CustomCardItemComponent,
     VideoCardItemComponent,
     FavoriteButtonComponent,
-    PaginationComponent,
-    SortBy
+    PaginationComponent
   ],
   imports: [
     CommonModule,
