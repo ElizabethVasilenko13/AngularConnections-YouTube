@@ -36,7 +36,9 @@ export class GroupsEffects {
             } });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(loadGroupsFailedAction({ error: error.error }));
           }),
         );
@@ -84,7 +86,9 @@ export class GroupsEffects {
             } });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(loadGroupMessagesFailedAction({ error: error.error }));
           }),
         );
@@ -106,7 +110,9 @@ export class GroupsEffects {
             return postNewMessageSuccessAction();
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(postNewMessageFailedAction({ error: error.error }));
           }),
         );
@@ -129,7 +135,9 @@ export class GroupsEffects {
           }),
           catchError((error: HttpErrorResponse) => {
             this.groupsService.isCreateGroupModalClosed.next(false);
-            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(createGroupFailedAction({ error: error.error }));
           }),
         );
@@ -151,7 +159,9 @@ export class GroupsEffects {
             return deleteGroupSuccessAction({groupID});
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(deleteGroupFailedAction({ error: error.error }));
           }),
         );
