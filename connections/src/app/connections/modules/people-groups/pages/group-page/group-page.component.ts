@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CountdownService } from '@core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { Store, select } from '@ngrx/store';
-import { Observable, map, take } from 'rxjs';
+import { Observable, Subscription, map, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthError } from '@shared/types/user';
 import { GroupProps, GroupsProps } from '../../models/groups';
@@ -20,7 +20,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './group-page.component.html',
   styleUrls: ['./group-page.component.scss']
 })
-export class GroupPageComponent implements OnInit {
+export class GroupPageComponent implements OnInit, OnDestroy {
   groupDialogData$!: Observable<GroupProps | null>;
   groupsData$: Observable<GroupsProps | null>;
   isGroupDialogLoading$!: Observable<boolean>;
@@ -35,6 +35,7 @@ export class GroupPageComponent implements OnInit {
   messageCreatorId = '';
   messageCreatorName = '';
   createMessageForm!: FormGroup;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private store: Store,
@@ -51,9 +52,10 @@ export class GroupPageComponent implements OnInit {
 
   sendMessage(): void {
     const message: string = this.createMessageForm.get('text')?.value;
-    this.groupDialogData$.pipe(take(1)).subscribe((value) => {
+    const groupDialogDataSubscr = this.groupDialogData$.pipe(take(1)).subscribe((value) => {
       if (value && value.lastUpdated) this.store.dispatch(postNewMessageAction({groupID: this.groupId, message, time: value.lastUpdated}))
     })
+  this.subscriptions.push(groupDialogDataSubscr)
     this.createMessageForm.reset();
   }
 
@@ -85,7 +87,7 @@ export class GroupPageComponent implements OnInit {
   }
 
   subscribeToGroupsData(): void {
-    this.groupsData$.subscribe((groupData) => {
+    const groupDataSubskr = this.groupsData$.subscribe((groupData) => {
       if (!groupData) {
         this.loadGroups();
       }
@@ -94,6 +96,7 @@ export class GroupPageComponent implements OnInit {
         this.subscribeToGroupDialogData()
       }
   })
+    this.subscriptions.push(groupDataSubskr)
 
   }
 
@@ -113,17 +116,16 @@ export class GroupPageComponent implements OnInit {
 
   updateGroupDialog(): void {
     this.loadMessagesSince();
-    this.isGroupDialogLoading$.subscribe((value) => {
+    const updateSubskr = this.isGroupDialogLoading$.subscribe((value) => {
       if (!value) {
         this.backendErrors$.subscribe((error) => {
-          console.log(error);
-          
           if (!error) {
             this.countdownService.handleCountdown('groupDailog' + this.groupId, 60);
           }
         })
       }
     });
+    this.subscriptions.push(updateSubskr)
   }
 
   loadMessagesSince(): void {
@@ -156,26 +158,33 @@ export class GroupPageComponent implements OnInit {
   }
 
   subscribeToUsersData(): void {
-    this.usersData$.subscribe((usersData) => {
+    const usersDataSubscr =  this.usersData$.subscribe((usersData) => {
       if (!usersData) {
         this.loadUsers();
       }
     });
+    this.subscriptions.push(usersDataSubscr)
   }
 
   subscribeToGroupDialogData(): void {
-    this.groupsIds$?.pipe(take(1)).subscribe((ids) => {
+    const idsSubscr = this.groupsIds$?.subscribe((ids) => {
       if (!ids?.includes(this.groupId)) {
         this.loadAllMessages()
       }
     })
 
-    this.groupDialogData$.subscribe((groupData) => {
+    const groupDialogDataSubscr = this.groupDialogData$.subscribe((groupData) => {
       if (groupData) {
         if (groupData.createdBy.S === this.currentUserId) {
           this.isGroupCreatedByCurrnetUser = true;
         }
       }
     })
+
+    this.subscriptions.push(idsSubscr, groupDialogDataSubscr)
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
