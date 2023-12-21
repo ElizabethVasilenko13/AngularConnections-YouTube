@@ -70,8 +70,13 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.companionsIDs$.pipe(take(1)).subscribe((companions) => {
       const isConversationExist = companions?.includes(id);
       if (isConversationExist && this.isPageCliked) {
-        this.router.navigate([`conversation/${id}`]);
-        this.isPageCliked = false;
+        this.activeConversations$.pipe(take(1)).subscribe((data) => {
+          const conversatonId = data?.items.find((conversaton) => conversaton.companionID.S === id)?.id.S;
+          this.router.navigate([`conversation/${conversatonId}`]);
+          this.isPageCliked = false;
+        })
+        // this.router.navigate([`conversation/${id}`]);
+        // this.isPageCliked = false;
       } else {
         this.store.dispatch(createConversationAction({companion: id}))
       }

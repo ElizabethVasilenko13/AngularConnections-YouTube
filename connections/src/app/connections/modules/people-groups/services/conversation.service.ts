@@ -12,12 +12,20 @@ export class ConversationService {
   constructor(private http: HttpClient) { }
 
   loadAllMesages(conversationID: string): Observable<ConverastionMessagesResponse> {
-    const url = `${environment.apiUrl}conversations/read?conversationID=${conversationID}&since=${0}`;
+    const url = `${environment.apiUrl}conversations/read?conversationID=${conversationID}`;
     return this.http.get<ConverastionMessagesResponse>(url);
   }
 
+  postNewMessage(conversationID: string, message: string): Observable<null> {
+    const url = `${environment.apiUrl}conversations/append`;
+    const body = {
+      conversationID, message
+    }
+    return this.http.post<null>(url, body);
+  }
+
   deleteConversation(conversationID: string): Observable<null> {
-    const url = `https://tasks.app.rs.school/angular/conversations/read?conversationID=6wdgthaa19p&since=0`;
+    const url = `${environment.apiUrl}conversations/read?conversationID=${conversationID}`;
     return this.http.delete<null>(url);
   }
 }

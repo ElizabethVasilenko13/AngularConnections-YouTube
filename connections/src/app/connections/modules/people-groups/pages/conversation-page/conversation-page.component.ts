@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountdownService } from '@core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { ConverastionMessagesProps } from '../../models/conversation';
-import { Observable, map, take } from 'rxjs';
+import { Observable, Subscription, map, take } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { backendConverationsErrorSelector, conversationMessagesSelector, isConversationLoadinSelector, loadedConverationsIdsSelector } from '../../store/conversation/conversation.selectors';
-import { loadConversationMessagesAction } from '../../store/conversation/conversation.actions';
+import { loadConversationMessagesAction, postConversationMessageAction } from '../../store/conversation/conversation.actions';
 import { ConversationService } from '../../services/conversation.service';
 import { UsersProps } from '../../models/users';
 import { usersSelector } from '../../store/users/users.selectors';
@@ -20,16 +20,18 @@ import { DialogService } from '@core/services/dialog.service';
   templateUrl: './conversation-page.component.html',
   styleUrls: ['./conversation-page.component.scss']
 })
-export class ConversationPageComponent implements OnInit {
+export class ConversationPageComponent implements OnInit, OnDestroy {
   conversationData$: Observable<ConverastionMessagesProps | null>;
   conversationsIds$!: Observable<string[] | null>;
   isConversationLoading$!: Observable<boolean>;
   usersData$!: Observable<UsersProps | null>;
   createMessageForm!: FormGroup;
   backendErrors$!: Observable<AuthError | null>;
+  subscriptions: Subscription[] = [];
 
   converastionId = '';
   currentUserId = '';
+
   constructor( 
     public countdownService: CountdownService,
     private route: ActivatedRoute,
@@ -48,11 +50,7 @@ export class ConversationPageComponent implements OnInit {
 
     sendMessage(): void {
       const message: string = this.createMessageForm.get('text')?.value;
-      const props = {
-        converastionID: this.converastionId,
-        message
-      }
-      // this.store.dispatch(postNewMessageAction(props));
+      this.store.dispatch(postConversationMessageAction({conversationID: this.converastionId, message}));
       this.createMessageForm.reset();
     }
 
@@ -68,7 +66,7 @@ export class ConversationPageComponent implements OnInit {
 
   updateConversation(): void {
     this.loadAllMessages()
-    this.isConversationLoading$.subscribe((value) => {
+    const isConversationLoadingSubscr =  this.isConversationLoading$.subscribe((value) => {
       if (!value) {
         this.backendErrors$.subscribe((error) => {
           if (!error) {
@@ -77,6 +75,7 @@ export class ConversationPageComponent implements OnInit {
         })
       }
     });
+    this.subscriptions.push(isConversationLoadingSubscr)
   }
 
   ngOnInit(): void {
@@ -120,10 +119,15 @@ export class ConversationPageComponent implements OnInit {
 
   subscribeToConversationData(): void {
 
-    this.conversationsIds$?.subscribe((ids) => {
+    const conversationsIdsSubscr = this.conversationsIds$?.subscribe((ids) => {
       if (!ids?.includes(this.converastionId)) {
         this.loadAllMessages()
       }
     })
+    this.subscriptions.push(conversationsIdsSubscr)
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
