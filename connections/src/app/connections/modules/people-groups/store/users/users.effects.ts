@@ -5,9 +5,10 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
-import { createConversationAction, createConversationFailedAction, createConversationSuccessAction, loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from './users.actions';
+import { createConversationAction, createConversationFailedAction, createConversationSuccessAction, loadConversationMessagesAction, loadConversationMessagesFailedAction, loadConversationMessagesSuccessAction, loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from './users.actions';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class UsersEffects {
@@ -16,6 +17,7 @@ export class UsersEffects {
     private snackBar: NotifyService,
     private users: UsersService,
     private router: Router,
+    private store: Store
   ) {}
 
   loadUsers$ = createEffect(() =>
@@ -29,7 +31,7 @@ export class UsersEffects {
               NotifyStyles.Success,
             );
             const filteredUsers = response.Items.filter(user => user.uid.S !== currentUserId);
-
+            this.store.dispatch(loadConversationsAction())
             return loadUsersSuccessAction({ users : {
               count: response.Count,
               items: filteredUsers
@@ -50,12 +52,14 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(loadConversationsAction),
       exhaustMap(() => {
-        return this.users.loadConversation().pipe(
+        return this.users.loadConversations().pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Conversations have been succesfully loaded`,
               NotifyStyles.Success,
             );
+
+            // response.Items.forEach()
 
             return loadConversationsSuccessAction({ conversations : {
               count: response.Count,
@@ -96,4 +100,30 @@ export class UsersEffects {
       }),
     ),
   );
+
+  loadConversation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadConversationMessagesAction),
+      exhaustMap(({conversationID}) => {
+        return this.users.loadConversation(conversationID).pipe(
+          map((response) => {
+            this.snackBar.addMessage(
+              `Conversation have been succesfully loaded`,
+              NotifyStyles.Success,
+            );
+            return loadConversationMessagesSuccessAction({conversationID, conversationData : {
+              count: response.Count,
+              items: response.Items
+            } });
+          }),
+          catchError((error: HttpErrorResponse) => {
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
+            return of(loadConversationMessagesFailedAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  ); 
 }

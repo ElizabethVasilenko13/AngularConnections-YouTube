@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConversationsResponse, CreateConversationsResponse, UsersResponse } from '../models/users';
 import { environment } from '@env/environment';
+import { ConverastionMessagesResponse } from '../models/conversation';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UsersService {
     return this.http.get<UsersResponse>(url);
   }
 
-  loadConversation(): Observable<ConversationsResponse> {
+  loadConversations(): Observable<ConversationsResponse> {
     const url = `${environment.apiUrl}conversations/list`;
     return this.http.get<ConversationsResponse>(url);
   }
@@ -25,5 +26,10 @@ export class UsersService {
     const url = `${environment.apiUrl}conversations/create`;
     const body = {companion: companionId}
     return this.http.post<CreateConversationsResponse>(url, body);
+  }
+
+  loadConversation(conversationID: string): Observable<ConverastionMessagesResponse> {
+    const url = `${environment.apiUrl}conversations/read?conversationID=${conversationID}`;
+    return this.http.get<ConverastionMessagesResponse>(url);
   }
 }

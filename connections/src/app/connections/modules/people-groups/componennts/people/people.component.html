@@ -15,12 +15,11 @@
     diameter="60"
 ></mat-progress-spinner>
 <div class="content__items">
-  <div *ngFor="let user of (usersData$ | async)?.items" class="group-item" (click)="toConversationPage(user.uid.S)" [class.groupCurrent]="(companionsIDs$ | async)?.includes(user.uid.S)">
+  <div *ngFor="let user of (usersData$ | async)?.items" class="group-item" (click)="toConversationPage(user.conversatonID, user.uid.S)" [class.groupCurrent]="user.conversatonID">
     <div class="group__link">
       <div class="group-property">
-        <!-- <button (click)="createConversation(user.uid.S)">Creatwe</button> -->
         {{ user.name.S }}
-        <span *ngIf="(companionsIDs$ | async)?.includes(user.uid.S)"> *****</span>
+        <span *ngIf="user.conversatonID"> *****</span>
       </div>
     </div>
   </div>

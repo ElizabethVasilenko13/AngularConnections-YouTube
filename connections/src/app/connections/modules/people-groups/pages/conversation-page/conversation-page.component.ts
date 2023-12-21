@@ -6,14 +6,15 @@ import { ConverastionMessagesProps } from '../../models/conversation';
 import { Observable, Subscription, map, take } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { backendConverationsErrorSelector, conversationMessagesSelector, isConversationLoadinSelector, loadedConverationsIdsSelector } from '../../store/conversation/conversation.selectors';
-import { loadConversationMessagesAction, postConversationMessageAction } from '../../store/conversation/conversation.actions';
+import { postConversationMessageAction } from '../../store/conversation/conversation.actions';
 import { ConversationService } from '../../services/conversation.service';
-import { UsersProps } from '../../models/users';
-import { usersSelector } from '../../store/users/users.selectors';
+import { UserProps, UsersProps } from '../../models/users';
+import { isUsersLoadinSelector, selectConversationById, usersSelector } from '../../store/users/users.selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthError } from '@shared/types/user';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
+import { loadConversationMessagesAction, loadUsersAction } from '../../store/users/users.actions';
 
 @Component({
   selector: 'app-conversation-page',
@@ -21,28 +22,26 @@ import { DialogService } from '@core/services/dialog.service';
   styleUrls: ['./conversation-page.component.scss']
 })
 export class ConversationPageComponent implements OnInit, OnDestroy {
-  conversationData$: Observable<ConverastionMessagesProps | null>;
+  conversationData$!: Observable<UserProps | null>;
   conversationsIds$!: Observable<string[] | null>;
-  isConversationLoading$!: Observable<boolean>;
+  isConversationsLoading$!: Observable<boolean>;
   usersData$!: Observable<UsersProps | null>;
+  isUsersLoading$!: Observable<boolean>;
   createMessageForm!: FormGroup;
   backendErrors$!: Observable<AuthError | null>;
   subscriptions: Subscription[] = [];
-
   converastionId = '';
   currentUserId = '';
 
-  constructor( 
+  constructor(
     public countdownService: CountdownService,
     private route: ActivatedRoute,
     private localStorageService: LocalStorageService,
     private store: Store,
     private fb: FormBuilder,
-    private service: ConversationService,
     public dialogRef: MatDialogRef<ConversationPageComponent>,
     private dialogService: DialogService,
     ){
-      this.conversationData$ = this.store.pipe(select(conversationMessagesSelector));
       this.conversationsIds$ = this.store.pipe(select(loadedConverationsIdsSelector));
       this.usersData$ = this.store.pipe(select(usersSelector));
 
@@ -64,24 +63,12 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
       });
     }
 
-  updateConversation(): void {
-    this.loadAllMessages()
-    const isConversationLoadingSubscr =  this.isConversationLoading$.subscribe((value) => {
-      if (!value) {
-        this.backendErrors$.subscribe((error) => {
-          if (!error) {
-            this.countdownService.handleCountdown('conversation' + this.converastionId, 60);
-          }
-        })
-      }
-    });
-    this.subscriptions.push(isConversationLoadingSubscr)
-  }
 
   ngOnInit(): void {
     this.initForm();
     this.initValues();
     this.subscribeToConversationData();
+    this.subscribeToUsersData();
   }
 
   initForm():void {
@@ -95,6 +82,23 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  subscribeToUsersData(): void {
+    const usersDataSubscr =  this.usersData$.subscribe((usersData) => {
+      if (!usersData) {
+        this.loadUsers();
+      } else {
+        this.loadAllMessages()
+      }
+    });
+
+    this.subscriptions.push(usersDataSubscr);
+  }
+
+  loadUsers(): void {
+    const { currentUserId = '' } = this;
+    this.store.dispatch(loadUsersAction({ currentUserId}));
+    // this.loadConversations()
+  }
 
   getMessageCreatorName(authorId: string): Observable<string> {
     return this.usersData$.pipe(
@@ -108,20 +112,33 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
   initValues():void {
     this.converastionId = this.route.snapshot.paramMap.get('id') as string;
     this.currentUserId = this.localStorageService.get('userData')?.uid;
-    this.isConversationLoading$ = this.store.pipe(select(isConversationLoadinSelector));
+    this.conversationData$ = this.store.pipe(select(selectConversationById(this.converastionId)));
+    this.isUsersLoading$ = this.store.pipe(select(isUsersLoadinSelector));
+    this.isConversationsLoading$ = this.store.pipe(select(isConversationLoadinSelector));
     this.backendErrors$ = this.store.pipe(select(backendConverationsErrorSelector));
 
   }
 
   loadAllMessages():void {
-    this.store.dispatch(loadConversationMessagesAction({ conversationID: this.converastionId }))
+    this.store.dispatch(loadConversationMessagesAction({conversationID: this.converastionId}))
   }
 
   subscribeToConversationData(): void {
 
-    const conversationsIdsSubscr = this.conversationsIds$?.subscribe((ids) => {
-      if (!ids?.includes(this.converastionId)) {
-        this.loadAllMessages()
+    // const conversationsIdsSubscr = this.conversationsIds$?.subscribe((ids) => {
+    //   if (!ids?.includes(this.converastionId)) {
+    //     this.loadAllMessages()
+    //   }
+    // })
+    const conversationsIdsSubscr = this.isUsersLoading$.subscribe((val) => {
+      if (!val) {
+        // this.loadAllMessages()
+        this.isConversationsLoading$.subscribe((val) => {
+          if(!val) {
+            this.loadAllMessages()
+          }
+        })
+        // this.loadAllMessages()
       }
     })
     this.subscriptions.push(conversationsIdsSubscr)
@@ -129,5 +146,19 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  updateConversation(): void {
+    this.loadAllMessages()
+    const isConversationLoadingSubscr =  this.isConversationsLoading$.subscribe((value) => {
+      if (!value) {
+        this.backendErrors$.subscribe((error) => {
+          if (!error) {
+            this.countdownService.handleCountdown('conversation' + this.converastionId, 60);
+          }
+        })
+      }
+    });
+    this.subscriptions.push(isConversationLoadingSubscr)
   }
 }

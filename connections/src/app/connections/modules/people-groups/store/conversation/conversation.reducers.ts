@@ -23,13 +23,13 @@ const reducer = createReducer(
     }),
   ),
   on(loadConversationMessagesSuccessAction, (state, action): ConversationStateInterface => {
-    const loadedConversationIds = state.loadedConversationIds ? [...state.loadedConversationIds, action.conversationData.conversationID] : [action.conversationData.conversationID];
+    // const loadedConversationIds = state.loadedConversationIds ? [...state.loadedConversationIds, action.conversationData.conversationID] : [action.conversationData.conversationID];
     return {
       ...state,
       isLoading: false,
       backendErrors: null,
       messages: action.conversationData,
-      loadedConversationIds,
+      // loadedConversationIds,
     };
   }),
   // on(deleteConversationSuccessAction,

@@ -16,7 +16,7 @@ export interface ConverastionMessagesResponse {
 }
 
 export interface ConverastionMessagesProps {
-  conversationID: string;
+  conversationID?: string;
   count: string;
   items: MessageItem[];
 }

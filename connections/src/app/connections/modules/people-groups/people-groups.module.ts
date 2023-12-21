@@ -41,8 +41,8 @@ import { conversationReducer } from './store/conversation/conversation.reducers'
     RouterModule,
     StoreModule.forFeature(Features.Groups, groupsReducer),
     StoreModule.forFeature(Features.Users, usersReducer),
-    StoreModule.forFeature(Features.Conversation, conversationReducer),
-    EffectsModule.forFeature([GroupsEffects, UsersEffects, ConversationEffects]),
+    // StoreModule.forFeature(Features.Conversation, conversationReducer),
+    EffectsModule.forFeature([GroupsEffects, UsersEffects]),
     CommonModule
   ]
 })

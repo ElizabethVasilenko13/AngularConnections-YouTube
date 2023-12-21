@@ -8,8 +8,8 @@
         <h2>{{'Conversation' | uppercase}}</h2>
       </div>
       <div class="header__controls">
-        <button (click)="updateConversation()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('conversation' + converastionId) || (isConversationLoading$ | async)" >{{'Update messages' | uppercase}}</button>
-        <button (click)="onDeleteConversation(converastionId)" *ngIf="(isConversationLoading$ | async) === false" class="header__control header__control-delete" [disabled]="(isConversationLoading$ | async)" title="Delete group"><mat-icon>delete</mat-icon></button>
+        <button (click)="updateConversation()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('conversation' + converastionId) || (isConversationsLoading$ | async)" >{{'Update messages' | uppercase}}</button>
+        <button (click)="onDeleteConversation(converastionId)" *ngIf="(isConversationsLoading$ | async) === false" class="header__control header__control-delete" [disabled]="(isConversationsLoading$ | async)" title="Delete group"><mat-icon>delete</mat-icon></button>
       </div>
     </div>
     <div class="user__message" *ngIf="!countdownService.isCountdownEnded('conversation' + converastionId)">{{ 'Please wait ' + countdownService.getCountdownValue('conversation' + converastionId) + ' seconds, until update button will become enabled'}}</div>
@@ -18,13 +18,13 @@
     <mat-progress-spinner
       class="loader"
       mode="indeterminate"
-      *ngIf="isConversationLoading$ | async"
+      *ngIf="isConversationsLoading$ | async"
       diameter="60"
       ></mat-progress-spinner>
   </div>
   <div class="group-dialog__main" >
     <div class="messages">
-      <div *ngFor="let message of (conversationData$ | async)?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserId">
+      <div *ngFor="let message of (conversationData$ | async)?.messages?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserId">
           <div class="message__creator">
             {{ getMessageCreatorName(message.authorID.S) | async }}
           </div>
@@ -47,7 +47,7 @@
         <button
           (click)="sendMessage()"
           class="group__btn"
-          [disabled]="(isConversationLoading$ | async) || createMessageForm.invalid"
+          [disabled]="(isConversationsLoading$ | async) || createMessageForm.invalid"
         >
         {{ 'send' | uppercase }}
         </button>

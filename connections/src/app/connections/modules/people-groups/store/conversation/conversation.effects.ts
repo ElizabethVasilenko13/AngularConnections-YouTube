@@ -16,32 +16,32 @@ export class ConversationEffects {
     private snackBar: NotifyService,
   ) {}
 
-  loadConversation$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(loadConversationMessagesAction),
-      exhaustMap(({conversationID}) => {
-        return this.conversation.loadAllMesages(conversationID).pipe(
-          map((response) => {
-            this.snackBar.addMessage(
-              `Conversation have been succesfully loaded`,
-              NotifyStyles.Success,
-            );
-            return loadConversationMessagesSuccessAction({ conversationData : {
-              conversationID,
-              count: response.Count,
-              items: response.Items
-            } });
-          }),
-          catchError((error: HttpErrorResponse) => {
-            const errorMes = error.error;
-            const errorSnakBar = errorMes ? errorMes.message : error.message;
-            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
-            return of(loadConversationMessagesFailedAction({ error: error.error }));
-          }),
-        );
-      }),
-    ),
-  );
+  // loadConversation$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(loadConversationMessagesAction),
+  //     exhaustMap(({conversationID}) => {
+  //       return this.conversation.loadAllMesages(conversationID).pipe(
+  //         map((response) => {
+  //           this.snackBar.addMessage(
+  //             `Conversation have been succesfully loaded`,
+  //             NotifyStyles.Success,
+  //           );
+  //           return loadConversationMessagesSuccessAction({ conversationData : {
+  //             conversationID,
+  //             count: response.Count,
+  //             items: response.Items
+  //           } });
+  //         }),
+  //         catchError((error: HttpErrorResponse) => {
+  //           const errorMes = error.error;
+  //           const errorSnakBar = errorMes ? errorMes.message : error.message;
+  //           this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
+  //           return of(loadConversationMessagesFailedAction({ error: error.error }));
+  //         }),
+  //       );
+  //     }),
+  //   ),
+  // ); 
 
   postMessage$ = createEffect(() =>
     this.actions$.pipe(

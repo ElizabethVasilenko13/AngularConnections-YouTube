@@ -8,7 +8,7 @@ export const usersFeatureSelector = createFeatureSelector<UsersStateInterface>(
 
 export const isUsersLoadinSelector = createSelector(
   usersFeatureSelector,
-  (state: UsersStateInterface) => state.isLoading,
+  (state: UsersStateInterface) => state.isUsersLoading,
 );
 
 export const usersSelector = createSelector(
@@ -16,19 +16,30 @@ export const usersSelector = createSelector(
   (state: UsersStateInterface) => state.users,
 );
 
-export const conversationsSelector = createSelector(
-  usersFeatureSelector,
-  (state: UsersStateInterface) => state.conversations,
-);
+// export const conversationsSelector = createSelector(
+//   usersFeatureSelector,
+//   (state: UsersStateInterface) => state.conversations,
+// );
 
 export const usersBackendSelector = createSelector(
   usersFeatureSelector,
-  (state: UsersStateInterface) => state.backendErrors,
+  (state: UsersStateInterface) => state.backendUsersErrors,
 );
 
 
-export const companionsIDsSelector = createSelector(
-  conversationsSelector,
-  (conversations) => conversations?.items.map((conversation) => conversation.companionID.S),
-);
+// export const companionsIDsSelector = createSelector(
+//   conversationsSelector,
+//   (conversations) => conversations?.items.map((conversation) => conversation.companionID.S),
+// );
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const selectConversationById = (conversationID: string) =>
+  createSelector(
+    usersFeatureSelector,
+    (state: UsersStateInterface) => {
+      if (state.users && state.users.items) {
+        return state.users.items.find((user) => user.conversatonID === conversationID) || null;
+      }
+      return null;
+    }
+  );

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, take } from 'rxjs';
 import { ConversationsProps, UsersProps } from '../../models/users';
 import { Store, select } from '@ngrx/store';
-import { companionsIDsSelector, conversationsSelector, isUsersLoadinSelector, usersBackendSelector, usersSelector } from '../../store/users/users.selectors';
+import { isUsersLoadinSelector, usersBackendSelector, usersSelector } from '../../store/users/users.selectors';
 import { CountdownService } from '../../../../../core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { createConversationAction, loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
@@ -40,19 +40,19 @@ export class PeopleComponent implements OnInit, OnDestroy {
   initValues(): void {
     this.currentUserId = this.localStorageService.get('userData')?.uid;
     this.isUsersLoading$ = this.store.pipe(select(isUsersLoadinSelector));
-    this.activeConversations$ = this.store.pipe(select(conversationsSelector));
-    this.companionsIDs$ = this.store.pipe(select(companionsIDsSelector));
+    // this.activeConversations$ = this.store.pipe(select(conversationsSelector));
+    // this.companionsIDs$ = this.store.pipe(select(companionsIDsSelector));
     this.backendErrors$ = this.store.pipe(select(usersBackendSelector));
   }
 
   loadUsers(): void {
     const { currentUserId = '' } = this;
     this.store.dispatch(loadUsersAction({ currentUserId}));
-    this.loadConversations()
+    // this.loadConversations()
   }
 
   loadConversations(): void {
-    this.store.dispatch(loadConversationsAction());
+    // this.store.dispatch(loadConversationsAction());
   }
 
   subscribeToUsersData(): void {
@@ -65,22 +65,14 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.subscriptions.push(usersDataSubscr);
   }
 
-  toConversationPage(id:string): void{
+  toConversationPage(conversationID: string | null | undefined, companionID: string): void{
     this.isPageCliked = true;
-    this.companionsIDs$.pipe(take(1)).subscribe((companions) => {
-      const isConversationExist = companions?.includes(id);
-      if (isConversationExist && this.isPageCliked) {
-        this.activeConversations$.pipe(take(1)).subscribe((data) => {
-          const conversatonId = data?.items.find((conversaton) => conversaton.companionID.S === id)?.id.S;
-          this.router.navigate([`conversation/${conversatonId}`]);
-          this.isPageCliked = false;
-        })
-        // this.router.navigate([`conversation/${id}`]);
-        // this.isPageCliked = false;
-      } else {
-        this.store.dispatch(createConversationAction({companion: id}))
-      }
-    })
+    if (conversationID && this.isPageCliked) {
+      this.router.navigate([`conversation/${conversationID}`]);
+      this.isPageCliked = false;
+    } else {
+      this.store.dispatch(createConversationAction({companion: companionID}))
+    }
   }
 
   updateUsersList(): void {
