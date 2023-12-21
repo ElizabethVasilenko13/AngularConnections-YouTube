@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AUTH_ROUTE, LOGIN_PAGE_ROUTE } from '@core/constants/routing';
 import { AuthService } from '@core/services/auth.service';
+import { CountdownService } from '@core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
@@ -17,6 +18,7 @@ export class UserService {
     private localStorageService: LocalStorageService,
     private router: Router,
     private auth: AuthService,
+    private countdownService: CountdownService
   ) {}
 
   loadUser(): Observable<UserResponseInterface> {
@@ -39,6 +41,7 @@ export class UserService {
     this.localStorageService.clearStorage();
     this.auth.isLoggedIn.next(false);
     this.clearAllCookies();
+    this.countdownService.stopAllCountdowns();
     this.router.navigateByUrl(`/${AUTH_ROUTE}/${LOGIN_PAGE_ROUTE}`);
   }
 

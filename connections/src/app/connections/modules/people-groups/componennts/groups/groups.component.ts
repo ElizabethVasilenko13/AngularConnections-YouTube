@@ -50,7 +50,7 @@ export class GroupsComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(30),
-          Validators.pattern(/^[a-zA-Z0-9\s]+$/),
+          Validators.pattern(/^[a-zA-Z0-9\s\u0400-\u04FF]+$/),
         ],
       ],
     });

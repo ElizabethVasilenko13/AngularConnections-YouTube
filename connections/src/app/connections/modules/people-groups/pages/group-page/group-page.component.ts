@@ -116,6 +116,8 @@ export class GroupPageComponent implements OnInit {
     this.isGroupDialogLoading$.subscribe((value) => {
       if (!value) {
         this.backendErrors$.subscribe((error) => {
+          console.log(error);
+          
           if (!error) {
             this.countdownService.handleCountdown('groupDailog' + this.groupId, 60);
           }
