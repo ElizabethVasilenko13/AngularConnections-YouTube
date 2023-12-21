@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription, take } from 'rxjs';
 import { ConversationsProps, UsersProps } from '../../models/users';
 import { Store, select } from '@ngrx/store';
 import { companionsIDsSelector, conversationsSelector, isUsersLoadinSelector, usersBackendSelector, usersSelector } from '../../store/users/users.selectors';
 import { CountdownService } from '../../../../../core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { createConversationAction, loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
-import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { AuthError } from '@shared/types/user';
 
@@ -15,7 +14,7 @@ import { AuthError } from '@shared/types/user';
   templateUrl: './people.component.html',
   styleUrls: ['./people.component.scss']
 })
-export class PeopleComponent implements OnInit {
+export class PeopleComponent implements OnInit, OnDestroy {
   usersData$: Observable<UsersProps | null>;
   isUsersLoading$!: Observable<boolean>;
   currentUserId?: string;
@@ -23,11 +22,11 @@ export class PeopleComponent implements OnInit {
   companionsIDs$!: Observable<string[] | undefined>;
   backendErrors$!: Observable<AuthError | null>
   isPageCliked = false;
+  subscriptions: Subscription[] = [];
 
   constructor(private store: Store,
     public countdownService: CountdownService,
     private localStorageService: LocalStorageService,
-    private users: UsersService,
     private router: Router,
     ) {
     this.usersData$ = this.store.pipe(select(usersSelector));
@@ -57,11 +56,13 @@ export class PeopleComponent implements OnInit {
   }
 
   subscribeToUsersData(): void {
-    this.usersData$.pipe(take(1)).subscribe((usersData) => {
+    const usersDataSubscr =  this.usersData$.pipe(take(1)).subscribe((usersData) => {
       if (!usersData) {
         this.loadUsers();
       }
     });
+
+    this.subscriptions.push(usersDataSubscr);
   }
 
   toConversationPage(id:string): void{
@@ -80,7 +81,7 @@ export class PeopleComponent implements OnInit {
   updateUsersList(): void {
     this.loadUsers();
 
-    this.isUsersLoading$.subscribe((value) => {
+    const isUsersLoadingSubscr = this.isUsersLoading$.subscribe((value) => {
       if (!value) {
         this.backendErrors$.subscribe((error) => {
           if (!error) {
@@ -89,5 +90,11 @@ export class PeopleComponent implements OnInit {
         })
       }
     });
+
+    this.subscriptions.push(isUsersLoadingSubscr);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

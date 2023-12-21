@@ -1,7 +1,7 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { createGroupAction, deleteGroupAction, loadGroupsAction } from '../../store/groups/groups.actions';
-import { Observable, take} from 'rxjs';
+import { Observable, Subscription, take} from 'rxjs';
 import { GroupsProps } from '../../models/groups';
 import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
 import { CountdownService } from '../../../../../core/services/countdown.service';
@@ -17,12 +17,13 @@ import { GroupsService } from '../../services/groups.service';
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.scss']
 })
-export class GroupsComponent implements OnInit {
+export class GroupsComponent implements OnInit, OnDestroy {
   groupsData$: Observable<GroupsProps | null>;
   isGroupsLoading$!: Observable<boolean>;
   groupCreateForm!: FormGroup;
   currentUserId?: string;
-  backendErrors$!: Observable<AuthError | null>
+  backendErrors$!: Observable<AuthError | null>;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private store: Store,
@@ -78,18 +79,14 @@ export class GroupsComponent implements OnInit {
     const userId = this.currentUserId || '';
     this.store.dispatch(createGroupAction({ name, userId }));
 
-    this.isGroupsLoading$.subscribe((value) => {
-      if (!value) {
-        if (this.groupService.isCreateGroupModalClosed.getValue() === true) {
-          this.onDialogClose();
-        }
-      }
-    });
+    if (this.groupService.isCreateGroupModalClosed.getValue() === true) {
+      this.onDialogClose();
+    }
   }
 
   updateGroupsList(): void {
     this.loadGroups();
-    this.isGroupsLoading$.subscribe((value) => {
+    const isGroupsLoadingSubscr = this.isGroupsLoading$.subscribe((value) => {
       if (!value) {
         this.backendErrors$.subscribe((error) => {
           if (!error) {
@@ -98,14 +95,17 @@ export class GroupsComponent implements OnInit {
         })
       }
     });
+
+    this.subscriptions.push(isGroupsLoadingSubscr);
   }
 
   subscribeToGroupsData(): void {
-    this.groupsData$.pipe(take(1)).subscribe((groupData) => {
+    const groupDataSubstr = this.groupsData$.subscribe((groupData) => {
       if (!groupData) {
         this.loadGroups();
       }
     });
+    this.subscriptions.push(groupDataSubstr)
   }
 
   onDeleteGroup(event: Event, groupId: string):void {
@@ -122,4 +122,8 @@ export class GroupsComponent implements OnInit {
     this.dialog.closeAll();
   }
 
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
 }
