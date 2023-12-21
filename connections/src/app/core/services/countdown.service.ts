@@ -46,11 +46,14 @@ export class CountdownService {
   }
 
   stopAllCountdowns(): void {
-    this.timerSubscriptions.forEach((subscription, key) => {
-      subscription.unsubscribe();
-      this.countdowns.get(key)?.next(0);
-    });
+    console.log('stopAllCountdowns');
+  
+  this.timerSubscriptions.forEach((subscription, key) => {
+    console.log(`Unsubscribing from ${key}`);
+    subscription.unsubscribe();
+    this.countdowns.get(key)?.next(0);
+  });
 
-    this.timerSubscriptions.clear();
+  this.timerSubscriptions.clear();
   }
 }

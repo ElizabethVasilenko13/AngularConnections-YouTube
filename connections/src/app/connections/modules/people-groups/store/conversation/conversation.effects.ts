@@ -33,7 +33,9 @@ export class ConversationEffects {
             } });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(loadConversationMessagesFailedAction({ error: error.error }));
           }),
         );

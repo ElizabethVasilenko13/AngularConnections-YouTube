@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { clearStateMetaReducer } from './connections/modules/user/store/user.reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,7 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatButtonModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({}, {metaReducers: [clearStateMetaReducer]}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       logOnly: isDevMode(),

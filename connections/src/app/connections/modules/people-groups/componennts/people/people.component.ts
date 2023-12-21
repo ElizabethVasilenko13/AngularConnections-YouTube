@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { ConversationsProps, UsersProps } from '../../models/users';
 import { Store, select } from '@ngrx/store';
-import { companionsIDsSelector, conversationsSelector, isUsersLoadinSelector, usersSelector } from '../../store/users/users.selectors';
+import { companionsIDsSelector, conversationsSelector, isUsersLoadinSelector, usersBackendSelector, usersSelector } from '../../store/users/users.selectors';
 import { CountdownService } from '../../../../../core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { createConversationAction, loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
+import { AuthError } from '@shared/types/user';
 
 @Component({
   selector: 'app-people',
@@ -20,6 +21,7 @@ export class PeopleComponent implements OnInit {
   currentUserId?: string;
   activeConversations$!: Observable<ConversationsProps | null>
   companionsIDs$!: Observable<string[] | undefined>;
+  backendErrors$!: Observable<AuthError | null>
   isPageCliked = false;
 
   constructor(private store: Store,
@@ -41,6 +43,7 @@ export class PeopleComponent implements OnInit {
     this.isUsersLoading$ = this.store.pipe(select(isUsersLoadinSelector));
     this.activeConversations$ = this.store.pipe(select(conversationsSelector));
     this.companionsIDs$ = this.store.pipe(select(companionsIDsSelector));
+    this.backendErrors$ = this.store.pipe(select(usersBackendSelector));
   }
 
   loadUsers(): void {
@@ -54,7 +57,7 @@ export class PeopleComponent implements OnInit {
   }
 
   subscribeToUsersData(): void {
-    this.usersData$.subscribe((usersData) => {
+    this.usersData$.pipe(take(1)).subscribe((usersData) => {
       if (!usersData) {
         this.loadUsers();
       }
@@ -63,7 +66,7 @@ export class PeopleComponent implements OnInit {
 
   toConversationPage(id:string): void{
     this.isPageCliked = true;
-    this.companionsIDs$.subscribe((companions) => {
+    this.companionsIDs$.pipe(take(1)).subscribe((companions) => {
       const isConversationExist = companions?.includes(id);
       if (isConversationExist && this.isPageCliked) {
         this.router.navigate([`conversation/${id}`]);
@@ -79,7 +82,11 @@ export class PeopleComponent implements OnInit {
 
     this.isUsersLoading$.subscribe((value) => {
       if (!value) {
-        this.countdownService.handleCountdown('users', 60);
+        this.backendErrors$.subscribe((error) => {
+          if (!error) {
+            this.countdownService.handleCountdown('users', 60)
+          }
+        })
       }
     });
   }

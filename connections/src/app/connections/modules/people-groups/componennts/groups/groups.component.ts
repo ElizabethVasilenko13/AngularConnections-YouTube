@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { createGroupAction, deleteGroupAction, loadGroupsAction } from '../../store/groups/groups.actions';
-import { Observable} from 'rxjs';
+import { Observable, take} from 'rxjs';
 import { GroupsProps } from '../../models/groups';
 import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
 import { CountdownService } from '../../../../../core/services/countdown.service';
@@ -101,7 +101,7 @@ export class GroupsComponent implements OnInit {
   }
 
   subscribeToGroupsData(): void {
-    this.groupsData$.subscribe((groupData) => {
+    this.groupsData$.pipe(take(1)).subscribe((groupData) => {
       if (!groupData) {
         this.loadGroups();
       }
@@ -111,7 +111,7 @@ export class GroupsComponent implements OnInit {
   onDeleteGroup(event: Event, groupId: string):void {
     event.stopPropagation();
     this.dialogService.openConfirmDialog('Are you sure you want to delete this group?')
-    .afterClosed().subscribe(res =>{
+    .afterClosed().pipe(take(1)).subscribe(res =>{
       if(res){
         this.store.dispatch(deleteGroupAction({ groupID: groupId }));
       }
