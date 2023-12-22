@@ -9,7 +9,8 @@ Milestones done:
 - Milestone 4. Profile updating
 - Milestone 5. Logout
 - Milestone 6. People & Groups
-- Milestone 7. Group dialog (partial: not implemented requests with since)
+- Milestone 7. Group dialog
+- Milestone 8. (partial - after deadlie)
 - Milestone 9. 404 page
 
   
