@@ -18,8 +18,8 @@ import { UsersEffects } from './store/users/users.effects';
 import { usersReducer } from './store/users/users.reducers';
 import { ConversationPageComponent } from './pages/conversation-page/conversation-page.component';
 import { MatIconModule } from '@angular/material/icon';
-import { groupDialogReducer } from './store/group-dialog/group-dialog.reducers';
-import { GroupDialodEffects } from './store/group-dialog/group-dialog.effects';
+import { ConversationEffects } from './store/conversation/conversation.effects';
+import { conversationReducer } from './store/conversation/conversation.reducers';
 
 
 
@@ -41,8 +41,8 @@ import { GroupDialodEffects } from './store/group-dialog/group-dialog.effects';
     RouterModule,
     StoreModule.forFeature(Features.Groups, groupsReducer),
     StoreModule.forFeature(Features.Users, usersReducer),
-    StoreModule.forFeature(Features.GroupDialog, groupDialogReducer),
-    EffectsModule.forFeature([GroupsEffects, UsersEffects, GroupDialodEffects]),
+    StoreModule.forFeature(Features.Conversation, conversationReducer),
+    EffectsModule.forFeature([GroupsEffects, UsersEffects, ConversationEffects]),
     CommonModule
   ]
 })

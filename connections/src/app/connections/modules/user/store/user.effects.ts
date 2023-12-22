@@ -47,7 +47,10 @@ export class UserEffects {
             });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
+            // const message = error.error ? error.error.message || 'Error' : 'Error'
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(loadUserFailedAction({ error: error.error }));
           }),
         );
@@ -68,7 +71,10 @@ export class UserEffects {
             return UpdateUserSuccessfulNameAction({ name });
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
+            // const message = error.error ? error.error.message || 'Error' : 'Error'
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(UpdateUserFailedNameAction({ error: error.error }));
           }),
         );
@@ -90,7 +96,9 @@ export class UserEffects {
             return LogoutSuccessfulAction();
           }),
           catchError((error: HttpErrorResponse) => {
-            this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(LogoutFailedAction({ error: error.error }));
           }),
         );

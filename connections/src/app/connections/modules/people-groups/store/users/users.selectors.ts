@@ -21,6 +21,12 @@ export const conversationsSelector = createSelector(
   (state: UsersStateInterface) => state.conversations,
 );
 
+export const usersBackendSelector = createSelector(
+  usersFeatureSelector,
+  (state: UsersStateInterface) => state.backendErrors,
+);
+
+
 export const companionsIDsSelector = createSelector(
   conversationsSelector,
   (conversations) => conversations?.items.map((conversation) => conversation.companionID.S),

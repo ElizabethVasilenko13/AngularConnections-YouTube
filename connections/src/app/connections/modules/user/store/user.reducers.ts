@@ -1,6 +1,7 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { UserStateInterface } from './user.interface';
 import {
+  LOGOUTSUCCESS,
   LogoutAction,
   LogoutFailedAction,
   LogoutSuccessfulAction,
@@ -97,3 +98,13 @@ export const userReducer: ActionReducer<UserStateInterface, Action> = (
   state,
   action,
 ) => reducer(state, action);
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function clearStateMetaReducer<State extends {}>(reducer: ActionReducer<State, Action>): ActionReducer<State, Action> {
+  return function clearStateFn(state: State | undefined, action: Action) {
+    if (action.type === LOGOUTSUCCESS) {
+      state = {} as State;
+    }
+    return reducer(state, action);
+  };
+}

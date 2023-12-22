@@ -44,4 +44,13 @@ export class CountdownService {
   isCountdownEnded(key: string): boolean {
     return this.getCountdownValue(key) > 0 ? false : true;
   }
+
+  stopAllCountdowns(): void {
+    this.timerSubscriptions.forEach((subscription, key) => {
+      subscription.unsubscribe();
+      this.countdowns.get(key)?.next(0);
+    });
+
+    this.timerSubscriptions.clear();
+  }
 }
