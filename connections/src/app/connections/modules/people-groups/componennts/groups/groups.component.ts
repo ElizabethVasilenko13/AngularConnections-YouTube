@@ -78,10 +78,11 @@ export class GroupsComponent implements OnInit, OnDestroy {
     const name: string = this.groupCreateForm.get('name')?.value;
     const userId = this.currentUserId || '';
     this.store.dispatch(createGroupAction({ name, userId }));
+    const isCreateGroupModalClosedSubscr = this.groupService.isCreateGroupModalClosed.subscribe((val) => {
+      if (val === true) this.onDialogClose();
+    })
 
-    if (this.groupService.isCreateGroupModalClosed.getValue() === true) {
-      this.onDialogClose();
-    }
+    this.subscriptions.push(isCreateGroupModalClosedSubscr)
   }
 
   updateGroupsList(): void {
