@@ -5,16 +5,16 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
-import { GroupsService } from '../../services/groups.service';
 import { createGroupAction, createGroupFailedAction, createGroupSuccessAction, deleteGroupAction, deleteGroupFailedAction, deleteGroupSuccessAction, loadGroupMessagesAction, loadGroupMessagesFailedAction, loadGroupMessagesSinceAction, loadGroupMessagesSinceSuccessAction, loadGroupMessagesSuccessAction, loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction, postNewMessageAction, postNewMessageFailedAction, postNewMessageSuccessAction } from './groups.actions';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { GroupsApiService } from '../../services/groups-api.service';
 
 @Injectable()
 export class GroupsEffects {
   constructor(
     private actions$: Actions,
-    private groupsService: GroupsService,
+    private groupsApi: GroupsApiService,
     private snackBar: NotifyService,
     private router: Router,
     private store: Store
@@ -24,7 +24,7 @@ export class GroupsEffects {
     this.actions$.pipe(
       ofType(loadGroupsAction),
       exhaustMap(() => {
-        return this.groupsService.loadGroups().pipe(
+        return this.groupsApi.loadGroups().pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Groups have been succesfully loaded`,
@@ -50,7 +50,7 @@ export class GroupsEffects {
     this.actions$.pipe(
       ofType(loadGroupMessagesAction),
       exhaustMap(({groupID}) => {
-        return this.groupsService.loadAllMesages(groupID).pipe(
+        return this.groupsApi.loadAllMesages(groupID).pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Group have been succesfully loaded`,
@@ -74,7 +74,7 @@ export class GroupsEffects {
     this.actions$.pipe(
       ofType(loadGroupMessagesSinceAction),
       exhaustMap(({groupID, time}) => {
-        return this.groupsService.loadAllMesages(groupID, time).pipe(
+        return this.groupsApi.loadAllMesages(groupID, time).pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Last messages have been succesfully loaded`,
@@ -100,7 +100,7 @@ export class GroupsEffects {
     this.actions$.pipe(
       ofType(postNewMessageAction),
       exhaustMap(({groupID, message, time}) => {
-        return this.groupsService.postNewMessage(groupID, message).pipe(
+        return this.groupsApi.postNewMessage(groupID, message).pipe(
           map(() => {
             this.snackBar.addMessage(
               `Message was sent successfully`,
@@ -124,17 +124,17 @@ export class GroupsEffects {
     this.actions$.pipe(
       ofType(createGroupAction),
       exhaustMap(({ name, userId }) => {
-        return this.groupsService.createGroup(name).pipe(
+        return this.groupsApi.createGroup(name).pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Group have been succesfully created`,
               NotifyStyles.Success,
             );
-            this.groupsService.isCreateGroupModalClosed.next(true);
+            this.groupsApi.isCreateGroupModalClosed.next(true);
             return createGroupSuccessAction({name, groupID: response.groupID, userId});
           }),
           catchError((error: HttpErrorResponse) => {
-            this.groupsService.isCreateGroupModalClosed.next(false);
+            this.groupsApi.isCreateGroupModalClosed.next(false);
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
@@ -149,7 +149,7 @@ export class GroupsEffects {
     this.actions$.pipe(
       ofType(deleteGroupAction),
       exhaustMap(({ groupID, redirect }) => {
-        return this.groupsService.deleteGroup(groupID).pipe(
+        return this.groupsApi.deleteGroup(groupID).pipe(
           map(() => {
             this.snackBar.addMessage(
               `Group have been succesfully deleted`,

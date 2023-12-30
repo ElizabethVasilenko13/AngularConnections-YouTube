@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, take } from 'rxjs';
-import { ConversationsProps, UsersProps } from '../../models/users';
+import { UserProps, UsersProps } from '../../models/users';
 import { Store, select } from '@ngrx/store';
 import { isUsersLoadinSelector, usersBackendSelector, usersSelector } from '../../store/users/users.selectors';
-import { CountdownService } from '../../../../../core/services/countdown.service';
-import { createConversationAction, loadUsersAction } from '../../store/users/users.actions';
-import { Router } from '@angular/router';
+import { loadUsersAction } from '../../store/users/users.actions';
 import { AuthError } from '@shared/types/user.interaces';
 import { AuthService } from '@core/services/auth.service';
+import { CountdownService } from '@core/services/countdown.service';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-people',
@@ -17,18 +17,20 @@ import { AuthService } from '@core/services/auth.service';
 export class PeopleComponent implements OnInit, OnDestroy {
   usersData$: Observable<UsersProps | null>;
   isUsersLoading$!: Observable<boolean>;
-  activeConversations$!: Observable<ConversationsProps | null>
-  companionsIDs$!: Observable<string[] | undefined>;
   backendErrors$!: Observable<AuthError | null>
-  isPageCliked = false;
   subscriptions: Subscription[] = [];
 
-  constructor(private store: Store,
+  constructor(
+    private store: Store,
     public countdownService: CountdownService,
     protected authService: AuthService,
-    private router: Router,
+    protected usersService: UsersService
     ) {
     this.usersData$ = this.store.pipe(select(usersSelector));
+  }
+
+  isConversationID(user: UserProps): boolean {
+    return !!user.conversatonID;
   }
 
   ngOnInit(): void {
@@ -56,19 +58,8 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.subscriptions.push(usersDataSubscr);
   }
 
-  toConversationPage(conversationID: string | null | undefined, companionID: string): void{
-    this.isPageCliked = true;
-    if (conversationID && this.isPageCliked) {
-      this.router.navigate([`conversation/${conversationID}`]);
-      this.isPageCliked = false;
-    } else {
-      this.store.dispatch(createConversationAction({companion: companionID}))
-    }
-  }
-
   updateUsersList(): void {
     this.loadUsers();
-
     const isUsersLoadingSubscr = this.isUsersLoading$.subscribe((value) => {
       if (!value) {
         this.backendErrors$.subscribe((error) => {

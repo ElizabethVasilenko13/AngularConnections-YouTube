@@ -6,16 +6,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
 import { createConversationAction, createConversationFailedAction, createConversationSuccessAction, deleteConversationAction, deleteConversationFailedAction, deleteConversationSuccessAction, loadConversationMessagesAction, loadConversationMessagesFailedAction, loadConversationMessagesSinceAction, loadConversationMessagesSinceFailedAction, loadConversationMessagesSinceSuccessAction, loadConversationMessagesSuccessAction, loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction, postConversationMessageAction, postConversationMessageFailedAction, postConversationMessageSuccessAction } from './users.actions';
-import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { UsersApiService } from '../../services/users-api.service';
 
 @Injectable()
 export class UsersEffects {
   constructor(
     private actions$: Actions,
     private snackBar: NotifyService,
-    private users: UsersService,
+    private usersApi: UsersApiService,
     private router: Router,
     private store: Store
   ) {}
@@ -24,7 +24,7 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(loadUsersAction),
       exhaustMap(({currentUserId}) => {
-        return this.users.loadUsers().pipe(
+        return this.usersApi.loadUsers().pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Users have been succesfully loaded`,
@@ -52,15 +52,12 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(loadConversationsAction),
       exhaustMap(() => {
-        return this.users.loadConversations().pipe(
+        return this.usersApi.loadConversations().pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Conversations have been succesfully loaded`,
               NotifyStyles.Success,
             );
-
-            // response.Items.forEach()
-
             return loadConversationsSuccessAction({ conversations : {
               count: response.Count,
               items: response.Items
@@ -81,7 +78,7 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(createConversationAction),
       exhaustMap(({companion}) => {
-        return this.users.createConversation(companion).pipe(
+        return this.usersApi.createConversation(companion).pipe(
           map(({conversationID}) => {
             this.snackBar.addMessage(
               `Conversation have been succesfully created`,
@@ -105,7 +102,7 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(loadConversationMessagesAction),
       exhaustMap(({conversationID}) => {
-        return this.users.loadConversation(conversationID).pipe(
+        return this.usersApi.loadConversation(conversationID).pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Conversation have been succesfully loaded`,
@@ -131,7 +128,7 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(loadConversationMessagesSinceAction),
       exhaustMap(({conversationID, time}) => {
-        return this.users.loadConversation(conversationID, time).pipe(
+        return this.usersApi.loadConversation(conversationID, time).pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Last messages have been succesfully loaded`,
@@ -157,7 +154,7 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(deleteConversationAction),
       exhaustMap(({ conversationID, redirect }) => {
-        return this.users.deleteConversation(conversationID).pipe(
+        return this.usersApi.deleteConversation(conversationID).pipe(
           map(() => {
             this.snackBar.addMessage(
               `Conversation have been succesfully deleted`,
@@ -181,7 +178,7 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(postConversationMessageAction),
       exhaustMap(({conversationID, message, time}) => {
-        return this.users.postNewMessage(conversationID, message).pipe(
+        return this.usersApi.postNewMessage(conversationID, message).pipe(
           map(() => {
             this.snackBar.addMessage(
               `Message was sent successfully`,

@@ -3,7 +3,7 @@
   <div class="div" *ngIf="!countdownService.isCountdownEnded('groups')">{{ 'Please wait ' + countdownService.getCountdownValue('groups') + ' seconds, until update button will become enabled'}}</div>
   <div class="btns__container">
     <button class="control__btn" [disabled]="!countdownService.isCountdownEnded('groups') || (isGroupsLoading$ | async) || (groupsData$ | async)=== null" (click)="updateGroupsList()">{{'Update List' | uppercase}}</button>
-    <button class="control__btn create__btn" title="Create group" (click)="onCreateGroup(createForm)" [disabled]="(isGroupsLoading$ | async) || (groupsData$ | async)=== null"><mat-icon>add</mat-icon></button>
+    <button class="control__btn create__btn" title="Create group" (click)="groupsService.onCreateGroup(createForm)" [disabled]="(isGroupsLoading$ | async) || (groupsData$ | async)=== null"><mat-icon>add</mat-icon></button>
   </div>
 </div>
 <mat-progress-spinner
@@ -17,26 +17,27 @@
     <a routerLink="/group/{{ group.id.S }}" class="group__link">
       <div class="group-property">{{ group.name.S }}</div>
     </a>
-    <button class="delete__btn" *ngIf="authService.currentUserID === group.createdBy.S" (click)="onDeleteGroup($event, group.id.S)">✕</button>
+    <button class="delete__btn" *ngIf="authService.currentUserID === group.createdBy.S" (click)="groupsService.onDeleteGroup($event, group.id.S)">✕</button>
   </div>
 </div>
 
 <ng-template #createForm>
   <div class="create-form">
-    <form [formGroup]="groupCreateForm" (ngSubmit)="onCreateFormSubmit()">
+    <form [formGroup]="groupsService.groupCreateForm" (ngSubmit)="onCreateFormSubmit()">
       <app-form-control
           label="{{ 'name:' | uppercase }}"
           controlName="name"
-          [control]="groupCreateForm.get('name')"
+          [control]="groupsService.groupCreateForm.get('name')"
+          [control]="groupsService.groupCreateForm.get('name')"
           type="text"
           [readonly]="false"
         ></app-form-control>
       <button
-        [disabled]="(isGroupsLoading$ | async) || groupCreateForm.invalid"
+        [disabled]="(isGroupsLoading$ | async) || groupsService.groupCreateForm.invalid"
       >
       {{ 'Create Group' | uppercase }}
       </button>
     </form>
-    <button (click)="onDialogClose()" class="close__btn">✕</button>
+    <button (click)="dialogService.onDialogClose()" class="close__btn">✕</button>
   </div>
 </ng-template>

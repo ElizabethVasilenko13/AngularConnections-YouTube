@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { createGroupAction, deleteGroupAction, loadGroupsAction } from '../../store/groups/groups.actions';
-import { Observable, Subscription, take} from 'rxjs';
+import { createGroupAction, loadGroupsAction } from '../../store/groups/groups.actions';
+import { Observable, Subscription } from 'rxjs';
 import { GroupsProps } from '../../models/groups';
 import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
 import { CountdownService } from '../../../../../core/services/countdown.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
 import { AuthError } from '@shared/types/user.interaces';
-import { GroupsService } from '../../services/groups.service';
 import { AuthService } from '@core/services/auth.service';
+import { GroupsApiService } from '../../services/groups-api.service';
+import { GroupsService } from '../../services/groups.service';
 
 @Component({
   selector: 'app-groups',
@@ -20,7 +19,6 @@ import { AuthService } from '@core/services/auth.service';
 export class GroupsComponent implements OnInit, OnDestroy {
   groupsData$: Observable<GroupsProps | null>;
   isGroupsLoading$!: Observable<boolean>;
-  groupCreateForm!: FormGroup;
   backendErrors$!: Observable<AuthError | null>;
   subscriptions: Subscription[] = [];
 
@@ -28,11 +26,9 @@ export class GroupsComponent implements OnInit, OnDestroy {
     private store: Store,
     public countdownService: CountdownService,
     protected authService: AuthService,
-    private fb: FormBuilder,
-    private dialog: MatDialog,
-    public dialogRef: MatDialogRef<GroupsComponent>,
-    private dialogService: DialogService,
-    private groupService: GroupsService
+    protected dialogService: DialogService,
+    private groupApiService: GroupsApiService,
+    protected groupsService: GroupsService
     ) {
     this.groupsData$ = this.store.pipe(select(groupsSelector));
   }
@@ -40,20 +36,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscribeToGroupsData();
     this.initValues();
-    this.initForm();
-  }
-
-  initForm(): void {
-    this.groupCreateForm = this.fb.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(30),
-          Validators.pattern(/^[a-zA-Z0-9\s\u0400-\u04FF]+$/),
-        ],
-      ],
-    });
+    this.groupsService.initForm();
   }
 
   initValues(): void {
@@ -65,20 +48,13 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadGroupsAction());
   }
 
-  onCreateGroup(template: TemplateRef<unknown>): void {
-    this.groupCreateForm.reset();
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = "40%";
-    this.dialog.open(template,dialogConfig);
-  }
-
   onCreateFormSubmit(): void {
-    const name: string = this.groupCreateForm.get('name')?.value;
+    const name: string = this.groupsService.groupCreateForm.get('name')?.value;
     const userId = this.authService.currentUserID;
     this.store.dispatch(createGroupAction({ name, userId }));
 
-    const isCreateGroupModalClosedSubscr = this.groupService.isCreateGroupModalClosed.subscribe((val) => {
-      if (val === true) this.onDialogClose();
+    const isCreateGroupModalClosedSubscr = this.groupApiService.isCreateGroupModalClosed.subscribe((val) => {
+      if (val === true) this.dialogService.onDialogClose();
     })
 
     this.subscriptions.push(isCreateGroupModalClosedSubscr);
@@ -107,21 +83,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(groupDataSubstr)
   }
-
-  onDeleteGroup(event: Event, groupId: string):void {
-    event.stopPropagation();
-    this.dialogService.openConfirmDialog('Are you sure you want to delete this group?')
-    .afterClosed().pipe(take(1)).subscribe(res =>{
-      if(res){
-        this.store.dispatch(deleteGroupAction({ groupID: groupId }));
-      }
-    });
-  }
-
-  onDialogClose(): void {
-    this.dialog.closeAll();
-  }
-
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());

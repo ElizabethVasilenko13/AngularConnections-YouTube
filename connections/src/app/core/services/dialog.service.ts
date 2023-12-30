@@ -19,4 +19,8 @@ export class DialogService {
         }
       });
   }
+
+  onDialogClose(): void {
+    this.dialog.closeAll();
+  }
 }

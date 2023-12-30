@@ -8,7 +8,6 @@ import { Features } from "@shared/enums/store-feautures.enum";
 import { EffectsModule } from '@ngrx/effects';
 import { groupsReducer } from './store/groups/groups.reducers';
 import { GroupsEffects } from './store/groups/groups.effects';
-import { GroupsItemComponent } from './componennts/groups/groups-item/groups-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { RouterModule } from '@angular/router';
@@ -16,19 +15,18 @@ import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { UsersEffects } from './store/users/users.effects';
 import { usersReducer } from './store/users/users.reducers';
 import { ConversationPageComponent } from './pages/conversation-page/conversation-page.component';
-import { UsersService } from './services/users.service';
-import { GroupsService } from './services/groups.service';
+import { UsersApiService } from './services/users-api.service';
 import { MaterialModule } from '@material/material.module';
+import { GroupsApiService } from './services/groups-api.service';
 
 @NgModule({
   declarations: [
     MainPageComponent,
     PeopleComponent,
-    GroupsItemComponent,
     GroupsComponent,
     GroupPageComponent,
     ConversationPageComponent
-  ],
+    ],
   exports: [MainPageComponent],
   imports: [
     MaterialModule,
@@ -40,6 +38,6 @@ import { MaterialModule } from '@material/material.module';
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
     CommonModule
   ],
-  providers: [UsersService, GroupsService]
+  providers: [UsersApiService, GroupsApiService]
 })
 export class PeopleGroupsModule { }

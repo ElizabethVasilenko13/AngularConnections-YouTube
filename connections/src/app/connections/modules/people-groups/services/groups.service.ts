@@ -1,41 +1,48 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { GroupApiProps, GroupsResponse } from '../models/groups';
-import { environment } from '@env/environment';
-import { GroupMessagesResponse } from '../models/group-dialog';
+import { Injectable, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { GroupsComponent } from '../componennts/groups/groups.component';
+import { DialogService } from '@core/services/dialog.service';
+import { take } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { deleteGroupAction } from '../store/groups/groups.actions';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class GroupsService {
-  isCreateGroupModalClosed = new BehaviorSubject(false);
-  constructor(private http: HttpClient) { }
+  groupCreateForm!: FormGroup;
+  constructor(private store: Store, private fb: FormBuilder, private dialog: MatDialog,
+    public dialogRef: MatDialogRef<GroupsComponent>,
+    private dialogService: DialogService,) { }
 
-  loadGroups(): Observable<GroupsResponse> {
-    const url = `${environment.apiUrl}groups/list`;
-    return this.http.get<GroupsResponse>(url);
+  initForm(): void {
+    this.groupCreateForm = this.fb.group({
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(30),
+          Validators.pattern(/^[a-zA-Z0-9\s\u0400-\u04FF]+$/),
+        ],
+      ],
+    });
   }
 
-  createGroup(name: string): Observable<GroupApiProps> {
-    const url = `${environment.apiUrl}groups/create`;
-    return this.http.post<GroupApiProps>(url, { name });
+  onCreateGroup(template: TemplateRef<unknown>): void {
+    this.groupCreateForm.reset();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "40%";
+    this.dialog.open(template,dialogConfig);
   }
 
-  deleteGroup(id: string): Observable<GroupApiProps> {
-    const url = `${environment.apiUrl}groups/delete?groupID=${id.trim()}`;
-    return this.http.delete<GroupApiProps>(url);
-  }
-
-  loadAllMesages(groupID: string, since?: number): Observable<GroupMessagesResponse> {
-    const sinceTime = since ? `&since=${since}` : ''
-    const url = `${environment.apiUrl}groups/read?groupID=${groupID}${sinceTime}`;
-    return this.http.get<GroupMessagesResponse>(url);
-  }
-
-  postNewMessage(groupID: string, message: string): Observable<null> {
-    const url = `${environment.apiUrl}groups/append`;
-    const body = {
-      groupID, message
-    }
-    return this.http.post<null>(url, body);
+  onDeleteGroup(event: Event, groupID: string):void {
+    event.stopPropagation();
+    this.dialogService.openConfirmDialog('Are you sure you want to delete this group?')
+    .afterClosed().pipe(take(1)).subscribe(res =>{
+      if(res){
+        this.store.dispatch(deleteGroupAction({ groupID }));
+      }
+    });
   }
 }
