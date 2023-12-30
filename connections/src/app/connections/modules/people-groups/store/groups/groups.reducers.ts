@@ -103,7 +103,7 @@ const reducer = createReducer(
             {
               id: { S: action.groupID },
               name: { S: action.name },
-              createdAt: { S: 'someValue' },
+              createdAt: { S: String(new Date().getTime()) },
               createdBy: { S: action.userId },
             },
           ],

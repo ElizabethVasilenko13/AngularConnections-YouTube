@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
-import { createConversationAction, createConversationFailedAction, createConversationSuccessAction, loadConversationMessagesAction, loadConversationMessagesFailedAction, loadConversationMessagesSuccessAction, loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from './users.actions';
+import { createConversationAction, createConversationFailedAction, createConversationSuccessAction, deleteConversationAction, deleteConversationFailedAction, deleteConversationSuccessAction, loadConversationMessagesAction, loadConversationMessagesFailedAction, loadConversationMessagesSinceAction, loadConversationMessagesSinceFailedAction, loadConversationMessagesSinceSuccessAction, loadConversationMessagesSuccessAction, loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction, postConversationMessageAction, postConversationMessageFailedAction, postConversationMessageSuccessAction } from './users.actions';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -111,7 +111,7 @@ export class UsersEffects {
               `Conversation have been succesfully loaded`,
               NotifyStyles.Success,
             );
-            return loadConversationMessagesSuccessAction({conversationID, conversationData : {
+            return loadConversationMessagesSuccessAction({conversationID, time: new Date().getTime(), conversationData : {
               count: response.Count,
               items: response.Items
             } });
@@ -125,5 +125,79 @@ export class UsersEffects {
         );
       }),
     ),
-  ); 
+  );
+
+  loadConversationSince$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadConversationMessagesSinceAction),
+      exhaustMap(({conversationID, time}) => {
+        return this.users.loadConversation(conversationID, time).pipe(
+          map((response) => {
+            this.snackBar.addMessage(
+              `Last messages have been succesfully loaded`,
+              NotifyStyles.Success,
+            );
+            return loadConversationMessagesSinceSuccessAction({conversationID, time: new Date().getTime(), conversationData : {
+              count: response.Count,
+              items: response.Items
+            } });
+          }),
+          catchError((error: HttpErrorResponse) => {
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
+            return of(loadConversationMessagesSinceFailedAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  deleteConversation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteConversationAction),
+      exhaustMap(({ conversationID, redirect }) => {
+        return this.users.deleteConversation(conversationID).pipe(
+          map(() => {
+            this.snackBar.addMessage(
+              `Conversation have been succesfully deleted`,
+              NotifyStyles.Success,
+            );
+            if (redirect) this.router.navigate(['/']);
+            return deleteConversationSuccessAction({conversationID});
+          }),
+          catchError((error: HttpErrorResponse) => {
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
+            return of(deleteConversationFailedAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  postMessage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(postConversationMessageAction),
+      exhaustMap(({conversationID, message, time}) => {
+        return this.users.postNewMessage(conversationID, message).pipe(
+          map(() => {
+            this.snackBar.addMessage(
+              `Message was sent successfully`,
+              NotifyStyles.Success,
+            );
+            this.store.dispatch(loadConversationMessagesSinceAction({conversationID, time}))
+            return postConversationMessageSuccessAction();
+          }),
+          catchError((error: HttpErrorResponse) => {
+            const errorMes = error.error;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
+            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
+            return of(postConversationMessageFailedAction({ error: error.error }));
+          }),
+        );
+      }),
+    ),
+  );
 }

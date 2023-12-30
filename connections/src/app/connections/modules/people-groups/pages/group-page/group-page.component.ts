@@ -167,21 +167,19 @@ export class GroupPageComponent implements OnInit, OnDestroy {
   }
 
   subscribeToGroupDialogData(): void {
-    const idsSubscr = this.groupsIds$?.subscribe((ids) => {
-      if (!ids?.includes(this.groupId)) {
-        this.loadAllMessages()
-      }
-    })
-
     const groupDialogDataSubscr = this.groupDialogData$.subscribe((groupData) => {
       if (groupData) {
         if (groupData.createdBy.S === this.currentUserId) {
           this.isGroupCreatedByCurrnetUser = true;
         }
+
+        if (!groupData.messages) {
+          this.loadAllMessages()
+        }
       }
     })
 
-    this.subscriptions.push(idsSubscr, groupDialogDataSubscr)
+    this.subscriptions.push(groupDialogDataSubscr)
   }
 
   ngOnDestroy(): void {

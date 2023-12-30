@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { Features } from '@store/features.enum';
+import { Features } from "@shared/enums/store-feautures.enum";
 import { authReducer } from './store/signup/signup.reduces';
 import { SignUpService } from './services/sign-up.service';
 import { AuthEffects } from './store/signup/signup.effects';

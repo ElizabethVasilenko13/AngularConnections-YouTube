@@ -5,7 +5,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { Features } from '@store/features.enum';
+import { Features } from "@shared/enums/store-feautures.enum";
 import { userReducer } from './store/user.reducers';
 import { UserEffects } from './store/user.effects';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';

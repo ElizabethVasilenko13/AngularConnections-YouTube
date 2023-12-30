@@ -45,7 +45,6 @@ export class GroupsEffects {
       }),
     ),
   );
-  
 
   loadGroupDialog$ = createEffect(() =>
     this.actions$.pipe(
@@ -70,6 +69,7 @@ export class GroupsEffects {
       }),
     ),
   );
+
   loadGroupDialogSince$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadGroupMessagesSinceAction),
@@ -103,7 +103,7 @@ export class GroupsEffects {
         return this.groupsService.postNewMessage(groupID, message).pipe(
           map(() => {
             this.snackBar.addMessage(
-              `Message have been sent succesfully`,
+              `Message was sent successfully`,
               NotifyStyles.Success,
             );
             this.store.dispatch(loadGroupMessagesSinceAction({groupID, time}))

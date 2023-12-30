@@ -1,6 +1,6 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 import { UsersStateInterface } from "./users.interface";
-import { createConversationAction, createConversationFailedAction, createConversationSuccessAction, loadConversationMessagesAction, loadConversationMessagesFailedAction, loadConversationMessagesSuccessAction, loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction } from "./users.actions";
+import { createConversationAction, createConversationFailedAction, createConversationSuccessAction, deleteConversationAction, deleteConversationFailedAction, deleteConversationSuccessAction, loadConversationMessagesAction, loadConversationMessagesFailedAction, loadConversationMessagesSinceAction, loadConversationMessagesSinceFailedAction, loadConversationMessagesSinceSuccessAction, loadConversationMessagesSuccessAction, loadConversationsAction, loadConversationsFailedAction, loadConversationsSuccessAction, loadUsersAction, loadUsersFailedAction, loadUsersSuccessAction, postConversationMessageAction, postConversationMessageFailedAction, postConversationMessageSuccessAction } from "./users.actions";
 
 const initialState: UsersStateInterface = {
   isUsersLoading: false,
@@ -39,6 +39,9 @@ const reducer = createReducer(
     loadConversationsAction,
     createConversationAction,
     loadConversationMessagesAction,
+    loadConversationMessagesSinceAction,
+    deleteConversationAction,
+    postConversationMessageAction,
     (state): UsersStateInterface => ({
       ...state,
       isConverstionsLoading: true,
@@ -48,15 +51,19 @@ const reducer = createReducer(
   on(loadConversationsFailedAction,
     createConversationFailedAction,
     loadConversationMessagesFailedAction,
+    loadConversationMessagesSinceFailedAction,
+    deleteConversationFailedAction,
+    postConversationMessageFailedAction,
     (state, action): UsersStateInterface => ({
       ...state,
       isUsersLoading: false,
+      isConverstionsLoading: false,
       backendConverstionsErrors: action.error
     }),
   ),
   on(loadConversationsSuccessAction, (state, action): UsersStateInterface => {
     const updatedUsers = (state.users?.items || []).map((user) => {
-      const conversation = action.conversations.items.find((c) => user.uid.S === c.companionID.S);
+      const conversation = action.conversations.items.find((conversation) => user.uid.S === conversation.companionID.S);
       if (conversation) {
         return { ...user, conversatonID: conversation.id.S };
       }
@@ -66,6 +73,7 @@ const reducer = createReducer(
     return {
       ...state,
       isUsersLoading: false,
+      isConverstionsLoading: false,
       backendUsersErrors: null,
       backendConverstionsErrors: null,
       users: { items: updatedUsers || [], count: state.users?.count || '0' },
@@ -83,29 +91,78 @@ const reducer = createReducer(
     return {
       ...state,
       isUsersLoading: false,
+      isConverstionsLoading: false,
       backendUsersErrors: null,
       backendConverstionsErrors: null,
       users: { items: updatedUsers || [], count: state.users?.count || '0' },
     };
   }),
   on(loadConversationMessagesSuccessAction, (state, action): UsersStateInterface => {
-console.log('succes');
 
+    const loadedConversatonsIds = state?.loadedConversatonsIds ? [...state.loadedConversatonsIds, action.conversationID] : [action.conversationID];
     const updatedUsers = (state.users?.items || []).map((user) => {
-      if (user.conversatonID === action.conversationData.conversationID) {
-        return { ...user, messages: action.conversationData };
+      if (user.conversatonID && user.conversatonID === action.conversationID) {
+          return { ...user, messages: action.conversationData, lastConversationUpdated: action.time };
       }
       return user;
-    });
+  });
 
-    return {
+  return {
       ...state,
       isUsersLoading: false,
+      isConverstionsLoading: false,
       backendUsersErrors: null,
       backendConverstionsErrors: null,
-      users: { items: updatedUsers || [], count: state.users?.count || '0' },
-    };
+      users: { items: updatedUsers, count: state.users?.count || '0' },
+      loadedConversatonsIds
+  };
   }),
+  on(loadConversationMessagesSinceSuccessAction, (state, action): UsersStateInterface => {
+
+    const loadedConversatonsIds = state?.loadedConversatonsIds ? [...state.loadedConversatonsIds, action.conversationID] : [action.conversationID];
+    const updatedUsers = (state.users?.items || []).map((user) => {
+      if (user.conversatonID && user.conversatonID === action.conversationID) {
+          return { ...user, messages: {
+            count: user.messages?.count + action.conversationData.count,
+            items: [...(user.messages?.items || []), ...action.conversationData.items],
+          }, lastConversationUpdated: action.time };
+      }
+      return user;
+  });
+
+  return {
+      ...state,
+      isUsersLoading: false,
+      isConverstionsLoading: false,
+      backendUsersErrors: null,
+      backendConverstionsErrors: null,
+      users: { items: updatedUsers, count: state.users?.count || '0' },
+      loadedConversatonsIds
+  };
+  }),
+  on(deleteConversationSuccessAction,
+    (state, action): UsersStateInterface => {
+      const loadedConversatonsIds = state?.loadedConversatonsIds?.filter((id) => id !== action.conversationID) ?? null;
+      const updatedUsers = (state.users?.items || []).map((user) => {
+        if (user.conversatonID && user.conversatonID === action.conversationID) {
+            return { ...user, messages: null, conversatonID: null};
+        }
+        return user;
+    });
+      return {
+        ...state,
+        isConverstionsLoading: false,
+        users: { items: updatedUsers, count: state.users?.count || '0' },
+        loadedConversatonsIds
+      };
+    }
+  ),
+  on(postConversationMessageSuccessAction,
+    (state): UsersStateInterface => ({
+      ...state,
+      isConverstionsLoading: false,
+    }),
+  ),
 )
 export const usersReducer: ActionReducer<UsersStateInterface, Action> = (
   state,

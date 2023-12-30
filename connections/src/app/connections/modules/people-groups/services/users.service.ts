@@ -28,8 +28,22 @@ export class UsersService {
     return this.http.post<CreateConversationsResponse>(url, body);
   }
 
-  loadConversation(conversationID: string): Observable<ConverastionMessagesResponse> {
-    const url = `${environment.apiUrl}conversations/read?conversationID=${conversationID}`;
+  loadConversation(conversationID: string, since?: number): Observable<ConverastionMessagesResponse> {
+    const sinceTime = since ? `&since=${since}` : ''
+    const url = `${environment.apiUrl}conversations/read?conversationID=${conversationID}${sinceTime}`;
     return this.http.get<ConverastionMessagesResponse>(url);
+  }
+
+  deleteConversation(conversationID: string): Observable<null> {
+    const url = `${environment.apiUrl}conversations/delete?conversationID=${conversationID}`;
+    return this.http.delete<null>(url);
+  }
+
+  postNewMessage(conversationID: string, message: string): Observable<null> {
+    const url = `${environment.apiUrl}conversations/append`;
+    const body = {
+      conversationID, message
+    }
+    return this.http.post<null>(url, body);
   }
 }

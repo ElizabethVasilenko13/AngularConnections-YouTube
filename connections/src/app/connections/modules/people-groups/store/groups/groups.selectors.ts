@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { GroupsStateInterface } from "./groups.interface";
-import { Features } from "@store/features.enum";
 import { GroupProps } from "../../models/groups";
+import { Features } from "@shared/enums/store-feautures.enum";
 
 export const groupsFeatureSelector = createFeatureSelector<GroupsStateInterface>(
   Features.Groups,

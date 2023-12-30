@@ -40,6 +40,7 @@ export interface UserProps {
   name: { S: string };
   conversatonID?: string | null;
   messages?: ConversationMessagesProps | null;
+  lastConversationUpdated?: number | null;
 }
 
 export interface UsersProps  {

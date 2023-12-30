@@ -1,5 +1,5 @@
 import { AuthError } from "@shared/types/user";
-import { ConversationsProps, UsersProps } from "../../models/users";
+import { UsersProps } from "../../models/users";
 
 export interface UsersStateInterface {
   isUsersLoading: boolean;

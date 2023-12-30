@@ -4,7 +4,7 @@ import { MainPageComponent } from './pages/main/main.component';
 import { GroupsComponent } from './componennts/groups/groups.component';
 import { PeopleComponent } from './componennts/people/people.component';
 import { StoreModule } from '@ngrx/store';
-import { Features } from '@store/features.enum';
+import { Features } from "@shared/enums/store-feautures.enum";
 import { EffectsModule } from '@ngrx/effects';
 import { groupsReducer } from './store/groups/groups.reducers';
 import { GroupsEffects } from './store/groups/groups.effects';
@@ -18,8 +18,6 @@ import { UsersEffects } from './store/users/users.effects';
 import { usersReducer } from './store/users/users.reducers';
 import { ConversationPageComponent } from './pages/conversation-page/conversation-page.component';
 import { MatIconModule } from '@angular/material/icon';
-import { ConversationEffects } from './store/conversation/conversation.effects';
-import { conversationReducer } from './store/conversation/conversation.reducers';
 
 
 
@@ -41,7 +39,6 @@ import { conversationReducer } from './store/conversation/conversation.reducers'
     RouterModule,
     StoreModule.forFeature(Features.Groups, groupsReducer),
     StoreModule.forFeature(Features.Users, usersReducer),
-    // StoreModule.forFeature(Features.Conversation, conversationReducer),
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
     CommonModule
   ]
