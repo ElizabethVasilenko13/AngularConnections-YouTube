@@ -11,8 +11,6 @@ import {
   sighInAction,
   sighInResetAction,
 } from '../../store/signin/signin.actions';
-import { AuthService } from '@core/services/auth.service';
-import { Router } from '@angular/router';
 import { AuthError } from '@shared/types/user';
 
 @Component({
@@ -25,13 +23,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   isSubmitting$!: Observable<boolean>;
   backendError$!: Observable<AuthError | null>;
   disableSubmitButton = false;
-  private formValueChangesSubscription!: Subscription;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private fb: FormBuilder,
     private store: Store,
-    private auth: AuthService,
-    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -41,11 +37,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   initFormValueChanges(): void {
-    this.formValueChangesSubscription = this.loginForm.valueChanges.subscribe(
+    const formValueChangesSubscription = this.loginForm.valueChanges.subscribe(
       () => {
         this.disableSubmitButton = false;
       },
     );
+
+    this.subscriptions.push(formValueChangesSubscription);
   }
 
   initValues(): void {
@@ -65,14 +63,16 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     const userData = this.loginForm.value as UserSignInProps;
     this.store.dispatch(sighInAction({ userData }));
 
-    this.backendError$.subscribe((error) => {
+    const backendErrorsSubscr = this.backendError$.subscribe((error) => {
       if (error?.type === 'NotFoundException') {
         this.disableSubmitButton = true;
       }
     });
+
+    this.subscriptions.push(backendErrorsSubscr);
   }
 
   ngOnDestroy(): void {
-    this.formValueChangesSubscription.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

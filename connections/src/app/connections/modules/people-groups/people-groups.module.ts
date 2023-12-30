@@ -18,7 +18,8 @@ import { UsersEffects } from './store/users/users.effects';
 import { usersReducer } from './store/users/users.reducers';
 import { ConversationPageComponent } from './pages/conversation-page/conversation-page.component';
 import { MatIconModule } from '@angular/material/icon';
-
+import { UsersService } from './services/users.service';
+import { GroupsService } from './services/groups.service';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { MatIconModule } from '@angular/material/icon';
     StoreModule.forFeature(Features.Users, usersReducer),
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
     CommonModule
-  ]
+  ],
+  providers: [UsersService, GroupsService]
 })
 export class PeopleGroupsModule { }

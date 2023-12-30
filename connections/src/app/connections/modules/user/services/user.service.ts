@@ -9,9 +9,7 @@ import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { UserResponseInterface } from 'src/app/connections/models/user';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserService {
   constructor(
     private http: HttpClient,

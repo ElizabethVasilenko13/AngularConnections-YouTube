@@ -5,9 +5,7 @@ import { ConversationsResponse, CreateConversationsResponse, UsersResponse } fro
 import { environment } from '@env/environment';
 import { ConverastionMessagesResponse } from '../models/conversation';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UsersService {
 
   constructor(private http: HttpClient) { }

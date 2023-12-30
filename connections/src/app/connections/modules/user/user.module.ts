@@ -11,6 +11,7 @@ import { UserEffects } from './store/user.effects';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from '@shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [UserPageComponent],
@@ -23,7 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
     StoreModule.forFeature(Features.User, userReducer),
     EffectsModule.forFeature([UserEffects]),
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, UserService],
   exports: [UserPageComponent],
 })
 export class UserModule {}

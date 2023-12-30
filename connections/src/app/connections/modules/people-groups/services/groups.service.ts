@@ -5,9 +5,7 @@ import { GroupApiProps, GroupsResponse } from '../models/groups';
 import { environment } from '@env/environment';
 import { GroupMessagesResponse } from '../models/group-dialog';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class GroupsService {
   isCreateGroupModalClosed = new BehaviorSubject(false);
   constructor(private http: HttpClient) { }
