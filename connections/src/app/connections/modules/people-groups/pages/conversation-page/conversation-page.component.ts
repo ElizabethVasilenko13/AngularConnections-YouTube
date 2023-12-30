@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountdownService } from '@core/services/countdown.service';
-import { LocalStorageService } from '@core/services/local-storage.service';
 import { Observable, Subscription, map, take } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { UserProps, UsersProps } from '../../models/users';
@@ -11,6 +10,7 @@ import { AuthError } from '@shared/types/user.interaces';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
 import { deleteConversationAction, loadConversationMessagesAction, loadConversationMessagesSinceAction, loadUsersAction, postConversationMessageAction } from '../../store/users/users.actions';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-conversation-page',
@@ -27,12 +27,11 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
   backendErrors$!: Observable<AuthError | null>;
   subscriptions: Subscription[] = [];
   converastionId = '';
-  currentUserId = '';
 
   constructor(
     public countdownService: CountdownService,
     private route: ActivatedRoute,
-    private localStorageService: LocalStorageService,
+    protected authService: AuthService,
     private store: Store,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ConversationPageComponent>,
@@ -89,7 +88,7 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
   }
 
   loadUsers(): void {
-    const { currentUserId = '' } = this;
+    const currentUserId  = this.authService.currentUserID;
     this.store.dispatch(loadUsersAction({ currentUserId}));
   }
 
@@ -104,7 +103,6 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
 
   initValues():void {
     this.converastionId = this.route.snapshot.paramMap.get('id') as string;
-    this.currentUserId = this.localStorageService.get('userData')?.uid;
     this.conversationData$ = this.store.pipe(select(selectConversationById(this.converastionId)));
     this.isUsersLoading$ = this.store.pipe(select(isUsersLoadinSelector));
     this.isConversationsLoading$ = this.store.pipe(select(isConversationLoadinSelector));

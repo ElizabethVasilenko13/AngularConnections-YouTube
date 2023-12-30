@@ -6,11 +6,11 @@ import { GroupsProps } from '../../models/groups';
 import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
 import { CountdownService } from '../../../../../core/services/countdown.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LocalStorageService } from '@core/services/local-storage.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
 import { AuthError } from '@shared/types/user.interaces';
 import { GroupsService } from '../../services/groups.service';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-groups',
@@ -21,14 +21,13 @@ export class GroupsComponent implements OnInit, OnDestroy {
   groupsData$: Observable<GroupsProps | null>;
   isGroupsLoading$!: Observable<boolean>;
   groupCreateForm!: FormGroup;
-  currentUserId?: string;
   backendErrors$!: Observable<AuthError | null>;
   subscriptions: Subscription[] = [];
 
   constructor(
     private store: Store,
     public countdownService: CountdownService,
-    private localStorageService: LocalStorageService,
+    protected authService: AuthService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<GroupsComponent>,
@@ -58,7 +57,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   initValues(): void {
-    this.currentUserId = this.localStorageService.get('userData')?.uid;
     this.isGroupsLoading$ = this.store.pipe(select(isGroupsLoadinSelector));
     this.backendErrors$ = this.store.pipe(select(backendGroupErrorSelector));
   }
@@ -76,7 +74,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
   onCreateFormSubmit(): void {
     const name: string = this.groupCreateForm.get('name')?.value;
-    const userId = this.currentUserId || '';
+    const userId = this.authService.currentUserID;
     this.store.dispatch(createGroupAction({ name, userId }));
 
     const isCreateGroupModalClosedSubscr = this.groupService.isCreateGroupModalClosed.subscribe((val) => {

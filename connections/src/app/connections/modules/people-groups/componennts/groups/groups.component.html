@@ -13,11 +13,11 @@
     diameter="60"
 ></mat-progress-spinner>
 <div class="content__items">
-  <div *ngFor="let group of (groupsData$ | async)?.items" class="group-item" [class.groupCurrent]="currentUserId === group.createdBy.S">
+  <div *ngFor="let group of (groupsData$ | async)?.items" class="group-item" [class.groupCurrent]="authService.currentUserID === group.createdBy.S">
     <a routerLink="/group/{{ group.id.S }}" class="group__link">
       <div class="group-property">{{ group.name.S }}</div>
     </a>
-    <button class="delete__btn" *ngIf="currentUserId === group.createdBy.S" (click)="onDeleteGroup($event, group.id.S)">✕</button>
+    <button class="delete__btn" *ngIf="authService.currentUserID === group.createdBy.S" (click)="onDeleteGroup($event, group.id.S)">✕</button>
   </div>
 </div>
 

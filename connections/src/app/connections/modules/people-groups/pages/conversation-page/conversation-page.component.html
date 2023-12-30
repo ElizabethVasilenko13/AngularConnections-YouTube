@@ -24,7 +24,7 @@
   </div>
   <div class="group-dialog__main" >
     <div class="messages">
-      <div *ngFor="let message of (conversationData$ | async)?.messages?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserId">
+      <div *ngFor="let message of (conversationData$ | async)?.messages?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === authService.currentUserID">
           <div class="message__creator">
             {{ getMessageCreatorName(message.authorID.S) | async }}
           </div>

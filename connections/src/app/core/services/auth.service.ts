@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   isLoggedIn = new BehaviorSubject(false);
+  currentUserID = ''
   constructor(private localStorageService: LocalStorageService, private router: Router) {}
 
   checkAuth(): void {
@@ -20,5 +21,6 @@ export class AuthService {
     this.localStorageService.set('userData', userData);
     this.isLoggedIn.next(true);
     this.router.navigate(['/']);
+    this.currentUserID = this.localStorageService.get('userData')?.uid || '';
   }
 }

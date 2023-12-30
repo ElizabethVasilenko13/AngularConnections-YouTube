@@ -4,10 +4,10 @@ import { ConversationsProps, UsersProps } from '../../models/users';
 import { Store, select } from '@ngrx/store';
 import { isUsersLoadinSelector, usersBackendSelector, usersSelector } from '../../store/users/users.selectors';
 import { CountdownService } from '../../../../../core/services/countdown.service';
-import { LocalStorageService } from '@core/services/local-storage.service';
-import { createConversationAction, loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
+import { createConversationAction, loadUsersAction } from '../../store/users/users.actions';
 import { Router } from '@angular/router';
 import { AuthError } from '@shared/types/user.interaces';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-people',
@@ -17,7 +17,6 @@ import { AuthError } from '@shared/types/user.interaces';
 export class PeopleComponent implements OnInit, OnDestroy {
   usersData$: Observable<UsersProps | null>;
   isUsersLoading$!: Observable<boolean>;
-  currentUserId?: string;
   activeConversations$!: Observable<ConversationsProps | null>
   companionsIDs$!: Observable<string[] | undefined>;
   backendErrors$!: Observable<AuthError | null>
@@ -26,7 +25,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store,
     public countdownService: CountdownService,
-    private localStorageService: LocalStorageService,
+    protected authService: AuthService,
     private router: Router,
     ) {
     this.usersData$ = this.store.pipe(select(usersSelector));
@@ -38,21 +37,13 @@ export class PeopleComponent implements OnInit, OnDestroy {
   }
 
   initValues(): void {
-    this.currentUserId = this.localStorageService.get('userData')?.uid;
     this.isUsersLoading$ = this.store.pipe(select(isUsersLoadinSelector));
-    // this.activeConversations$ = this.store.pipe(select(conversationsSelector));
-    // this.companionsIDs$ = this.store.pipe(select(companionsIDsSelector));
     this.backendErrors$ = this.store.pipe(select(usersBackendSelector));
   }
 
   loadUsers(): void {
-    const { currentUserId = '' } = this;
+    const currentUserId = this.authService.currentUserID;
     this.store.dispatch(loadUsersAction({ currentUserId}));
-    // this.loadConversations()
-  }
-
-  loadConversations(): void {
-    // this.store.dispatch(loadConversationsAction());
   }
 
   subscribeToUsersData(): void {

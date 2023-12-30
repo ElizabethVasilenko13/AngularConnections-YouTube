@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CountdownService } from '@core/services/countdown.service';
-import { LocalStorageService } from '@core/services/local-storage.service';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription, map, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -14,6 +13,7 @@ import { UsersProps } from '../../models/users';
 import { isUsersLoadinSelector, usersSelector } from '../../store/users/users.selectors';
 import { loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-group-page',
@@ -27,7 +27,6 @@ export class GroupPageComponent implements OnInit, OnDestroy {
   isUsersDataLoading$!: Observable<boolean>;
   groupId = '';
   isGroupCreatedByCurrnetUser = false;
-  currentUserId!: string;
   groupAuthorsIds$!: Observable<string[] | undefined>;
   backendErrors$!: Observable<AuthError | null>;
   groupsIds$!: Observable<string[] | null>;
@@ -40,7 +39,7 @@ export class GroupPageComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     public countdownService: CountdownService,
-    private localStorageService: LocalStorageService,
+    protected authService: AuthService,
     private route: ActivatedRoute,
     public dialogRef: MatDialogRef<GroupPageComponent>,
     private dialogService: DialogService,
@@ -106,7 +105,6 @@ export class GroupPageComponent implements OnInit, OnDestroy {
 
   initValues(): void {
     this.groupId = this.route.snapshot.paramMap.get('id') as string;
-    this.currentUserId = this.localStorageService.get('userData')?.uid;
     this.groupDialogData$ = this.store.pipe(select(selectGroupById(this.groupId)));
     this.groupsIds$ = this.store.pipe(select(loadedGroupsIdsSelector));
     this.isGroupDialogLoading$ = this.store.pipe(select(isGroupsLoadinSelector));
@@ -148,7 +146,7 @@ export class GroupPageComponent implements OnInit, OnDestroy {
   }
 
   loadUsers(): void {
-    const { currentUserId = '' } = this;
+    const currentUserId = this.authService.currentUserID;
     this.store.dispatch(loadUsersAction({ currentUserId}));
     this.loadConversations()
   }
@@ -169,7 +167,7 @@ export class GroupPageComponent implements OnInit, OnDestroy {
   subscribeToGroupDialogData(): void {
     const groupDialogDataSubscr = this.groupDialogData$.subscribe((groupData) => {
       if (groupData) {
-        if (groupData.createdBy.S === this.currentUserId) {
+        if (groupData.createdBy.S === this.authService.currentUserID) {
           this.isGroupCreatedByCurrnetUser = true;
         }
 
