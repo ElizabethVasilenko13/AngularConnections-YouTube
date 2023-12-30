@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserSignInProps } from '../../models/auth';
+import { UserSignInProps } from '../../models/auth.interfaces';
 import { AuthError } from '@shared/types/user';
 
 export const sighInAction = createAction(

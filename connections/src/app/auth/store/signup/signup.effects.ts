@@ -6,7 +6,7 @@ import {
   sighUpFailureAction,
   sighUpSuccessAction,
 } from './signup.actions';
-import { SignUpService } from '../../services/sign-up.service';
+import { AuthApiService } from '../../services/auth-api.service';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ import { NotifyStyles } from '@shared/enums/notify.enum';
 export class AuthEffects {
   constructor(
     private actions$: Actions,
-    private signUpService: SignUpService,
+    private authApi: AuthApiService,
     private router: Router,
     private snackBar: NotifyService,
   ) {}
@@ -27,7 +27,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(sighUpAction),
       exhaustMap(({ userData }) => {
-        return this.signUpService.signUp(userData).pipe(
+        return this.authApi.signUp(userData).pipe(
           map(() => {
             this.snackBar.addMessage(
               'You`ve been succesfully registered',

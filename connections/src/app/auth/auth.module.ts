@@ -9,11 +9,13 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { Features } from "@shared/enums/store-feautures.enum";
 import { authReducer } from './store/signup/signup.reduces';
-import { SignUpService } from './services/sign-up.service';
+import { AuthApiService } from './services/auth-api.service';
 import { AuthEffects } from './store/signup/signup.effects';
 import { signinReducer } from './store/signin/signin.reducer';
 import { SignInEffects } from './store/signin/signin.effects';
 import { SharedModule } from '@shared/shared.module';
+import { SignUpService } from './services/sign-up.service';
+import { SignInService } from './services/sign-in.service';
 
 @NgModule({
   declarations: [RegistrationPageComponent, LoginPageComponent],
@@ -27,6 +29,6 @@ import { SharedModule } from '@shared/shared.module';
     StoreModule.forFeature(Features.SignIn, signinReducer),
     EffectsModule.forFeature([AuthEffects, SignInEffects]),
   ],
-  providers: [SignUpService],
+  providers: [AuthApiService, SignUpService, SignInService],
 })
 export class AuthModule {}

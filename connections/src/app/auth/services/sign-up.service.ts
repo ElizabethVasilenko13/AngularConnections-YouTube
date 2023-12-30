@@ -1,28 +1,32 @@
-import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
-import { Observable } from 'rxjs';
-import {
-  SignInResponse,
-  UserSignInProps,
-  UserSignUpProps,
-} from '../models/auth';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable()
 export class SignUpService {
-  private http: HttpClient;
+  registrationForm!: FormGroup;
+  constructor(private fb: FormBuilder) { }
 
-  constructor(handler: HttpBackend) {
-    this.http = new HttpClient(handler);
-  }
-
-  signUp(data: UserSignUpProps): Observable<null> {
-    const url = `${environment.apiUrl}registration`;
-    return this.http.post<null>(url, data);
-  }
-
-  signIn(data: UserSignInProps): Observable<SignInResponse> {
-    const url = `${environment.apiUrl}login`;
-    return this.http.post<SignInResponse>(url, data);
+  initForm(): void {
+    this.registrationForm = this.fb.group({
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(40),
+          Validators.pattern(/^[a-zA-Z\s]+$/),
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/,
+          ),
+        ],
+      ],
+    });
   }
 }

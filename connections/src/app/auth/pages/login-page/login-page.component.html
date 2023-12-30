@@ -2,11 +2,11 @@
 <section class="container auth">
   <div class="auth__form">
     <h2>Sign up</h2>
-    <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form class="form" [formGroup]="signInService.loginForm" (ngSubmit)="onSubmit()">
       <app-form-control
         label="Email"
         controlName="email"
-        [control]="loginForm.get('email')"
+        [control]="signInService.loginForm.get('email')"
         [isRequired]="true"
         type="email"
         [backendError]="backendError$ | async"
@@ -14,7 +14,7 @@
       <app-form-control
         label="Password"
         controlName="password"
-        [control]="loginForm.get('password')"
+        [control]="signInService.loginForm.get('password')"
         [isRequired]="true"
         type="password"
         [backendError]="backendError$ | async"
@@ -27,7 +27,7 @@
           type="submit"
           class="auth__btn"
           [disabled]="
-            loginForm.invalid || (isSubmitting$ | async) || disableSubmitButton
+            signInService.loginForm.invalid || (isSubmitting$ | async) || isSubmitFormButtonDisable
           "
         >
           Sign in
