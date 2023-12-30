@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
-import { AuthError } from '@shared/types/user';
+import { AuthError } from '@shared/types/user.interaces';
 import { GroupsService } from '../../services/groups.service';
 
 @Component({

@@ -10,7 +10,7 @@ import {
   sighInAction,
   sighInResetAction,
 } from '../../store/signin/signin.actions';
-import { AuthError } from '@shared/types/user';
+import { AuthError } from '@shared/types/user.interaces';
 import { SignInService } from '@auth/services/sign-in.service';
 import { AuthErrorsTypes } from '@auth/models/auth.enum';
 

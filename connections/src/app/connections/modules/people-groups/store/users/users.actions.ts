@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { AuthError } from "@shared/types/user";
+import { AuthError } from "@shared/types/user.interaces";
 import { ConversationsProps, UsersProps } from "../../models/users";
 import { ConverastionMessagesProps } from "../../models/conversation";
 

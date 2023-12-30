@@ -9,7 +9,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { groupsReducer } from './store/groups/groups.reducers';
 import { GroupsEffects } from './store/groups/groups.effects';
 import { GroupsItemComponent } from './componennts/groups/groups-item/groups-item.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { RouterModule } from '@angular/router';
@@ -17,10 +16,9 @@ import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { UsersEffects } from './store/users/users.effects';
 import { usersReducer } from './store/users/users.reducers';
 import { ConversationPageComponent } from './pages/conversation-page/conversation-page.component';
-import { MatIconModule } from '@angular/material/icon';
 import { UsersService } from './services/users.service';
 import { GroupsService } from './services/groups.service';
-
+import { MaterialModule } from '@material/material.module';
 
 @NgModule({
   declarations: [
@@ -33,8 +31,7 @@ import { GroupsService } from './services/groups.service';
   ],
   exports: [MainPageComponent],
   imports: [
-    MatIconModule,
-    MatProgressSpinnerModule,
+    MaterialModule,
     ReactiveFormsModule,
     SharedModule,
     RouterModule,

@@ -7,7 +7,7 @@ import { CountdownService } from '../../../../../core/services/countdown.service
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { createConversationAction, loadConversationsAction, loadUsersAction } from '../../store/users/users.actions';
 import { Router } from '@angular/router';
-import { AuthError } from '@shared/types/user';
+import { AuthError } from '@shared/types/user.interaces';
 
 @Component({
   selector: 'app-people',

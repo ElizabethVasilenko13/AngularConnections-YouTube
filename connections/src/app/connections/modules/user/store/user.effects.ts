@@ -47,7 +47,6 @@ export class UserEffects {
             });
           }),
           catchError((error: HttpErrorResponse) => {
-            // const message = error.error ? error.error.message || 'Error' : 'Error'
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
@@ -71,7 +70,6 @@ export class UserEffects {
             return UpdateUserSuccessfulNameAction({ name });
           }),
           catchError((error: HttpErrorResponse) => {
-            // const message = error.error ? error.error.message || 'Error' : 'Error'
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);

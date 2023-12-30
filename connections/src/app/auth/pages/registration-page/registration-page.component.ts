@@ -10,7 +10,7 @@ import {
   isSubmittingSelector,
 } from '../../store/signup/signup.selectors';
 import { UserSignUpProps } from '../../models/auth.interfaces';
-import { AuthError } from '@shared/types/user';
+import { AuthError } from '@shared/types/user.interaces';
 import { SignUpService } from '@auth/services/sign-up.service';
 import { AuthErrorsTypes } from '@auth/models/auth.enum';
 

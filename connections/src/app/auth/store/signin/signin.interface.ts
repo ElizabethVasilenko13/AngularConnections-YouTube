@@ -1,4 +1,4 @@
-import { AuthError } from '@shared/types/user';
+import { AuthError } from '@shared/types/user.interaces';
 
 export interface SignInStateInterface {
   isSubmitting: boolean;

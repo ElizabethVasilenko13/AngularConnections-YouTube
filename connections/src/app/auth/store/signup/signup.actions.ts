@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { UserSignUpProps } from '../../models/auth.interfaces';
-import { AuthError } from '@shared/types/user';
+import { AuthError } from '@shared/types/user.interaces';
 
 export const sighUpAction = createAction(
   '[Auth] Sign Up',

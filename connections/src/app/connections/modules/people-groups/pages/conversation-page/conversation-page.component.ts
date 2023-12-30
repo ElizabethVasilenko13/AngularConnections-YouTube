@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { UserProps, UsersProps } from '../../models/users';
 import { conversationBackendSelector, isConversationLoadinSelector, isUsersLoadinSelector, loadedConverationsIdsSelector, selectConversationById, usersSelector } from '../../store/users/users.selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthError } from '@shared/types/user';
+import { AuthError } from '@shared/types/user.interaces';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
 import { deleteConversationAction, loadConversationMessagesAction, loadConversationMessagesSinceAction, loadUsersAction, postConversationMessageAction } from '../../store/users/users.actions';

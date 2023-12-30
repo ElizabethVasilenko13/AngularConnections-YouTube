@@ -4,7 +4,7 @@ import { LocalStorageService } from '@core/services/local-storage.service';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription, map, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AuthError } from '@shared/types/user';
+import { AuthError } from '@shared/types/user.interaces';
 import { GroupProps, GroupsProps } from '../../models/groups';
 import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector, loadedGroupsIdsSelector, selectGroupById } from '../../store/groups/groups.selectors';
 import { deleteGroupAction, loadGroupMessagesAction, loadGroupMessagesSinceAction, loadGroupsAction, postNewMessageAction } from '../../store/groups/groups.actions';

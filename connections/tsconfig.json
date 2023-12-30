@@ -27,7 +27,8 @@
       "@store/*": ["./src/app/store/*"],
       "@env/*": ["./src/environments/*"],
       "@auth/*": ["./src/app/auth/*"],
-      "@connection/*": ["./src/connection/*"]
+      "@connection/*": ["./src/app/connection/*"],
+      "@material/*": ["./src/app/material/*"]
     }
   },
   "angularCompilerOptions": {

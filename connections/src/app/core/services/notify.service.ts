@@ -28,7 +28,7 @@ export class NotifyService {
         const config = new MatSnackBarConfig();
       config.duration = duration;
       config.horizontalPosition = 'right';
-      config.verticalPosition = 'top';
+      config.verticalPosition = 'bottom';
       config.panelClass = ['custom-snackbar', style];
 
       const snackBarRef = this.snackBar.open(message, 'Close', config);

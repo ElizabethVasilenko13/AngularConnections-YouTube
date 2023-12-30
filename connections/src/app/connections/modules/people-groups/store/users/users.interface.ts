@@ -1,4 +1,4 @@
-import { AuthError } from "@shared/types/user";
+import { AuthError } from "@shared/types/user.interaces";
 import { UsersProps } from "../../models/users";
 
 export interface UsersStateInterface {
