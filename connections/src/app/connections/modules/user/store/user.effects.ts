@@ -90,7 +90,7 @@ export class UserEffects {
               'Logout successful',
               NotifyStyles.Success,
             );
-            this.userService.handleLodout();
+            this.userService.handleLogout();
             return LogoutSuccessfulAction();
           }),
           catchError((error: HttpErrorResponse) => {

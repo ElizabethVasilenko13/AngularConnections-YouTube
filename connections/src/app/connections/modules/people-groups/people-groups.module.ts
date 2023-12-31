@@ -18,6 +18,7 @@ import { ConversationPageComponent } from './pages/conversation-page/conversatio
 import { UsersApiService } from './services/users-api.service';
 import { MaterialModule } from '@material/material.module';
 import { GroupsApiService } from './services/groups-api.service';
+import { UserNameTransformPipe } from './pipes/user-name-transform.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { GroupsApiService } from './services/groups-api.service';
     PeopleComponent,
     GroupsComponent,
     GroupPageComponent,
-    ConversationPageComponent
+    ConversationPageComponent,
+    UserNameTransformPipe
     ],
   exports: [MainPageComponent],
   imports: [

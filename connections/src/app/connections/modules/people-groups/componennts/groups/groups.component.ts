@@ -34,7 +34,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscribeToGroupsData();
     this.initValues();
     this.groupsService.initForm();
   }
@@ -74,16 +73,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(isGroupsLoadingSubscr);
   }
-
-  subscribeToGroupsData(): void {
-    const groupDataSubstr = this.groupsData$.subscribe((groupData) => {
-      if (!groupData) {
-        this.loadGroups();
-      }
-    });
-    this.subscriptions.push(groupDataSubstr)
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

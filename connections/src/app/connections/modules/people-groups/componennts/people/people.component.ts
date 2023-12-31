@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, take } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { UserProps, UsersProps } from '../../models/users';
 import { Store, select } from '@ngrx/store';
 import { isUsersLoadinSelector, usersBackendSelector, usersSelector } from '../../store/users/users.selectors';
@@ -29,13 +29,12 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.usersData$ = this.store.pipe(select(usersSelector));
   }
 
-  isConversationID(user: UserProps): boolean {
-    return !!user.conversatonID;
-  }
-
   ngOnInit(): void {
     this.initValues();
-    this.subscribeToUsersData();
+  }
+
+  isConversationID(user: UserProps): boolean {
+    return !!user.conversatonID;
   }
 
   initValues(): void {
@@ -46,16 +45,6 @@ export class PeopleComponent implements OnInit, OnDestroy {
   loadUsers(): void {
     const currentUserId = this.authService.currentUserID;
     this.store.dispatch(loadUsersAction({ currentUserId}));
-  }
-
-  subscribeToUsersData(): void {
-    const usersDataSubscr =  this.usersData$.pipe(take(1)).subscribe((usersData) => {
-      if (!usersData) {
-        this.loadUsers();
-      }
-    });
-
-    this.subscriptions.push(usersDataSubscr);
   }
 
   updateUsersList(): void {

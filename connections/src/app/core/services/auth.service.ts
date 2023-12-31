@@ -14,13 +14,18 @@ export class AuthService {
   checkAuth(): void {
     if (this.localStorageService.get('userData') !== null) {
       this.isLoggedIn.next(true);
+      this.getUserID();
     }
+  }
+
+  getUserID(): void {
+    this.currentUserID = this.localStorageService.get('userData')?.uid || '';
   }
 
   handleSignIn(userData: {email: string; token: string; uid: string}): void {
     this.localStorageService.set('userData', userData);
     this.isLoggedIn.next(true);
     this.router.navigate(['/']);
-    this.currentUserID = this.localStorageService.get('userData')?.uid || '';
+    this.getUserID();
   }
 }

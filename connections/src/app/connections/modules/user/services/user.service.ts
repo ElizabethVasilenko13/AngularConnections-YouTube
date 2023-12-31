@@ -35,7 +35,7 @@ export class UserService {
     return this.http.delete<null>(url);
   }
 
-  handleLodout(): void {
+  handleLogout(): void {
     this.localStorageService.clearStorage();
     this.auth.isLoggedIn.next(false);
     this.clearAllCookies();

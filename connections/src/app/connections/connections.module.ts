@@ -18,4 +18,4 @@ import { MaterialModule } from '@material/material.module';
     MaterialModule
   ],
 })
-export class ConnectionsModule {}
+export class ConnectionsModule{}
