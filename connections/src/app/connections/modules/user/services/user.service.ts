@@ -7,7 +7,7 @@ import { CountdownService } from '@core/services/countdown.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { UserResponseInterface } from 'src/app/connections/models/user';
+import { UserResponseInterface } from 'src/app/connections/models/user.interfaces';
 
 @Injectable()
 export class UserService {
@@ -16,7 +16,7 @@ export class UserService {
     private localStorageService: LocalStorageService,
     private router: Router,
     private auth: AuthService,
-    private countdownService: CountdownService
+    private countdownService: CountdownService,
   ) {}
 
   loadUser(): Observable<UserResponseInterface> {

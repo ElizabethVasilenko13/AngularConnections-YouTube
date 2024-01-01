@@ -8,7 +8,7 @@ describe('GroupPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GroupPageComponent]
+      declarations: [GroupPageComponent],
     });
     fixture = TestBed.createComponent(GroupPageComponent);
     component = fixture.componentInstance;

@@ -15,7 +15,7 @@ import { MaterialModule } from '@material/material.module';
     PeopleGroupsModule,
     UserModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
   ],
 })
-export class ConnectionsModule{}
+export class ConnectionsModule {}

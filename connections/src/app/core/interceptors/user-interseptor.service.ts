@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '@core/services/local-storage.service';
-import { UserProfileProps } from '../../connections/models/user';
+import { UserProfileProps } from '../../connections/models/user.interfaces';
 
 @Injectable()
 export class UserCredentialInterceptor implements HttpInterceptor {

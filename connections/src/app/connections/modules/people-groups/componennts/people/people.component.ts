@@ -2,7 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { UserProps, UsersProps } from '../../models/users';
 import { Store, select } from '@ngrx/store';
-import { isUsersLoadinSelector, usersBackendSelector, usersSelector } from '../../store/users/users.selectors';
+import {
+  isUsersLoadinSelector,
+  usersBackendSelector,
+  usersSelector,
+} from '../../store/users/users.selectors';
 import { loadUsersAction } from '../../store/users/users.actions';
 import { AuthError } from '@shared/types/user.interaces';
 import { AuthService } from '@core/services/auth.service';
@@ -12,20 +16,20 @@ import { UsersService } from '../../services/users.service';
 @Component({
   selector: 'app-people',
   templateUrl: './people.component.html',
-  styleUrls: ['./people.component.scss']
+  styleUrls: ['./people.component.scss'],
 })
 export class PeopleComponent implements OnInit, OnDestroy {
   usersData$: Observable<UsersProps | null>;
   isUsersLoading$!: Observable<boolean>;
-  backendErrors$!: Observable<AuthError | null>
+  backendErrors$!: Observable<AuthError | null>;
   subscriptions: Subscription[] = [];
 
   constructor(
     private store: Store,
     public countdownService: CountdownService,
     protected authService: AuthService,
-    protected usersService: UsersService
-    ) {
+    protected usersService: UsersService,
+  ) {
     this.usersData$ = this.store.pipe(select(usersSelector));
   }
 
@@ -44,7 +48,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   loadUsers(): void {
     const currentUserId = this.authService.currentUserID;
-    this.store.dispatch(loadUsersAction({ currentUserId}));
+    this.store.dispatch(loadUsersAction({ currentUserId }));
   }
 
   updateUsersList(): void {
@@ -53,9 +57,9 @@ export class PeopleComponent implements OnInit, OnDestroy {
       if (!value) {
         this.backendErrors$.subscribe((error) => {
           if (!error) {
-            this.countdownService.handleCountdown('users', 60)
+            this.countdownService.handleCountdown('users', 60);
           }
-        })
+        });
       }
     });
 
@@ -63,6 +67,6 @@ export class PeopleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

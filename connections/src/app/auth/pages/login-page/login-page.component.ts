@@ -27,7 +27,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    public signInService: SignInService
+    public signInService: SignInService,
   ) {}
 
   ngOnInit(): void {
@@ -37,11 +37,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   initFormValueChanges(): void {
-    const formValueChangesSubscription = this.signInService.loginForm.valueChanges.subscribe(
-      () => {
+    const formValueChangesSubscription =
+      this.signInService.loginForm.valueChanges.subscribe(() => {
         this.isSubmitFormButtonDisable = false;
-      },
-    );
+      });
 
     this.subscriptions.push(formValueChangesSubscription);
   }
@@ -66,6 +65,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

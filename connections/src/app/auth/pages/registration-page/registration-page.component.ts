@@ -28,7 +28,7 @@ export class RegistrationPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    public signUpService: SignUpService
+    public signUpService: SignUpService,
   ) {}
 
   ngOnInit(): void {
@@ -44,18 +44,19 @@ export class RegistrationPageComponent implements OnInit, OnDestroy {
   }
 
   initFormValueChanges(): void {
-    const formValueChangesSubscription = this.signUpService.registrationForm.valueChanges.subscribe(
-      () => {
-      this.isSubmitFormButtonDisable = false;
-    });
+    const formValueChangesSubscription =
+      this.signUpService.registrationForm.valueChanges.subscribe(() => {
+        this.isSubmitFormButtonDisable = false;
+      });
 
     this.subscriptions.push(formValueChangesSubscription);
   }
 
   onSubmit(): void {
-    const userData = this.signUpService.registrationForm.value as UserSignUpProps;
+    const userData = this.signUpService.registrationForm
+      .value as UserSignUpProps;
     this.store.dispatch(sighUpAction({ userData }));
-    const backendErrorsSubscr =  this.backendError$.subscribe((error) => {
+    const backendErrorsSubscr = this.backendError$.subscribe((error) => {
       if (error?.type === AuthErrorsTypes.Duplication)
         this.isSubmitFormButtonDisable = true;
     });
@@ -64,6 +65,6 @@ export class RegistrationPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

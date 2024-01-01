@@ -10,7 +10,13 @@ import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
   declarations: [NotFoundComponent],
   exports: [NotFoundComponent],
-  imports: [CommonModule, SharedModule, HttpClientModule, BrowserAnimationsModule, BrowserModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

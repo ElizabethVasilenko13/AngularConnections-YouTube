@@ -1,9 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { createGroupAction, loadGroupsAction } from '../../store/groups/groups.actions';
+import {
+  createGroupAction,
+  loadGroupsAction,
+} from '../../store/groups/groups.actions';
 import { Observable, Subscription } from 'rxjs';
 import { GroupsProps } from '../../models/groups';
-import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector } from '../../store/groups/groups.selectors';
+import {
+  backendGroupErrorSelector,
+  groupsSelector,
+  isGroupsLoadinSelector,
+} from '../../store/groups/groups.selectors';
 import { CountdownService } from '../../../../../core/services/countdown.service';
 import { DialogService } from '@core/services/dialog.service';
 import { AuthError } from '@shared/types/user.interaces';
@@ -14,7 +21,7 @@ import { GroupsService } from '../../services/groups.service';
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
-  styleUrls: ['./groups.component.scss']
+  styleUrls: ['./groups.component.scss'],
 })
 export class GroupsComponent implements OnInit, OnDestroy {
   groupsData$: Observable<GroupsProps | null>;
@@ -28,8 +35,8 @@ export class GroupsComponent implements OnInit, OnDestroy {
     protected authService: AuthService,
     protected dialogService: DialogService,
     private groupApiService: GroupsApiService,
-    protected groupsService: GroupsService
-    ) {
+    protected groupsService: GroupsService,
+  ) {
     this.groupsData$ = this.store.pipe(select(groupsSelector));
   }
 
@@ -52,9 +59,10 @@ export class GroupsComponent implements OnInit, OnDestroy {
     const userId = this.authService.currentUserID;
     this.store.dispatch(createGroupAction({ name, userId }));
 
-    const isCreateGroupModalClosedSubscr = this.groupApiService.isCreateGroupModalClosed.subscribe((val) => {
-      if (val === true) this.dialogService.onDialogClose();
-    })
+    const isCreateGroupModalClosedSubscr =
+      this.groupApiService.isCreateGroupModalClosed.subscribe((val) => {
+        if (val === true) this.dialogService.onDialogClose();
+      });
 
     this.subscriptions.push(isCreateGroupModalClosedSubscr);
   }
@@ -67,13 +75,13 @@ export class GroupsComponent implements OnInit, OnDestroy {
           if (!error) {
             this.countdownService.handleCountdown('groups', 60);
           }
-        })
+        });
       }
     });
 
     this.subscriptions.push(isGroupsLoadingSubscr);
   }
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

@@ -1,6 +1,6 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { UsersStateInterface } from "./users.interface";
-import { Features } from "@shared/enums/store-feautures.enum";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { UsersStateInterface } from './users.interface';
+import { Features } from '@shared/enums/store-feautures.enum';
 
 export const usersFeatureSelector = createFeatureSelector<UsersStateInterface>(
   Features.Users,
@@ -36,15 +36,15 @@ export const loadedConverationsIdsSelector = createSelector(
   (state: UsersStateInterface) => state.loadedConversatonsIds,
 );
 
-
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const selectConversationById = (conversationID: string) =>
-  createSelector(
-    usersFeatureSelector,
-    (state: UsersStateInterface) => {
-      if (state.users && state.users.items) {
-        return state.users.items.find((user) => user.conversatonID === conversationID) || null;
-      }
-      return null;
+  createSelector(usersFeatureSelector, (state: UsersStateInterface) => {
+    if (state.users && state.users.items) {
+      return (
+        state.users.items.find(
+          (user) => user.conversatonID === conversationID,
+        ) || null
+      );
     }
-  );
+    return null;
+  });

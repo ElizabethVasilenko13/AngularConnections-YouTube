@@ -10,7 +10,10 @@ import { loadGroupsAction } from '../../modules/people-groups/store/groups/group
   styleUrls: ['./core.component.scss'],
 })
 export class CoreComponent implements OnInit {
-  constructor( private store: Store, private authService: AuthService) {}
+  constructor(
+    private store: Store,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.loadGroups();
@@ -19,7 +22,7 @@ export class CoreComponent implements OnInit {
 
   loadUsers(): void {
     const currentUserId = this.authService.currentUserID;
-    this.store.dispatch(loadUsersAction({ currentUserId}));
+    this.store.dispatch(loadUsersAction({ currentUserId }));
   }
 
   loadGroups(): void {

@@ -6,7 +6,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { Features } from "@shared/enums/store-feautures.enum";
+import { Features } from '@shared/enums/store-feautures.enum';
 import { authReducer } from './store/signup/signup.reduces';
 import { AuthApiService } from './services/auth-api.service';
 import { AuthEffects } from './store/signup/signup.effects';

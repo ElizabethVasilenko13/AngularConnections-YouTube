@@ -41,7 +41,9 @@ export class FormControlComponent {
 
         switch (key) {
           case 'required':
-            errorMessages.push(`The ${this.controlName.toLowerCase()} is required.`);
+            errorMessages.push(
+              `The ${this.controlName.toLowerCase()} is required.`,
+            );
             break;
           case 'minlength':
             errorMessages.push(
@@ -74,7 +76,9 @@ export class FormControlComponent {
                 );
               }
             } else {
-              errorMessages.push(`The ${this.controlName.toLowerCase()} is invalid`);
+              errorMessages.push(
+                `The ${this.controlName.toLowerCase()} is invalid`,
+              );
             }
         }
       });

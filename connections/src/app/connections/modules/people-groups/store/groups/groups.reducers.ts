@@ -1,17 +1,36 @@
-import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
-import { GroupsStateInterface } from "./groups.interface";
-import { createGroupAction, createGroupFailedAction, createGroupSuccessAction, deleteGroupAction, deleteGroupFailedAction, deleteGroupSuccessAction, loadGroupMessagesAction, loadGroupMessagesFailedAction, loadGroupMessagesSinceAction, loadGroupMessagesSinceFailedAction, loadGroupMessagesSinceSuccessAction, loadGroupMessagesSuccessAction, loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction, postNewMessageAction, postNewMessageFailedAction } from "./groups.actions";
+import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
+import { GroupsStateInterface } from './groups.interface';
+import {
+  createGroupAction,
+  createGroupFailedAction,
+  createGroupSuccessAction,
+  deleteGroupAction,
+  deleteGroupFailedAction,
+  deleteGroupSuccessAction,
+  loadGroupMessagesAction,
+  loadGroupMessagesFailedAction,
+  loadGroupMessagesSinceAction,
+  loadGroupMessagesSinceFailedAction,
+  loadGroupMessagesSinceSuccessAction,
+  loadGroupMessagesSuccessAction,
+  loadGroupsAction,
+  loadGroupsFailedAction,
+  loadGroupsSuccessAction,
+  postNewMessageAction,
+  postNewMessageFailedAction,
+} from './groups.actions';
 
 const initialState: GroupsStateInterface = {
   isLoading: false,
   backendErrors: null,
   groups: null,
-  loadedGroupIds: null
+  loadedGroupIds: null,
 };
 
 const reducer = createReducer(
   initialState,
-  on(loadGroupsAction,
+  on(
+    loadGroupsAction,
     createGroupAction,
     deleteGroupAction,
     loadGroupMessagesAction,
@@ -23,27 +42,29 @@ const reducer = createReducer(
       backendErrors: null,
     }),
   ),
-  on(loadGroupsSuccessAction,
+  on(
+    loadGroupsSuccessAction,
     (state, action): GroupsStateInterface => ({
       ...state,
       isLoading: false,
       backendErrors: null,
-      groups: action.groups
+      groups: action.groups,
     }),
   ),
-  on(loadGroupMessagesSuccessAction,
-    (state, action): GroupsStateInterface => {
-      const loadedGroupIds = state?.loadedGroupIds ? [...state.loadedGroupIds, action.groupID] : [action.groupID];
+  on(loadGroupMessagesSuccessAction, (state, action): GroupsStateInterface => {
+    const loadedGroupIds = state?.loadedGroupIds
+      ? [...state.loadedGroupIds, action.groupID]
+      : [action.groupID];
 
-      const updatedGroups = (state.groups?.items || []).map((group) =>
-    group.id.S === action.groupID
-      ? {
-          ...group,
-          messages: action.groupData,
-          lastUpdated: action.time,
-        }
-      : group
-  );
+    const updatedGroups = (state.groups?.items || []).map((group) =>
+      group.id.S === action.groupID
+        ? {
+            ...group,
+            messages: action.groupData,
+            lastUpdated: action.time,
+          }
+        : group,
+    );
 
     return {
       ...state,
@@ -53,11 +74,11 @@ const reducer = createReducer(
       },
       isLoading: false,
       backendErrors: null,
-      loadedGroupIds
+      loadedGroupIds,
     };
-    },
-  ),
-  on(loadGroupMessagesSinceSuccessAction,
+  }),
+  on(
+    loadGroupMessagesSinceSuccessAction,
     (state, action): GroupsStateInterface => {
       const updatedGroups = (state.groups?.items || []).map((group) =>
         group.id.S === action.groupID
@@ -65,11 +86,14 @@ const reducer = createReducer(
               ...group,
               messages: {
                 count: action.groupData.count,
-                items: [...(group.messages?.items || []), ...action.groupData.items],
+                items: [
+                  ...(group.messages?.items || []),
+                  ...action.groupData.items,
+                ],
               },
               lastUpdated: action.time,
             }
-          : group
+          : group,
       );
       return {
         ...state,
@@ -82,7 +106,8 @@ const reducer = createReducer(
       };
     },
   ),
-  on(loadGroupsFailedAction,
+  on(
+    loadGroupsFailedAction,
     createGroupFailedAction,
     deleteGroupFailedAction,
     loadGroupMessagesFailedAction,
@@ -117,26 +142,26 @@ const reducer = createReducer(
       groups: updatedGroups,
     };
   }),
-  on(deleteGroupSuccessAction,
-    (state, action): GroupsStateInterface => {
+  on(deleteGroupSuccessAction, (state, action): GroupsStateInterface => {
     if (state.groups) {
       const updatedItems = state.groups.items.filter(
-        (item) => item.id.S !== action.groupID
+        (item) => item.id.S !== action.groupID,
       );
-      const loadedGroupIds = state?.loadedGroupIds?.filter((id) => id !== action.groupID) ?? null;
+      const loadedGroupIds =
+        state?.loadedGroupIds?.filter((id) => id !== action.groupID) ?? null;
       const updatedGroups = { ...state.groups, items: updatedItems };
       return {
         ...state,
         isLoading: false,
         backendErrors: null,
         groups: updatedGroups,
-        loadedGroupIds
+        loadedGroupIds,
       };
     } else {
       return state;
     }
-  })
-)
+  }),
+);
 export const groupsReducer: ActionReducer<GroupsStateInterface, Action> = (
   state,
   action,

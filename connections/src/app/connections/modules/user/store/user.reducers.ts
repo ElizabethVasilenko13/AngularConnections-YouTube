@@ -100,7 +100,9 @@ export const userReducer: ActionReducer<UserStateInterface, Action> = (
 ) => reducer(state, action);
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function clearStateMetaReducer<State extends {}>(reducer: ActionReducer<State, Action>): ActionReducer<State, Action> {
+export function clearStateMetaReducer<State extends {}>(
+  reducer: ActionReducer<State, Action>,
+): ActionReducer<State, Action> {
   return function clearStateFn(state: State | undefined, action: Action) {
     if (action.type === LOGOUTSUCCESS) {
       state = {} as State;

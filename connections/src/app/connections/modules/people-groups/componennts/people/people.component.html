@@ -3,18 +3,39 @@
 <div class="content__header">
   <h2>PEOPLE</h2>
   <div class="btns__container">
-    <button class="control__btn" [disabled]="!countdownService.isCountdownEnded('users') || (isUsersLoading$ | async) || (usersData$ | async)=== null" (click)="updateUsersList()">{{'Update List' | uppercase}}</button>
+    <button
+      class="control__btn"
+      [disabled]="
+        !countdownService.isCountdownEnded('users') ||
+        (isUsersLoading$ | async) ||
+        (usersData$ | async) === null
+      "
+      (click)="updateUsersList()"
+    >
+      {{ 'Update List' | uppercase }}
+    </button>
   </div>
-  <div *ngIf="!countdownService.isCountdownEnded('users')">{{ 'Please wait ' + countdownService.getCountdownValue('users') + ' seconds, until update button will become enabled'}}</div>
+  <div *ngIf="!countdownService.isCountdownEnded('users')">
+    {{
+      'Please wait ' +
+        countdownService.getCountdownValue('users') +
+        ' seconds, until update button will become enabled'
+    }}
+  </div>
 </div>
 <mat-progress-spinner
-    class="loader"
-    mode="indeterminate"
-    *ngIf="isUsersLoading$ | async"
-    diameter="60"
+  class="loader"
+  mode="indeterminate"
+  *ngIf="isUsersLoading$ | async"
+  diameter="60"
 ></mat-progress-spinner>
 <div class="content__items">
-  <div *ngFor="let user of (usersData$ | async)?.items" class="group-item" (click)="usersService.toConversationPage(user.conversatonID, user.uid.S)" [class.groupCurrent]="isConversationID(user)">
+  <div
+    *ngFor="let user of (usersData$ | async)?.items"
+    class="group-item"
+    (click)="usersService.toConversationPage(user.conversatonID, user.uid.S)"
+    [class.groupCurrent]="isConversationID(user)"
+  >
     <div class="group__link">
       <div class="group-property">
         {{ user.name.S }}

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Features } from "@shared/enums/store-feautures.enum";
+import { Features } from '@shared/enums/store-feautures.enum';
 import { SignUpStateInterface } from './signup.interface';
 
 export const authFeatureSelector = createFeatureSelector<SignUpStateInterface>(

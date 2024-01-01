@@ -8,7 +8,7 @@ import { GroupMessagesResponse } from '../models/group-dialog';
 @Injectable()
 export class GroupsApiService {
   isCreateGroupModalClosed = new BehaviorSubject(false);
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   loadGroups(): Observable<GroupsResponse> {
     const url = `${environment.apiUrl}groups/list`;
@@ -25,8 +25,11 @@ export class GroupsApiService {
     return this.http.delete<GroupApiProps>(url);
   }
 
-  loadAllMesages(groupID: string, since?: number): Observable<GroupMessagesResponse> {
-    const sinceTime = since ? `&since=${since}` : ''
+  loadAllMesages(
+    groupID: string,
+    since?: number,
+  ): Observable<GroupMessagesResponse> {
+    const sinceTime = since ? `&since=${since}` : '';
     const url = `${environment.apiUrl}groups/read?groupID=${groupID}${sinceTime}`;
     return this.http.get<GroupMessagesResponse>(url);
   }
@@ -34,8 +37,9 @@ export class GroupsApiService {
   postNewMessage(groupID: string, message: string): Observable<null> {
     const url = `${environment.apiUrl}groups/append`;
     const body = {
-      groupID, message
-    }
+      groupID,
+      message,
+    };
     return this.http.post<null>(url, body);
   }
 }

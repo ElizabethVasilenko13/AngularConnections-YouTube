@@ -32,7 +32,7 @@ export class SignInEffects {
               `Welcome ${userData.email}`,
               NotifyStyles.Success,
             );
-            this.auth.handleSignIn({ email: userData.email, token, uid })
+            this.auth.handleSignIn({ email: userData.email, token, uid });
             return sighInSuccessAction({ userData, token, uid });
           }),
           catchError((error: HttpErrorResponse) => {

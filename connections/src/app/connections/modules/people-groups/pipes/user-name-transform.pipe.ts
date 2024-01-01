@@ -2,14 +2,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { UsersProps } from '../models/users';
 
 @Pipe({
-  name: 'userNameTransform'
+  name: 'userNameTransform',
 })
 export class UserNameTransformPipe implements PipeTransform {
   transform(authorID: string, usersList: UsersProps | null): string {
     if (!usersList) {
       return 'Unknown User';
     }
-    const user = usersList.items.find(user => user.uid.S === authorID);
+    const user = usersList.items.find((user) => user.uid.S === authorID);
     return user ? user.name.S : 'Me';
   }
 }

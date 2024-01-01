@@ -4,7 +4,7 @@ import { MainPageComponent } from './pages/main/main.component';
 import { GroupsComponent } from './componennts/groups/groups.component';
 import { PeopleComponent } from './componennts/people/people.component';
 import { StoreModule } from '@ngrx/store';
-import { Features } from "@shared/enums/store-feautures.enum";
+import { Features } from '@shared/enums/store-feautures.enum';
 import { EffectsModule } from '@ngrx/effects';
 import { groupsReducer } from './store/groups/groups.reducers';
 import { GroupsEffects } from './store/groups/groups.effects';
@@ -27,8 +27,8 @@ import { UserNameTransformPipe } from './pipes/user-name-transform.pipe';
     GroupsComponent,
     GroupPageComponent,
     ConversationPageComponent,
-    UserNameTransformPipe
-    ],
+    UserNameTransformPipe,
+  ],
   exports: [MainPageComponent],
   imports: [
     MaterialModule,
@@ -38,8 +38,8 @@ import { UserNameTransformPipe } from './pipes/user-name-transform.pipe';
     StoreModule.forFeature(Features.Groups, groupsReducer),
     StoreModule.forFeature(Features.Users, usersReducer),
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
-    CommonModule
+    CommonModule,
   ],
-  providers: [UsersApiService, GroupsApiService]
+  providers: [UsersApiService, GroupsApiService],
 })
-export class PeopleGroupsModule { }
+export class PeopleGroupsModule {}

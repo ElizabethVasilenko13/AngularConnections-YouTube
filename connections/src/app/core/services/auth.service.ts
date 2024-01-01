@@ -8,8 +8,11 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   isLoggedIn = new BehaviorSubject(false);
-  currentUserID = ''
-  constructor(private localStorageService: LocalStorageService, private router: Router) {}
+  currentUserID = '';
+  constructor(
+    private localStorageService: LocalStorageService,
+    private router: Router,
+  ) {}
 
   checkAuth(): void {
     if (this.localStorageService.get('userData') !== null) {
@@ -22,7 +25,7 @@ export class AuthService {
     this.currentUserID = this.localStorageService.get('userData')?.uid || '';
   }
 
-  handleSignIn(userData: {email: string; token: string; uid: string}): void {
+  handleSignIn(userData: { email: string; token: string; uid: string }): void {
     this.localStorageService.set('userData', userData);
     this.isLoggedIn.next(true);
     this.router.navigate(['/']);

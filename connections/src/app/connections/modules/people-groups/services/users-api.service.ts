@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ConversationsResponse, CreateConversationsResponse, UsersResponse } from '../models/users';
+import {
+  ConverastionMessagesResponse,
+  ConversationsResponse,
+  CreateConversationsResponse,
+  UsersResponse,
+} from '../models/users';
 import { environment } from '@env/environment';
-import { ConverastionMessagesResponse } from '../models/conversation';
 
 @Injectable()
 export class UsersApiService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   loadUsers(): Observable<UsersResponse> {
     const url = `${environment.apiUrl}users`;
@@ -20,14 +23,19 @@ export class UsersApiService {
     return this.http.get<ConversationsResponse>(url);
   }
 
-  createConversation(companionId: string): Observable<CreateConversationsResponse> {
+  createConversation(
+    companionId: string,
+  ): Observable<CreateConversationsResponse> {
     const url = `${environment.apiUrl}conversations/create`;
-    const body = {companion: companionId}
+    const body = { companion: companionId };
     return this.http.post<CreateConversationsResponse>(url, body);
   }
 
-  loadConversation(conversationID: string, since?: number): Observable<ConverastionMessagesResponse> {
-    const sinceTime = since ? `&since=${since}` : ''
+  loadConversation(
+    conversationID: string,
+    since?: number,
+  ): Observable<ConverastionMessagesResponse> {
+    const sinceTime = since ? `&since=${since}` : '';
     const url = `${environment.apiUrl}conversations/read?conversationID=${conversationID}${sinceTime}`;
     return this.http.get<ConverastionMessagesResponse>(url);
   }
@@ -40,8 +48,9 @@ export class UsersApiService {
   postNewMessage(conversationID: string, message: string): Observable<null> {
     const url = `${environment.apiUrl}conversations/append`;
     const body = {
-      conversationID, message
-    }
+      conversationID,
+      message,
+    };
     return this.http.post<null>(url, body);
   }
 }

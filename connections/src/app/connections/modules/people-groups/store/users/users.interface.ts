@@ -1,5 +1,5 @@
-import { AuthError } from "@shared/types/user.interaces";
-import { UsersProps } from "../../models/users";
+import { AuthError } from '@shared/types/user.interaces';
+import { UsersProps } from '../../models/users';
 
 export interface UsersStateInterface {
   isUsersLoading: boolean;

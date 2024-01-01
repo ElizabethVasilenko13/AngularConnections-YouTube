@@ -8,11 +8,13 @@ interface DialogData {
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss']
+  styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
-  public dialogRef: MatDialogRef<DialogComponent>) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public dialogRef: MatDialogRef<DialogComponent>,
+  ) {}
 
   closeDialog(): void {
     this.dialogRef.close(false);

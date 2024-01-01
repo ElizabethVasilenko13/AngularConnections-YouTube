@@ -2,7 +2,11 @@
 <section class="container auth">
   <div class="auth__form">
     <h2>Sign up</h2>
-    <form class="form" [formGroup]="signInService.loginForm" (ngSubmit)="onSubmit()">
+    <form
+      class="form"
+      [formGroup]="signInService.loginForm"
+      (ngSubmit)="onSubmit()"
+    >
       <app-form-control
         label="Email"
         controlName="email"
@@ -27,7 +31,9 @@
           type="submit"
           class="auth__btn"
           [disabled]="
-            signInService.loginForm.invalid || (isSubmitting$ | async) || isSubmitFormButtonDisable
+            signInService.loginForm.invalid ||
+            (isSubmitting$ | async) ||
+            isSubmitFormButtonDisable
           "
         >
           Sign in

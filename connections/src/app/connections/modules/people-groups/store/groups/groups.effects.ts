@@ -5,7 +5,25 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
-import { createGroupAction, createGroupFailedAction, createGroupSuccessAction, deleteGroupAction, deleteGroupFailedAction, deleteGroupSuccessAction, loadGroupMessagesAction, loadGroupMessagesFailedAction, loadGroupMessagesSinceAction, loadGroupMessagesSinceSuccessAction, loadGroupMessagesSuccessAction, loadGroupsAction, loadGroupsFailedAction, loadGroupsSuccessAction, postNewMessageAction, postNewMessageFailedAction, postNewMessageSuccessAction } from './groups.actions';
+import {
+  createGroupAction,
+  createGroupFailedAction,
+  createGroupSuccessAction,
+  deleteGroupAction,
+  deleteGroupFailedAction,
+  deleteGroupSuccessAction,
+  loadGroupMessagesAction,
+  loadGroupMessagesFailedAction,
+  loadGroupMessagesSinceAction,
+  loadGroupMessagesSinceSuccessAction,
+  loadGroupMessagesSuccessAction,
+  loadGroupsAction,
+  loadGroupsFailedAction,
+  loadGroupsSuccessAction,
+  postNewMessageAction,
+  postNewMessageFailedAction,
+  postNewMessageSuccessAction,
+} from './groups.actions';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { GroupsApiService } from '../../services/groups-api.service';
@@ -17,7 +35,7 @@ export class GroupsEffects {
     private groupsApi: GroupsApiService,
     private snackBar: NotifyService,
     private router: Router,
-    private store: Store
+    private store: Store,
   ) {}
 
   loadGroups$ = createEffect(() =>
@@ -30,10 +48,12 @@ export class GroupsEffects {
               `Groups have been succesfully loaded`,
               NotifyStyles.Success,
             );
-            return loadGroupsSuccessAction({ groups : {
-              count: response.Count,
-              items: response.Items
-            } });
+            return loadGroupsSuccessAction({
+              groups: {
+                count: response.Count,
+                items: response.Items,
+              },
+            });
           }),
           catchError((error: HttpErrorResponse) => {
             const errorMes = error.error;
@@ -49,17 +69,21 @@ export class GroupsEffects {
   loadGroupDialog$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadGroupMessagesAction),
-      exhaustMap(({groupID}) => {
+      exhaustMap(({ groupID }) => {
         return this.groupsApi.loadAllMesages(groupID).pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Group have been succesfully loaded`,
               NotifyStyles.Success,
             );
-            return loadGroupMessagesSuccessAction({groupID, time: new Date().getTime(), groupData : {
-              count: response.Count,
-              items: response.Items
-            } });
+            return loadGroupMessagesSuccessAction({
+              groupID,
+              time: new Date().getTime(),
+              groupData: {
+                count: response.Count,
+                items: response.Items,
+              },
+            });
           }),
           catchError((error: HttpErrorResponse) => {
             this.snackBar.addMessage(error.error.message, NotifyStyles.Error);
@@ -73,17 +97,21 @@ export class GroupsEffects {
   loadGroupDialogSince$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadGroupMessagesSinceAction),
-      exhaustMap(({groupID, time}) => {
+      exhaustMap(({ groupID, time }) => {
         return this.groupsApi.loadAllMesages(groupID, time).pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Last messages have been succesfully loaded`,
               NotifyStyles.Success,
             );
-            return loadGroupMessagesSinceSuccessAction({groupID, time: new Date().getTime(), groupData : {
-              count: response.Count,
-              items: response.Items
-            } });
+            return loadGroupMessagesSinceSuccessAction({
+              groupID,
+              time: new Date().getTime(),
+              groupData: {
+                count: response.Count,
+                items: response.Items,
+              },
+            });
           }),
           catchError((error: HttpErrorResponse) => {
             const errorMes = error.error;
@@ -99,14 +127,16 @@ export class GroupsEffects {
   postNewMessage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(postNewMessageAction),
-      exhaustMap(({groupID, message, time}) => {
+      exhaustMap(({ groupID, message, time }) => {
         return this.groupsApi.postNewMessage(groupID, message).pipe(
           map(() => {
             this.snackBar.addMessage(
               `Message was sent successfully`,
               NotifyStyles.Success,
             );
-            this.store.dispatch(loadGroupMessagesSinceAction({groupID, time}))
+            this.store.dispatch(
+              loadGroupMessagesSinceAction({ groupID, time }),
+            );
             return postNewMessageSuccessAction();
           }),
           catchError((error: HttpErrorResponse) => {
@@ -131,7 +161,11 @@ export class GroupsEffects {
               NotifyStyles.Success,
             );
             this.groupsApi.isCreateGroupModalClosed.next(true);
-            return createGroupSuccessAction({name, groupID: response.groupID, userId});
+            return createGroupSuccessAction({
+              name,
+              groupID: response.groupID,
+              userId,
+            });
           }),
           catchError((error: HttpErrorResponse) => {
             this.groupsApi.isCreateGroupModalClosed.next(false);
@@ -156,7 +190,7 @@ export class GroupsEffects {
               NotifyStyles.Success,
             );
             if (redirect) this.router.navigate(['/']);
-            return deleteGroupSuccessAction({groupID});
+            return deleteGroupSuccessAction({ groupID });
           }),
           catchError((error: HttpErrorResponse) => {
             const errorMes = error.error;

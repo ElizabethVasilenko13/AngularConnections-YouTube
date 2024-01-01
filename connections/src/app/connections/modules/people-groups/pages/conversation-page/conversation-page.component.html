@@ -5,14 +5,43 @@
         <a routerLink="/" class="header__control" title="Go to main page">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </a>
-        <h2>{{'Conversation' | uppercase}}</h2>
+        <h2>{{ 'Conversation' | uppercase }}</h2>
       </div>
       <div class="header__controls">
-        <button (click)="updateConversation()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('conversation' + converastionID) || (isConversationsLoading$ | async)" >{{'Update messages' | uppercase}}</button>
-        <button (click)="usersService.onDeleteConversation(converastionID)" *ngIf="(isConversationsLoading$ | async) === false" class="header__control header__control-delete" [disabled]="(isConversationsLoading$ | async)" title="Delete group"><mat-icon>delete</mat-icon></button>
+        <button
+          (click)="updateConversation()"
+          class="group__btn"
+          [disabled]="
+            !countdownService.isCountdownEnded(
+              'conversation' + converastionID
+            ) || (isConversationsLoading$ | async)
+          "
+        >
+          {{ 'Update messages' | uppercase }}
+        </button>
+        <button
+          (click)="usersService.onDeleteConversation(converastionID)"
+          *ngIf="(isConversationsLoading$ | async) === false"
+          class="header__control header__control-delete"
+          [disabled]="isConversationsLoading$ | async"
+          title="Delete group"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </div>
-    <div class="user__message" *ngIf="!countdownService.isCountdownEnded('conversation' + converastionID)">{{ 'Please wait ' + countdownService.getCountdownValue('conversation' + converastionID) + ' seconds, until update button will become enabled'}}</div>
+    <div
+      class="user__message"
+      *ngIf="
+        !countdownService.isCountdownEnded('conversation' + converastionID)
+      "
+    >
+      {{
+        'Please wait ' +
+          countdownService.getCountdownValue('conversation' + converastionID) +
+          ' seconds, until update button will become enabled'
+      }}
+    </div>
   </div>
   <div class="loader">
     <mat-progress-spinner
@@ -20,37 +49,50 @@
       mode="indeterminate"
       *ngIf="isConversationsLoading$ | async"
       diameter="60"
-      ></mat-progress-spinner>
+    ></mat-progress-spinner>
   </div>
-  <div class="group-dialog__main" >
+  <div class="group-dialog__main">
     <div class="messages">
-      <div *ngFor="let message of (conversationData$ | async)?.messages?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === authService.currentUserID">
-          <div class="message__creator" >{{ message.authorID.S | userNameTransform: (usersData$ | async) }}</div>
-          <div class="message__text">{{message.message.S}}</div>
-          <div class="message__date">{{message.createdAt.S  | date:'short'}}</div>
+      <div
+        *ngFor="
+          let message of (conversationData$ | async)?.messages?.items
+            | sortByDate
+        "
+        class="message"
+        [class.currentUser]="message.authorID.S === authService.currentUserID"
+      >
+        <div class="message__creator">
+          {{ message.authorID.S | userNameTransform: (usersData$ | async) }}
         </div>
+        <div class="message__text">{{ message.message.S }}</div>
+        <div class="message__date">
+          {{ message.createdAt.S | date: 'short' }}
+        </div>
+      </div>
     </div>
     <div class="create__message">
-      <form  [formGroup]="usersService.createMessageForm" class="message__form">
+      <form [formGroup]="usersService.createMessageForm" class="message__form">
         <div class="message__input">
           <app-form-control
-          className="message-form"
-          label="{{ '' | uppercase }}"
-          controlName="text"
-          [control]="usersService.createMessageForm.get('text')"
-          type="text"
-          [readonly]="false"
-        ></app-form-control>
+            className="message-form"
+            label="{{ '' | uppercase }}"
+            controlName="text"
+            [control]="usersService.createMessageForm.get('text')"
+            type="text"
+            [readonly]="false"
+          ></app-form-control>
         </div>
         <button
           (click)="sendMessage()"
           class="group__btn"
-          [disabled]="(isConversationsLoading$ | async) || usersService.createMessageForm.invalid"
+          [disabled]="
+            (isConversationsLoading$ | async) ||
+            usersService.createMessageForm.invalid
+          "
         >
-        {{ 'send' | uppercase }}
+          {{ 'send' | uppercase }}
         </button>
       </form>
     </div>
   </div>
 </section>
-

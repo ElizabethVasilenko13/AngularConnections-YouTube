@@ -34,7 +34,10 @@ export class UserEffects {
       exhaustMap(() => {
         return this.userService.loadUser().pipe(
           map((response) => {
-            this.snackBar.addMessage(`${response.email.S} been succesfully loaded`, NotifyStyles.Success);
+            this.snackBar.addMessage(
+              `${response.email.S} been succesfully loaded`,
+              NotifyStyles.Success,
+            );
             return loadUserSuccessfulAction({
               uid: response.uid.S,
               email: response.email.S,
@@ -86,10 +89,7 @@ export class UserEffects {
       exhaustMap(() => {
         return this.userService.logout().pipe(
           map(() => {
-            this.snackBar.addMessage(
-              'Logout successful',
-              NotifyStyles.Success,
-            );
+            this.snackBar.addMessage('Logout successful', NotifyStyles.Success);
             this.userService.handleLogout();
             return LogoutSuccessfulAction();
           }),

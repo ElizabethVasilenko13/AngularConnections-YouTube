@@ -1,53 +1,98 @@
 <section class="group-dialog">
-<div class="group-dialog__header">
-  <div class="content">
-    <div class="header__title">
-      <a routerLink="/" class="header__control" title="Go to main page">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </a>
-      <h2>{{'Group ' + '"'+((groupDialogData$ | async)?.name?.S || '') + '"' | uppercase}}</h2>
+  <div class="group-dialog__header">
+    <div class="content">
+      <div class="header__title">
+        <a routerLink="/" class="header__control" title="Go to main page">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </a>
+        <h2>
+          {{
+            'Group ' + '"' + ((groupDialogData$ | async)?.name?.S || '') + '"'
+              | uppercase
+          }}
+        </h2>
+      </div>
+      <div class="header__controls">
+        <button
+          (click)="updateGroupDialog()"
+          class="group__btn"
+          [disabled]="
+            !countdownService.isCountdownEnded('groupDailog' + groupID) ||
+            (isGroupDialogLoading$ | async)
+          "
+        >
+          {{ 'Update messages' | uppercase }}
+        </button>
+        <button
+          *ngIf="isGroupCreatedByCurrnetUser"
+          (click)="groupsService.onDeleteGroup($event, groupID, true)"
+          class="header__control header__control-delete"
+          [disabled]="isGroupDialogLoading$ | async"
+          title="Delete group"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
-    <div class="header__controls">
-      <button (click)="updateGroupDialog()" class="group__btn" [disabled]="!countdownService.isCountdownEnded('groupDailog' + groupID) || (isGroupDialogLoading$ | async)" >{{'Update messages' | uppercase}}</button>
-      <button *ngIf="isGroupCreatedByCurrnetUser" (click)="groupsService.onDeleteGroup($event, groupID, true)" class="header__control header__control-delete" [disabled]="(isGroupDialogLoading$ | async)" title="Delete group"><mat-icon>delete</mat-icon></button>
+    <div
+      class="user__message"
+      *ngIf="!countdownService.isCountdownEnded('groupDailog' + groupID)"
+    >
+      {{
+        'Please wait ' +
+          countdownService.getCountdownValue('groupDailog' + groupID) +
+          ' seconds, until update button will become enabled'
+      }}
     </div>
   </div>
-  <div class="user__message" *ngIf="!countdownService.isCountdownEnded('groupDailog' + groupID)">{{ 'Please wait ' + countdownService.getCountdownValue('groupDailog' + groupID) + ' seconds, until update button will become enabled'}}</div>
-</div>
   <div class="loader">
     <mat-progress-spinner
       class="loader"
       mode="indeterminate"
       *ngIf="isGroupDialogLoading$ | async"
       diameter="60"
-      ></mat-progress-spinner>
+    ></mat-progress-spinner>
   </div>
-  <div class="group-dialog__main" >
+  <div class="group-dialog__main">
     <div class="messages">
-      <div *ngFor="let message of (groupDialogData$ | async)?.messages?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === authService.currentUserID">
-          <div class="message__creator" >{{ message.authorID.S | userNameTransform: (usersData$ | async) }}</div>
-          <div class="message__text">{{message.message.S}}</div>
-          <div class="message__date">{{message.createdAt.S  | date:'short'}}</div>
+      <div
+        *ngFor="
+          let message of (groupDialogData$ | async)?.messages?.items
+            | sortByDate
+        "
+        class="message"
+        [class.currentUser]="message.authorID.S === authService.currentUserID"
+      >
+        <div class="message__creator">
+          {{ message.authorID.S | userNameTransform: (usersData$ | async) }}
         </div>
+        <div class="message__text">{{ message.message.S }}</div>
+        <div class="message__date">
+          {{ message.createdAt.S | date: 'short' }}
+        </div>
+      </div>
     </div>
     <div class="create__message">
-      <form  [formGroup]="groupsService.createMessageForm" class="message__form">
+      <form [formGroup]="groupsService.createMessageForm" class="message__form">
         <div class="message__input">
           <app-form-control
-          className="message-form"
-          label="{{ '' | uppercase }}"
-          controlName="text"
-          [control]="groupsService.createMessageForm.get('text')"
-          type="text"
-          [readonly]="false"
-        ></app-form-control>
+            className="message-form"
+            label="{{ '' | uppercase }}"
+            controlName="text"
+            [control]="groupsService.createMessageForm.get('text')"
+            type="text"
+            [readonly]="false"
+          ></app-form-control>
         </div>
         <button
           (click)="sendMessage()"
           class="group__btn"
-          [disabled]="(isGroupDialogLoading$ | async) || groupsService.createMessageForm.invalid"
+          [disabled]="
+            (isGroupDialogLoading$ | async) ||
+            groupsService.createMessageForm.invalid
+          "
         >
-        {{ 'send' | uppercase }}
+          {{ 'send' | uppercase }}
         </button>
       </form>
     </div>

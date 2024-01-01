@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Injectable()
 export class SignUpService {
   registrationForm!: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
   initForm(): void {
     this.registrationForm = this.fb.group({

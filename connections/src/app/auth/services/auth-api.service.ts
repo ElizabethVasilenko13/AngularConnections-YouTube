@@ -14,7 +14,10 @@ export class AuthApiService {
   private http: HttpClient;
   registrationForm!: FormGroup;
 
-  constructor(handler: HttpBackend, private fb: FormBuilder) {
+  constructor(
+    handler: HttpBackend,
+    private fb: FormBuilder,
+  ) {
     this.http = new HttpClient(handler);
   }
 
