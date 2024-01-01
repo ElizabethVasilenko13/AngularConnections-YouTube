@@ -1,0 +1,37 @@
+@import 'vars';
+.btn__container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+
+  button {
+    margin-bottom: 10px;
+  }
+
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.error {
+  color: $error-color;
+  margin-top: 10px;
+}
+
+.auth__btn {
+  margin-top: 10px;
+  background-color: $accent-color;
+  color: $primary-text-color;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  max-width: 100px;
+  width: 100%;
+
+  &:disabled {
+    background-color: $disabled-solor;
+  }
+}

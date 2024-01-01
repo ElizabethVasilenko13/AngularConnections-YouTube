@@ -16,9 +16,11 @@ import { SharedModule } from '@shared/shared.module';
 import { SignUpService } from './services/sign-up.service';
 import { SignInService } from './services/sign-in.service';
 import { MaterialModule } from '@material/material.module';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RegistartionFormComponent } from './components/registartion-form/registartion-form.component';
 
 @NgModule({
-  declarations: [RegistrationPageComponent, LoginPageComponent],
+  declarations: [RegistrationPageComponent, LoginPageComponent, LoginFormComponent, RegistartionFormComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

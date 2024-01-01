@@ -7,7 +7,7 @@ import {
   UserSignInProps,
   UserSignUpProps,
 } from '../models/auth.interfaces';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Injectable()
 export class AuthApiService {
@@ -16,7 +16,6 @@ export class AuthApiService {
 
   constructor(
     handler: HttpBackend,
-    private fb: FormBuilder,
   ) {
     this.http = new HttpClient(handler);
   }
