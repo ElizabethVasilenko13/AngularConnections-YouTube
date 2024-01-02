@@ -9,11 +9,13 @@ import { Features } from '@shared/enums/store-feautures.enum';
 import { userReducer } from './store/user.reducers';
 import { UserEffects } from './store/user.effects';
 import { SharedModule } from '@shared/shared.module';
-import { UserService } from './services/user.service';
+import { UserApiService } from './services/user-api.service';
 import { MaterialModule } from '@material/material.module';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
-  declarations: [UserPageComponent],
+  declarations: [UserPageComponent, UserFormComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -22,7 +24,7 @@ import { MaterialModule } from '@material/material.module';
     StoreModule.forFeature(Features.User, userReducer),
     EffectsModule.forFeature([UserEffects]),
   ],
-  providers: [DatePipe, UserService],
+  providers: [DatePipe, UserApiService, UserService],
   exports: [UserPageComponent],
 })
 export class UserModule {}
