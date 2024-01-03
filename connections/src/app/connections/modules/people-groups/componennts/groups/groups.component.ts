@@ -42,7 +42,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initValues();
-    this.groupsService.initForm();
   }
 
   initValues(): void {
@@ -55,7 +54,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   onCreateFormSubmit(): void {
-    const name: string = this.groupsService.groupCreateForm.get('name')?.value;
+    const name = this.groupsService.groupCreateForm.get('name')?.value || '';
     const userId = this.authService.currentUserID;
     this.store.dispatch(createGroupAction({ name, userId }));
 

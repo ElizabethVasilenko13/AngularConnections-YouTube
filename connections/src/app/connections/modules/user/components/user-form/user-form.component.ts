@@ -10,7 +10,7 @@ import { UserService } from '../../services/user.service';
 export class UserFormComponent implements OnInit, OnDestroy {
   userProfileData$ = this.userService.userProfileData$;
   isUserLoading$ = this.userService.isUserLoading$;
-  isEditMode$ = this.userService.isEditMode;
+  isEditMode$ = this.userService.isEditMode$;
   constructor(protected userService: UserService) {}
   ngOnInit(): void {
     this.userService.subscribeToUserProfileData();

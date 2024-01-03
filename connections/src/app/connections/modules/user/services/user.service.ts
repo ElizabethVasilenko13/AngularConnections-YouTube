@@ -12,7 +12,7 @@ export class UserService {
   isUserLoading$: Observable<boolean> = this.store.pipe(select(isUserLoadinSgelector));
   userProfileForm!: FormGroup;
   originalFormValues: UserProfileFormInterface | null = null;
-  isEditMode = new BehaviorSubject<boolean>(false);
+  isEditMode$ = new BehaviorSubject<boolean>(false);
   subscriptions: Subscription[] = [];
 
   constructor(private fb: FormBuilder, private store: Store,) {
@@ -32,10 +32,12 @@ export class UserService {
   }
 
   enterEditMode(): void {
-    this.isEditMode.next(true);
-    console.log(this.isEditMode);
-    
+    this.changeEditModeValue(true);
     this.originalFormValues = { ...this.userProfileForm.value };
+  }
+
+  changeEditModeValue(value: boolean): void {
+    this.isEditMode$.next(value);
   }
 
   subscribeToUserProfileData(): void {
@@ -58,13 +60,13 @@ export class UserService {
   }
 
   cancelEdit(): void {
-    this.isEditMode.next(false);
+    this.changeEditModeValue(false);
     this.originalFormValues &&
       this.userProfileForm.setValue(this.originalFormValues);
   }
 
   saveChanges(): void {
-    this.isEditMode.next(false);
+    this.changeEditModeValue(false);
     const newName = this.userProfileForm.get('name')?.value;
     if (newName !== this.originalFormValues?.name) {
       this.store.dispatch(UpdateUserNameAction({ name: newName }));

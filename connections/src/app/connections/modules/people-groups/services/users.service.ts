@@ -10,9 +10,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ConversationPageComponent } from '../pages/conversation-page/conversation-page.component';
 import { DialogService } from '@core/services/dialog.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UsersService {
   createMessageForm!: FormGroup;
   constructor(

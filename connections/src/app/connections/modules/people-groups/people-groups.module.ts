@@ -19,6 +19,9 @@ import { UsersApiService } from './services/users-api.service';
 import { MaterialModule } from '@material/material.module';
 import { GroupsApiService } from './services/groups-api.service';
 import { UserNameTransformPipe } from './pipes/user-name-transform.pipe';
+import { GroupPageService } from './services/group-page.service';
+import { GroupsService } from './services/groups.service';
+import { UsersService } from './services/users.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,6 @@ import { UserNameTransformPipe } from './pipes/user-name-transform.pipe';
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
     CommonModule,
   ],
-  providers: [UsersApiService, GroupsApiService],
+  providers: [UsersApiService, GroupsApiService, GroupPageService, GroupsService, UsersService],
 })
 export class PeopleGroupsModule {}
