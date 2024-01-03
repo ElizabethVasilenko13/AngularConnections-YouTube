@@ -5,10 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { SortByDate } from './pipes/sortByDate.pipe';
 import { MaterialModule } from '@material/material.module';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
-  declarations: [FormControlComponent, DialogComponent, SortByDate],
-  exports: [FormControlComponent, DialogComponent, SortByDate],
+  declarations: [FormControlComponent, DialogComponent, SortByDate, LoaderComponent],
+  exports: [FormControlComponent, DialogComponent, SortByDate, LoaderComponent],
   imports: [ReactiveFormsModule, CommonModule, MaterialModule],
 })
 export class SharedModule {}

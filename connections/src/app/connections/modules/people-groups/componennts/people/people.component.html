@@ -21,12 +21,7 @@
     }}
   </div>
 </div>
-<mat-progress-spinner
-  class="loader"
-  mode="indeterminate"
-  *ngIf="isUsersLoading$ | async"
-  diameter="60"
-></mat-progress-spinner>
+<app-loader [isLoading]="isUsersLoading$ | async"></app-loader>
 <div class="content__items">
   <div
     *ngFor="let user of (usersData$ | async)?.items"

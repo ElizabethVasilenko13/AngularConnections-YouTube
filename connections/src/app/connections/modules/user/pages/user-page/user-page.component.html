@@ -1,9 +1,5 @@
 <div class="content">
-  <mat-progress-spinner
-    mode="indeterminate"
-    *ngIf="isUserLoading$ | async"
-    diameter="60"
-  ></mat-progress-spinner>
+  <app-loader [isLoading]="isUserLoading$ | async"></app-loader>
   <div class="container user">
     <div class="user__header">
       <div class="header__title">

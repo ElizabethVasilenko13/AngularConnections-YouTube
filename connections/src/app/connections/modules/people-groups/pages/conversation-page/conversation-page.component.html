@@ -43,14 +43,7 @@
       }}
     </div>
   </div>
-  <div class="loader">
-    <mat-progress-spinner
-      class="loader"
-      mode="indeterminate"
-      *ngIf="isConversationsLoading$ | async"
-      diameter="60"
-    ></mat-progress-spinner>
-  </div>
+  <app-loader [isLoading]="isConversationsLoading$ | async"></app-loader>
   <div class="group-dialog__main">
     <div class="messages">
       <div

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { AuthError } from '@shared/types/user.interaces';
 
@@ -6,6 +6,7 @@ import { AuthError } from '@shared/types/user.interaces';
   selector: 'app-form-control',
   templateUrl: './form-control.component.html',
   styleUrls: ['./form-control.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormControlComponent {
   @Input() label = 'Label';

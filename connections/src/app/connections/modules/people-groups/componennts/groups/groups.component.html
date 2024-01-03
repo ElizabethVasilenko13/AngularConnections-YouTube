@@ -29,12 +29,7 @@
     </button>
   </div>
 </div>
-<mat-progress-spinner
-  class="loader"
-  mode="indeterminate"
-  *ngIf="isGroupsLoading$ | async"
-  diameter="60"
-></mat-progress-spinner>
+<app-loader [isLoading]="isGroupsLoading$ | async"></app-loader>
 <div class="content__items">
   <div
     *ngFor="let group of (groupsData$ | async)?.items"
