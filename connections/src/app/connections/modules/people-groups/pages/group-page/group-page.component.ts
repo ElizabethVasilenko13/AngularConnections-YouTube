@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { CountdownService } from '@core/services/countdown.service';
 import { Observable } from 'rxjs';
 import { AuthError } from '@shared/types/user.interaces';
@@ -14,6 +14,7 @@ import { MessagesService } from '../../services/messages.service';
   selector: 'app-group-page',
   templateUrl: './group-page.component.html',
   styleUrls: ['./group-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupPageComponent implements OnInit, OnDestroy {
   groupDialogData$!: Observable<GroupProps | null>;

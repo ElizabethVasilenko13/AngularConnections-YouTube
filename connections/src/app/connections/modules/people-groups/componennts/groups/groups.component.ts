@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { CountdownService } from '../../../../../core/services/countdown.service';
 import { DialogService } from '@core/services/dialog.service';
 import { GroupsService } from '../../services/groups.service';
@@ -7,6 +7,7 @@ import { GroupsService } from '../../services/groups.service';
   selector: 'app-groups',
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupsComponent implements  OnDestroy {
   groupsData$ = this.groupsService.groupsData$;

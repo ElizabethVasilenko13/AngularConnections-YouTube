@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthService } from '@core/services/auth.service';
 import { loadUsersAction } from '../../modules/people-groups/store/users/users.actions';
@@ -8,6 +8,7 @@ import { loadGroupsAction } from '../../modules/people-groups/store/groups/group
   selector: 'app-core',
   templateUrl: './core.component.html',
   styleUrls: ['./core.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoreComponent implements OnInit {
   constructor(

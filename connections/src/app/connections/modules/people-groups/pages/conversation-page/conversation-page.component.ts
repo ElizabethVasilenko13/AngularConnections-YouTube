@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountdownService } from '@core/services/countdown.service';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ import { MessagesService } from '../../services/messages.service';
   selector: 'app-conversation-page',
   templateUrl: './conversation-page.component.html',
   styleUrls: ['./conversation-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConversationPageComponent implements OnInit, OnDestroy {
   conversationData$!: Observable<UserProps | null>;
