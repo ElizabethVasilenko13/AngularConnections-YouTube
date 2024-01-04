@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainPageComponent } from './pages/main/main.component';
 import { GroupsComponent } from './componennts/groups/groups.component';
-import { PeopleComponent } from './componennts/people/people.component';
 import { StoreModule } from '@ngrx/store';
 import { Features } from '@shared/enums/store-feautures.enum';
 import { EffectsModule } from '@ngrx/effects';
@@ -22,11 +21,13 @@ import { UserNameTransformPipe } from './pipes/user-name-transform.pipe';
 import { GroupPageService } from './services/group-page.service';
 import { GroupsService } from './services/groups.service';
 import { UsersService } from './services/users.service';
+import { ConversationPageService } from './services/conversation-page.service';
+import { UsersComponent } from './componennts/users/users.component';
 
 @NgModule({
   declarations: [
     MainPageComponent,
-    PeopleComponent,
+    UsersComponent,
     GroupsComponent,
     GroupPageComponent,
     ConversationPageComponent,
@@ -43,6 +44,6 @@ import { UsersService } from './services/users.service';
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
     CommonModule,
   ],
-  providers: [UsersApiService, GroupsApiService, GroupPageService, GroupsService, UsersService],
+  providers: [UsersApiService, GroupsApiService, GroupPageService, GroupsService, UsersService, ConversationPageService],
 })
 export class PeopleGroupsModule {}

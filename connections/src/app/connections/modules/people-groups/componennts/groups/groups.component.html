@@ -15,7 +15,7 @@
         (isGroupsLoading$ | async) ||
         (groupsData$ | async) === null
       "
-      (click)="updateGroupsList()"
+      (click)="groupsService.updateGroupsList()"
     >
       {{ 'Update List' | uppercase }}
     </button>
@@ -48,12 +48,11 @@
     </button>
   </div>
 </div>
-
 <ng-template #createForm>
   <div class="create-form">
     <form
       [formGroup]="groupsService.groupCreateForm"
-      (ngSubmit)="onCreateFormSubmit()"
+      (ngSubmit)="groupsService.onCreateFormSubmit()"
     >
       <app-form-control
         label="{{ 'name:' | uppercase }}"

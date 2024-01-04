@@ -22,12 +22,13 @@ export class GroupPageComponent implements OnInit, OnDestroy {
   backendErrors$: Observable<AuthError | null> = this.groupPageService.backendErrors$;
   usersData$: Observable<UsersProps | null> = this.groupPageService.usersData$;
   isGroupCreatedByCurrnetUser$ = this.groupPageService.isGroupCreatedByCurrnetUser$;
+  currentUserID = this.authService.currentUserID;
   groupID = '';
 
   constructor(
     private store: Store,
     public countdownService: CountdownService,
-    protected authService: AuthService,
+    private authService: AuthService,
     protected groupsService: GroupsService,
     protected groupPageService: GroupPageService,
     private route: ActivatedRoute,

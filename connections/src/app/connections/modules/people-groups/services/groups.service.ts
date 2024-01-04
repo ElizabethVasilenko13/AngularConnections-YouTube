@@ -5,12 +5,22 @@ import {
   MatDialogConfig,
 } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
-import { take } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { deleteGroupAction } from '../store/groups/groups.actions';
+import { Observable, Subscription, take } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { createGroupAction, deleteGroupAction, loadGroupsAction } from '../store/groups/groups.actions';
+import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector } from '../store/groups/groups.selectors';
+import { GroupsProps } from '../models/groups';
+import { AuthError } from '@shared/types/user.interaces';
+import { AuthService } from '@core/services/auth.service';
+import { GroupsApiService } from './groups-api.service';
+import { CountdownService } from '@core/services/countdown.service';
 
 @Injectable()
 export class GroupsService {
+  groupsData$: Observable<GroupsProps | null> = this.store.pipe(select(groupsSelector));
+  isGroupsLoading$: Observable<boolean> = this.store.pipe(select(isGroupsLoadinSelector));
+  backendGroupsErrors$: Observable<AuthError | null> = this.store.pipe(select(backendGroupErrorSelector));
+  subscriptions: Subscription[] = [];
   groupCreateForm = this.fb.group({
     name: [
       '',
@@ -27,7 +37,42 @@ export class GroupsService {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private dialogService: DialogService,
+    private authService: AuthService,
+    private groupApiService: GroupsApiService,
+    public countdownService: CountdownService,
   ) {}
+
+  loadGroups(): void {
+    this.store.dispatch(loadGroupsAction());
+  }
+
+  onCreateFormSubmit(): void {
+    const name = this.groupCreateForm.get('name')?.value || '';
+    const userId = this.authService.currentUserID;
+    this.store.dispatch(createGroupAction({ name, userId }));
+
+    const isCreateGroupModalClosedSubscr =
+      this.groupApiService.isCreateGroupModalClosed.subscribe((val) => {
+        if (val === true) this.dialogService.onDialogClose();
+      });
+
+    this.subscriptions.push(isCreateGroupModalClosedSubscr);
+  }
+
+  updateGroupsList(): void {
+    this.loadGroups();
+    const isGroupsLoadingSubscr = this.isGroupsLoading$.subscribe((value) => {
+      if (!value) {
+        this.backendGroupsErrors$.subscribe((error) => {
+          if (!error) {
+            this.countdownService.handleCountdown('groups', 60);
+          }
+        });
+      }
+    });
+
+    this.subscriptions.push(isGroupsLoadingSubscr);
+  }
 
   onCreateGroup(template: TemplateRef<unknown>): void {
     this.groupCreateForm.reset();

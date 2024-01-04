@@ -8,7 +8,7 @@
         (isUsersLoading$ | async) ||
         (usersData$ | async) === null
       "
-      (click)="updateUsersList()"
+      (click)="usersService.updateUsersList()"
     >
       {{ 'Update List' | uppercase }}
     </button>
@@ -27,12 +27,12 @@
     *ngFor="let user of (usersData$ | async)?.items"
     class="group-item"
     (click)="usersService.toConversationPage(user.conversatonID, user.uid.S)"
-    [class.groupCurrent]="isConversationID(user)"
+    [class.groupCurrent]="usersService.isConversationID(user)"
   >
     <div class="group__link">
       <div class="group-property">
         {{ user.name.S }}
-        <span *ngIf="isConversationID(user)"> *****</span>
+        <span *ngIf="usersService.isConversationID(user)"> *****</span>
       </div>
     </div>
   </div>
