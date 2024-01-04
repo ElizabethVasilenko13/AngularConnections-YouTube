@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { loadConversationMessagesAction, loadConversationMessagesSinceAction } from '../store/users/users.actions';
 import { Observable, Subscription, take } from 'rxjs';
@@ -14,7 +13,7 @@ export class ConversationPageService {
     select(isConversationLoadinSelector));
   backendErrors$: Observable<AuthError | null> = this.store.pipe(select(conversationBackendSelector));
   subscriptions: Subscription[] = [];
-  constructor(private fb: FormBuilder, private store: Store, private countdownService: CountdownService) { }
+  constructor(private store: Store, private countdownService: CountdownService) { }
 
   loadAllMessages(conversationID: string): void {
     this.store.dispatch(

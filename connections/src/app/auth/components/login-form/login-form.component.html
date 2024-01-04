@@ -1,7 +1,7 @@
 <form
       class="form"
       [formGroup]="signInService.loginForm"
-      (ngSubmit)="onSubmit()"
+      (ngSubmit)="signInService.onSubmit()"
     >
       <app-form-control
         label="Email"
@@ -29,7 +29,7 @@
           [disabled]="
             signInService.loginForm.invalid ||
             (isSubmitting$ | async) ||
-            isSubmitFormButtonDisable
+            (isSubmitFormButtonDisable$ | async)
           "
         >
           Sign in

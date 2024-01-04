@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store, select } from '@ngrx/store';
 import { GroupsComponent } from '../componennts/groups/groups.component';
@@ -22,7 +21,6 @@ export class GroupPageService {
 
   constructor(
     private store: Store,
-    private fb: FormBuilder,
     public dialogRef: MatDialogRef<GroupsComponent | GroupPageComponent>,
     protected authService: AuthService,
     public countdownService: CountdownService) { }
