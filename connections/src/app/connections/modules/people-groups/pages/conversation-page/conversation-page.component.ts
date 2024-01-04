@@ -9,7 +9,7 @@ import {
 } from '../../store/users/users.selectors';
 import { ConversationPageService } from '../../services/conversation-page.service';
 import { UsersService } from '../../services/users.service';
-import { AuthService } from '@core/services/auth.service';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-conversation-page',
@@ -20,7 +20,6 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
   conversationData$!: Observable<UserProps | null>;
   isConversationsLoading$ = this.conversationPageService.isConversationsLoading$;
   backendErrors$ = this.conversationPageService.backendErrors$;
-  currentUserID = this.authService.currentUserID;
   converastionID = '';
 
   constructor(
@@ -29,7 +28,7 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
     private store: Store,
     protected conversationPageService: ConversationPageService,
     protected usersService: UsersService,
-    private authService: AuthService
+    protected messagesService: MessagesService
   ) {
   }
 

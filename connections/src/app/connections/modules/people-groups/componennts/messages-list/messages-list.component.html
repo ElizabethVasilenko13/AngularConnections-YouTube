@@ -1,5 +1,5 @@
 <div class="messages">
-  <div *ngFor="let message of messages$?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserID">
+  <div *ngFor="let message of messages?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserID">
     <div class="message__creator">
       {{ message.authorID.S | userNameTransform: (usersData$ | async) }}
     </div>

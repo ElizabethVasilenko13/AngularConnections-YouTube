@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store, select } from '@ngrx/store';
 import { GroupsComponent } from '../componennts/groups/groups.component';
@@ -8,14 +8,11 @@ import { AuthService } from '@core/services/auth.service';
 import { backendGroupErrorSelector, isGroupsLoadinSelector } from '../store/groups/groups.selectors';
 import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { GroupProps } from '../models/groups';
-import { loadGroupMessagesAction, loadGroupMessagesSinceAction, postNewMessageAction } from '../store/groups/groups.actions';
+import { loadGroupMessagesAction, loadGroupMessagesSinceAction } from '../store/groups/groups.actions';
 import { CountdownService } from '@core/services/countdown.service';
 
 @Injectable()
 export class GroupPageService {
-  createMessageForm = this.fb.group({
-    text: ['', [Validators.required]],
-  });
   isGroupDialogLoading$ = this.store.pipe(
     select(isGroupsLoadinSelector),
   );
@@ -29,29 +26,6 @@ export class GroupPageService {
     public dialogRef: MatDialogRef<GroupsComponent | GroupPageComponent>,
     protected authService: AuthService,
     public countdownService: CountdownService) { }
-
-    resetMessageForm(): void {
-      this.createMessageForm.reset();
-    }
-
-    sendMessage(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
-      const message =
-        this.createMessageForm.get('text')?.value || '';
-      const groupDialogDataSubscr = groupDialogData$
-        .pipe(take(1))
-        .subscribe((value) => {
-          if (value && value.lastUpdated)
-            this.store.dispatch(
-              postNewMessageAction({
-                groupID,
-                message,
-                time: value.lastUpdated,
-              }),
-            );
-        });
-      this.resetMessageForm();
-      this.subscriptions.push(groupDialogDataSubscr);
-    }
 
     updateGroupDialog(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
       this.loadMessagesSince(groupID,  groupDialogData$ );

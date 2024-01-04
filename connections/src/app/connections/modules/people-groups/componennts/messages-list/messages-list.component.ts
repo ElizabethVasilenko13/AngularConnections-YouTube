@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UserProps } from '../../models/users';
 import { UsersService } from '../../services/users.service';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-messages-list',
@@ -8,8 +9,8 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./messages-list.component.scss']
 })
 export class MessagesListComponent {
-  @Input() messages$!: UserProps['messages'];
-  @Input() currentUserID!: string;
+  @Input() messages!: UserProps['messages'];
   usersData$ = this.usersService.usersData$;
-  constructor (protected usersService: UsersService) {}
+  currentUserID = this.authService.currentUserID;
+  constructor (protected usersService: UsersService, private authService: AuthService,) {}
 }

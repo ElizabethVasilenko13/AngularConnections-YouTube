@@ -141,7 +141,7 @@ const reducer = createReducer(
           return {
             ...user,
             messages: action.conversationData,
-            lastConversationUpdated: action.time,
+            lastUpdated: action.time,
           };
         }
         return user;
@@ -178,7 +178,7 @@ const reducer = createReducer(
                 ...action.conversationData.items,
               ],
             },
-            lastConversationUpdated: action.time,
+            lastUpdated: action.time,
           };
         }
         return user;

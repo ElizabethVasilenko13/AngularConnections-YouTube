@@ -3,12 +3,12 @@ import { CountdownService } from '@core/services/countdown.service';
 import { Observable } from 'rxjs';
 import { AuthError } from '@shared/types/user.interaces';
 import { GroupProps } from '../../models/groups';
-import { AuthService } from '@core/services/auth.service';
 import { GroupsService } from '../../services/groups.service';
 import { GroupPageService } from '../../services/group-page.service';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { selectGroupById } from '../../store/groups/groups.selectors';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-group-page',
@@ -20,16 +20,15 @@ export class GroupPageComponent implements OnInit, OnDestroy {
   isGroupDialogLoading$: Observable<boolean> = this.groupPageService.isGroupDialogLoading$;
   backendErrors$: Observable<AuthError | null> = this.groupPageService.backendErrors$;
   isGroupCreatedByCurrnetUser$ = this.groupPageService.isGroupCreatedByCurrnetUser$;
-  currentUserID = this.authService.currentUserID;
   groupID = '';
 
   constructor(
     private store: Store,
     public countdownService: CountdownService,
-    private authService: AuthService,
     protected groupsService: GroupsService,
     protected groupPageService: GroupPageService,
     private route: ActivatedRoute,
+    protected messagesService: MessagesService
   ) {}
 
   initGroupPageValues(): void {

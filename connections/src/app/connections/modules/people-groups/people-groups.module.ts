@@ -24,6 +24,8 @@ import { UsersService } from './services/users.service';
 import { ConversationPageService } from './services/conversation-page.service';
 import { UsersComponent } from './componennts/users/users.component';
 import { MessagesListComponent } from './componennts/messages-list/messages-list.component';
+import { PostMessageFormComponent } from './componennts/post-message-input/post-message-form.component';
+import { MessagesService } from './services/messages.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { MessagesListComponent } from './componennts/messages-list/messages-list
     ConversationPageComponent,
     UserNameTransformPipe,
     MessagesListComponent,
+    PostMessageFormComponent,
   ],
   exports: [MainPageComponent],
   imports: [
@@ -46,6 +49,6 @@ import { MessagesListComponent } from './componennts/messages-list/messages-list
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
     CommonModule,
   ],
-  providers: [UsersApiService, GroupsApiService, GroupPageService, GroupsService, UsersService, ConversationPageService],
+  providers: [UsersApiService, GroupsApiService, GroupPageService, GroupsService, UsersService, ConversationPageService, MessagesService],
 })
 export class PeopleGroupsModule {}

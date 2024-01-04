@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { loadConversationMessagesAction, loadConversationMessagesSinceAction, postConversationMessageAction } from '../store/users/users.actions';
+import { loadConversationMessagesAction, loadConversationMessagesSinceAction } from '../store/users/users.actions';
 import { Observable, Subscription, take } from 'rxjs';
 import { conversationBackendSelector, isConversationLoadinSelector } from '../store/users/users.selectors';
 import { AuthError } from '@shared/types/user.interaces';
@@ -10,9 +10,6 @@ import { UserProps } from '../models/users';
 
 @Injectable()
 export class ConversationPageService {
-  createMessageForm  = this.fb.group({
-    text: ['', [Validators.required]],
-  });
   isConversationsLoading$: Observable<boolean> = this.store.pipe(
     select(isConversationLoadinSelector));
   backendErrors$: Observable<AuthError | null> = this.store.pipe(select(conversationBackendSelector));
@@ -27,11 +24,11 @@ export class ConversationPageService {
 
   loadMessagesSince(conversationID: string, conversationData$: Observable<UserProps | null>): void {
     conversationData$.pipe(take(1)).subscribe((value) => {
-      if (value && value.lastConversationUpdated)
+      if (value && value.lastUpdated)
         this.store.dispatch(
           loadConversationMessagesSinceAction({
             conversationID,
-            time: value.lastConversationUpdated,
+            time: value.lastUpdated,
           }),
         );
     });
@@ -68,25 +65,4 @@ export class ConversationPageService {
     this.subscriptions.push(isConversationLoadingSubscr);
   }
 
-  resetMessageForm(): void {
-    this.createMessageForm.reset();
-  }
-
-  sendMessage(converastionID: string, conversationData$: Observable<UserProps | null>): void {
-    const message = this.createMessageForm.get('text')?.value || '';
-    const conversationDataSubscr = conversationData$
-        .pipe(take(1))
-        .subscribe((value) => {
-          if (value && value.lastConversationUpdated)
-          this.store.dispatch(
-            postConversationMessageAction({
-              conversationID: converastionID,
-              message,
-              time: value.lastConversationUpdated,
-            }),
-          );
-        });
-      this.resetMessageForm();
-      this.subscriptions.push(conversationDataSubscr);
-  }
 }

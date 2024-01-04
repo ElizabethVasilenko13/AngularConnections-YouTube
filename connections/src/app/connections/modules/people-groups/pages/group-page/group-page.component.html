@@ -47,30 +47,11 @@
   </div>
   <app-loader [isLoading]="isGroupDialogLoading$ | async"></app-loader>
   <div class="group-dialog__main">
-    <app-messages-list [messages$]="(groupDialogData$ | async)?.messages" [currentUserID]="currentUserID"></app-messages-list>
-    <div class="create__message">
-      <form [formGroup]="groupPageService.createMessageForm" class="message__form">
-        <div class="message__input">
-          <app-form-control
-            className="message-form"
-            label="{{ '' | uppercase }}"
-            controlName="text"
-            [control]="groupPageService.createMessageForm.get('text')"
-            type="text"
-            [readonly]="false"
-          ></app-form-control>
-        </div>
-        <button
-          (click)="groupPageService.sendMessage(groupID, groupDialogData$)"
-          class="group__btn"
-          [disabled]="
-            (isGroupDialogLoading$ | async) ||
-            groupPageService.createMessageForm.invalid
-          "
-        >
-          {{ 'send' | uppercase }}
-        </button>
-      </form>
-    </div>
+    <app-messages-list [messages]="(groupDialogData$ | async)?.messages"></app-messages-list>
+    <app-post-message-form
+      [formGroup]="messagesService.createMessageForm"
+      [isLoading$]="isGroupDialogLoading$"
+      (sendMessage)="messagesService.sendMessageForGroup(groupID, groupDialogData$)">
+    </app-post-message-form>
   </div>
 </section>
