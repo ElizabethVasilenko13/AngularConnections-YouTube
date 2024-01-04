@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { SignUpService } from '@auth/services/sign-up.service';
 
 @Component({
@@ -11,9 +16,7 @@ export class RegistartionFormComponent implements OnInit, OnDestroy {
   isSubmitting$ = this.signUpService.isSubmitting$;
   backendError$ = this.signUpService.backendError$;
   isSubmitFormButtonDisable$ = this.signUpService.isSubmitFormButtonDisable$;
-  constructor(
-    public signUpService: SignUpService,
-  ) {}
+  constructor(public signUpService: SignUpService) {}
 
   ngOnInit(): void {
     this.signUpService.resetSignUp();
@@ -21,6 +24,8 @@ export class RegistartionFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.signUpService.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.signUpService.subscriptions.forEach((subscription) =>
+      subscription.unsubscribe(),
+    );
   }
 }

@@ -1,14 +1,19 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import {
-  MatDialog,
-  MatDialogConfig,
-} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
 import { Observable, Subscription, take } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { createGroupAction, deleteGroupAction, loadGroupsAction } from '../store/groups/groups.actions';
-import { backendGroupErrorSelector, groupsSelector, isGroupsLoadinSelector } from '../store/groups/groups.selectors';
+import {
+  createGroupAction,
+  deleteGroupAction,
+  loadGroupsAction,
+} from '../store/groups/groups.actions';
+import {
+  backendGroupErrorSelector,
+  groupsSelector,
+  isGroupsLoadinSelector,
+} from '../store/groups/groups.selectors';
 import { GroupsProps } from '../models/groups';
 import { AuthError } from '@shared/types/user.interaces';
 import { AuthService } from '@core/services/auth.service';
@@ -17,11 +22,17 @@ import { CountdownService } from '@core/services/countdown.service';
 
 @Injectable()
 export class GroupsService {
-  groupsData$: Observable<GroupsProps | null> = this.store.pipe(select(groupsSelector));
-  isGroupsLoading$: Observable<boolean> = this.store.pipe(select(isGroupsLoadinSelector));
-  backendGroupsErrors$: Observable<AuthError | null> = this.store.pipe(select(backendGroupErrorSelector));
+  groupsData$: Observable<GroupsProps | null> = this.store.pipe(
+    select(groupsSelector),
+  );
+  isGroupsLoading$: Observable<boolean> = this.store.pipe(
+    select(isGroupsLoadinSelector),
+  );
+  backendGroupsErrors$: Observable<AuthError | null> = this.store.pipe(
+    select(backendGroupErrorSelector),
+  );
   subscriptions: Subscription[] = [];
-  currentUserID = this.authService.currentUserID
+  currentUserID = this.authService.currentUserID;
   groupCreateForm = this.fb.group({
     name: [
       '',
@@ -48,7 +59,7 @@ export class GroupsService {
   }
 
   isGroupCreatedByCurrentUser(createdBy: string): boolean {
-    return this.currentUserID === createdBy
+    return this.currentUserID === createdBy;
   }
 
   onCreateFormSubmit(): void {

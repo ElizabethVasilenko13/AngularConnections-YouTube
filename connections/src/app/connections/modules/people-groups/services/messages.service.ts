@@ -14,7 +14,10 @@ export class MessagesService {
   createMessageForm = this.fb.group({
     text: ['', [Validators.required]],
   });
-  constructor(private fb: FormBuilder, private store: Store) { }
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+  ) {}
 
   resetMessageForm(): void {
     this.createMessageForm.reset();
@@ -23,36 +26,53 @@ export class MessagesService {
   private sendMessageCommon<T extends LastUpdatedData>(
     targetID: string,
     data$: Observable<T | null>,
-    createAction: (options: { targetID: string; message: string; time: number }) => Action
+    createAction: (options: {
+      targetID: string;
+      message: string;
+      time: number;
+    }) => Action,
   ): void {
     const message = this.createMessageForm.get('text')?.value || '';
     data$.pipe(take(1)).subscribe((value) => {
-        if (value && value.lastUpdated) {
-          this.store.dispatch(
-            createAction({
-              targetID,
-              message,
-              time: value.lastUpdated,
-            })
-          );
-        }
-      });
+      if (value && value.lastUpdated) {
+        this.store.dispatch(
+          createAction({
+            targetID,
+            message,
+            time: value.lastUpdated,
+          }),
+        );
+      }
+    });
     this.resetMessageForm();
   }
 
-  public sendMessageForConversation(conversationID: string, conversationData$: Observable<UserProps | null>): void {
+  public sendMessageForConversation(
+    conversationID: string,
+    conversationData$: Observable<UserProps | null>,
+  ): void {
     this.sendMessageCommon<UserProps>(
       conversationID,
       conversationData$,
-      (options) => postConversationMessageAction({ conversationID: options.targetID, message: options.message, time: options.time })
+      (options) =>
+        postConversationMessageAction({
+          conversationID: options.targetID,
+          message: options.message,
+          time: options.time,
+        }),
     );
   }
 
-  public sendMessageForGroup(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
-    this.sendMessageCommon<GroupProps>(
-      groupID,
-      groupDialogData$,
-      (options) => postNewMessageAction({ groupID: options.targetID, message: options.message, time: options.time })
+  public sendMessageForGroup(
+    groupID: string,
+    groupDialogData$: Observable<GroupProps | null>,
+  ): void {
+    this.sendMessageCommon<GroupProps>(groupID, groupDialogData$, (options) =>
+      postNewMessageAction({
+        groupID: options.targetID,
+        message: options.message,
+        time: options.time,
+      }),
     );
   }
 }

@@ -12,15 +12,25 @@ import { DialogService } from '@core/services/dialog.service';
 import { Observable, Subscription } from 'rxjs';
 import { UserProps, UsersProps } from '../models/users';
 import { AuthError } from '@shared/types/user.interaces';
-import { usersSelector, isUsersLoadinSelector, usersBackendSelector } from '../store/users/users.selectors';
+import {
+  usersSelector,
+  isUsersLoadinSelector,
+  usersBackendSelector,
+} from '../store/users/users.selectors';
 import { AuthService } from '@core/services/auth.service';
 import { CountdownService } from '@core/services/countdown.service';
 
 @Injectable()
 export class UsersService {
-  usersData$: Observable<UsersProps | null> = this.store.pipe(select(usersSelector));
-  isUsersLoading$: Observable<boolean> = this.store.pipe(select(isUsersLoadinSelector));
-  backendUsersListErrors$: Observable<AuthError | null> = this.store.pipe(select(usersBackendSelector));
+  usersData$: Observable<UsersProps | null> = this.store.pipe(
+    select(usersSelector),
+  );
+  isUsersLoading$: Observable<boolean> = this.store.pipe(
+    select(isUsersLoadinSelector),
+  );
+  backendUsersListErrors$: Observable<AuthError | null> = this.store.pipe(
+    select(usersBackendSelector),
+  );
   subscriptions: Subscription[] = [];
 
   constructor(

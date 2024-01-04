@@ -50,7 +50,9 @@
     </button>
     <button
       *ngIf="isEditMode$ | async"
-      [disabled]="(isUserLoading$ | async) || userService.userProfileForm.invalid"
+      [disabled]="
+        (isUserLoading$ | async) || userService.userProfileForm.invalid
+      "
       (click)="userService.saveChanges()"
     >
       {{ 'Save' | uppercase }}

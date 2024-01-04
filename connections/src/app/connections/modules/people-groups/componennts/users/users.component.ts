@@ -19,6 +19,8 @@ export class UsersComponent implements OnDestroy {
   ) {}
 
   ngOnDestroy(): void {
-    this.usersService.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.usersService.subscriptions.forEach((subscription) =>
+      subscription.unsubscribe(),
+    );
   }
 }

@@ -9,7 +9,7 @@ import { GroupsService } from '../../services/groups.service';
   styleUrls: ['./groups.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GroupsComponent implements  OnDestroy {
+export class GroupsComponent implements OnDestroy {
   groupsData$ = this.groupsService.groupsData$;
   isGroupsLoading$ = this.groupsService.isGroupsLoading$;
   backendErrors$ = this.groupsService.backendGroupsErrors$;
@@ -21,6 +21,8 @@ export class GroupsComponent implements  OnDestroy {
   ) {}
 
   ngOnDestroy(): void {
-    this.groupsService.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.groupsService.subscriptions.forEach((subscription) =>
+      subscription.unsubscribe(),
+    );
   }
 }

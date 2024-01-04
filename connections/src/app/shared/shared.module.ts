@@ -8,7 +8,12 @@ import { MaterialModule } from '@material/material.module';
 import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
-  declarations: [FormControlComponent, DialogComponent, SortByDate, LoaderComponent],
+  declarations: [
+    FormControlComponent,
+    DialogComponent,
+    SortByDate,
+    LoaderComponent,
+  ],
   exports: [FormControlComponent, DialogComponent, SortByDate, LoaderComponent],
   imports: [ReactiveFormsModule, CommonModule, MaterialModule],
 })

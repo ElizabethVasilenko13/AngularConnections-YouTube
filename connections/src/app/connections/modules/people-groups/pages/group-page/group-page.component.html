@@ -14,7 +14,9 @@
       </div>
       <div class="header__controls">
         <button
-          (click)="groupPageService.updateGroupDialog(groupID,  groupDialogData$)"
+          (click)="
+            groupPageService.updateGroupDialog(groupID, groupDialogData$)
+          "
           class="group__btn"
           [disabled]="
             !countdownService.isCountdownEnded('groupDailog' + groupID) ||
@@ -47,11 +49,16 @@
   </div>
   <app-loader [isLoading]="isGroupDialogLoading$ | async"></app-loader>
   <div class="group-dialog__main">
-    <app-messages-list [messages]="(groupDialogData$ | async)?.messages"></app-messages-list>
+    <app-messages-list
+      [messages]="(groupDialogData$ | async)?.messages"
+    ></app-messages-list>
     <app-post-message-form
       [formGroup]="messagesService.createMessageForm"
       [isLoading$]="isGroupDialogLoading$"
-      (sendMessage)="messagesService.sendMessageForGroup(groupID, groupDialogData$)">
+      (sendMessage)="
+        messagesService.sendMessageForGroup(groupID, groupDialogData$)
+      "
+    >
     </app-post-message-form>
   </div>
 </section>

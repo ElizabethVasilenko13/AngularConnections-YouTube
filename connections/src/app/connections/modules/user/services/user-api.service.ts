@@ -16,7 +16,7 @@ export class UserApiService {
     private localStorageService: LocalStorageService,
     private router: Router,
     private auth: AuthService,
-    private countdownService: CountdownService
+    private countdownService: CountdownService,
   ) {}
 
   loadUser(): Observable<UserResponseInterface> {

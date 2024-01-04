@@ -20,7 +20,12 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { RegistartionFormComponent } from './components/registartion-form/registartion-form.component';
 
 @NgModule({
-  declarations: [RegistrationPageComponent, LoginPageComponent, LoginFormComponent, RegistartionFormComponent],
+  declarations: [
+    RegistrationPageComponent,
+    LoginPageComponent,
+    LoginFormComponent,
+    RegistartionFormComponent,
+  ],
   imports: [
     CommonModule,
     AuthRoutingModule,

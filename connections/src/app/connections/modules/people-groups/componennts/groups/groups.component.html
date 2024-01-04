@@ -34,7 +34,9 @@
   <div
     *ngFor="let group of (groupsData$ | async)?.items"
     class="group-item"
-    [class.groupCurrent]="groupsService.isGroupCreatedByCurrentUser(group.createdBy.S)"
+    [class.groupCurrent]="
+      groupsService.isGroupCreatedByCurrentUser(group.createdBy.S)
+    "
   >
     <a routerLink="/group/{{ group.id.S }}" class="group__link">
       <div class="group-property">{{ group.name.S }}</div>

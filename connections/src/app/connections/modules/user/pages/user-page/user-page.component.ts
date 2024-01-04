@@ -9,7 +9,5 @@ import { UserService } from '../../services/user.service';
 })
 export class UserPageComponent {
   isUserLoading$ = this.userService.isUserLoading$;
-  constructor(
-    protected userService: UserService
-  ) {}
+  constructor(protected userService: UserService) {}
 }

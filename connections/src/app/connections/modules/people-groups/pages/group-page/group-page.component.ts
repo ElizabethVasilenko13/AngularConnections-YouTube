@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CountdownService } from '@core/services/countdown.service';
 import { Observable } from 'rxjs';
 import { AuthError } from '@shared/types/user.interaces';
@@ -18,9 +23,12 @@ import { MessagesService } from '../../services/messages.service';
 })
 export class GroupPageComponent implements OnInit, OnDestroy {
   groupDialogData$!: Observable<GroupProps | null>;
-  isGroupDialogLoading$: Observable<boolean> = this.groupPageService.isGroupDialogLoading$;
-  backendErrors$: Observable<AuthError | null> = this.groupPageService.backendErrors$;
-  isGroupCreatedByCurrnetUser$ = this.groupPageService.isGroupCreatedByCurrnetUser$;
+  isGroupDialogLoading$: Observable<boolean> =
+    this.groupPageService.isGroupDialogLoading$;
+  backendErrors$: Observable<AuthError | null> =
+    this.groupPageService.backendErrors$;
+  isGroupCreatedByCurrnetUser$ =
+    this.groupPageService.isGroupCreatedByCurrnetUser$;
   groupID = '';
 
   constructor(
@@ -29,7 +37,7 @@ export class GroupPageComponent implements OnInit, OnDestroy {
     protected groupsService: GroupsService,
     protected groupPageService: GroupPageService,
     private route: ActivatedRoute,
-    protected messagesService: MessagesService
+    protected messagesService: MessagesService,
   ) {}
 
   initGroupPageValues(): void {
@@ -41,10 +49,15 @@ export class GroupPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initGroupPageValues();
-    this.groupPageService.subscribeToGroupDialogData(this.groupID,  this.groupDialogData$);
+    this.groupPageService.subscribeToGroupDialogData(
+      this.groupID,
+      this.groupDialogData$,
+    );
   }
 
   ngOnDestroy(): void {
-    this.groupPageService.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.groupPageService.subscriptions.forEach((subscription) =>
+      subscription.unsubscribe(),
+    );
   }
 }

@@ -13,5 +13,8 @@ export class MessagesListComponent {
   @Input() messages!: UserProps['messages'];
   usersData$ = this.usersService.usersData$;
   currentUserID = this.authService.currentUserID;
-  constructor (protected usersService: UsersService, private authService: AuthService,) {}
+  constructor(
+    protected usersService: UsersService,
+    private authService: AuthService,
+  ) {}
 }

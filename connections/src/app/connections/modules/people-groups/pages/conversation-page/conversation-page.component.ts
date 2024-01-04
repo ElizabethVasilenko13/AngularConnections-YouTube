@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountdownService } from '@core/services/countdown.service';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { UserProps } from '../../models/users';
-import {
-  selectConversationById,
-} from '../../store/users/users.selectors';
+import { selectConversationById } from '../../store/users/users.selectors';
 import { ConversationPageService } from '../../services/conversation-page.service';
 import { UsersService } from '../../services/users.service';
 import { MessagesService } from '../../services/messages.service';
@@ -19,7 +22,8 @@ import { MessagesService } from '../../services/messages.service';
 })
 export class ConversationPageComponent implements OnInit, OnDestroy {
   conversationData$!: Observable<UserProps | null>;
-  isConversationsLoading$ = this.conversationPageService.isConversationsLoading$;
+  isConversationsLoading$ =
+    this.conversationPageService.isConversationsLoading$;
   backendErrors$ = this.conversationPageService.backendErrors$;
   converastionID = '';
 
@@ -29,13 +33,15 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
     private store: Store,
     protected conversationPageService: ConversationPageService,
     protected usersService: UsersService,
-    protected messagesService: MessagesService
-  ) {
-  }
+    protected messagesService: MessagesService,
+  ) {}
 
   ngOnInit(): void {
     this.initConversationPageValues();
-    this.conversationPageService.subscribeToConversationData(this.converastionID, this.conversationData$);
+    this.conversationPageService.subscribeToConversationData(
+      this.converastionID,
+      this.conversationData$,
+    );
   }
 
   initConversationPageValues(): void {
@@ -46,6 +52,8 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.conversationPageService.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.conversationPageService.subscriptions.forEach((subscription) =>
+      subscription.unsubscribe(),
+    );
   }
 }

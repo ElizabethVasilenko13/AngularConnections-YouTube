@@ -49,6 +49,14 @@ import { MessagesService } from './services/messages.service';
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
     CommonModule,
   ],
-  providers: [UsersApiService, GroupsApiService, GroupPageService, GroupsService, UsersService, ConversationPageService, MessagesService],
+  providers: [
+    UsersApiService,
+    GroupsApiService,
+    GroupPageService,
+    GroupsService,
+    UsersService,
+    ConversationPageService,
+    MessagesService,
+  ],
 })
 export class PeopleGroupsModule {}

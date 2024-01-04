@@ -2,24 +2,37 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthErrorsTypes } from '@auth/models/auth.enum';
 import { UserSignInProps } from '@auth/models/auth.interfaces';
-import { sighInAction, sighInResetAction } from '@auth/store/signin/signin.actions';
-import { isSubmittingSignInSelector, backendSignInErrorSelector } from '@auth/store/signin/signin.selectors';
+import {
+  sighInAction,
+  sighInResetAction,
+} from '@auth/store/signin/signin.actions';
+import {
+  isSubmittingSignInSelector,
+  backendSignInErrorSelector,
+} from '@auth/store/signin/signin.selectors';
 import { Store, select } from '@ngrx/store';
 import { AuthError } from '@shared/types/user.interaces';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 @Injectable()
 export class SignInService {
-  isSubmitting$: Observable<boolean> = this.store.pipe(select(isSubmittingSignInSelector));
-  backendError$: Observable<AuthError | null> = this.store.pipe(select(backendSignInErrorSelector));
+  isSubmitting$: Observable<boolean> = this.store.pipe(
+    select(isSubmittingSignInSelector),
+  );
+  backendError$: Observable<AuthError | null> = this.store.pipe(
+    select(backendSignInErrorSelector),
+  );
   isSubmitFormButtonDisable$ = new BehaviorSubject(false);
   subscriptions: Subscription[] = [];
-  loginForm  = this.fb.group({
+  loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, private store: Store,) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+  ) {}
 
   resetSignIn(): void {
     this.loginForm.reset();
@@ -27,10 +40,11 @@ export class SignInService {
   }
 
   initFormValueChanges(): void {
-    const formValueChangesSubscription =
-      this.loginForm.valueChanges.subscribe(() => {
+    const formValueChangesSubscription = this.loginForm.valueChanges.subscribe(
+      () => {
         this.isSubmitFormButtonDisable$.next(false);
-      });
+      },
+    );
 
     this.subscriptions.push(formValueChangesSubscription);
   }
@@ -45,5 +59,4 @@ export class SignInService {
     });
     this.subscriptions.push(backendErrorsSubscr);
   }
-
 }

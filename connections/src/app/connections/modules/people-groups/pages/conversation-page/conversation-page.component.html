@@ -9,7 +9,12 @@
       </div>
       <div class="header__controls">
         <button
-          (click)="conversationPageService.updateConversation(converastionID, conversationData$)"
+          (click)="
+            conversationPageService.updateConversation(
+              converastionID,
+              conversationData$
+            )
+          "
           class="group__btn"
           [disabled]="
             !countdownService.isCountdownEnded(
@@ -45,11 +50,19 @@
   </div>
   <app-loader [isLoading]="isConversationsLoading$ | async"></app-loader>
   <div class="group-dialog__main">
-    <app-messages-list [messages]="(conversationData$ | async)?.messages"></app-messages-list>
+    <app-messages-list
+      [messages]="(conversationData$ | async)?.messages"
+    ></app-messages-list>
     <app-post-message-form
-        [formGroup]="messagesService.createMessageForm"
-        [isLoading$]="isConversationsLoading$"
-        (sendMessage)="messagesService.sendMessageForConversation(this.converastionID, conversationData$)">
+      [formGroup]="messagesService.createMessageForm"
+      [isLoading$]="isConversationsLoading$"
+      (sendMessage)="
+        messagesService.sendMessageForConversation(
+          this.converastionID,
+          conversationData$
+        )
+      "
+    >
     </app-post-message-form>
   </div>
 </section>

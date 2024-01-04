@@ -2,20 +2,30 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { UserProfileFormInterface } from 'src/app/connections/models/user.interfaces';
-import { LogoutAction, UpdateUserNameAction, loadUserAction } from '../store/user.actions';
+import {
+  LogoutAction,
+  UpdateUserNameAction,
+  loadUserAction,
+} from '../store/user.actions';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { isUserLoadinSgelector, userSelector } from '../store/user.selectors';
 
 @Injectable()
 export class UserService {
-  userProfileData$: Observable<UserProfileFormInterface | null> = this.store.pipe(select(userSelector));
-  isUserLoading$: Observable<boolean> = this.store.pipe(select(isUserLoadinSgelector));
+  userProfileData$: Observable<UserProfileFormInterface | null> =
+    this.store.pipe(select(userSelector));
+  isUserLoading$: Observable<boolean> = this.store.pipe(
+    select(isUserLoadinSgelector),
+  );
   userProfileForm!: FormGroup;
   originalFormValues: UserProfileFormInterface | null = null;
   isEditMode$ = new BehaviorSubject<boolean>(false);
   subscriptions: Subscription[] = [];
 
-  constructor(private fb: FormBuilder, private store: Store,) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+  ) {
     this.userProfileForm = this.fb.group({
       name: [
         '',
@@ -72,5 +82,4 @@ export class UserService {
       this.store.dispatch(UpdateUserNameAction({ name: newName }));
     }
   }
-
 }
