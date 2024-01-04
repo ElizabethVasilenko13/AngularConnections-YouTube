@@ -1,5 +1,12 @@
 <div class="content__header">
   <h2>PEOPLE</h2>
+  <div *ngIf="!countdownService.isCountdownEnded('users')">
+    {{
+      'Please wait ' +
+        countdownService.getCountdownValue('users') +
+        ' seconds, until update button will become enabled'
+    }}
+  </div>
   <div class="btns__container">
     <button
       class="control__btn"
@@ -12,13 +19,6 @@
     >
       {{ 'Update List' | uppercase }}
     </button>
-  </div>
-  <div *ngIf="!countdownService.isCountdownEnded('users')">
-    {{
-      'Please wait ' +
-        countdownService.getCountdownValue('users') +
-        ' seconds, until update button will become enabled'
-    }}
   </div>
 </div>
 <app-loader [isLoading]="isUsersLoading$ | async"></app-loader>

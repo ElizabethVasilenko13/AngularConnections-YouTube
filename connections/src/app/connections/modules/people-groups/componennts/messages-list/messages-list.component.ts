@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { UserProps } from '../../models/users';
 import { UsersService } from '../../services/users.service';
-import { AuthService } from '@core/services/auth.service';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-messages-list',
@@ -12,9 +12,8 @@ import { AuthService } from '@core/services/auth.service';
 export class MessagesListComponent {
   @Input() messages!: UserProps['messages'];
   usersData$ = this.usersService.usersData$;
-  currentUserID = this.authService.currentUserID;
   constructor(
-    protected usersService: UsersService,
-    private authService: AuthService,
+    private usersService: UsersService,
+    protected messagesService: MessagesService
   ) {}
 }

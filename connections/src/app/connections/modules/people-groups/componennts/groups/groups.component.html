@@ -1,6 +1,6 @@
 <div class="content__header">
   <h2>GROUPS</h2>
-  <div class="div" *ngIf="!countdownService.isCountdownEnded('groups')">
+  <div *ngIf="!countdownService.isCountdownEnded('groups')">
     {{
       'Please wait ' +
         countdownService.getCountdownValue('groups') +
@@ -15,7 +15,7 @@
         (isGroupsLoading$ | async) ||
         (groupsData$ | async) === null
       "
-      (click)="groupsService.updateGroupsList()"
+      (click)="updateGroupsList()"
     >
       {{ 'Update List' | uppercase }}
     </button>

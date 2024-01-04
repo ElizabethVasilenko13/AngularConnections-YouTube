@@ -6,7 +6,7 @@ import { UsersService } from '../../services/users.service';
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersComponent implements OnDestroy {
   usersData$ = this.usersService.usersData$;

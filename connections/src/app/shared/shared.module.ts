@@ -3,18 +3,18 @@ import { CommonModule } from '@angular/common';
 import { FormControlComponent } from './components/form-control/form-control.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { SortByDate } from './pipes/sortByDate.pipe';
 import { MaterialModule } from '@material/material.module';
 import { LoaderComponent } from './components/loader/loader.component';
+import { SortBy } from './pipes/sort-by.pipe';
 
 @NgModule({
   declarations: [
     FormControlComponent,
     DialogComponent,
-    SortByDate,
     LoaderComponent,
+    SortBy,
   ],
-  exports: [FormControlComponent, DialogComponent, SortByDate, LoaderComponent],
+  exports: [FormControlComponent, DialogComponent, LoaderComponent, SortBy],
   imports: [ReactiveFormsModule, CommonModule, MaterialModule],
 })
 export class SharedModule {}

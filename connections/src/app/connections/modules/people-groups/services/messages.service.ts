@@ -6,6 +6,8 @@ import { UserProps } from '../models/users';
 import { GroupProps } from '../models/groups';
 import { postConversationMessageAction } from '../store/users/users.actions';
 import { postNewMessageAction } from '../store/groups/groups.actions';
+import { MessageItem } from '../models/group-dialog';
+import { AuthService } from '@core/services/auth.service';
 interface LastUpdatedData {
   lastUpdated?: number | null | undefined;
 }
@@ -17,7 +19,18 @@ export class MessagesService {
   constructor(
     private fb: FormBuilder,
     private store: Store,
+    private authService: AuthService,
   ) {}
+
+  isMessageCreatedByCurrentUser(messageAuthorID: string): boolean {
+    return messageAuthorID === this.authService.currentUserID;
+  }
+
+  messageDateComparator(a: MessageItem, b: MessageItem): number {
+    const valueA = +(a.createdAt.S);
+    const valueB = +(b.createdAt.S);
+    return valueA - valueB;
+  }
 
   resetMessageForm(): void {
     this.createMessageForm.reset();

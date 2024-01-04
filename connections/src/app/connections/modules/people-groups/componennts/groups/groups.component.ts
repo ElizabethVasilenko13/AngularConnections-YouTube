@@ -7,7 +7,7 @@ import { GroupsService } from '../../services/groups.service';
   selector: 'app-groups',
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupsComponent implements OnDestroy {
   groupsData$ = this.groupsService.groupsData$;
@@ -24,5 +24,22 @@ export class GroupsComponent implements OnDestroy {
     this.groupsService.subscriptions.forEach((subscription) =>
       subscription.unsubscribe(),
     );
+  }
+
+  updateGroupsList(): void {
+    this.groupsService.loadGroups();
+   this.isGroupsLoading$.subscribe((value) => {
+      if (!value) {
+        this.backendErrors$.subscribe((error) => {
+          if (!error) {
+            console.log('handle');
+            
+            this.countdownService.handleCountdown('groups', 60);
+          }
+        });
+      }
+    });
+
+    // this.subscriptions.push(isGroupsLoadingSubscr);
   }
 }
