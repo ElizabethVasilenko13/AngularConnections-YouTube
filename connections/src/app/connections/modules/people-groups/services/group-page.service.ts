@@ -6,7 +6,6 @@ import { GroupsComponent } from '../componennts/groups/groups.component';
 import { GroupPageComponent } from '../pages/group-page/group-page.component';
 import { AuthService } from '@core/services/auth.service';
 import { backendGroupErrorSelector, isGroupsLoadinSelector } from '../store/groups/groups.selectors';
-import { usersSelector } from '../store/users/users.selectors';
 import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { GroupProps } from '../models/groups';
 import { loadGroupMessagesAction, loadGroupMessagesSinceAction, postNewMessageAction } from '../store/groups/groups.actions';
@@ -21,7 +20,6 @@ export class GroupPageService {
     select(isGroupsLoadinSelector),
   );
   backendErrors$ = this.store.pipe(select(backendGroupErrorSelector));
-  usersData$ = this.store.pipe(select(usersSelector));
   isGroupCreatedByCurrnetUser$ = new BehaviorSubject<boolean>(false);
   subscriptions: Subscription[] = [];
 

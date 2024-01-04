@@ -3,7 +3,6 @@ import { CountdownService } from '@core/services/countdown.service';
 import { Observable } from 'rxjs';
 import { AuthError } from '@shared/types/user.interaces';
 import { GroupProps } from '../../models/groups';
-import { UsersProps } from '../../models/users';
 import { AuthService } from '@core/services/auth.service';
 import { GroupsService } from '../../services/groups.service';
 import { GroupPageService } from '../../services/group-page.service';
@@ -20,7 +19,6 @@ export class GroupPageComponent implements OnInit, OnDestroy {
   groupDialogData$!: Observable<GroupProps | null>;
   isGroupDialogLoading$: Observable<boolean> = this.groupPageService.isGroupDialogLoading$;
   backendErrors$: Observable<AuthError | null> = this.groupPageService.backendErrors$;
-  usersData$: Observable<UsersProps | null> = this.groupPageService.usersData$;
   isGroupCreatedByCurrnetUser$ = this.groupPageService.isGroupCreatedByCurrnetUser$;
   currentUserID = this.authService.currentUserID;
   groupID = '';

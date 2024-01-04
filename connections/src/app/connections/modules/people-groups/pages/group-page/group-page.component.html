@@ -47,24 +47,7 @@
   </div>
   <app-loader [isLoading]="isGroupDialogLoading$ | async"></app-loader>
   <div class="group-dialog__main">
-    <div class="messages">
-      <div
-        *ngFor="
-          let message of (groupDialogData$ | async)?.messages?.items
-            | sortByDate
-        "
-        class="message"
-        [class.currentUser]="message.authorID.S === currentUserID"
-      >
-        <div class="message__creator">
-          {{ message.authorID.S | userNameTransform: (usersData$ | async) }}
-        </div>
-        <div class="message__text">{{ message.message.S }}</div>
-        <div class="message__date">
-          {{ message.createdAt.S | date: 'short' }}
-        </div>
-      </div>
-    </div>
+    <app-messages-list [messages$]="(groupDialogData$ | async)?.messages" [currentUserID]="currentUserID"></app-messages-list>
     <div class="create__message">
       <form [formGroup]="groupPageService.createMessageForm" class="message__form">
         <div class="message__input">

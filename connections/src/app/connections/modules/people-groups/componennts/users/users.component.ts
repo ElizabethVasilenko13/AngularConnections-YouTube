@@ -13,7 +13,7 @@ export class UsersComponent implements OnDestroy {
   backendErrors$ = this.usersService.backendUsersListErrors$;
 
   constructor(
-    public countdownService: CountdownService,
+    protected countdownService: CountdownService,
     protected usersService: UsersService,
   ) {}
 

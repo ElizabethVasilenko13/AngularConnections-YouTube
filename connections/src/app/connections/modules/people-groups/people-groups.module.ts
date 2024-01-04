@@ -23,6 +23,7 @@ import { GroupsService } from './services/groups.service';
 import { UsersService } from './services/users.service';
 import { ConversationPageService } from './services/conversation-page.service';
 import { UsersComponent } from './componennts/users/users.component';
+import { MessagesListComponent } from './componennts/messages-list/messages-list.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { UsersComponent } from './componennts/users/users.component';
     GroupPageComponent,
     ConversationPageComponent,
     UserNameTransformPipe,
+    MessagesListComponent,
   ],
   exports: [MainPageComponent],
   imports: [

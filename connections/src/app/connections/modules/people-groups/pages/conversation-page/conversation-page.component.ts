@@ -19,7 +19,6 @@ import { AuthService } from '@core/services/auth.service';
 export class ConversationPageComponent implements OnInit, OnDestroy {
   conversationData$!: Observable<UserProps | null>;
   isConversationsLoading$ = this.conversationPageService.isConversationsLoading$;
-  usersData$ = this.conversationPageService.usersData$;
   backendErrors$ = this.conversationPageService.backendErrors$;
   currentUserID = this.authService.currentUserID;
   converastionID = '';

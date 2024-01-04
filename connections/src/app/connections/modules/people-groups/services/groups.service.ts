@@ -21,6 +21,7 @@ export class GroupsService {
   isGroupsLoading$: Observable<boolean> = this.store.pipe(select(isGroupsLoadinSelector));
   backendGroupsErrors$: Observable<AuthError | null> = this.store.pipe(select(backendGroupErrorSelector));
   subscriptions: Subscription[] = [];
+  currentUserID = this.authService.currentUserID
   groupCreateForm = this.fb.group({
     name: [
       '',
@@ -44,6 +45,10 @@ export class GroupsService {
 
   loadGroups(): void {
     this.store.dispatch(loadGroupsAction());
+  }
+
+  isGroupCreatedByCurrentUser(createdBy: string): boolean {
+    return this.currentUserID === createdBy
   }
 
   onCreateFormSubmit(): void {

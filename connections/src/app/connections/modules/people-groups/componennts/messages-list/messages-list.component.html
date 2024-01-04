@@ -1,0 +1,11 @@
+<div class="messages">
+  <div *ngFor="let message of messages$?.items | sortByDate" class="message" [class.currentUser]="message.authorID.S === currentUserID">
+    <div class="message__creator">
+      {{ message.authorID.S | userNameTransform: (usersData$ | async) }}
+    </div>
+    <div class="message__text">{{ message.message.S }}</div>
+    <div class="message__date">
+      {{ message.createdAt.S | date: 'short' }}
+    </div>
+  </div>
+</div>

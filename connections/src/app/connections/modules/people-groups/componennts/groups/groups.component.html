@@ -34,14 +34,14 @@
   <div
     *ngFor="let group of (groupsData$ | async)?.items"
     class="group-item"
-    [class.groupCurrent]="authService.currentUserID === group.createdBy.S"
+    [class.groupCurrent]="groupsService.isGroupCreatedByCurrentUser(group.createdBy.S)"
   >
     <a routerLink="/group/{{ group.id.S }}" class="group__link">
       <div class="group-property">{{ group.name.S }}</div>
     </a>
     <button
       class="delete__btn"
-      *ngIf="authService.currentUserID === group.createdBy.S"
+      *ngIf="groupsService.isGroupCreatedByCurrentUser(group.createdBy.S)"
       (click)="groupsService.onDeleteGroup($event, group.id.S)"
     >
       ✕

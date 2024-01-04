@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { CountdownService } from '../../../../../core/services/countdown.service';
 import { DialogService } from '@core/services/dialog.service';
-import { AuthService } from '@core/services/auth.service';
 import { GroupsService } from '../../services/groups.service';
 
 @Component({
@@ -12,11 +11,10 @@ import { GroupsService } from '../../services/groups.service';
 export class GroupsComponent implements  OnDestroy {
   groupsData$ = this.groupsService.groupsData$;
   isGroupsLoading$ = this.groupsService.isGroupsLoading$;
-  backendErrors$ = this.groupsService.backendGroupsErrors$ ;
+  backendErrors$ = this.groupsService.backendGroupsErrors$;
 
   constructor(
-    public countdownService: CountdownService,
-    protected authService: AuthService,
+    protected countdownService: CountdownService,
     protected dialogService: DialogService,
     protected groupsService: GroupsService,
   ) {}
