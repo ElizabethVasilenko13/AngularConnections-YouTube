@@ -176,6 +176,7 @@ export class GroupsEffects {
             return deleteGroupSuccessAction({ groupID });
           }),
           catchError((error: HttpErrorResponse) => {
+
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);

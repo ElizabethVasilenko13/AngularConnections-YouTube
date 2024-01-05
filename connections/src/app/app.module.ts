@@ -5,15 +5,14 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from '@core/core.module';
-import { MatDialogRef } from '@angular/material/dialog';
-import { clearStateMetaReducer } from './connections/modules/user/store/user.reducers';
+import { MatDialogRef} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     AppRoutingModule,
     CoreModule,
-    StoreModule.forRoot({}, { metaReducers: [clearStateMetaReducer] }),
+    StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       logOnly: isDevMode(),

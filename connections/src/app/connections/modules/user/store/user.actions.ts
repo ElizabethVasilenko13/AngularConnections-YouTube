@@ -26,6 +26,7 @@ export const UpdateUserFailedNameAction = createAction(
 );
 
 export const LOGOUTSUCCESS = '[User] Logout Successful';
+
 export const LogoutAction = createAction('[User] Logout');
 export const LogoutSuccessfulAction = createAction(LOGOUTSUCCESS);
 export const LogoutFailedAction = createAction(

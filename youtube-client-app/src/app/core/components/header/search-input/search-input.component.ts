@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 import { YoutubeService } from '@services/youtubeService.service';
-import { MAIN_PAGE_ROUTE, MIN_SEARCH_LENGTH } from 'src/app/core/consts';
 import { Subscription } from 'rxjs';
 import { loadVideos } from '@redux/actions/videos.actions';
+import { MAIN_PAGE_ROUTE, MIN_SEARCH_LENGTH } from '@core/consts';
 
 @Component({
   selector: 'app-search-input',

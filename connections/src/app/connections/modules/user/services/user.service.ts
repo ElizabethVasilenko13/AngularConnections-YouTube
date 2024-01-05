@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { UserProfileFormInterface } from 'src/app/connections/models/user.interfaces';
-import { LogoutAction, UpdateUserNameAction, loadUserAction } from '../store/user.actions';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { UserProfileFormInterface } from 'src/app/connections/models/user.interfaces';
 import { isUserLoadinSgelector, userSelector } from '../store/user.selectors';
+import { LogoutAction, UpdateUserNameAction, loadUserAction } from '../store/user.actions';
 
 @Injectable()
 export class UserService {
@@ -40,6 +40,7 @@ export class UserService {
   changeEditModeValue(value: boolean): void {
     this.isEditMode$.next(value);
   }
+
 
   subscribeToUserProfileData(): void {
     const userDataSubscr = this.userProfileData$.subscribe((userData) => {

@@ -51,7 +51,7 @@ import { UserItemComponent } from './componennts/users/user-item/user-item.compo
     StoreModule.forFeature(Features.Groups, groupsReducer),
     StoreModule.forFeature(Features.Users, usersReducer),
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
-    CommonModule,
+    CommonModule
   ],
   providers: [
     UsersApiService,

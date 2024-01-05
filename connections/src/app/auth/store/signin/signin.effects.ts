@@ -30,7 +30,7 @@ export class SignInEffects {
           }),
           catchError((error: HttpErrorResponse) => {
             const errorMes = error.error;
-            const errorSnakBar = error.error ? errorMes.message : error.message;
+            const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(sighInFailureAction({ error: error.error }));
           }),

@@ -39,7 +39,6 @@ export class GroupsService {
       ],
     ],
   });
-  count = this.countdownService;
 
   constructor(
     private store: Store,

@@ -94,12 +94,13 @@ const reducer = createReducer(
     }),
   ),
 );
+
 export const userReducer: ActionReducer<UserStateInterface, Action> = (state, action) =>
   reducer(state, action);
 
 export function clearStateMetaReducer<State>(
-  reducer: ActionReducer<State, Action>,
-): ActionReducer<State, Action> {
+  reducer: ActionReducer<State, Action>
+  ): ActionReducer<State, Action> {
   return function clearStateFn(state: State | undefined, action: Action) {
     if (action.type === LOGOUTSUCCESS) {
       state = {} as State;
