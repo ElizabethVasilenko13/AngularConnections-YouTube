@@ -10,7 +10,7 @@ Milestones done:
 - Milestone 5. Logout
 - Milestone 6. People & Groups
 - Milestone 7. Group dialog
-- Milestone 8. (partial - after deadlie)
+- Milestone 8. Conversation Page
 - Milestone 9. 404 page
 
   
