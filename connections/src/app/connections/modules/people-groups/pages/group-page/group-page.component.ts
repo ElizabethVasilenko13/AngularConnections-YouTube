@@ -19,7 +19,7 @@ import { MessagesService } from '../../services/messages.service';
   selector: 'app-group-page',
   templateUrl: './group-page.component.html',
   styleUrls: ['./group-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupPageComponent implements OnInit, OnDestroy {
   groupDialogData$!: Observable<GroupProps | null>;

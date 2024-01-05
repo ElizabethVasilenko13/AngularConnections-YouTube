@@ -7,7 +7,7 @@ import { MessagesService } from '../../services/messages.service';
   selector: 'app-messages-list',
   templateUrl: './messages-list.component.html',
   styleUrls: ['./messages-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagesListComponent {
   @Input() messages!: UserProps['messages'];

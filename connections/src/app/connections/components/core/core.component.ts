@@ -8,7 +8,7 @@ import { loadGroupsAction } from '../../modules/people-groups/store/groups/group
   selector: 'app-core',
   templateUrl: './core.component.html',
   styleUrls: ['./core.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoreComponent implements OnInit {
   constructor(

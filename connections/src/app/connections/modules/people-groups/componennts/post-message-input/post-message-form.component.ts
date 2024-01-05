@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   selector: 'app-post-message-form',
   templateUrl: './post-message-form.component.html',
   styleUrls: ['./post-message-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostMessageFormComponent {
   @Input() formGroup!: FormGroup;

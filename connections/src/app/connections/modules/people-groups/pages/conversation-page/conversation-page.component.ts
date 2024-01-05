@@ -18,7 +18,7 @@ import { MessagesService } from '../../services/messages.service';
   selector: 'app-conversation-page',
   templateUrl: './conversation-page.component.html',
   styleUrls: ['./conversation-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConversationPageComponent implements OnInit, OnDestroy {
   conversationData$!: Observable<UserProps | null>;

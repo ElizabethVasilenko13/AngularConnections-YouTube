@@ -26,20 +26,4 @@ export class GroupsComponent implements OnDestroy {
     );
   }
 
-  updateGroupsList(): void {
-    this.groupsService.loadGroups();
-   this.isGroupsLoading$.subscribe((value) => {
-      if (!value) {
-        this.backendErrors$.subscribe((error) => {
-          if (!error) {
-            console.log('handle');
-            
-            this.countdownService.handleCountdown('groups', 60);
-          }
-        });
-      }
-    });
-
-    // this.subscriptions.push(isGroupsLoadingSubscr);
-  }
 }

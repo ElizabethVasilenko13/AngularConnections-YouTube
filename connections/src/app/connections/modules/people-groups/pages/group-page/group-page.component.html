@@ -36,16 +36,8 @@
         </button>
       </div>
     </div>
-    <div
-      class="user__message"
-      *ngIf="!countdownService.isCountdownEnded('groupDailog' + groupID)"
-    >
-      {{
-        'Please wait ' +
-          countdownService.getCountdownValue('groupDailog' + groupID) +
-          ' seconds, until update button will become enabled'
-      }}
-    </div>
+    <app-countdown-message [identifier]="'groupDailog' + groupID"></app-countdown-message>
+
   </div>
   <app-loader [isLoading]="isGroupDialogLoading$ | async"></app-loader>
   <div class="group-dialog__main">
