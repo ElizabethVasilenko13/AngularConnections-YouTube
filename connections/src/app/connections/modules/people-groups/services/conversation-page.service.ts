@@ -47,9 +47,11 @@ export class ConversationPageService {
     conversationID: string,
     conversationData$: Observable<UserProps | null>,
   ): void {
-    const conversationsDataSubscr = conversationData$?.subscribe((data) => {
+    const conversationsDataSubscr = conversationData$?.pipe(take(1)).subscribe((data) => {
       if (data && !data.messages) {
         this.loadAllMessages(conversationID);
+      } else {
+        this.loadMessagesSince(conversationID, conversationData$);
       }
     });
 

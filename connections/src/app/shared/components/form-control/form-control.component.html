@@ -9,6 +9,7 @@
     [readonly]="readonly"
     [disabled]="disabled"
     [placeholder]="placeholder"
+    autocomplete="on"
   />
   <div *ngIf="isInvalid()" [class.invalid]="isInvalid()">
     <div *ngFor="let error of errors">{{ error }}</div>

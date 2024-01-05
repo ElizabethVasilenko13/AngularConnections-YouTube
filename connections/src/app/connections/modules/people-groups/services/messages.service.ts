@@ -8,9 +8,11 @@ import { postConversationMessageAction } from '../store/users/users.actions';
 import { postNewMessageAction } from '../store/groups/groups.actions';
 import { MessageItem } from '../models/group-dialog';
 import { AuthService } from '@core/services/auth.service';
+
 interface LastUpdatedData {
   lastUpdated?: number | null | undefined;
 }
+
 @Injectable()
 export class MessagesService {
   createMessageForm = this.fb.group({

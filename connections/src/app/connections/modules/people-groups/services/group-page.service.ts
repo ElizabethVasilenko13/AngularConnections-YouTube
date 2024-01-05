@@ -64,13 +64,15 @@ export class GroupPageService {
     groupID: string,
     groupDialogData$: Observable<GroupProps | null>,
   ): void {
-    const groupDialogDataSubscr = groupDialogData$.subscribe((groupData) => {
+    const groupDialogDataSubscr = groupDialogData$.pipe(take(1)).subscribe((groupData) => {
       if (groupData) {
         if (groupData.createdBy.S === this.authService.currentUserID) {
           this.isGroupCreatedByCurrnetUser$.next(true);
         }
         if (!groupData.messages) {
           this.loadAllMessages(groupID);
+        } else {
+          this.loadMessagesSince(groupID, groupDialogData$);
         }
       }
     });
