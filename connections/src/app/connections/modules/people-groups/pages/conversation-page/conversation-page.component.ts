@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountdownService } from '@core/services/countdown.service';
 import { Observable } from 'rxjs';
@@ -20,8 +16,7 @@ import { MessagesService } from '../../services/messages.service';
 })
 export class ConversationPageComponent implements OnInit, OnDestroy {
   conversationData$!: Observable<UserProps | null>;
-  isConversationsLoading$ =
-    this.conversationPageService.isConversationsLoading$;
+  isConversationsLoading$ = this.conversationPageService.isConversationsLoading$;
   backendErrors$ = this.conversationPageService.backendErrors$;
   converastionID = '';
 
@@ -44,9 +39,7 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
 
   initConversationPageValues(): void {
     this.converastionID = this.route.snapshot.paramMap.get('id') as string;
-    this.conversationData$ = this.store.pipe(
-      select(selectConversationById(this.converastionID)),
-    );
+    this.conversationData$ = this.store.pipe(select(selectConversationById(this.converastionID)));
   }
 
   ngOnDestroy(): void {

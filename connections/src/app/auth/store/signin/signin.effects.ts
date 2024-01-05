@@ -4,11 +4,7 @@ import { map, exhaustMap, catchError } from 'rxjs/operators';
 import { AuthApiService } from '../../services/auth-api.service';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  sighInAction,
-  sighInFailureAction,
-  sighInSuccessAction,
-} from './signin.actions';
+import { sighInAction, sighInFailureAction, sighInSuccessAction } from './signin.actions';
 import { NotifyService } from '@core/services/notify.service';
 import { AuthService } from '@core/services/auth.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
@@ -28,10 +24,7 @@ export class SignInEffects {
       exhaustMap(({ userData }) => {
         return this.authApi.signIn(userData).pipe(
           map(({ token, uid }) => {
-            this.snackBar.addMessage(
-              `Welcome ${userData.email}`,
-              NotifyStyles.Success,
-            );
+            this.snackBar.addMessage(`Welcome ${userData.email}`, NotifyStyles.Success);
             this.auth.handleSignIn({ email: userData.email, token, uid });
             return sighInSuccessAction({ userData, token, uid });
           }),

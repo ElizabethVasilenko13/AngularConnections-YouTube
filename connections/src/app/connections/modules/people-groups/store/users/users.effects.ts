@@ -48,13 +48,8 @@ export class UsersEffects {
       exhaustMap(({ currentUserId }) => {
         return this.usersApi.loadUsers().pipe(
           map((response) => {
-            this.snackBar.addMessage(
-              `Users have been succesfully loaded`,
-              NotifyStyles.Success,
-            );
-            const filteredUsers = response.Items.filter(
-              (user) => user.uid.S !== currentUserId,
-            );
+            this.snackBar.addMessage(`Users have been succesfully loaded`, NotifyStyles.Success);
+            const filteredUsers = response.Items.filter((user) => user.uid.S !== currentUserId);
             this.store.dispatch(loadConversationsAction());
             return loadUsersSuccessAction({
               users: {
@@ -153,9 +148,7 @@ export class UsersEffects {
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
-            return of(
-              loadConversationMessagesFailedAction({ error: error.error }),
-            );
+            return of(loadConversationMessagesFailedAction({ error: error.error }));
           }),
         );
       }),
@@ -185,9 +178,7 @@ export class UsersEffects {
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
-            return of(
-              loadConversationMessagesSinceFailedAction({ error: error.error }),
-            );
+            return of(loadConversationMessagesSinceFailedAction({ error: error.error }));
           }),
         );
       }),
@@ -224,22 +215,15 @@ export class UsersEffects {
       exhaustMap(({ conversationID, message, time }) => {
         return this.usersApi.postNewMessage(conversationID, message).pipe(
           map(() => {
-            this.snackBar.addMessage(
-              `Message was sent successfully`,
-              NotifyStyles.Success,
-            );
-            this.store.dispatch(
-              loadConversationMessagesSinceAction({ conversationID, time }),
-            );
+            this.snackBar.addMessage(`Message was sent successfully`, NotifyStyles.Success);
+            this.store.dispatch(loadConversationMessagesSinceAction({ conversationID, time }));
             return postConversationMessageSuccessAction();
           }),
           catchError((error: HttpErrorResponse) => {
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
-            return of(
-              postConversationMessageFailedAction({ error: error.error }),
-            );
+            return of(postConversationMessageFailedAction({ error: error.error }));
           }),
         );
       }),

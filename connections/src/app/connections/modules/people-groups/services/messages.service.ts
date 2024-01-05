@@ -27,8 +27,8 @@ export class MessagesService {
   }
 
   messageDateComparator(a: MessageItem, b: MessageItem): number {
-    const valueA = +(a.createdAt.S);
-    const valueB = +(b.createdAt.S);
+    const valueA = +a.createdAt.S;
+    const valueB = +b.createdAt.S;
     return valueA - valueB;
   }
 
@@ -39,11 +39,7 @@ export class MessagesService {
   private sendMessageCommon<T extends LastUpdatedData>(
     targetID: string,
     data$: Observable<T | null>,
-    createAction: (options: {
-      targetID: string;
-      message: string;
-      time: number;
-    }) => Action,
+    createAction: (options: { targetID: string; message: string; time: number }) => Action,
   ): void {
     const message = this.createMessageForm.get('text')?.value || '';
     data$.pipe(take(1)).subscribe((value) => {
@@ -64,15 +60,12 @@ export class MessagesService {
     conversationID: string,
     conversationData$: Observable<UserProps | null>,
   ): void {
-    this.sendMessageCommon<UserProps>(
-      conversationID,
-      conversationData$,
-      (options) =>
-        postConversationMessageAction({
-          conversationID: options.targetID,
-          message: options.message,
-          time: options.time,
-        }),
+    this.sendMessageCommon<UserProps>(conversationID, conversationData$, (options) =>
+      postConversationMessageAction({
+        conversationID: options.targetID,
+        message: options.message,
+        time: options.time,
+      }),
     );
   }
 

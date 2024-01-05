@@ -72,9 +72,7 @@ export const postNewMessageAction = createAction(
   props<{ groupID: string; message: string; time: number }>(),
 );
 
-export const postNewMessageSuccessAction = createAction(
-  '[Group] Post Message Success',
-);
+export const postNewMessageSuccessAction = createAction('[Group] Post Message Success');
 export const postNewMessageFailedAction = createAction(
   '[Group] Post Message Failed',
   props<{ error: AuthError }>(),

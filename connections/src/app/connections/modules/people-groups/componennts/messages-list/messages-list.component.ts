@@ -14,6 +14,6 @@ export class MessagesListComponent {
   usersData$ = this.usersService.usersData$;
   constructor(
     private usersService: UsersService,
-    protected messagesService: MessagesService
+    protected messagesService: MessagesService,
   ) {}
 }

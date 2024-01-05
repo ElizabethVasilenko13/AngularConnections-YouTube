@@ -44,10 +44,7 @@ export class GroupsEffects {
       exhaustMap(() => {
         return this.groupsApi.loadGroups().pipe(
           map((response) => {
-            this.snackBar.addMessage(
-              `Groups have been succesfully loaded`,
-              NotifyStyles.Success,
-            );
+            this.snackBar.addMessage(`Groups have been succesfully loaded`, NotifyStyles.Success);
             return loadGroupsSuccessAction({
               groups: {
                 count: response.Count,
@@ -72,10 +69,7 @@ export class GroupsEffects {
       exhaustMap(({ groupID }) => {
         return this.groupsApi.loadAllMesages(groupID).pipe(
           map((response) => {
-            this.snackBar.addMessage(
-              `Group have been succesfully loaded`,
-              NotifyStyles.Success,
-            );
+            this.snackBar.addMessage(`Group have been succesfully loaded`, NotifyStyles.Success);
             return loadGroupMessagesSuccessAction({
               groupID,
               time: new Date().getTime(),
@@ -130,13 +124,8 @@ export class GroupsEffects {
       exhaustMap(({ groupID, message, time }) => {
         return this.groupsApi.postNewMessage(groupID, message).pipe(
           map(() => {
-            this.snackBar.addMessage(
-              `Message was sent successfully`,
-              NotifyStyles.Success,
-            );
-            this.store.dispatch(
-              loadGroupMessagesSinceAction({ groupID, time }),
-            );
+            this.snackBar.addMessage(`Message was sent successfully`, NotifyStyles.Success);
+            this.store.dispatch(loadGroupMessagesSinceAction({ groupID, time }));
             return postNewMessageSuccessAction();
           }),
           catchError((error: HttpErrorResponse) => {
@@ -156,10 +145,7 @@ export class GroupsEffects {
       exhaustMap(({ name, userId }) => {
         return this.groupsApi.createGroup(name).pipe(
           map((response) => {
-            this.snackBar.addMessage(
-              `Group have been succesfully created`,
-              NotifyStyles.Success,
-            );
+            this.snackBar.addMessage(`Group have been succesfully created`, NotifyStyles.Success);
             this.groupsApi.isCreateGroupModalClosed.next(true);
             return createGroupSuccessAction({
               name,
@@ -185,10 +171,7 @@ export class GroupsEffects {
       exhaustMap(({ groupID, redirect }) => {
         return this.groupsApi.deleteGroup(groupID).pipe(
           map(() => {
-            this.snackBar.addMessage(
-              `Group have been succesfully deleted`,
-              NotifyStyles.Success,
-            );
+            this.snackBar.addMessage(`Group have been succesfully deleted`, NotifyStyles.Success);
             if (redirect) this.router.navigate(['/']);
             return deleteGroupSuccessAction({ groupID });
           }),

@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { SignUpService } from '@auth/services/sign-up.service';
 
 @Component({
@@ -24,8 +19,6 @@ export class RegistartionFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.signUpService.subscriptions.forEach((subscription) =>
-      subscription.unsubscribe(),
-    );
+    this.signUpService.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

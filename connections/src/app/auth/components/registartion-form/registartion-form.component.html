@@ -30,17 +30,18 @@
     {{ (backendError$ | async)?.message }}
   </div>
   <div class="btn__container">
-    <button
+    <app-button
       type="submit"
-      class="auth__btn"
+      customClass="auth__btn"
+      title="submit"
       [disabled]="
         signUpService.registrationForm.invalid ||
-        (isSubmitting$ | async) ||
-        (isSubmitFormButtonDisable$ | async)
+        !!(isSubmitting$ | async) ||
+        !!(isSubmitFormButtonDisable$ | async)
       "
     >
       Sign up
-    </button>
+    </app-button>
     <a routerLink="/auth/signin"> Have an account? Log In </a>
   </div>
 </form>

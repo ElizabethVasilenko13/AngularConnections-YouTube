@@ -2,9 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UsersStateInterface } from './users.interface';
 import { Features } from '@shared/enums/store-feautures.enum';
 
-export const usersFeatureSelector = createFeatureSelector<UsersStateInterface>(
-  Features.Users,
-);
+export const usersFeatureSelector = createFeatureSelector<UsersStateInterface>(Features.Users);
 
 export const isUsersLoadinSelector = createSelector(
   usersFeatureSelector,
@@ -40,11 +38,7 @@ export const loadedConverationsIdsSelector = createSelector(
 export const selectConversationById = (conversationID: string) =>
   createSelector(usersFeatureSelector, (state: UsersStateInterface) => {
     if (state.users && state.users.items) {
-      return (
-        state.users.items.find(
-          (user) => user.conversatonID === conversationID,
-        ) || null
-      );
+      return state.users.items.find((user) => user.conversatonID === conversationID) || null;
     }
     return null;
   });

@@ -2,9 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Features } from '@shared/enums/store-feautures.enum';
 import { SignInStateInterface } from './signin.interface';
 
-export const authFeatureSelector = createFeatureSelector<SignInStateInterface>(
-  Features.SignIn,
-);
+export const authFeatureSelector = createFeatureSelector<SignInStateInterface>(Features.SignIn);
 
 export const isSubmittingSignInSelector = createSelector(
   authFeatureSelector,

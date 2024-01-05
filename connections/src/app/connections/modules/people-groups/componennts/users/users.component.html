@@ -1,19 +1,18 @@
 <div class="content__header">
   <h2>PEOPLE</h2>
-  <app-countdown-message [identifier]="'users'"></app-countdown-message>
   <div class="btns__container">
-    <button
-      class="control__btn"
+    <app-button
       [disabled]="
         !countdownService.isCountdownEnded('users') ||
         (isUsersLoading$ | async) ||
         (usersData$ | async) === null
       "
-      (click)="usersService.updateUsersList()"
+      (buttonClick)="usersService.updateUsersList()"
     >
       {{ 'Update List' | uppercase }}
-    </button>
+    </app-button>
   </div>
+  <app-countdown-message [identifier]="'users'"></app-countdown-message>
 </div>
 <app-loader [isLoading]="isUsersLoading$ | async"></app-loader>
 <div class="content__items">

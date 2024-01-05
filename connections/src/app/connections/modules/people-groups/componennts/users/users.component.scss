@@ -17,20 +17,6 @@ h2 {
   gap: 20px;
   flex-wrap: wrap;
 }
-
-.control__btn {
-  background-color: $accent-color;
-  color: $primary-text-color;
-  padding: 8px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  &:disabled {
-    background-color: $disabled-solor;
-  }
-}
-
 .content__items {
   max-height: 410px;
   height: 100%;

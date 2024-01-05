@@ -127,79 +127,62 @@ const reducer = createReducer(
       };
     },
   ),
-  on(
-    loadConversationMessagesSuccessAction,
-    (state, action): UsersStateInterface => {
-      const loadedConversatonsIds = state?.loadedConversatonsIds
-        ? [...state.loadedConversatonsIds, action.conversationID]
-        : [action.conversationID];
-      const updatedUsers = (state.users?.items || []).map((user) => {
-        if (
-          user.conversatonID &&
-          user.conversatonID === action.conversationID
-        ) {
-          return {
-            ...user,
-            messages: action.conversationData,
-            lastUpdated: action.time,
-          };
-        }
-        return user;
-      });
+  on(loadConversationMessagesSuccessAction, (state, action): UsersStateInterface => {
+    const loadedConversatonsIds = state?.loadedConversatonsIds
+      ? [...state.loadedConversatonsIds, action.conversationID]
+      : [action.conversationID];
+    const updatedUsers = (state.users?.items || []).map((user) => {
+      if (user.conversatonID && user.conversatonID === action.conversationID) {
+        return {
+          ...user,
+          messages: action.conversationData,
+          lastUpdated: action.time,
+        };
+      }
+      return user;
+    });
 
-      return {
-        ...state,
-        isUsersLoading: false,
-        isConverstionsLoading: false,
-        backendUsersErrors: null,
-        backendConverstionsErrors: null,
-        users: { items: updatedUsers, count: state.users?.count || '0' },
-        loadedConversatonsIds,
-      };
-    },
-  ),
-  on(
-    loadConversationMessagesSinceSuccessAction,
-    (state, action): UsersStateInterface => {
-      const loadedConversatonsIds = state?.loadedConversatonsIds
-        ? [...state.loadedConversatonsIds, action.conversationID]
-        : [action.conversationID];
-      const updatedUsers = (state.users?.items || []).map((user) => {
-        if (
-          user.conversatonID &&
-          user.conversatonID === action.conversationID
-        ) {
-          return {
-            ...user,
-            messages: {
-              count: user.messages?.count + action.conversationData.count,
-              items: [
-                ...(user.messages?.items || []),
-                ...action.conversationData.items,
-              ],
-            },
-            lastUpdated: action.time,
-          };
-        }
-        return user;
-      });
+    return {
+      ...state,
+      isUsersLoading: false,
+      isConverstionsLoading: false,
+      backendUsersErrors: null,
+      backendConverstionsErrors: null,
+      users: { items: updatedUsers, count: state.users?.count || '0' },
+      loadedConversatonsIds,
+    };
+  }),
+  on(loadConversationMessagesSinceSuccessAction, (state, action): UsersStateInterface => {
+    const loadedConversatonsIds = state?.loadedConversatonsIds
+      ? [...state.loadedConversatonsIds, action.conversationID]
+      : [action.conversationID];
+    const updatedUsers = (state.users?.items || []).map((user) => {
+      if (user.conversatonID && user.conversatonID === action.conversationID) {
+        return {
+          ...user,
+          messages: {
+            count: user.messages?.count + action.conversationData.count,
+            items: [...(user.messages?.items || []), ...action.conversationData.items],
+          },
+          lastUpdated: action.time,
+        };
+      }
+      return user;
+    });
 
-      return {
-        ...state,
-        isUsersLoading: false,
-        isConverstionsLoading: false,
-        backendUsersErrors: null,
-        backendConverstionsErrors: null,
-        users: { items: updatedUsers, count: state.users?.count || '0' },
-        loadedConversatonsIds,
-      };
-    },
-  ),
+    return {
+      ...state,
+      isUsersLoading: false,
+      isConverstionsLoading: false,
+      backendUsersErrors: null,
+      backendConverstionsErrors: null,
+      users: { items: updatedUsers, count: state.users?.count || '0' },
+      loadedConversatonsIds,
+    };
+  }),
   on(deleteConversationSuccessAction, (state, action): UsersStateInterface => {
     const loadedConversatonsIds =
-      state?.loadedConversatonsIds?.filter(
-        (id) => id !== action.conversationID,
-      ) ?? null;
+      state?.loadedConversatonsIds?.filter((id) => id !== action.conversationID) ?? null;
     const updatedUsers = (state.users?.items || []).map((user) => {
       if (user.conversatonID && user.conversatonID === action.conversationID) {
         return { ...user, messages: null, conversatonID: null };
@@ -221,7 +204,5 @@ const reducer = createReducer(
     }),
   ),
 );
-export const usersReducer: ActionReducer<UsersStateInterface, Action> = (
-  state,
-  action,
-) => reducer(state, action);
+export const usersReducer: ActionReducer<UsersStateInterface, Action> = (state, action) =>
+  reducer(state, action);

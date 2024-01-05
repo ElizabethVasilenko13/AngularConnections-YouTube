@@ -10,12 +10,12 @@
         [readonly]="false"
       ></app-form-control>
     </div>
-    <button
-      (click)="onSendMessage()"
-      class="group__btn"
+    <app-button
+      customClass="post__btn"
       [disabled]="(isLoading$ | async) || formGroup.invalid"
+      (buttonClick)="onSendMessage()"
     >
       {{ 'send' | uppercase }}
-    </button>
+    </app-button>
   </form>
 </div>

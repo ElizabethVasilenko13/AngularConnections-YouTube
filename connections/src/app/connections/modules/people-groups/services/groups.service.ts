@@ -22,12 +22,8 @@ import { CountdownService } from '@core/services/countdown.service';
 
 @Injectable()
 export class GroupsService {
-  groupsData$: Observable<GroupsProps | null> = this.store.pipe(
-    select(groupsSelector),
-  );
-  isGroupsLoading$: Observable<boolean> = this.store.pipe(
-    select(isGroupsLoadinSelector),
-  );
+  groupsData$: Observable<GroupsProps | null> = this.store.pipe(select(groupsSelector));
+  isGroupsLoading$: Observable<boolean> = this.store.pipe(select(isGroupsLoadinSelector));
   backendGroupsErrors$: Observable<AuthError | null> = this.store.pipe(
     select(backendGroupErrorSelector),
   );
@@ -43,7 +39,7 @@ export class GroupsService {
       ],
     ],
   });
-  count = this.countdownService
+  count = this.countdownService;
 
   constructor(
     private store: Store,
@@ -68,10 +64,11 @@ export class GroupsService {
     const userId = this.authService.currentUserID;
     this.store.dispatch(createGroupAction({ name, userId }));
 
-    const isCreateGroupModalClosedSubscr =
-      this.groupApiService.isCreateGroupModalClosed.subscribe((val) => {
+    const isCreateGroupModalClosedSubscr = this.groupApiService.isCreateGroupModalClosed.subscribe(
+      (val) => {
         if (val === true) this.dialogService.onDialogClose();
-      });
+      },
+    );
 
     this.subscriptions.push(isCreateGroupModalClosedSubscr);
   }

@@ -22,12 +22,8 @@ import { CountdownService } from '@core/services/countdown.service';
 
 @Injectable()
 export class UsersService {
-  usersData$: Observable<UsersProps | null> = this.store.pipe(
-    select(usersSelector),
-  );
-  isUsersLoading$: Observable<boolean> = this.store.pipe(
-    select(isUsersLoadinSelector),
-  );
+  usersData$: Observable<UsersProps | null> = this.store.pipe(select(usersSelector));
+  isUsersLoading$: Observable<boolean> = this.store.pipe(select(isUsersLoadinSelector));
   backendUsersListErrors$: Observable<AuthError | null> = this.store.pipe(
     select(usersBackendSelector),
   );
@@ -42,10 +38,7 @@ export class UsersService {
     public countdownService: CountdownService,
   ) {}
 
-  toConversationPage(
-    conversationID: string | null | undefined,
-    companionID: string,
-  ): void {
+  toConversationPage(conversationID: string | null | undefined, companionID: string): void {
     if (conversationID) {
       this.router.navigate([`conversation/${conversationID}`]);
     } else {
@@ -59,9 +52,7 @@ export class UsersService {
       .afterClosed()
       .subscribe((res) => {
         if (res) {
-          this.store.dispatch(
-            deleteConversationAction({ conversationID, redirect: true }),
-          );
+          this.store.dispatch(deleteConversationAction({ conversationID, redirect: true }));
         }
       });
   }

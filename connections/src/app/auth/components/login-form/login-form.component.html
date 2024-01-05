@@ -1,8 +1,4 @@
-<form
-  class="form"
-  [formGroup]="signInService.loginForm"
-  (ngSubmit)="signInService.onSubmit()"
->
+<form class="form" [formGroup]="signInService.loginForm" (ngSubmit)="signInService.onSubmit()">
   <app-form-control
     label="Email"
     controlName="email"
@@ -23,17 +19,18 @@
     {{ (backendError$ | async)?.message }}
   </div>
   <div class="btn__container">
-    <button
+    <app-button
       type="submit"
-      class="auth__btn"
+      customClass="auth__btn"
+      title="submit"
       [disabled]="
         signInService.loginForm.invalid ||
-        (isSubmitting$ | async) ||
-        (isSubmitFormButtonDisable$ | async)
+        !!(isSubmitting$ | async) ||
+        !!(isSubmitFormButtonDisable$ | async)
       "
     >
       Sign in
-    </button>
+    </app-button>
     <a routerLink="/auth/signup"> Dont have an account? Sign Up </a>
   </div>
 </form>

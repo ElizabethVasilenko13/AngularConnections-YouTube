@@ -7,6 +7,7 @@ import { MaterialModule } from '@material/material.module';
 import { LoaderComponent } from './components/loader/loader.component';
 import { SortBy } from './pipes/sort-by.pipe';
 import { CountdownMessageComponent } from './components/countdown-message/countdown-message.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -15,8 +16,16 @@ import { CountdownMessageComponent } from './components/countdown-message/countd
     LoaderComponent,
     SortBy,
     CountdownMessageComponent,
+    ButtonComponent,
   ],
-  exports: [FormControlComponent, DialogComponent, LoaderComponent, SortBy, CountdownMessageComponent],
+  exports: [
+    FormControlComponent,
+    DialogComponent,
+    LoaderComponent,
+    SortBy,
+    CountdownMessageComponent,
+    ButtonComponent,
+  ],
   imports: [ReactiveFormsModule, CommonModule, MaterialModule],
 })
 export class SharedModule {}

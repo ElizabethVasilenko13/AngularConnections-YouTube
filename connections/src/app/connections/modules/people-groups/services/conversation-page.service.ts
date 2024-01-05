@@ -31,10 +31,7 @@ export class ConversationPageService {
     this.store.dispatch(loadConversationMessagesAction({ conversationID }));
   }
 
-  loadMessagesSince(
-    conversationID: string,
-    conversationData$: Observable<UserProps | null>,
-  ): void {
+  loadMessagesSince(conversationID: string, conversationData$: Observable<UserProps | null>): void {
     conversationData$.pipe(take(1)).subscribe((value) => {
       if (value && value.lastUpdated)
         this.store.dispatch(
@@ -64,20 +61,15 @@ export class ConversationPageService {
     conversationData$: Observable<UserProps | null>,
   ): void {
     this.loadMessagesSince(conversationID, conversationData$);
-    const isConversationLoadingSubscr = this.isConversationsLoading$.subscribe(
-      (value) => {
-        if (!value) {
-          this.backendErrors$.subscribe((error) => {
-            if (!error) {
-              this.countdownService.handleCountdown(
-                'conversation' + conversationID,
-                60,
-              );
-            }
-          });
-        }
-      },
-    );
+    const isConversationLoadingSubscr = this.isConversationsLoading$.subscribe((value) => {
+      if (!value) {
+        this.backendErrors$.subscribe((error) => {
+          if (!error) {
+            this.countdownService.handleCountdown('conversation' + conversationID, 60);
+          }
+        });
+      }
+    });
     this.subscriptions.push(isConversationLoadingSubscr);
   }
 }

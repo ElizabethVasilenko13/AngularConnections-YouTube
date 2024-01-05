@@ -14,10 +14,7 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./connections/connections.module').then(
-        (m) => m.ConnectionsModule,
-      ),
+    loadChildren: () => import('./connections/connections.module').then((m) => m.ConnectionsModule),
   },
   { path: '**', component: NotFoundComponent },
 ];

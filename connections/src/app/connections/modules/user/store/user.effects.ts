@@ -43,10 +43,8 @@ export class UserEffects {
               email: response.email.S,
               name: response.name.S,
               createdAt:
-                this.datePipe.transform(
-                  parseInt(response.createdAt.S),
-                  'yyyy-MM-dd HH:mm:ss',
-                ) || 'Date',
+                this.datePipe.transform(parseInt(response.createdAt.S), 'yyyy-MM-dd HH:mm:ss') ||
+                'Date',
             });
           }),
           catchError((error: HttpErrorResponse) => {

@@ -1,4 +1,5 @@
 @import 'vars';
+
 .user__form {
   width: 100%;
   margin-bottom: 20px;
@@ -8,25 +9,13 @@
   }
 }
 
-button {
-  background-color: $accent-color;
-  color: $primary-text-color;
-  padding: 8px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  &:disabled {
-    background-color: $disabled-solor;
-  }
-}
-
 .button-container {
   margin-top: 10px;
   display: flex;
   column-gap: 20px;
   justify-content: flex-end;
 }
+
 .icon {
   display: block !important;
 }

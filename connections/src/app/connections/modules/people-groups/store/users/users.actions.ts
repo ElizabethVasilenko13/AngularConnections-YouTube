@@ -1,10 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { AuthError } from '@shared/types/user.interaces';
-import {
-  ConverastionMessagesProps,
-  ConversationsProps,
-  UsersProps,
-} from '../../models/users';
+import { ConverastionMessagesProps, ConversationsProps, UsersProps } from '../../models/users';
 
 export const loadUsersAction = createAction(
   '[Users] Load Users',
@@ -19,9 +15,7 @@ export const loadUsersFailedAction = createAction(
   props<{ error: AuthError }>(),
 );
 
-export const loadConversationsAction = createAction(
-  '[Users] Load Conversations',
-);
+export const loadConversationsAction = createAction('[Users] Load Conversations');
 export const loadConversationsSuccessAction = createAction(
   '[Users] Load Conversations Success',
   props<{ conversations: ConversationsProps }>(),

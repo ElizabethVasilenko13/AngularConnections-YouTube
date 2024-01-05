@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, exhaustMap, catchError } from 'rxjs/operators';
-import {
-  sighUpAction,
-  sighUpFailureAction,
-  sighUpSuccessAction,
-} from './signup.actions';
+import { sighUpAction, sighUpFailureAction, sighUpSuccessAction } from './signup.actions';
 import { AuthApiService } from '../../services/auth-api.service';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -29,10 +25,7 @@ export class AuthEffects {
       exhaustMap(({ userData }) => {
         return this.authApi.signUp(userData).pipe(
           map(() => {
-            this.snackBar.addMessage(
-              'You`ve been succesfully registered',
-              NotifyStyles.Success,
-            );
+            this.snackBar.addMessage('You`ve been succesfully registered', NotifyStyles.Success);
             this.router.navigateByUrl(`/${AUTH_ROUTE}/${LOGIN_PAGE_ROUTE}`);
             return sighUpSuccessAction();
           }),

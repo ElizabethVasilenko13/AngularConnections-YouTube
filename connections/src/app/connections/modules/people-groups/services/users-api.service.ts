@@ -23,9 +23,7 @@ export class UsersApiService {
     return this.http.get<ConversationsResponse>(url);
   }
 
-  createConversation(
-    companionId: string,
-  ): Observable<CreateConversationsResponse> {
+  createConversation(companionId: string): Observable<CreateConversationsResponse> {
     const url = `${environment.apiUrl}conversations/create`;
     const body = { companion: companionId };
     return this.http.post<CreateConversationsResponse>(url, body);

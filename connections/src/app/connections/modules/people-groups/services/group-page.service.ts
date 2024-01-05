@@ -30,10 +30,7 @@ export class GroupPageService {
     public countdownService: CountdownService,
   ) {}
 
-  updateGroupDialog(
-    groupID: string,
-    groupDialogData$: Observable<GroupProps | null>,
-  ): void {
+  updateGroupDialog(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
     this.loadMessagesSince(groupID, groupDialogData$);
     const updateSubskr = this.isGroupDialogLoading$.subscribe((value) => {
       if (!value) {
@@ -47,10 +44,7 @@ export class GroupPageService {
     this.subscriptions.push(updateSubskr);
   }
 
-  loadMessagesSince(
-    groupID: string,
-    groupDialogData$: Observable<GroupProps | null>,
-  ): void {
+  loadMessagesSince(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
     groupDialogData$.pipe(take(1)).subscribe((value) => {
       if (value && value.lastUpdated)
         this.store.dispatch(

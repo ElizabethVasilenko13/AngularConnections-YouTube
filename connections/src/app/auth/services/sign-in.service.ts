@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthErrorsTypes } from '@auth/models/auth.enum';
 import { UserSignInProps } from '@auth/models/auth.interfaces';
-import {
-  sighInAction,
-  sighInResetAction,
-} from '@auth/store/signin/signin.actions';
+import { sighInAction, sighInResetAction } from '@auth/store/signin/signin.actions';
 import {
   isSubmittingSignInSelector,
   backendSignInErrorSelector,
@@ -16,12 +13,8 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 @Injectable()
 export class SignInService {
-  isSubmitting$: Observable<boolean> = this.store.pipe(
-    select(isSubmittingSignInSelector),
-  );
-  backendError$: Observable<AuthError | null> = this.store.pipe(
-    select(backendSignInErrorSelector),
-  );
+  isSubmitting$: Observable<boolean> = this.store.pipe(select(isSubmittingSignInSelector));
+  backendError$: Observable<AuthError | null> = this.store.pipe(select(backendSignInErrorSelector));
   isSubmitFormButtonDisable$ = new BehaviorSubject(false);
   subscriptions: Subscription[] = [];
   loginForm = this.fb.group({
@@ -40,11 +33,9 @@ export class SignInService {
   }
 
   initFormValueChanges(): void {
-    const formValueChangesSubscription = this.loginForm.valueChanges.subscribe(
-      () => {
-        this.isSubmitFormButtonDisable$.next(false);
-      },
-    );
+    const formValueChangesSubscription = this.loginForm.valueChanges.subscribe(() => {
+      this.isSubmitFormButtonDisable$.next(false);
+    });
 
     this.subscriptions.push(formValueChangesSubscription);
   }

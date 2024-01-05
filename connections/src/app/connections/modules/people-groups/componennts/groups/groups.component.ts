@@ -20,9 +20,6 @@ export class GroupsComponent implements OnDestroy {
   ) {}
 
   ngOnDestroy(): void {
-    this.groupsService.subscriptions.forEach((subscription) =>
-      subscription.unsubscribe(),
-    );
+    this.groupsService.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
-
 }

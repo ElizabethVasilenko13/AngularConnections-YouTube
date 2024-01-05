@@ -4,8 +4,7 @@ import { GroupsStateInterface } from './groups.interface';
 import { GroupProps } from '../../models/groups';
 import { Features } from '@shared/enums/store-feautures.enum';
 
-export const groupsFeatureSelector =
-  createFeatureSelector<GroupsStateInterface>(Features.Groups);
+export const groupsFeatureSelector = createFeatureSelector<GroupsStateInterface>(Features.Groups);
 
 export const isGroupsLoadinSelector = createSelector(
   groupsFeatureSelector,
@@ -35,11 +34,7 @@ export const loadedGroupsIdsSelector = createSelector(
 export const selectGroupById = (groupId: string) =>
   createSelector(groupsFeatureSelector, (state: GroupsStateInterface) => {
     if (state.groups && state.groups.items) {
-      return (
-        state.groups.items.find(
-          (group: GroupProps) => group.id.S === groupId,
-        ) || null
-      );
+      return state.groups.items.find((group: GroupProps) => group.id.S === groupId) || null;
     }
     return null;
   });

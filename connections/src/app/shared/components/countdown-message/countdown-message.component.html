@@ -1,3 +1,7 @@
 <div *ngIf="!countdownService.isCountdownEnded(identifier)">
-  {{ 'Please wait ' + countdownService.getCountdownValue(identifier) + ' seconds, until the update button becomes enabled' }}
+  {{
+    'Please wait ' +
+      countdownService.getCountdownValue(identifier) +
+      ' seconds, until the update button becomes enabled'
+  }}
 </div>

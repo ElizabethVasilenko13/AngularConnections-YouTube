@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -22,8 +17,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userService.subscriptions.forEach((subscription) =>
-      subscription.unsubscribe(),
-    );
+    this.userService.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

@@ -27,9 +27,7 @@ export class FormControlComponent {
       this.control.invalid &&
       (this.control.dirty || this.control.touched);
     const isBackendErrorPresentAndTouched =
-      !!this.backendError &&
-      !!this.control &&
-      (this.control.dirty || this.control.touched);
+      !!this.backendError && !!this.control && (this.control.dirty || this.control.touched);
 
     return isControlInvalidAndTouched || isBackendErrorPresentAndTouched;
   }
@@ -42,9 +40,7 @@ export class FormControlComponent {
 
         switch (key) {
           case 'required':
-            errorMessages.push(
-              `The ${this.controlName.toLowerCase()} is required.`,
-            );
+            errorMessages.push(`The ${this.controlName.toLowerCase()} is required.`);
             break;
           case 'minlength':
             errorMessages.push(
@@ -61,9 +57,7 @@ export class FormControlComponent {
             );
             break;
           case 'email':
-            errorMessages.push(
-              `The ${this.controlName.toLowerCase()} email is invalid`,
-            );
+            errorMessages.push(`The ${this.controlName.toLowerCase()} email is invalid`);
             break;
           default:
             if (key === 'pattern') {
@@ -72,14 +66,10 @@ export class FormControlComponent {
                   at least 1 capital letter, at least 1 digit and at least 1 special symbol
                   )`);
               } else if (this.controlName === 'name') {
-                errorMessages.push(
-                  `Your name is invalid allowed only letters or spaces`,
-                );
+                errorMessages.push(`Your name is invalid allowed only letters or spaces`);
               }
             } else {
-              errorMessages.push(
-                `The ${this.controlName.toLowerCase()} is invalid`,
-              );
+              errorMessages.push(`The ${this.controlName.toLowerCase()} is invalid`);
             }
         }
       });

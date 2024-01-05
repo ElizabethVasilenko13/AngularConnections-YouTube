@@ -4,7 +4,7 @@ import { MessageItem } from 'src/app/connections/modules/people-groups/models/gr
 export type SortComparator = (a: MessageItem, b: MessageItem) => number;
 
 @Pipe({
-  name: 'sortBy'
+  name: 'sortBy',
 })
 export class SortBy implements PipeTransform {
   transform(messages: MessageItem[] | undefined, comparator: SortComparator): MessageItem[] | null {

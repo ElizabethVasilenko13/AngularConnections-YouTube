@@ -2,21 +2,16 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { UserProfileFormInterface } from 'src/app/connections/models/user.interfaces';
-import {
-  LogoutAction,
-  UpdateUserNameAction,
-  loadUserAction,
-} from '../store/user.actions';
+import { LogoutAction, UpdateUserNameAction, loadUserAction } from '../store/user.actions';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { isUserLoadinSgelector, userSelector } from '../store/user.selectors';
 
 @Injectable()
 export class UserService {
-  userProfileData$: Observable<UserProfileFormInterface | null> =
-    this.store.pipe(select(userSelector));
-  isUserLoading$: Observable<boolean> = this.store.pipe(
-    select(isUserLoadinSgelector),
+  userProfileData$: Observable<UserProfileFormInterface | null> = this.store.pipe(
+    select(userSelector),
   );
+  isUserLoading$: Observable<boolean> = this.store.pipe(select(isUserLoadinSgelector));
   userProfileForm!: FormGroup;
   originalFormValues: UserProfileFormInterface | null = null;
   isEditMode$ = new BehaviorSubject<boolean>(false);
@@ -29,11 +24,7 @@ export class UserService {
     this.userProfileForm = this.fb.group({
       name: [
         '',
-        [
-          Validators.required,
-          Validators.maxLength(40),
-          Validators.pattern(/^[a-zA-Z\s]+$/),
-        ],
+        [Validators.required, Validators.maxLength(40), Validators.pattern(/^[a-zA-Z\s]+$/)],
       ],
       email: [''],
       uid: [''],
@@ -71,8 +62,7 @@ export class UserService {
 
   cancelEdit(): void {
     this.changeEditModeValue(false);
-    this.originalFormValues &&
-      this.userProfileForm.setValue(this.originalFormValues);
+    this.originalFormValues && this.userProfileForm.setValue(this.originalFormValues);
   }
 
   saveChanges(): void {

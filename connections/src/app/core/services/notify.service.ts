@@ -6,8 +6,7 @@ import { NotifyStyles } from '@shared/enums/notify.enum';
   providedIn: 'root',
 })
 export class NotifyService {
-  private queue: { message: string; style: NotifyStyles; duration: number }[] =
-    [];
+  private queue: { message: string; style: NotifyStyles; duration: number }[] = [];
   private isOpen = false;
 
   constructor(private snackBar: MatSnackBar) {}

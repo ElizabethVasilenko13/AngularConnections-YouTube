@@ -2,11 +2,7 @@ import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import {
-  SignInResponse,
-  UserSignInProps,
-  UserSignUpProps,
-} from '../models/auth.interfaces';
+import { SignInResponse, UserSignInProps, UserSignUpProps } from '../models/auth.interfaces';
 import { FormGroup } from '@angular/forms';
 
 @Injectable()

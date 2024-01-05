@@ -8,48 +8,37 @@
         <h2>{{ 'Conversation' | uppercase }}</h2>
       </div>
       <div class="header__controls">
-        <button
-          (click)="
-            conversationPageService.updateConversation(
-              converastionID,
-              conversationData$
-            )
-          "
-          class="group__btn"
+        <app-button
           [disabled]="
-            !countdownService.isCountdownEnded(
-              'conversation' + converastionID
-            ) || (isConversationsLoading$ | async)
+            !countdownService.isCountdownEnded('conversation' + converastionID) ||
+            !!(isConversationsLoading$ | async)
+          "
+          (buttonClick)="
+            conversationPageService.updateConversation(converastionID, conversationData$)
           "
         >
           {{ 'Update messages' | uppercase }}
-        </button>
-        <button
-          (click)="usersService.onDeleteConversation(converastionID)"
-          *ngIf="(isConversationsLoading$ | async) === false"
-          class="header__control header__control-delete"
-          [disabled]="isConversationsLoading$ | async"
-          title="Delete group"
+        </app-button>
+        <app-button
+          title="Delete conversation"
+          customClass="header__control header__control-delete"
+          [disabled]="!!(isConversationsLoading$ | async)"
+          (buttonClick)="usersService.onDeleteConversation(converastionID)"
         >
           <mat-icon>delete</mat-icon>
-        </button>
+        </app-button>
       </div>
     </div>
     <app-countdown-message [identifier]="'conversation' + converastionID"></app-countdown-message>
   </div>
   <app-loader [isLoading]="isConversationsLoading$ | async"></app-loader>
   <div class="group-dialog__main">
-    <app-messages-list
-      [messages]="(conversationData$ | async)?.messages"
-    ></app-messages-list>
+    <app-messages-list [messages]="(conversationData$ | async)?.messages"></app-messages-list>
     <app-post-message-form
       [formGroup]="messagesService.createMessageForm"
       [isLoading$]="isConversationsLoading$"
       (sendMessage)="
-        messagesService.sendMessageForConversation(
-          this.converastionID,
-          conversationData$
-        )
+        messagesService.sendMessageForConversation(this.converastionID, conversationData$)
       "
     >
     </app-post-message-form>

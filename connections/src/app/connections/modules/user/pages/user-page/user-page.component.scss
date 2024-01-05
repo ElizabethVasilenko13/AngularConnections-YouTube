@@ -9,21 +9,6 @@
   flex-direction: column;
 }
 
-.exit__btn {
-  padding: 4px 6px;
-  display: flex;
-  align-items: center;
-  background-color: $accent-color;
-  color: $primary-text-color;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  &:disabled {
-    background-color: $disabled-solor;
-  }
-}
-
 .user {
   min-width: 500px;
   height: 50%;

@@ -77,35 +77,29 @@ const reducer = createReducer(
       loadedGroupIds,
     };
   }),
-  on(
-    loadGroupMessagesSinceSuccessAction,
-    (state, action): GroupsStateInterface => {
-      const updatedGroups = (state.groups?.items || []).map((group) =>
-        group.id.S === action.groupID
-          ? {
-              ...group,
-              messages: {
-                count: action.groupData.count,
-                items: [
-                  ...(group.messages?.items || []),
-                  ...action.groupData.items,
-                ],
-              },
-              lastUpdated: action.time,
-            }
-          : group,
-      );
-      return {
-        ...state,
-        groups: {
-          ...state.groups,
-          items: updatedGroups,
-        },
-        isLoading: false,
-        backendErrors: null,
-      };
-    },
-  ),
+  on(loadGroupMessagesSinceSuccessAction, (state, action): GroupsStateInterface => {
+    const updatedGroups = (state.groups?.items || []).map((group) =>
+      group.id.S === action.groupID
+        ? {
+            ...group,
+            messages: {
+              count: action.groupData.count,
+              items: [...(group.messages?.items || []), ...action.groupData.items],
+            },
+            lastUpdated: action.time,
+          }
+        : group,
+    );
+    return {
+      ...state,
+      groups: {
+        ...state.groups,
+        items: updatedGroups,
+      },
+      isLoading: false,
+      backendErrors: null,
+    };
+  }),
   on(
     loadGroupsFailedAction,
     createGroupFailedAction,
@@ -144,11 +138,8 @@ const reducer = createReducer(
   }),
   on(deleteGroupSuccessAction, (state, action): GroupsStateInterface => {
     if (state.groups) {
-      const updatedItems = state.groups.items.filter(
-        (item) => item.id.S !== action.groupID,
-      );
-      const loadedGroupIds =
-        state?.loadedGroupIds?.filter((id) => id !== action.groupID) ?? null;
+      const updatedItems = state.groups.items.filter((item) => item.id.S !== action.groupID);
+      const loadedGroupIds = state?.loadedGroupIds?.filter((id) => id !== action.groupID) ?? null;
       const updatedGroups = { ...state.groups, items: updatedItems };
       return {
         ...state,
@@ -162,7 +153,5 @@ const reducer = createReducer(
     }
   }),
 );
-export const groupsReducer: ActionReducer<GroupsStateInterface, Action> = (
-  state,
-  action,
-) => reducer(state, action);
+export const groupsReducer: ActionReducer<GroupsStateInterface, Action> = (state, action) =>
+  reducer(state, action);

@@ -94,10 +94,8 @@ const reducer = createReducer(
     }),
   ),
 );
-export const userReducer: ActionReducer<UserStateInterface, Action> = (
-  state,
-  action,
-) => reducer(state, action);
+export const userReducer: ActionReducer<UserStateInterface, Action> = (state, action) =>
+  reducer(state, action);
 
 export function clearStateMetaReducer<State>(
   reducer: ActionReducer<State, Action>,

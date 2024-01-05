@@ -9,10 +9,7 @@ export class CountdownService {
     string,
     BehaviorSubject<number>
   >();
-  private timerSubscriptions: Map<string, Subscription> = new Map<
-    string,
-    Subscription
-  >();
+  private timerSubscriptions: Map<string, Subscription> = new Map<string, Subscription>();
 
   setCountdown(key: string, value: number): void {
     if (!this.countdowns.has(key)) {

@@ -32,30 +32,26 @@
     [readonly]="true"
   ></app-form-control>
   <div class="button-container">
-    <button
+    <app-button
       *ngIf="(isEditMode$ | async) === false"
-      [disabled]="
-        (isUserLoading$ | async) || (userProfileData$ | async) === null
-      "
-      (click)="userService.enterEditMode()"
+      [disabled]="(isUserLoading$ | async) || (userProfileData$ | async) === null"
+      (buttonClick)="userService.enterEditMode()"
     >
       {{ 'Edit' | uppercase }}
-    </button>
-    <button
+    </app-button>
+    <app-button
       *ngIf="isEditMode$ | async"
-      [disabled]="isUserLoading$ | async"
-      (click)="userService.cancelEdit()"
+      [disabled]="!!(isUserLoading$ | async)"
+      (buttonClick)="userService.cancelEdit()"
     >
       {{ 'Cancel' | uppercase }}
-    </button>
-    <button
+    </app-button>
+    <app-button
       *ngIf="isEditMode$ | async"
-      [disabled]="
-        (isUserLoading$ | async) || userService.userProfileForm.invalid
-      "
-      (click)="userService.saveChanges()"
+      [disabled]="(isUserLoading$ | async) || userService.userProfileForm.invalid"
+      (buttonClick)="userService.saveChanges()"
     >
       {{ 'Save' | uppercase }}
-    </button>
+    </app-button>
   </div>
 </form>

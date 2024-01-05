@@ -1,0 +1,75 @@
+@import 'vars';
+button {
+  cursor: pointer;
+  color: $primary-text-color;
+  padding: 8px;
+  font-weight: bold;
+  border: none;
+  background-color: $accent-color;
+  border-radius: 8px;
+  letter-spacing: 2px;
+
+  &:disabled {
+    background-color: $disabled-solor;
+  }
+}
+
+.close-dialog__btn {
+  padding: 3px 6px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+
+  &:hover {
+    background-color: #ffffff45 !important;
+  }
+}
+
+.create__btn {
+  padding: 2px 4px;
+}
+
+.delete__btn {
+  padding: 0 5px;
+}
+
+.post__btn {
+  max-height: 40px;
+}
+
+.header__control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $accent-color;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+
+  &:disabled {
+    color: white;
+  }
+}
+
+.header__control-delete {
+  background-color: transparent;
+  padding: 4px;
+
+  &:hover {
+    background-color: $hover-color !important;
+  }
+}
+
+.auth__btn {
+  margin-top: 10px;
+  max-width: 100px;
+  width: 100%;
+}
+
+.exit__btn {
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+}

@@ -25,10 +25,7 @@ export class GroupsApiService {
     return this.http.delete<GroupApiProps>(url);
   }
 
-  loadAllMesages(
-    groupID: string,
-    since?: number,
-  ): Observable<GroupMessagesResponse> {
+  loadAllMesages(groupID: string, since?: number): Observable<GroupMessagesResponse> {
     const sinceTime = since ? `&since=${since}` : '';
     const url = `${environment.apiUrl}groups/read?groupID=${groupID}${sinceTime}`;
     return this.http.get<GroupMessagesResponse>(url);

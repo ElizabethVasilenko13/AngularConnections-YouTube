@@ -48,7 +48,5 @@ const reducer = createReducer(
     }),
   ),
 );
-export const authReducer: ActionReducer<SignUpStateInterface, Action> = (
-  state,
-  action,
-) => reducer(state, action);
+export const authReducer: ActionReducer<SignUpStateInterface, Action> = (state, action) =>
+  reducer(state, action);
