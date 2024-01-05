@@ -8,6 +8,5 @@ import { CountdownService } from '@core/services/countdown.service';
 })
 export class CountdownMessageComponent {
   @Input() identifier = '';
-
   constructor(public countdownService: CountdownService) {}
 }

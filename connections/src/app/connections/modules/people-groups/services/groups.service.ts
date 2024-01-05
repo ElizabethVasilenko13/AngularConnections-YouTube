@@ -55,7 +55,7 @@ export class GroupsService {
     this.store.dispatch(loadGroupsAction());
   }
 
-  isGroupCreatedByCurrentUser(createdBy: string): boolean {
+  isGroupCreatedByCurrentUser(createdBy: string | undefined): boolean {
     return this.currentUserID === createdBy;
   }
 
@@ -95,15 +95,16 @@ export class GroupsService {
     this.dialog.open(template, dialogConfig);
   }
 
-  onDeleteGroup(event: Event, groupID: string, redirect?: boolean): void {
+  onDeleteGroup(event: Event, groupID: string | undefined, redirect?: boolean): void {
     event.stopPropagation();
+    const id = groupID ?? ''
     this.dialogService
       .openConfirmDialog('Are you sure you want to delete this group?')
       .afterClosed()
       .pipe(take(1))
       .subscribe((res) => {
         if (res) {
-          this.store.dispatch(deleteGroupAction({ groupID, redirect }));
+          this.store.dispatch(deleteGroupAction({ groupID : id, redirect }));
         }
       });
   }

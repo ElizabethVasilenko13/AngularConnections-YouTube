@@ -16,17 +16,7 @@
 </div>
 <app-loader [isLoading]="isUsersLoading$ | async"></app-loader>
 <div class="content__items">
-  <div
-    *ngFor="let user of (usersData$ | async)?.items"
-    class="group-item"
-    (click)="usersService.toConversationPage(user.conversatonID, user.uid.S)"
-    [class.groupCurrent]="usersService.isConversationID(user)"
-  >
-    <div class="group__link">
-      <div class="group-property">
-        {{ user.name.S }}
-        <span *ngIf="usersService.isConversationID(user)"> *****</span>
-      </div>
-    </div>
-  </div>
+  <ng-container  *ngFor="let user of (usersData$ | async)?.items">
+    <app-user-item [user]="user"></app-user-item>
+  </ng-container>
 </div>

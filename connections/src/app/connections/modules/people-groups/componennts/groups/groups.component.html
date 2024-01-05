@@ -24,24 +24,9 @@
 </div>
 <app-loader [isLoading]="isGroupsLoading$ | async"></app-loader>
 <div class="content__items">
-  <div
-    *ngFor="let group of (groupsData$ | async)?.items"
-    class="group-item"
-    [class.groupCurrent]="groupsService.isGroupCreatedByCurrentUser(group.createdBy.S)"
-  >
-    <a routerLink="/group/{{ group.id.S }}" class="group__link">
-      <div class="group-property">{{ group.name.S }}</div>
-    </a>
-    <app-button
-      customClass="delete__btn"
-      title="Delete"
-      *ngIf="groupsService.isGroupCreatedByCurrentUser(group.createdBy.S)"
-      [disabled]="(isGroupsLoading$ | async) || (groupsData$ | async) === null"
-      (buttonClick)="groupsService.onDeleteGroup($event, group.id.S)"
-    >
-      ✕
-    </app-button>
-  </div>
+  <ng-container *ngFor="let group of (groupsData$ | async)?.items">
+    <app-group-item [group]="group" [isLoading]="!!(isGroupsLoading$ | async)"></app-group-item>
+  </ng-container>
 </div>
 <ng-template #createForm>
   <div class="create-form">

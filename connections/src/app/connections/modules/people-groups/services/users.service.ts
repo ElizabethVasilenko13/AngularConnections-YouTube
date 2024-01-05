@@ -38,11 +38,12 @@ export class UsersService {
     public countdownService: CountdownService,
   ) {}
 
-  toConversationPage(conversationID: string | null | undefined, companionID: string): void {
+  toConversationPage(conversationID: string | undefined | null, companionID: string | undefined): void {
     if (conversationID) {
       this.router.navigate([`conversation/${conversationID}`]);
     } else {
-      this.store.dispatch(createConversationAction({ companion: companionID }));
+      const companion = companionID ?? '';
+      this.store.dispatch(createConversationAction({ companion }));
     }
   }
 
@@ -77,7 +78,7 @@ export class UsersService {
     this.subscriptions.push(isUsersLoadingSubscr);
   }
 
-  isConversationID(user: UserProps): boolean {
-    return !!user.conversatonID;
+  isConversationID(user: UserProps | undefined): boolean {
+    return !!user && !!user.conversatonID;
   }
 }
