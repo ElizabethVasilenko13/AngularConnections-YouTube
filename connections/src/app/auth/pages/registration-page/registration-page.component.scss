@@ -19,45 +19,8 @@ h1 {
   }
 }
 
-.error {
-  color: $error-color;
-  margin-top: 10px;
-}
-
 .auth__form {
   border: 1px solid $primaty-color-light;
   padding: 30px;
   border-radius: 8px;
-}
-
-.btn__container {
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-  align-items: flex-end;
-
-  button {
-    margin-bottom: 10px;
-  }
-
-  a {
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.auth__btn {
-  margin-top: 10px;
-  background-color: $accent-color;
-  color: $primary-text-color;
-  padding: 8px;
-  border: none;
-  border-radius: 8px;
-  max-width: 100px;
-  width: 100%;
-
-  &:disabled {
-    background-color: $disabled-solor;
-  }
 }

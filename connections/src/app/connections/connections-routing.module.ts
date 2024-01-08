@@ -12,10 +12,10 @@ const routes: Routes = [
     path: '',
     component: CoreComponent,
     children: [
-      { path: '', component: MainPageComponent,  pathMatch: 'full'},
+      { path: '', component: MainPageComponent, pathMatch: 'full' },
       { path: USER_PAGE_ROUTE, component: UserPageComponent },
-      {path: GROUP_PAGE_ROUTE, component: GroupPageComponent},
-      {path: CONVERSAION_PAGE_ROUTE, component: ConversationPageComponent}
+      { path: GROUP_PAGE_ROUTE, component: GroupPageComponent },
+      { path: CONVERSAION_PAGE_ROUTE, component: ConversationPageComponent },
     ],
   },
 ];

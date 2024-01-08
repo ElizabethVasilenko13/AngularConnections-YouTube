@@ -14,7 +14,7 @@ export class NotifyService {
   addMessage(
     message = 'Oops... Temporary Server Error :(',
     style = NotifyStyles.Success,
-    duration = 2000
+    duration = 2000,
   ): void {
     this.queue.push({ message, style, duration });
     this.showSnackbar();
@@ -26,20 +26,20 @@ export class NotifyService {
       if (snack) {
         const { message, style, duration } = snack;
         const config = new MatSnackBarConfig();
-      config.duration = duration;
-      config.horizontalPosition = 'right';
-      config.verticalPosition = 'top';
-      config.panelClass = ['custom-snackbar', style];
+        config.duration = duration;
+        config.horizontalPosition = 'right';
+        config.verticalPosition = 'bottom';
+        config.panelClass = ['custom-snackbar', style];
 
-      const snackBarRef = this.snackBar.open(message, 'Close', config);
+        const snackBarRef = this.snackBar.open(message, 'Close', config);
 
-      snackBarRef.afterDismissed().subscribe(() => {
-        this.isOpen = false;
-        this.showSnackbar();
-      });
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.isOpen = false;
+          this.showSnackbar();
+        });
 
-      this.isOpen = true
-    }
+        this.isOpen = true;
+      }
     }
   }
 }

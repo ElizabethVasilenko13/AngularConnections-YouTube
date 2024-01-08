@@ -2,47 +2,6 @@
 <section class="container auth">
   <div class="auth__form">
     <h2>Sign up</h2>
-    <form class="form" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-      <app-form-control
-        label="FirstName"
-        controlName="name"
-        [control]="registrationForm.get('name')"
-        [isRequired]="true"
-        [backendError]="backendError$ | async"
-      ></app-form-control>
-      <app-form-control
-        label="Email"
-        controlName="email"
-        [control]="registrationForm.get('email')"
-        [isRequired]="true"
-        type="email"
-        [backendError]="backendError$ | async"
-      ></app-form-control>
-      <app-form-control
-        label="Password"
-        controlName="password"
-        [control]="registrationForm.get('password')"
-        [isRequired]="true"
-        type="password"
-        [backendError]="backendError$ | async"
-      ></app-form-control>
-      <div class="error" *ngIf="backendError$ | async">
-        {{ (backendError$ | async)?.message }}
-      </div>
-      <div class="btn__container">
-        <button
-          type="submit"
-          class="auth__btn"
-          [disabled]="
-            registrationForm.invalid ||
-            (isSubmitting$ | async) ||
-            hasBackendError
-          "
-        >
-          Sign up
-        </button>
-        <a routerLink="/auth/signin"> Have an account? Log In </a>
-      </div>
-    </form>
+    <app-registartion-form></app-registartion-form>
   </div>
 </section>

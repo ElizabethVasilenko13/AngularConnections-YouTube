@@ -1,0 +1,57 @@
+<form [formGroup]="userService.userProfileForm" class="user__form">
+  <app-form-control
+    className="form-profile"
+    label="{{ 'name:' | uppercase }}"
+    controlName="name"
+    [control]="userService.userProfileForm.get('name')"
+    type="text"
+    [readonly]="(isEditMode$ | async) === false"
+  ></app-form-control>
+  <app-form-control
+    className="form-profile"
+    label="{{ 'email:' | uppercase }}"
+    controlName="name"
+    [control]="userService.userProfileForm.get('email')"
+    type="email"
+    [readonly]="true"
+  ></app-form-control>
+  <app-form-control
+    className="form-profile"
+    label="{{ 'User ID:' | uppercase }}"
+    controlName="uid"
+    [control]="userService.userProfileForm.get('uid')"
+    type="text"
+    [readonly]="true"
+  ></app-form-control>
+  <app-form-control
+    className="form-profile"
+    label="{{ 'Created At:' | uppercase }}"
+    controlName="createdAt"
+    [control]="userService.userProfileForm.get('createdAt')"
+    type="text"
+    [readonly]="true"
+  ></app-form-control>
+  <div class="button-container">
+    <app-button
+      *ngIf="(isEditMode$ | async) === false"
+      [disabled]="(isUserLoading$ | async) || (userProfileData$ | async) === null"
+      (buttonClick)="userService.enterEditMode()"
+    >
+      {{ 'Edit' | uppercase }}
+    </app-button>
+    <app-button
+      *ngIf="isEditMode$ | async"
+      [disabled]="!!(isUserLoading$ | async)"
+      (buttonClick)="userService.cancelEdit()"
+    >
+      {{ 'Cancel' | uppercase }}
+    </app-button>
+    <app-button
+      *ngIf="isEditMode$ | async"
+      [disabled]="(isUserLoading$ | async) || userService.userProfileForm.invalid"
+      (buttonClick)="userService.saveChanges()"
+    >
+      {{ 'Save' | uppercase }}
+    </app-button>
+  </div>
+</form>

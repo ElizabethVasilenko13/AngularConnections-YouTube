@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 interface DialogData {
@@ -8,11 +8,14 @@ interface DialogData {
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss']
+  styleUrls: ['./dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
-  public dialogRef: MatDialogRef<DialogComponent>) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public dialogRef: MatDialogRef<DialogComponent>,
+  ) {}
 
   closeDialog(): void {
     this.dialogRef.close(false);

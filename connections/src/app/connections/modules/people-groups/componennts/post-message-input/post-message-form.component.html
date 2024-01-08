@@ -1,0 +1,21 @@
+<div class="create__message">
+  <form [formGroup]="formGroup" class="message__form">
+    <div class="message__input">
+      <app-form-control
+        className="message-form"
+        label="{{ '' | uppercase }}"
+        controlName="text"
+        [control]="formGroup.get('text')"
+        type="text"
+        [readonly]="false"
+      ></app-form-control>
+    </div>
+    <app-button
+      customClass="post__btn"
+      [disabled]="(isLoading$ | async) || formGroup.invalid"
+      (buttonClick)="onSendMessage()"
+    >
+      {{ 'send' | uppercase }}
+    </app-button>
+  </form>
+</div>

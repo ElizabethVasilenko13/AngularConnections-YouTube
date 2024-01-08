@@ -1,29 +1,84 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ConversationsResponse, CreateConversationsResponse, UsersResponse } from '../models/users';
-import { environment } from '@env/environment';
+import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import {
+  createConversationAction,
+  deleteConversationAction,
+  loadUsersAction,
+} from '../store/users/users.actions';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ConversationPageComponent } from '../pages/conversation-page/conversation-page.component';
+import { DialogService } from '@core/services/dialog.service';
+import { Observable, Subscription } from 'rxjs';
+import { UserProps, UsersProps } from '../models/users';
+import { AuthError } from '@shared/types/user.interaces';
+import {
+  usersSelector,
+  isUsersLoadinSelector,
+  usersBackendSelector,
+} from '../store/users/users.selectors';
+import { AuthService } from '@core/services/auth.service';
+import { CountdownService } from '@core/services/countdown.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UsersService {
+  usersData$: Observable<UsersProps | null> = this.store.pipe(select(usersSelector));
+  isUsersLoading$: Observable<boolean> = this.store.pipe(select(isUsersLoadinSelector));
+  backendUsersListErrors$: Observable<AuthError | null> = this.store.pipe(
+    select(usersBackendSelector),
+  );
+  subscriptions: Subscription[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private store: Store,
+    private router: Router,
+    public dialogRef: MatDialogRef<ConversationPageComponent>,
+    private dialogService: DialogService,
+    private authService: AuthService,
+    public countdownService: CountdownService,
+  ) {}
 
-  loadUsers(): Observable<UsersResponse> {
-    const url = `${environment.apiUrl}users`;
-    return this.http.get<UsersResponse>(url);
+  toConversationPage(conversationID: string | undefined | null, companionID: string | undefined): void {
+    if (conversationID) {
+      this.router.navigate([`conversation/${conversationID}`]);
+    } else {
+      const companion = companionID ?? '';
+      this.store.dispatch(createConversationAction({ companion }));
+    }
   }
 
-  loadConversation(): Observable<ConversationsResponse> {
-    const url = `${environment.apiUrl}conversations/list`;
-    return this.http.get<ConversationsResponse>(url);
+  onDeleteConversation(conversationID: string): void {
+    this.dialogService
+      .openConfirmDialog('Are you sure you want to delete this conversation?')
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.store.dispatch(deleteConversationAction({ conversationID, redirect: true }));
+        }
+      });
   }
 
-  createConversation(companionId: string): Observable<CreateConversationsResponse> {
-    const url = `${environment.apiUrl}conversations/create`;
-    const body = {companion: companionId}
-    return this.http.post<CreateConversationsResponse>(url, body);
+  loadUsers(): void {
+    const currentUserId = this.authService.currentUserID;
+    this.store.dispatch(loadUsersAction({ currentUserId }));
+  }
+
+  updateUsersList(): void {
+    this.loadUsers();
+    const isUsersLoadingSubscr = this.isUsersLoading$.subscribe((value) => {
+      if (!value) {
+        this.backendUsersListErrors$.subscribe((error) => {
+          if (!error) {
+            this.countdownService.handleCountdown('users', 60);
+          }
+        });
+      }
+    });
+
+    this.subscriptions.push(isUsersLoadingSubscr);
+  }
+
+  isConversationID(user: UserProps | undefined): boolean {
+    return !!user && !!user.conversatonID;
   }
 }

@@ -1,9 +1,11 @@
-import { AuthError } from "@shared/types/user";
-import { ConversationsProps, UsersProps } from "../../models/users";
+import { AuthError } from '@shared/types/user.interaces';
+import { UsersProps } from '../../models/users';
 
 export interface UsersStateInterface {
-  isLoading: boolean;
-  backendErrors: AuthError | null;
+  isUsersLoading: boolean;
+  isConverstionsLoading: boolean;
+  backendUsersErrors: AuthError | null;
+  backendConverstionsErrors: AuthError | null;
   users: UsersProps | null;
-  conversations: ConversationsProps | null;
+  loadedConversatonsIds: string[] | null;
 }

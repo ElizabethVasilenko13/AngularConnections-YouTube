@@ -4,7 +4,7 @@ import { map, exhaustMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
-import { UserService } from '../services/user.service';
+import { UserApiService } from '../services/user-api.service';
 import { NotifyStyles } from '@shared/enums/notify.enum';
 import {
   LogoutAction,
@@ -23,7 +23,7 @@ import { DatePipe } from '@angular/common';
 export class UserEffects {
   constructor(
     private actions$: Actions,
-    private userService: UserService,
+    private userApiService: UserApiService,
     private snackBar: NotifyService,
     private datePipe: DatePipe,
   ) {}
@@ -32,22 +32,22 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(loadUserAction),
       exhaustMap(() => {
-        return this.userService.loadUser().pipe(
+        return this.userApiService.loadUser().pipe(
           map((response) => {
-            this.snackBar.addMessage(`${response.email.S} been succesfully loaded`, NotifyStyles.Success);
+            this.snackBar.addMessage(
+              `${response.email.S} been succesfully loaded`,
+              NotifyStyles.Success,
+            );
             return loadUserSuccessfulAction({
               uid: response.uid.S,
               email: response.email.S,
               name: response.name.S,
               createdAt:
-                this.datePipe.transform(
-                  parseInt(response.createdAt.S),
-                  'yyyy-MM-dd HH:mm:ss',
-                ) || 'Date',
+                this.datePipe.transform(parseInt(response.createdAt.S), 'yyyy-MM-dd HH:mm:ss') ||
+                'Date',
             });
           }),
           catchError((error: HttpErrorResponse) => {
-            // const message = error.error ? error.error.message || 'Error' : 'Error'
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
@@ -62,7 +62,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UpdateUserNameAction),
       exhaustMap(({ name }) => {
-        return this.userService.updateUser(name).pipe(
+        return this.userApiService.updateUser(name).pipe(
           map(() => {
             this.snackBar.addMessage(
               `User name has been updated successfully`,
@@ -71,7 +71,6 @@ export class UserEffects {
             return UpdateUserSuccessfulNameAction({ name });
           }),
           catchError((error: HttpErrorResponse) => {
-            // const message = error.error ? error.error.message || 'Error' : 'Error'
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
@@ -86,13 +85,10 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(LogoutAction),
       exhaustMap(() => {
-        return this.userService.logout().pipe(
+        return this.userApiService.logout().pipe(
           map(() => {
-            this.snackBar.addMessage(
-              'Logout successful',
-              NotifyStyles.Success,
-            );
-            this.userService.handleLodout();
+            this.snackBar.addMessage('Logout successful', NotifyStyles.Success);
+            this.userApiService.handleLogout();
             return LogoutSuccessfulAction();
           }),
           catchError((error: HttpErrorResponse) => {

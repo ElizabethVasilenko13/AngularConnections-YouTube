@@ -1,11 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { UserSignInProps } from '../../models/auth';
-import { AuthError } from '@shared/types/user';
+import { UserSignInProps } from '../../models/auth.interfaces';
+import { AuthError } from '@shared/types/user.interaces';
 
-export const sighInAction = createAction(
-  '[Auth] Sign In',
-  props<{ userData: UserSignInProps }>(),
-);
+export const sighInAction = createAction('[Auth] Sign In', props<{ userData: UserSignInProps }>());
 export const sighInSuccessAction = createAction(
   '[Auth] Sign In Success',
   props<{ userData: UserSignInProps; token: string; uid: string }>(),

@@ -9,15 +9,8 @@
   flex-direction: column;
 }
 
-.exit__btn {
-  padding: 4px 6px;
-  display: flex;
-  align-items: center;
-}
-
 .user {
-  max-width: 600px;
-  width: 100%;
+  min-width: 500px;
   height: 50%;
   background-color: $primaty-color-light;
   padding: 20px;
@@ -28,15 +21,6 @@
 
   h2 {
     color: $accent-color;
-  }
-
-  .user__form {
-    width: 100%;
-    margin-bottom: 20px;
-
-    input {
-      width: 100%;
-    }
   }
 }
 
@@ -56,24 +40,4 @@
 
 .icon {
   display: block !important;
-}
-
-button {
-  background-color: $accent-color;
-  color: $primary-text-color;
-  padding: 8px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  &:disabled {
-    background-color: $disabled-solor;
-  }
-}
-
-.button-container {
-  margin-top: 10px;
-  display: flex;
-  column-gap: 20px;
-  justify-content: flex-end;
 }

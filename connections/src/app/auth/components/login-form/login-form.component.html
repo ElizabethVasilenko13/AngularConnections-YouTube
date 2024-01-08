@@ -1,0 +1,36 @@
+<form class="form" [formGroup]="signInService.loginForm" (ngSubmit)="signInService.onSubmit()">
+  <app-form-control
+    label="Email"
+    controlName="email"
+    [control]="signInService.loginForm.get('email')"
+    [isRequired]="true"
+    type="email"
+    [backendError]="backendError$ | async"
+  ></app-form-control>
+  <app-form-control
+    label="Password"
+    controlName="password"
+    [control]="signInService.loginForm.get('password')"
+    [isRequired]="true"
+    type="password"
+    [backendError]="backendError$ | async"
+  ></app-form-control>
+  <div class="error" *ngIf="backendError$ | async">
+    {{ (backendError$ | async)?.message }}
+  </div>
+  <div class="btn__container">
+    <app-button
+      type="submit"
+      customClass="auth__btn"
+      title="submit"
+      [disabled]="
+        signInService.loginForm.invalid ||
+        !!(isSubmitting$ | async) ||
+        !!(isSubmitFormButtonDisable$ | async)
+      "
+    >
+      Sign in
+    </app-button>
+    <a routerLink="/auth/signup"> Dont have an account? Sign Up </a>
+  </div>
+</form>

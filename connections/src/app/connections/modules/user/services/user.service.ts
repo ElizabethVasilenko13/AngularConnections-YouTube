@@ -1,56 +1,76 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { AUTH_ROUTE, LOGIN_PAGE_ROUTE } from '@core/constants/routing';
-import { AuthService } from '@core/services/auth.service';
-import { CountdownService } from '@core/services/countdown.service';
-import { LocalStorageService } from '@core/services/local-storage.service';
-import { environment } from '@env/environment';
-import { Observable } from 'rxjs';
-import { UserResponseInterface } from 'src/app/connections/models/user';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store, select } from '@ngrx/store';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { UserProfileFormInterface } from 'src/app/connections/models/user.interfaces';
+import { isUserLoadinSgelector, userSelector } from '../store/user.selectors';
+import { LogoutAction, UpdateUserNameAction, loadUserAction } from '../store/user.actions';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserService {
+  userProfileData$: Observable<UserProfileFormInterface | null> = this.store.pipe(
+    select(userSelector),
+  );
+  isUserLoading$: Observable<boolean> = this.store.pipe(select(isUserLoadinSgelector));
+  userProfileForm!: FormGroup;
+  originalFormValues: UserProfileFormInterface | null = null;
+  isEditMode$ = new BehaviorSubject<boolean>(false);
+  subscriptions: Subscription[] = [];
+
   constructor(
-    private http: HttpClient,
-    private localStorageService: LocalStorageService,
-    private router: Router,
-    private auth: AuthService,
-    private countdownService: CountdownService
-  ) {}
-
-  loadUser(): Observable<UserResponseInterface> {
-    const url = `${environment.apiUrl}profile`;
-    return this.http.get<UserResponseInterface>(url);
+    private fb: FormBuilder,
+    private store: Store,
+  ) {
+    this.userProfileForm = this.fb.group({
+      name: [
+        '',
+        [Validators.required, Validators.maxLength(40), Validators.pattern(/^[a-zA-Z\s]+$/)],
+      ],
+      email: [''],
+      uid: [''],
+      createdAt: [''],
+    });
   }
 
-  updateUser(name: string): Observable<null> {
-    const url = `${environment.apiUrl}profile`;
-    const body = { name: name };
-    return this.http.put<null>(url, body);
+  enterEditMode(): void {
+    this.changeEditModeValue(true);
+    this.originalFormValues = { ...this.userProfileForm.value };
   }
 
-  logout(): Observable<null> {
-    const url = `${environment.apiUrl}logout`;
-    return this.http.delete<null>(url);
+  changeEditModeValue(value: boolean): void {
+    this.isEditMode$.next(value);
   }
 
-  handleLodout(): void {
-    this.localStorageService.clearStorage();
-    this.auth.isLoggedIn.next(false);
-    this.clearAllCookies();
-    this.countdownService.stopAllCountdowns();
-    this.router.navigateByUrl(`/${AUTH_ROUTE}/${LOGIN_PAGE_ROUTE}`);
+
+  subscribeToUserProfileData(): void {
+    const userDataSubscr = this.userProfileData$.subscribe((userData) => {
+      if (!userData) {
+        this.loadUserData();
+      }
+      userData && this.userProfileForm.setValue(userData);
+    });
+
+    this.subscriptions.push(userDataSubscr);
   }
 
-  clearAllCookies(): void {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const eqPos = cookie.indexOf('=');
-      const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
-      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+  loadUserData(): void {
+    this.store.dispatch(loadUserAction());
+  }
+
+  logout(): void {
+    this.store.dispatch(LogoutAction());
+  }
+
+  cancelEdit(): void {
+    this.changeEditModeValue(false);
+    this.originalFormValues && this.userProfileForm.setValue(this.originalFormValues);
+  }
+
+  saveChanges(): void {
+    this.changeEditModeValue(false);
+    const newName = this.userProfileForm.get('name')?.value;
+    if (newName !== this.originalFormValues?.name) {
+      this.store.dispatch(UpdateUserNameAction({ name: newName }));
     }
   }
 }

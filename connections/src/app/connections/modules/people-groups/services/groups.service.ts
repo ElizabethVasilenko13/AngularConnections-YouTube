@@ -1,43 +1,110 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { GroupApiProps, GroupsResponse } from '../models/groups';
-import { environment } from '@env/environment';
-import { GroupMessagesResponse } from '../models/group-dialog';
+import { Injectable, TemplateRef } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogService } from '@core/services/dialog.service';
+import { Observable, Subscription, take } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import {
+  createGroupAction,
+  deleteGroupAction,
+  loadGroupsAction,
+} from '../store/groups/groups.actions';
+import {
+  backendGroupErrorSelector,
+  groupsSelector,
+  isGroupsLoadinSelector,
+} from '../store/groups/groups.selectors';
+import { GroupsProps } from '../models/groups';
+import { AuthError } from '@shared/types/user.interaces';
+import { AuthService } from '@core/services/auth.service';
+import { GroupsApiService } from './groups-api.service';
+import { CountdownService } from '@core/services/countdown.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class GroupsService {
-  isCreateGroupModalClosed = new BehaviorSubject(false);
-  constructor(private http: HttpClient) { }
+  groupsData$: Observable<GroupsProps | null> = this.store.pipe(select(groupsSelector));
+  isGroupsLoading$: Observable<boolean> = this.store.pipe(select(isGroupsLoadinSelector));
+  backendGroupsErrors$: Observable<AuthError | null> = this.store.pipe(
+    select(backendGroupErrorSelector),
+  );
+  subscriptions: Subscription[] = [];
+  currentUserID = this.authService.currentUserID;
+  groupCreateForm = this.fb.group({
+    name: [
+      '',
+      [
+        Validators.required,
+        Validators.maxLength(30),
+        Validators.pattern(/^[a-zA-Z0-9\s\u0400-\u04FF]+$/),
+      ],
+    ],
+  });
 
-  loadGroups(): Observable<GroupsResponse> {
-    const url = `${environment.apiUrl}groups/list`;
-    return this.http.get<GroupsResponse>(url);
+  constructor(
+    private store: Store,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private dialogService: DialogService,
+    private authService: AuthService,
+    private groupApiService: GroupsApiService,
+    public countdownService: CountdownService,
+  ) {}
+
+  loadGroups(): void {
+    this.store.dispatch(loadGroupsAction());
   }
 
-  createGroup(name: string): Observable<GroupApiProps> {
-    const url = `${environment.apiUrl}groups/create`;
-    return this.http.post<GroupApiProps>(url, { name });
+  isGroupCreatedByCurrentUser(createdBy: string | undefined): boolean {
+    return this.currentUserID === createdBy;
   }
 
-  deleteGroup(id: string): Observable<GroupApiProps> {
-    const url = `${environment.apiUrl}groups/delete?groupID=${id.trim()}`;
-    return this.http.delete<GroupApiProps>(url);
+  onCreateFormSubmit(): void {
+    const name = this.groupCreateForm.get('name')?.value || '';
+    const userId = this.authService.currentUserID;
+    this.store.dispatch(createGroupAction({ name, userId }));
+
+    const isCreateGroupModalClosedSubscr = this.groupApiService.isCreateGroupModalClosed.subscribe(
+      (val) => {
+        if (val === true) this.dialogService.onDialogClose();
+      },
+    );
+
+    this.subscriptions.push(isCreateGroupModalClosedSubscr);
   }
 
-  loadAllMesages(groupID: string, since?: number): Observable<GroupMessagesResponse> {
-    const sinceTime = since ? `&since=${since}` : ''
-    const url = `${environment.apiUrl}groups/read?groupID=${groupID}${sinceTime}`;
-    return this.http.get<GroupMessagesResponse>(url);
+  updateGroupsList(): void {
+    this.loadGroups();
+    const isGroupsLoadingSubscr = this.isGroupsLoading$.subscribe((value) => {
+      if (!value) {
+        this.backendGroupsErrors$.subscribe((error) => {
+          if (!error) {
+            this.countdownService.handleCountdown('groups', 60);
+          }
+        });
+      }
+    });
+
+    this.subscriptions.push(isGroupsLoadingSubscr);
   }
 
-  postNewMessage(groupID: string, message: string): Observable<null> {
-    const url = `${environment.apiUrl}groups/append`;
-    const body = {
-      groupID, message
-    }
-    return this.http.post<null>(url, body);
+  onCreateGroup(template: TemplateRef<unknown>): void {
+    this.groupCreateForm.reset();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '40%';
+    this.dialog.open(template, dialogConfig);
+  }
+
+  onDeleteGroup(event: Event, groupID: string | undefined, redirect?: boolean): void {
+    event.stopPropagation();
+    const id = groupID ?? ''
+    this.dialogService
+      .openConfirmDialog('Are you sure you want to delete this group?')
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((res) => {
+        if (res) {
+          this.store.dispatch(deleteGroupAction({ groupID : id, redirect }));
+        }
+      });
   }
 }

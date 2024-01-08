@@ -1,0 +1,35 @@
+.custom-snackbar {
+  .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    border-radius: 8px !important;
+    background-color: $accent-color-light !important;
+  }
+
+  .mat-mdc-button.mat-mdc-snack-bar-action {
+    color: $primary-text-color !important;
+  }
+}
+
+.snackbar-success {
+  .mdc-snackbar__surface {
+    background-color: $success-color !important;
+  }
+
+  .mdc-snackbar__label {
+    color: $primary-text-color !important;
+  }
+}
+
+.snackbar-error {
+  .mdc-snackbar__surface {
+    background-color: $error-color !important;
+  }
+
+  .mdc-snackbar__label {
+    color: $primary-text-color !important;
+  }
+}
+
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
+.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: $accent-color !important;
+}

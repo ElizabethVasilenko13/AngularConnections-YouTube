@@ -53,7 +53,5 @@ const reducer = createReducer(
     }),
   ),
 );
-export const signinReducer: ActionReducer<SignInStateInterface, Action> = (
-  state,
-  action,
-) => reducer(state, action);
+export const signinReducer: ActionReducer<SignInStateInterface, Action> = (state, action) =>
+  reducer(state, action);

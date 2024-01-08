@@ -1,4 +1,7 @@
 @import 'vars';
+@import './assets/scss/dialog.scss';
+@import './assets/scss/material.scss';
+
 @import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
@@ -20,42 +23,6 @@ app-root {
   max-width: 1200px;
 }
 
-.custom-snackbar {
-  .mat-mdc-snack-bar-container .mdc-snackbar__surface {
-    border-radius: 8px !important;
-    background-color: $accent-color-light !important;
-  }
-
-  .mat-mdc-button.mat-mdc-snack-bar-action {
-    color: $primary-text-color !important;
-  }
-}
-
-.snackbar-success {
-  .mdc-snackbar__surface {
-    background-color: $success-color !important;
-  }
-
-  .mdc-snackbar__label {
-    color: $primary-text-color !important;
-  }
-}
-
-.snackbar-error {
-  .mdc-snackbar__surface {
-    background-color: $error-color !important;
-  }
-
-  .mdc-snackbar__label {
-    color: $primary-text-color !important;
-  }
-}
-
-.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
-.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
-  stroke: $accent-color !important;
-}
-
 body,
 a {
   color: $primary-text-color;
@@ -67,7 +34,7 @@ button:disabled {
 }
 
 button:not([disabled]):hover {
-  background-color: #EE90B0 !important;
+  background-color: #ee90b0 !important;
 }
 
 a {
@@ -106,52 +73,4 @@ h4,
 h5,
 h6 {
   margin: 0;
-}
-
-.btn-dialog-close {
-  width: 45px;
-  min-width: 0px !important;
-  height: 40px;
-  padding: 0px !important;
-}
-
-.confirm-dialog-container .mat-dialog-container {
-  border-radius: .25em .25em .4em .4em;
-  padding: 0px;
-}
-
-.mat-mdc-dialog-container .mdc-dialog__surface {
-  background-color: $primaty-color-light !important;
-}
-
-.confirm-dialog-container .content-container{
-  margin: 5px 5px 15px 5px;
-  color: #8f9cb5;
-  display: flex;
-}
-
-
-.confirm-dialog-container{
-  top: 50%;
-  position: absolute !important;
-  transform: translateY(-50%);
-  button {
-    background-color: $accent-color;
-    padding: 0 5px;
-    font-weight: bold;
-    border: none;
-    width: 50%;
-    height: 50px;
-    color: $primary-text-color;
-  }
-
-  #no-button {
-    background-color: $accent-color-active;
-  }
-}
-
-.confirm-dialog-container span.content-span{
-  padding:  35px 5px;
-  text-align: center;
-  font-size: 20px;
 }
