@@ -2,7 +2,7 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
-import { Observable, Subscription, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import {
   createGroupAction,
@@ -39,6 +39,7 @@ export class GroupsService {
       ],
     ],
   });
+  isGroupJustCreated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private store: Store,

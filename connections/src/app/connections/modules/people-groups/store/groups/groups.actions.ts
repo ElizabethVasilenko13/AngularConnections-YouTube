@@ -39,20 +39,6 @@ export const deleteGroupFailedAction = createAction(
   props<{ error: AuthError }>(),
 );
 
-export const loadGroupMessagesAction = createAction(
-  '[Group] Load Group',
-  props<{ groupID: string }>(),
-);
-
-export const loadGroupMessagesSuccessAction = createAction(
-  '[Group] Load Group Success',
-  props<{ groupData: GroupMessageProps; time: number; groupID: string }>(),
-);
-export const loadGroupMessagesFailedAction = createAction(
-  '[Group] Load Group Failed',
-  props<{ error: AuthError }>(),
-);
-
 export const loadGroupMessagesSinceAction = createAction(
   '[Group] Load Group Since',
   props<{ groupID: string; time: number }>(),

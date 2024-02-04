@@ -11,10 +11,10 @@ import {
 import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { GroupProps } from '../models/groups';
 import {
-  loadGroupMessagesAction,
   loadGroupMessagesSinceAction,
 } from '../store/groups/groups.actions';
 import { CountdownService } from '@core/services/countdown.service';
+import { GroupsService } from './groups.service';
 
 @Injectable()
 export class GroupPageService {
@@ -28,6 +28,7 @@ export class GroupPageService {
     public dialogRef: MatDialogRef<GroupsComponent | GroupPageComponent>,
     protected authService: AuthService,
     public countdownService: CountdownService,
+    private groupsservice: GroupsService
   ) {}
 
   updateGroupDialog(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
@@ -55,23 +56,18 @@ export class GroupPageService {
     });
   }
 
-  loadAllMessages(groupID: string): void {
-    this.store.dispatch(loadGroupMessagesAction({ groupID }));
-  }
-
   subscribeToGroupDialogData(
     groupID: string,
     groupDialogData$: Observable<GroupProps | null>,
   ): void {
     const groupDialogDataSubscr = groupDialogData$.pipe(take(1)).subscribe((groupData) => {
+      if (!groupData || this.groupsservice.isGroupJustCreated$.value === false) {
+        this.loadMessagesSince(groupID, groupDialogData$);
+      }
+
       if (groupData) {
         if (groupData.createdBy.S === this.authService.currentUserID) {
           this.isGroupCreatedByCurrnetUser$.next(true);
-        }
-        if (!groupData.messages) {
-          this.loadAllMessages(groupID);
-        } else {
-          this.loadMessagesSince(groupID, groupDialogData$);
         }
       }
     });

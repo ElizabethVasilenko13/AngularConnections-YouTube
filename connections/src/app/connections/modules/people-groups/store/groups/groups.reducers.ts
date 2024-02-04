@@ -7,12 +7,9 @@ import {
   deleteGroupAction,
   deleteGroupFailedAction,
   deleteGroupSuccessAction,
-  loadGroupMessagesAction,
-  loadGroupMessagesFailedAction,
   loadGroupMessagesSinceAction,
   loadGroupMessagesSinceFailedAction,
   loadGroupMessagesSinceSuccessAction,
-  loadGroupMessagesSuccessAction,
   loadGroupsAction,
   loadGroupsFailedAction,
   loadGroupsSuccessAction,
@@ -33,10 +30,8 @@ const reducer = createReducer(
     loadGroupsAction,
     createGroupAction,
     deleteGroupAction,
-    loadGroupMessagesAction,
     postNewMessageAction,
     loadGroupMessagesSinceAction,
-    loadGroupMessagesAction,
     postNewMessageAction,
     loadGroupMessagesSinceAction,
     (state): GroupsStateInterface => ({
@@ -54,32 +49,6 @@ const reducer = createReducer(
       groups: action.groups,
     }),
   ),
-  on(loadGroupMessagesSuccessAction, (state, action): GroupsStateInterface => {
-    const loadedGroupIds = state?.loadedGroupIds
-      ? [...state.loadedGroupIds, action.groupID]
-      : [action.groupID];
-
-    const updatedGroups = (state.groups?.items || []).map((group) =>
-      group.id.S === action.groupID
-        ? {
-            ...group,
-            messages: action.groupData,
-            lastUpdated: action.time,
-          }
-        : group,
-    );
-
-    return {
-      ...state,
-      groups: {
-        ...state.groups,
-        items: updatedGroups,
-      },
-      isLoading: false,
-      backendErrors: null,
-      loadedGroupIds,
-    };
-  }),
   on(loadGroupMessagesSinceSuccessAction, (state, action): GroupsStateInterface => {
     const updatedGroups = (state.groups?.items || []).map((group) =>
       group.id.S === action.groupID
@@ -107,10 +76,8 @@ const reducer = createReducer(
     loadGroupsFailedAction,
     createGroupFailedAction,
     deleteGroupFailedAction,
-    loadGroupMessagesFailedAction,
     postNewMessageFailedAction,
     loadGroupMessagesSinceFailedAction,
-    loadGroupMessagesFailedAction,
     postNewMessageFailedAction,
     loadGroupMessagesSinceFailedAction,
     (state, action): GroupsStateInterface => ({

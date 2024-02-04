@@ -26,7 +26,6 @@ export class ConversationPageService {
     private store: Store,
     private countdownService: CountdownService,
     protected usersService: UsersService,
-
   ) {}
 
   loadMessagesSince(conversationID: string, conversationData$: Observable<UserProps | null>): void {
