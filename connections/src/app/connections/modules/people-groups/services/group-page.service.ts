@@ -46,13 +46,12 @@ export class GroupPageService {
 
   loadMessagesSince(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
     groupDialogData$.pipe(take(1)).subscribe((value) => {
-      if (value && value.lastUpdated)
-        this.store.dispatch(
-          loadGroupMessagesSinceAction({
-            groupID,
-            time: value.lastUpdated,
-          }),
-        );
+      this.store.dispatch(
+        loadGroupMessagesSinceAction({
+          groupID,
+          time: value?.lastUpdated || 0,
+        }),
+      );
     });
   }
 

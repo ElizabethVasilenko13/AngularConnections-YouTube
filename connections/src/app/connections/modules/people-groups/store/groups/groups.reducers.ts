@@ -124,13 +124,13 @@ const reducer = createReducer(
       ? {
           ...state.groups,
           items: [
-            ...state.groups.items,
             {
               id: { S: action.groupID },
               name: { S: action.name },
               createdAt: { S: String(new Date().getTime()) },
               createdBy: { S: action.userId },
             },
+            ...state.groups.items,
           ],
         }
       : null;

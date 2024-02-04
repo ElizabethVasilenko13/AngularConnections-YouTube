@@ -39,6 +39,7 @@ export class ConversationPageComponent implements OnInit, OnDestroy {
 
   initConversationPageValues(): void {
     this.converastionID = this.route.snapshot.paramMap.get('id') as string;
+    console.log(this.route.snapshot);
     this.conversationData$ = this.store.pipe(select(selectConversationById(this.converastionID)));
   }
 

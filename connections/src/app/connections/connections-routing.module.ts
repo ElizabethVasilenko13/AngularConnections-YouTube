@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: '', component: MainPageComponent, pathMatch: 'full' },
       { path: USER_PAGE_ROUTE, component: UserPageComponent },
       { path: GROUP_PAGE_ROUTE, component: GroupPageComponent },
-      { path: CONVERSAION_PAGE_ROUTE, component: ConversationPageComponent },
+      { path: CONVERSAION_PAGE_ROUTE, component: ConversationPageComponent, data: { created: false }, },
     ],
   },
 ];

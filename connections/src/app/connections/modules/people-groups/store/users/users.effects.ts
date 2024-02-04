@@ -12,12 +12,9 @@ import {
   deleteConversationAction,
   deleteConversationFailedAction,
   deleteConversationSuccessAction,
-  loadConversationMessagesAction,
-  loadConversationMessagesFailedAction,
   loadConversationMessagesSinceAction,
   loadConversationMessagesSinceFailedAction,
   loadConversationMessagesSinceSuccessAction,
-  loadConversationMessagesSuccessAction,
   loadConversationsAction,
   loadConversationsFailedAction,
   loadConversationsSuccessAction,
@@ -119,36 +116,6 @@ export class UsersEffects {
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
             return of(createConversationFailedAction({ error: error.error }));
-          }),
-        );
-      }),
-    ),
-  );
-
-  loadConversation$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(loadConversationMessagesAction),
-      exhaustMap(({ conversationID }) => {
-        return this.usersApi.loadConversation(conversationID).pipe(
-          map((response) => {
-            this.snackBar.addMessage(
-              `Conversation have been succesfully loaded`,
-              NotifyStyles.Success,
-            );
-            return loadConversationMessagesSuccessAction({
-              conversationID,
-              time: new Date().getTime(),
-              conversationData: {
-                count: response.Count,
-                items: response.Items,
-              },
-            });
-          }),
-          catchError((error: HttpErrorResponse) => {
-            const errorMes = error.error;
-            const errorSnakBar = errorMes ? errorMes.message : error.message;
-            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
-            return of(loadConversationMessagesFailedAction({ error: error.error }));
           }),
         );
       }),
