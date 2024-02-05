@@ -11,7 +11,7 @@ import { environment } from '@env/environment';
 
 @Injectable()
 export class UsersApiService {
-  private readonly USERS_API_URL = `${environment.apiUrl}users/`;
+  private readonly USERS_API_URL = `${environment.apiUrl}users`;
   private readonly CONVERSATIONS_API_URL = `${environment.apiUrl}conversations/`;
   private readonly CONVERSATIONS_LIST_ENDPOINT = 'list';
   private readonly CONVERSATIONS_CREATE_ENDPOINT = 'create';

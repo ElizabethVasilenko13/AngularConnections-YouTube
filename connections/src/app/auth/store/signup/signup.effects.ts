@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { sighUpAction, sighUpFailureAction, sighUpSuccessAction } from './signup.actions';
 import { AuthApiService } from '../../services/auth-api.service';
 import { of } from 'rxjs';
@@ -22,7 +22,7 @@ export class AuthEffects {
   register$ = createEffect(() =>
     this.actions$.pipe(
       ofType(sighUpAction),
-      exhaustMap(({ userData }) => {
+      switchMap(({ userData }) => {
         return this.authApi.signUp(userData).pipe(
           map(() => {
             this.snackBar.addMessage('You`ve been succesfully registered', NotifyStyles.Success);

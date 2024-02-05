@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
@@ -42,7 +42,7 @@ export class UsersEffects {
   loadUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadUsersAction),
-      exhaustMap(({ currentUserId }) => {
+      switchMap(({ currentUserId }) => {
         return this.usersApi.loadUsers().pipe(
           map((response) => {
             this.snackBar.addMessage(`Users have been succesfully loaded`, NotifyStyles.Success);
@@ -70,7 +70,7 @@ export class UsersEffects {
   loadConversations$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadConversationsAction),
-      exhaustMap(() => {
+      switchMap(() => {
         return this.usersApi.loadConversations().pipe(
           map((response) => {
             this.snackBar.addMessage(
@@ -98,7 +98,7 @@ export class UsersEffects {
   createConversation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createConversationAction),
-      exhaustMap(({ companion }) => {
+      switchMap(({ companion }) => {
         return this.usersApi.createConversation(companion).pipe(
           map(({ conversationID }) => {
             this.snackBar.addMessage(
@@ -125,7 +125,7 @@ export class UsersEffects {
   loadConversationSince$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadConversationMessagesSinceAction),
-      exhaustMap(({ conversationID, time }) => {
+      switchMap(({ conversationID, time }) => {
         return this.usersApi.loadConversation(conversationID, time).pipe(
           map((response) => {
             this.snackBar.addMessage(
@@ -155,7 +155,7 @@ export class UsersEffects {
   deleteConversation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteConversationAction),
-      exhaustMap(({ conversationID, redirect }) => {
+      switchMap(({ conversationID, redirect }) => {
         return this.usersApi.deleteConversation(conversationID).pipe(
           map(() => {
             this.snackBar.addMessage(
@@ -179,7 +179,7 @@ export class UsersEffects {
   postMessage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(postConversationMessageAction),
-      exhaustMap(({ conversationID, message, time }) => {
+      switchMap(({ conversationID, message, time }) => {
         return this.usersApi.postNewMessage(conversationID, message).pipe(
           map(() => {
             this.snackBar.addMessage(`Message was sent successfully`, NotifyStyles.Success);

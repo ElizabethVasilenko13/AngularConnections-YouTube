@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
@@ -41,7 +41,7 @@ export class GroupsEffects {
   loadGroups$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadGroupsAction),
-      exhaustMap(() => {
+      switchMap(() => {
         return this.groupsApi.loadGroups().pipe(
           map((response) => {
             this.snackBar.addMessage(`Groups have been succesfully loaded`, NotifyStyles.Success);
@@ -66,7 +66,7 @@ export class GroupsEffects {
   loadGroupDialogSince$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadGroupMessagesSinceAction),
-      exhaustMap(({ groupID, time }) => {
+      switchMap(({ groupID, time }) => {
         return this.groupsApi.loadAllMesages(groupID, time).pipe(
           map((response) => {
             this.snackBar.addMessage(
@@ -96,7 +96,7 @@ export class GroupsEffects {
   postNewMessage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(postNewMessageAction),
-      exhaustMap(({ groupID, message, time }) => {
+      switchMap(({ groupID, message, time }) => {
         return this.groupsApi.postNewMessage(groupID, message).pipe(
           map(() => {
             this.snackBar.addMessage(`Message was sent successfully`, NotifyStyles.Success);
@@ -117,7 +117,7 @@ export class GroupsEffects {
   createGroup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createGroupAction),
-      exhaustMap(({ name, userId }) => {
+      switchMap(({ name, userId }) => {
         return this.groupsApi.createGroup(name).pipe(
           map((response) => {
             this.snackBar.addMessage(`Group have been succesfully created`, NotifyStyles.Success);
@@ -144,7 +144,7 @@ export class GroupsEffects {
   deleteGroup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteGroupAction),
-      exhaustMap(({ groupID, redirect }) => {
+      switchMap(({ groupID, redirect }) => {
         return this.groupsApi.deleteGroup(groupID).pipe(
           map(() => {
             this.snackBar.addMessage(`Group have been succesfully deleted`, NotifyStyles.Success);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { AuthApiService } from '../../services/auth-api.service';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -21,7 +21,7 @@ export class SignInEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(sighInAction),
-      exhaustMap(({ userData }) => {
+      switchMap(({ userData }) => {
         return this.authApi.signIn(userData).pipe(
           map(({ token, uid }) => {
             this.snackBar.addMessage(`Welcome ${userData.email}`, NotifyStyles.Success);
