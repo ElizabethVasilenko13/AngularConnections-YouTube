@@ -62,6 +62,7 @@ export class MessagesService {
     conversationID: string,
     conversationData$: Observable<UserProps | null>,
   ): void {
+    console.log('for conv');
     this.sendMessageCommon<UserProps>(conversationID, conversationData$, (options) =>
       postConversationMessageAction({
         conversationID: options.targetID,
@@ -75,6 +76,7 @@ export class MessagesService {
     groupID: string,
     groupDialogData$: Observable<GroupProps | null>,
   ): void {
+    console.log('for group');
     this.sendMessageCommon<GroupProps>(groupID, groupDialogData$, (options) =>
       postNewMessageAction({
         groupID: options.targetID,

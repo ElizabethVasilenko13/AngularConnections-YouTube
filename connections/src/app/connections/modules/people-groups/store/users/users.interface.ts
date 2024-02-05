@@ -3,7 +3,8 @@ import { UsersProps } from '../../models/users';
 
 export interface UsersStateInterface {
   isUsersLoading: boolean;
-  isConverstionsLoading: boolean;
+  isAllConversationsLoading: boolean;
+  isConversationLoading: boolean;
   backendUsersErrors: AuthError | null;
   backendConverstionsErrors: AuthError | null;
   users: UsersProps | null;

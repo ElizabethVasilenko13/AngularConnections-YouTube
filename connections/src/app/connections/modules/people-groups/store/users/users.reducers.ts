@@ -23,7 +23,8 @@ import {
 
 const initialState: UsersStateInterface = {
   isUsersLoading: false,
-  isConverstionsLoading: false,
+  isAllConversationsLoading: false,
+  isConversationLoading: false,
   backendUsersErrors: null,
   backendConverstionsErrors: null,
   users: null,
@@ -59,26 +60,39 @@ const reducer = createReducer(
   ),
   on(
     loadConversationsAction,
+    (state): UsersStateInterface => ({
+      ...state,
+      isAllConversationsLoading: true,
+      backendUsersErrors: null,
+    }),
+  ),
+  on(
     createConversationAction,
     loadConversationMessagesSinceAction,
     deleteConversationAction,
     postConversationMessageAction,
     (state): UsersStateInterface => ({
       ...state,
-      isConverstionsLoading: true,
+      isConversationLoading: true,
       backendUsersErrors: null,
     }),
   ),
   on(
     loadConversationsFailedAction,
+    (state, action): UsersStateInterface => ({
+      ...state,
+      isAllConversationsLoading: false,
+      backendConverstionsErrors: action.error,
+    }),
+  ),
+  on(
     createConversationFailedAction,
     loadConversationMessagesSinceFailedAction,
     deleteConversationFailedAction,
     postConversationMessageFailedAction,
     (state, action): UsersStateInterface => ({
       ...state,
-      isUsersLoading: false,
-      isConverstionsLoading: false,
+      isConversationLoading: false,
       backendConverstionsErrors: action.error,
     }),
   ),
@@ -95,8 +109,8 @@ const reducer = createReducer(
 
     return {
       ...state,
-      isUsersLoading: false,
-      isConverstionsLoading: false,
+      // isUsersLoading: false,
+      isAllConversationsLoading: false,
       backendUsersErrors: null,
       backendConverstionsErrors: null,
       users: { items: updatedUsers || [], count: state.users?.count || '0' },
@@ -114,8 +128,8 @@ const reducer = createReducer(
 
       return {
         ...state,
-        isUsersLoading: false,
-        isConverstionsLoading: false,
+        // isUsersLoading: false,
+        isConversationLoading: false,
         backendUsersErrors: null,
         backendConverstionsErrors: null,
         users: { items: updatedUsers || [], count: state.users?.count || '0' },
@@ -142,8 +156,8 @@ const reducer = createReducer(
 
     return {
       ...state,
-      isUsersLoading: false,
-      isConverstionsLoading: false,
+      // isUsersLoading: false,
+      isConversationLoading: false,
       backendUsersErrors: null,
       backendConverstionsErrors: null,
       users: { items: updatedUsers, count: state.users?.count || '0' },
@@ -161,7 +175,7 @@ const reducer = createReducer(
     });
     return {
       ...state,
-      isConverstionsLoading: false,
+      isConversationLoading: false,
       users: { items: updatedUsers, count: state.users?.count || '0' },
       loadedConversatonsIds,
     };
@@ -170,7 +184,7 @@ const reducer = createReducer(
     postConversationMessageSuccessAction,
     (state): UsersStateInterface => ({
       ...state,
-      isConverstionsLoading: false,
+      isConversationLoading: false,
     }),
   ),
 );

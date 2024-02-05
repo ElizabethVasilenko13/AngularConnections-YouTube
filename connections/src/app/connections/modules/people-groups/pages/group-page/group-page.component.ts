@@ -33,6 +33,7 @@ export class GroupPageComponent implements OnInit, OnDestroy {
   initGroupPageValues(): void {
     this.groupID = this.route.snapshot.paramMap.get('id') as string;
     this.groupDialogData$ = this.store.pipe(select(selectGroupById(this.groupID)));
+
   }
 
   ngOnInit(): void {
