@@ -45,12 +45,12 @@ export class MessagesService {
   ): void {
     const message = this.createMessageForm.get('text')?.value || '';
     data$.pipe(take(1)).subscribe((value) => {
-      if (value && value.lastUpdated) {
+      if (value) {
         this.store.dispatch(
           createAction({
             targetID,
             message,
-            time: value.lastUpdated,
+            time: value.lastUpdated || 0,
           }),
         );
       }
@@ -62,7 +62,6 @@ export class MessagesService {
     conversationID: string,
     conversationData$: Observable<UserProps | null>,
   ): void {
-    console.log('for conv');
     this.sendMessageCommon<UserProps>(conversationID, conversationData$, (options) =>
       postConversationMessageAction({
         conversationID: options.targetID,
@@ -76,7 +75,6 @@ export class MessagesService {
     groupID: string,
     groupDialogData$: Observable<GroupProps | null>,
   ): void {
-    console.log('for group');
     this.sendMessageCommon<GroupProps>(groupID, groupDialogData$, (options) =>
       postNewMessageAction({
         groupID: options.targetID,
