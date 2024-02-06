@@ -2,14 +2,14 @@
   <div
     *ngFor="let message of messages?.items | sortBy: messagesService.messageDateComparator"
     class="message"
-    [class.currentUser]="messagesService.isMessageCreatedByCurrentUser(message.authorID.S)"
+    [class.currentUser]="messagesService.isMessageCreatedByCurrentUser(message.authorID)"
   >
     <div class="message__creator">
-      {{ message.authorID.S | userNameTransform: (usersData$ | async) }}
+      {{ message.authorID| userNameTransform: (usersData$ | async) }}
     </div>
-    <div class="message__text">{{ message.message.S }}</div>
+    <div class="message__text">{{ message.message }}</div>
     <div class="message__date">
-      {{ message.createdAt.S | date: 'short' }}
+      {{ message.createdAt | date: 'short' }}
     </div>
   </div>
 </div>

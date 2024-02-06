@@ -29,8 +29,8 @@ export class MessagesService {
   }
 
   messageDateComparator(a: MessageItem, b: MessageItem): number {
-    const valueA = +a.createdAt.S;
-    const valueB = +b.createdAt.S;
+    const valueA = +a.createdAt;
+    const valueB = +b.createdAt;
     return valueA - valueB;
   }
 

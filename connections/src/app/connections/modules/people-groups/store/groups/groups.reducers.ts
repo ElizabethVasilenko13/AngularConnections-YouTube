@@ -51,7 +51,7 @@ const reducer = createReducer(
   ),
   on(loadGroupMessagesSinceSuccessAction, (state, action): GroupsStateInterface => {
     const updatedGroups = (state.groups?.items || []).map((group) =>
-      group.id.S === action.groupID
+      group.id === action.groupID
         ? {
             ...group,
             messages: {
@@ -92,10 +92,10 @@ const reducer = createReducer(
           ...state.groups,
           items: [
             {
-              id: { S: action.groupID },
-              name: { S: action.name },
-              createdAt: { S: String(new Date().getTime()) },
-              createdBy: { S: action.userId },
+              id: action.groupID,
+              name: action.name ,
+              createdAt: String(new Date().getTime()),
+              createdBy: action.userId,
             },
             ...state.groups.items,
           ],
@@ -111,7 +111,7 @@ const reducer = createReducer(
   }),
   on(deleteGroupSuccessAction, (state, action): GroupsStateInterface => {
     if (state.groups) {
-      const updatedItems = state.groups.items.filter((item) => item.id.S !== action.groupID);
+      const updatedItems = state.groups.items.filter((item) => item.id !== action.groupID);
       const loadedGroupIds = state?.loadedGroupIds?.filter((id) => id !== action.groupID) ?? null;
       const updatedGroups = { ...state.groups, items: updatedItems };
       return {

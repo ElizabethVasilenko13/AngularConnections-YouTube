@@ -46,7 +46,11 @@ export class UsersEffects {
         return this.usersApi.loadUsers().pipe(
           map((response) => {
             this.snackBar.addMessage(`Users have been succesfully loaded`, NotifyStyles.Success);
-            const filteredUsers = response.Items.filter((user) => user.uid.S !== currentUserId);
+            const transformedUsers = response.Items.map((user) => ({
+              name: user.name.S,
+              uid: user.uid.S,
+            }));
+            const filteredUsers = transformedUsers.filter((user) => user.uid !== currentUserId);
             this.store.dispatch(loadConversationsAction());
             return loadUsersSuccessAction({
               users: {
@@ -132,12 +136,17 @@ export class UsersEffects {
               `Last messages have been succesfully loaded`,
               NotifyStyles.Success,
             );
+            const transformedConversation = response.Items.map((conversation) => ({
+              authorID: conversation.authorID.S,
+              message:  conversation.message.S,
+              createdAt: conversation.createdAt.S
+            }));
             return loadConversationMessagesSinceSuccessAction({
               conversationID,
               time: new Date().getTime(),
               conversationData: {
                 count: response.Count,
-                items: response.Items,
+                items: transformedConversation,
               },
             });
           }),

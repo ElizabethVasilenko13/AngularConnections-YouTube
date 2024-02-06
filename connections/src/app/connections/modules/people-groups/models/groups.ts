@@ -1,7 +1,7 @@
 import { AuthError } from '@shared/types/user.interaces';
 import { MessageItem } from './group-dialog';
 
-export type Group = {
+export type GroupResp = {
   id: { S: string };
   name: { S: string };
   createdAt: { S: string };
@@ -15,7 +15,7 @@ export interface GroupMessageProps {
 
 export interface GroupsResponse {
   Count: string;
-  Items: Group[];
+  Items: GroupResp[];
 }
 
 export interface GroupApiProps {
@@ -23,10 +23,10 @@ export interface GroupApiProps {
 }
 
 export type GroupProps = {
-  id: { S: string };
-  name: { S: string };
-  createdAt: { S: string };
-  createdBy: { S: string };
+  id: string;
+  name: string;
+  createdAt: string;
+  createdBy: string;
   messages?: GroupMessageProps | null;
   lastUpdated?: number | null;
   backendErrors?: AuthError | null;

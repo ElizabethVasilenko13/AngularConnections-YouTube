@@ -1,7 +1,7 @@
-<div class="item" (click)="usersService.toConversationPage(user?.conversatonID, user?.uid?.S)" [class.active]="usersService.isConversationID(user)">
+<div class="item" (click)="usersService.toConversationPage(user?.conversatonID, user?.uid)" [class.active]="usersService.isConversationID(user)">
   <div class="group__link">
     <div class="group-property">
-      {{ user?.name?.S }}
+      {{ user?.name }}
       <span *ngIf="usersService.isConversationID(user)"> *****</span>
     </div>
   </div>

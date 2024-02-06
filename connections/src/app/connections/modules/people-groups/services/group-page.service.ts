@@ -66,7 +66,7 @@ export class GroupPageService {
       }
 
       if (groupData) {
-        if (groupData.createdBy.S === this.authService.currentUserID) {
+        if (groupData.createdBy === this.authService.currentUserID) {
           this.isGroupCreatedByCurrnetUser$.next(true);
         }
       }

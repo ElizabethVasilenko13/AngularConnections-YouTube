@@ -45,10 +45,16 @@ export class GroupsEffects {
         return this.groupsApi.loadGroups().pipe(
           map((response) => {
             this.snackBar.addMessage(`Groups have been succesfully loaded`, NotifyStyles.Success);
+            const transformedGroups = response.Items.map((group) => ({
+              createdAt: group.createdAt.S,
+              id: group.id.S,
+              name: group.name.S,
+              createdBy: group.createdBy.S
+            }));
             return loadGroupsSuccessAction({
               groups: {
                 count: response.Count,
-                items: response.Items,
+                items: transformedGroups,
               },
             });
           }),
@@ -73,12 +79,17 @@ export class GroupsEffects {
               `Last messages have been succesfully loaded`,
               NotifyStyles.Success,
             );
+            const transformedConversation = response.Items.map((conversation) => ({
+              authorID: conversation.authorID.S,
+              message:  conversation.message.S,
+              createdAt: conversation.createdAt.S
+            }));
             return loadGroupMessagesSinceSuccessAction({
               groupID,
               time: new Date().getTime(),
               groupData: {
                 count: response.Count,
-                items: response.Items,
+                items: transformedConversation,
               },
             });
           }),

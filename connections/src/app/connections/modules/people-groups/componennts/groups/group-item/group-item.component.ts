@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Group } from '../../../models/groups';
+import { GroupProps } from '../../../models/groups';
 import { GroupsService } from '../../../services/groups.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { GroupsService } from '../../../services/groups.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupItemComponent {
-  @Input() group: Group | undefined;
+  @Input() group: GroupProps | undefined;
   @Input() isLoading!: boolean;
   constructor(protected groupsService: GroupsService) {}
 }

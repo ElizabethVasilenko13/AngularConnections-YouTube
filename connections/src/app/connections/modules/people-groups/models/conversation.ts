@@ -1,4 +1,4 @@
-export interface MessageItem {
+export interface MessageResp {
   authorID: {
     S: string;
   };
@@ -12,11 +12,5 @@ export interface MessageItem {
 
 export interface ConverastionMessagesResponse {
   Count: string;
-  Items: MessageItem[];
-}
-
-export interface ConverastionMessagesProps {
-  conversationID: string;
-  count: string;
-  items: MessageItem[];
+  Items: MessageResp[];
 }

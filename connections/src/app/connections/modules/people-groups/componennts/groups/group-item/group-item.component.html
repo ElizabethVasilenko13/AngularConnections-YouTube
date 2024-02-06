@@ -1,13 +1,13 @@
-<div class="item" [class.active]="groupsService.isGroupCreatedByCurrentUser(group?.createdBy?.S)">
-  <a [routerLink]="'/group/' + (group?.id?.S || '')" class="group__link ">
-    <div>{{ group?.name?.S }}</div>
+<div class="item" [class.active]="groupsService.isGroupCreatedByCurrentUser(group?.createdBy)">
+  <a [routerLink]="'/group/' + (group?.id || '')" class="group__link ">
+    <div>{{ group?.name }}</div>
   </a>
   <app-button
     customClass="delete__btn"
     title="Delete"
-    *ngIf="groupsService.isGroupCreatedByCurrentUser(group?.createdBy?.S)"
+    *ngIf="groupsService.isGroupCreatedByCurrentUser(group?.createdBy)"
     [disabled]="isLoading || !group"
-    (buttonClick)="groupsService.onDeleteGroup($event, group?.id?.S)"
+    (buttonClick)="groupsService.onDeleteGroup($event, group?.id)"
   >
     ✕
   </app-button>

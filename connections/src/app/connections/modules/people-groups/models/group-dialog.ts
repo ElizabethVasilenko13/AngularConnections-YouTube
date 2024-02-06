@@ -1,16 +1,12 @@
+import { MessageResp } from "./conversation";
+
 export interface GroupMessagesResponse {
   Count: string;
-  Items: MessageItem[];
+  Items: MessageResp[];
 }
 
 export interface MessageItem {
-  authorID: {
-    S: string;
-  };
-  message: {
-    S: string;
-  };
-  createdAt: {
-    S: string;
-  };
+  authorID: string;
+  message: string;
+  createdAt: string;
 }
