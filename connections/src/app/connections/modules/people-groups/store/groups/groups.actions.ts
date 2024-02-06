@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { AuthError } from '@shared/types/user.interaces';
-import { GroupMessageProps, GroupsProps } from '../../models/groups';
+import { GroupsProps } from '../../models/groups';
+import { MessageProps } from '../../models/conversation';
 
 export const loadGroupsAction = createAction('[Groups] Load Groups');
 
@@ -46,7 +47,7 @@ export const loadGroupMessagesSinceAction = createAction(
 
 export const loadGroupMessagesSinceSuccessAction = createAction(
   '[Group] Load Group Since Success',
-  props<{ groupData: GroupMessageProps; time: number; groupID: string }>(),
+  props<{ groupData: MessageProps; time: number; groupID: string }>(),
 );
 export const loadGroupMessagesSinceFailedAction = createAction(
   '[Group] Load Group Since Failed',

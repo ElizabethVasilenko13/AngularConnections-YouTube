@@ -3,9 +3,7 @@
   <div class="btns__container">
     <app-button
       [disabled]="
-        !countdownService.isCountdownEnded('users') ||
-        (isUsersLoading$ | async) ||
-        (usersData$ | async) === null
+        !countdownService.isCountdownEnded('users')
       "
       (buttonClick)="usersService.updateUsersList()"
     >

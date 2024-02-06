@@ -11,5 +11,8 @@ import { GroupsService } from '../../../services/groups.service';
 export class GroupItemComponent {
   @Input() group: GroupProps | undefined;
   @Input() isLoading!: boolean;
-  constructor(protected groupsService: GroupsService) {}
+  constructor(protected groupsService: GroupsService) {
+
+  }
+
 }

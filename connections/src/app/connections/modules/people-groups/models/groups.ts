@@ -1,5 +1,5 @@
 import { AuthError } from '@shared/types/user.interaces';
-import { MessageItem } from './group-dialog';
+import { MessageProps } from './conversation';
 
 export type GroupResp = {
   id: { S: string };
@@ -8,10 +8,6 @@ export type GroupResp = {
   createdBy: { S: string };
 };
 
-export interface GroupMessageProps {
-  count: string;
-  items: MessageItem[];
-}
 
 export interface GroupsResponse {
   Count: string;
@@ -27,7 +23,7 @@ export type GroupProps = {
   name: string;
   createdAt: string;
   createdBy: string;
-  messages?: GroupMessageProps | null;
+  messages?: MessageProps | null;
   lastUpdated?: number | null;
   backendErrors?: AuthError | null;
 };

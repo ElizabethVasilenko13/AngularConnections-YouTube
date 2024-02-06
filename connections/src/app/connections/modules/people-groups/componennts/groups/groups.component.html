@@ -3,9 +3,7 @@
   <div class="btns__container">
     <app-button
       [disabled]="
-        !countdownService.isCountdownEnded('groups') ||
-        (isGroupsLoading$ | async) ||
-        (groupsData$ | async) === null
+        !countdownService.isCountdownEnded('groups')
       "
       (buttonClick)="groupsService.updateGroupsList()"
     >
@@ -37,7 +35,6 @@
       <app-form-control
         label="{{ 'name:' | uppercase }}"
         controlName="name"
-        [control]="groupsService.groupCreateForm.get('name')"
         [control]="groupsService.groupCreateForm.get('name')"
         type="text"
         [readonly]="false"

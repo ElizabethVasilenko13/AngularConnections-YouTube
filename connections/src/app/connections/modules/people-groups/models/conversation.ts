@@ -1,3 +1,5 @@
+import { MessageItem } from "./group-dialog";
+
 export interface MessageResp {
   authorID: {
     S: string;
@@ -13,4 +15,9 @@ export interface MessageResp {
 export interface ConverastionMessagesResponse {
   Count: string;
   Items: MessageResp[];
+}
+
+export interface MessageProps {
+  count: string;
+  items: MessageItem[];
 }
