@@ -1,20 +1,10 @@
-<div class="content__header">
-  <h2>PEOPLE</h2>
-  <div class="btns__container">
-    <app-button
-      [disabled]="
-        !countdownService.isCountdownEnded('users')
-      "
-      (buttonClick)="usersService.updateUsersList()"
-    >
-      {{ 'Update List' | uppercase }}
-    </app-button>
-  </div>
-  <app-countdown-message [identifier]="'users'"></app-countdown-message>
-</div>
-<app-loader [isLoading]="isUsersLoading$ | async"></app-loader>
+<app-loader [isLoading]="isGroupLoading"></app-loader>
 <div class="content__items">
-  <ng-container  *ngFor="let user of (usersData$ | async)?.items">
-    <app-user-item [user]="user"></app-user-item>
+  <ng-container *ngFor="let user of users">
+    <app-user-item
+      [group]="user"
+      [isActive]="usersService.isConversationID(user)"
+      (openConversation)="usersService.toConversationPage(user?.conversatonID, user?.uid)"
+      ></app-user-item>
   </ng-container>
 </div>

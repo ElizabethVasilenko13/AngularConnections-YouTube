@@ -10,3 +10,26 @@
   border: 1px solid $accent-color;
   flex: 1;
 }
+
+h2 {
+  color: $accent-color;
+}
+
+.content__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.btns__container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.create-form {
+  padding: 30px;
+  position: relative;
+}

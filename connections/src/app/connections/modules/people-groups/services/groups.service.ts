@@ -19,6 +19,7 @@ import { AuthError } from '@shared/types/user.interaces';
 import { AuthService } from '@core/services/auth.service';
 import { GroupsApiService } from './groups-api.service';
 import { CountdownService } from '@core/services/countdown.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class GroupsService {
@@ -49,10 +50,18 @@ export class GroupsService {
     private authService: AuthService,
     private groupApiService: GroupsApiService,
     public countdownService: CountdownService,
+    private router: Router,
   ) {}
 
   loadGroups(): void {
     this.store.dispatch(loadGroupsAction());
+  }
+
+
+  toConversationGroupPage(groupID: string | undefined | null): void {
+    if (groupID) {
+      this.router.navigate([`group/${groupID}`]);
+    }
   }
 
   isGroupCreatedByCurrentUser(createdBy: string | undefined): boolean {

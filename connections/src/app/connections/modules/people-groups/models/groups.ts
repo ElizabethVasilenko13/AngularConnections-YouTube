@@ -1,4 +1,3 @@
-import { AuthError } from '@shared/types/user.interaces';
 import { MessageProps } from './conversation';
 
 export type GroupResp = {
@@ -19,13 +18,12 @@ export interface GroupApiProps {
 }
 
 export type GroupProps = {
-  id: string;
+  uid: string;
   name: string;
-  createdAt: string;
-  createdBy: string;
+  createdBy?: string;
+  conversatonID?: string | null;
   messages?: MessageProps | null;
   lastUpdated?: number | null;
-  backendErrors?: AuthError | null;
 };
 
 export interface GroupsProps {

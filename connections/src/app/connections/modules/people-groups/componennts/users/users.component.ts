@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { CountdownService } from '@core/services/countdown.service';
+import { Component, Input } from '@angular/core';
+import { GroupProps } from '../../models/groups';
 import { UsersService } from '../../services/users.service';
 
 @Component({
@@ -7,17 +7,10 @@ import { UsersService } from '../../services/users.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnDestroy {
-  usersData$ = this.usersService.usersData$;
-  isUsersLoading$ = this.usersService.isUsersLoading$;
-  backendErrors$ = this.usersService.backendUsersListErrors$;
+export class UsersComponent {
+  @Input() users!: undefined | GroupProps[];
+  @Input() isGroupLoading!: boolean | null;
 
-  constructor(
-    protected countdownService: CountdownService,
-    protected usersService: UsersService,
-  ) {}
+  constructor(protected usersService: UsersService) {}
 
-  ngOnDestroy(): void {
-    this.usersService.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
 }

@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { GroupProps } from '../../../models/groups';
-import { GroupsService } from '../../../services/groups.service';
 
 @Component({
   selector: 'app-group-item',
@@ -10,9 +9,15 @@ import { GroupsService } from '../../../services/groups.service';
 })
 export class GroupItemComponent {
   @Input() group: GroupProps | undefined;
-  @Input() isLoading!: boolean;
-  constructor(protected groupsService: GroupsService) {
+  @Input() isActive!: boolean;
+  @Output() deleteGroup = new EventEmitter<string>();
+  @Output() openConversation = new EventEmitter<string>();
 
+  onDeleteGroup(uid: string): void {
+    this.deleteGroup.emit(uid);
   }
 
+  onGroupClick(): void {
+    this.openConversation.emit();
+  }
 }

@@ -18,7 +18,7 @@ export const groupsSelector = createSelector(
 
 export const groupsIdsSelector = createSelector(
   groupsSelector,
-  (groups) => groups?.items.map((group) => group.id),
+  (groups) => groups?.items.map((group) => group.uid),
 );
 
 export const backendGroupErrorSelector = createSelector(
@@ -34,7 +34,7 @@ export const loadedGroupsIdsSelector = createSelector(
 export const selectGroupById = (groupId: string) =>
   createSelector(groupsFeatureSelector, (state: GroupsStateInterface) => {
     if (state.groups && state.groups.items) {
-      return state.groups.items.find((group: GroupProps) => group.id === groupId) || null;
+      return state.groups.items.find((group: GroupProps) => group.uid === groupId) || null;
     }
     return null;
   });

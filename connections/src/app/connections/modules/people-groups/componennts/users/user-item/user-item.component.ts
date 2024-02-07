@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { UserProps } from '../../../models/users';
-import { UsersService } from '../../../services/users.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GroupProps } from '../../../models/groups';
 
 @Component({
   selector: 'app-user-item',
@@ -8,7 +7,11 @@ import { UsersService } from '../../../services/users.service';
   styleUrls: ['./user-item.component.scss']
 })
 export class UserItemComponent {
-  @Input() user: UserProps | undefined;
-  @Input() isLoading!: boolean;
-  constructor(protected usersService: UsersService){}
+  @Input() group: GroupProps | undefined;
+  @Input() isActive!: boolean;
+  @Output() openConversation = new EventEmitter<string>();
+
+  onGroupClick(): void {
+    this.openConversation.emit();
+  }
 }
