@@ -1,10 +1,10 @@
 <app-loader [isLoading]="isGroupLoading"></app-loader>
 <div class="content__items">
-  <ng-container *ngFor="let user of users">
-    <app-user-item
-      [group]="user"
-      [isActive]="usersService.isConversationID(user)"
-      (openConversation)="usersService.toConversationPage(user?.conversatonID, user?.uid)"
-      ></app-user-item>
+  <ng-container *ngFor="let group of groups">
+    <app-element-details
+      [group]="group"
+      [isActive]="usersService.isConversationID(group)"
+      (openConversation)="usersService.toConversationPage($event.groupId, $event.companionId)"
+      ></app-element-details>
   </ng-container>
 </div>

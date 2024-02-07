@@ -8,7 +8,7 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
-  @Input() users!: undefined | GroupProps[];
+  @Input() groups!: undefined | GroupProps[];
   @Input() isGroupLoading!: boolean | null;
 
   constructor(protected usersService: UsersService) {}

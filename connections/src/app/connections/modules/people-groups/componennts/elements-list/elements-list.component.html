@@ -1,13 +1,11 @@
-
+<!-- 
 <app-loader [isLoading]="isGroupLoading"></app-loader>
 <div class="content__items">
   <ng-container *ngFor="let group of groups">
-    <app-element-details
+    <app-group-item
       [group]="group"
-      [isGroupComponent]="true"
       [isActive]="groupsService.isGroupCreatedByCurrentUser(group?.createdBy)"
-      (openConversation)="groupsService.toConversationGroupPage($event.groupId)">
-    </app-element-details>
+      (openConversation)="groupsService.toConversationGroupPage(group.uid)"></app-group-item>
   </ng-container>
-</div>
+</div> -->
 

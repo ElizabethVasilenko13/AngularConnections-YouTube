@@ -26,8 +26,8 @@ import { UsersComponent } from './componennts/users/users.component';
 import { MessagesListComponent } from './componennts/messages-list/messages-list.component';
 import { PostMessageFormComponent } from './componennts/post-message-input/post-message-form.component';
 import { MessagesService } from './services/messages.service';
-import { GroupItemComponent } from './componennts/groups/group-item/group-item.component';
-import { UserItemComponent } from './componennts/users/user-item/user-item.component';
+import { ElementsListComponent } from './componennts/elements-list/elements-list.component';
+import { ElementDetailsComponent } from './componennts/element-details/element-details.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +39,8 @@ import { UserItemComponent } from './componennts/users/user-item/user-item.compo
     UserNameTransformPipe,
     MessagesListComponent,
     PostMessageFormComponent,
-    GroupItemComponent,
-    UserItemComponent
+    ElementsListComponent,
+    ElementDetailsComponent
   ],
   exports: [MainPageComponent],
   imports: [

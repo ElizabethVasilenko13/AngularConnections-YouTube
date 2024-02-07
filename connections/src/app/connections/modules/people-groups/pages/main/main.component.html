@@ -39,7 +39,7 @@
       </div>
       <app-countdown-message [identifier]="'users'"></app-countdown-message>
     </div>
-    <app-users [users]="(usersData$ | async)?.items" [isGroupLoading]="isUsersLoading$ | async"></app-users>
+    <app-users [groups]="(usersData$ | async)?.items" [isGroupLoading]="isUsersLoading$ | async"></app-users>
   </div>
 </div>
 <ng-template #createForm>

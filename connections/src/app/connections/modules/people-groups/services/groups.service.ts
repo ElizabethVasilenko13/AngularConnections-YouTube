@@ -58,7 +58,7 @@ export class GroupsService {
   }
 
 
-  toConversationGroupPage(groupID: string | undefined | null): void {
+  toConversationGroupPage(groupID: string | null): void {
     if (groupID) {
       this.router.navigate([`group/${groupID}`]);
     }

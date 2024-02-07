@@ -39,7 +39,7 @@ export class UsersService {
     public countdownService: CountdownService,
   ) {}
 
-  toConversationPage(conversationID: string | undefined | null, companionID: string | undefined): void {
+  toConversationPage( companionID: string | null, conversationID: string | null = ''): void {
     if (conversationID) {
       this.router.navigate([`conversation/${conversationID}`]);
     } else {
