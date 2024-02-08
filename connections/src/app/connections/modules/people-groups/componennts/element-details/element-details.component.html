@@ -1,5 +1,5 @@
-<div class="item" [class.active]="isActive" (click)="onGroupClick(group!.uid, group?.conversatonID)" >
-  <div class="group-property">
+<div class="item" [class.active]="isActive">
+  <div class="group-property" (click)="onGroupClick(group!.uid, group?.conversatonID)">
     {{ group?.name }}
     <span *ngIf="isActive && !isGroupComponent"> *****</span>
   </div>

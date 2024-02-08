@@ -24,7 +24,7 @@
           title="Delete group"
           customClass="header__control header__control-delete"
           [disabled]="!!(isGroupDialogLoading$ | async)"
-          (buttonClick)="groupsService.onDeleteGroup($event, groupID, true)"
+          (buttonClick)="groupsService.onDeleteGroup(groupID, true)"
         >
           <mat-icon>delete</mat-icon>
         </app-button>

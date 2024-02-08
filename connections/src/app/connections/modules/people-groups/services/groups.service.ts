@@ -104,8 +104,7 @@ export class GroupsService {
     this.dialog.open(template, dialogConfig);
   }
 
-  onDeleteGroup(event: Event, groupID: string | undefined, redirect?: boolean): void {
-    event.stopPropagation();
+  onDeleteGroup(groupID: string | undefined, redirect = false): void {
     const id = groupID ?? ''
     this.dialogService
       .openConfirmDialog('Are you sure you want to delete this group?')

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainPageComponent } from './pages/main/main.component';
-import { GroupsComponent } from './componennts/groups/groups.component';
 import { StoreModule } from '@ngrx/store';
 import { Features } from '@shared/enums/store-feautures.enum';
 import { EffectsModule } from '@ngrx/effects';
@@ -22,7 +21,6 @@ import { GroupPageService } from './services/group-page.service';
 import { GroupsService } from './services/groups.service';
 import { UsersService } from './services/users.service';
 import { ConversationPageService } from './services/conversation-page.service';
-import { UsersComponent } from './componennts/users/users.component';
 import { MessagesListComponent } from './componennts/messages-list/messages-list.component';
 import { PostMessageFormComponent } from './componennts/post-message-input/post-message-form.component';
 import { MessagesService } from './services/messages.service';
@@ -32,8 +30,6 @@ import { ElementDetailsComponent } from './componennts/element-details/element-d
 @NgModule({
   declarations: [
     MainPageComponent,
-    UsersComponent,
-    GroupsComponent,
     GroupPageComponent,
     ConversationPageComponent,
     UserNameTransformPipe,

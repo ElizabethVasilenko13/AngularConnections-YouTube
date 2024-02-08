@@ -11,6 +11,7 @@ import { UsersService } from '../../services/users.service';
 export class ElementsListComponent {
   @Input() groups!: GroupProps[] | undefined;
   @Input() isGroupLoading!: boolean | null;
+  @Input() isGroupComponent = false;
 
   constructor(
     protected groupsService: GroupsService,
