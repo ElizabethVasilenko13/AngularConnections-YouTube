@@ -27,7 +27,7 @@ export class UsersService {
   backendUsersListErrors$: Observable<AuthError | null> = this.store.pipe(
     select(usersBackendSelector),
   );
-  isConversationJustCreated$: BehaviorSubject<boolean> = new BehaviorSubject(false)
+  isConversationJustCreated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -39,13 +39,13 @@ export class UsersService {
     public countdownService: CountdownService,
   ) {}
 
-  toConversationPage( companionID: string | null, conversationID: string | null = ''): void {
+  toConversationPage(companionID: string | null, conversationID: string | null = ''): void {
     if (conversationID) {
       this.router.navigate([`conversation/${conversationID}`]);
     } else {
       const companion = companionID ?? '';
       this.store.dispatch(createConversationAction({ companion }));
-      this.isConversationJustCreated$.next(true)
+      this.isConversationJustCreated$.next(true);
     }
   }
 

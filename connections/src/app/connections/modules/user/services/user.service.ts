@@ -41,7 +41,6 @@ export class UserService {
     this.isEditMode$.next(value);
   }
 
-
   subscribeToUserProfileData(): void {
     const userDataSubscr = this.userProfileData$.subscribe((userData) => {
       if (!userData) {

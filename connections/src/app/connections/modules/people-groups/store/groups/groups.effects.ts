@@ -35,7 +35,7 @@ export class GroupsEffects {
     private snackBar: NotifyService,
     private router: Router,
     private store: Store,
-    private groupsservice: GroupsService
+    private groupsservice: GroupsService,
   ) {}
 
   loadGroups$ = createEffect(() =>
@@ -49,7 +49,7 @@ export class GroupsEffects {
               createdAt: group.createdAt.S,
               uid: group.id.S,
               name: group.name.S,
-              createdBy: group.createdBy.S
+              createdBy: group.createdBy.S,
             }));
             return loadGroupsSuccessAction({
               groups: {
@@ -81,8 +81,8 @@ export class GroupsEffects {
             );
             const transformedConversation = response.Items.map((conversation) => ({
               authorID: conversation.authorID.S,
-              message:  conversation.message.S,
-              createdAt: conversation.createdAt.S
+              message: conversation.message.S,
+              createdAt: conversation.createdAt.S,
             }));
             return loadGroupMessagesSinceSuccessAction({
               groupID,
@@ -163,7 +163,6 @@ export class GroupsEffects {
             return deleteGroupSuccessAction({ groupID });
           }),
           catchError((error: HttpErrorResponse) => {
-
             const errorMes = error.error;
             const errorSnakBar = errorMes ? errorMes.message : error.message;
             this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);

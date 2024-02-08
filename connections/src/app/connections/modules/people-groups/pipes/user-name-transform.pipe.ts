@@ -10,6 +10,6 @@ export class UserNameTransformPipe implements PipeTransform {
       return 'Unknown User';
     }
     const user = usersList.items.find((user) => user.uid === authorID);
-    return user ? user.name: 'Me';
+    return user ? user.name : 'Me';
   }
 }

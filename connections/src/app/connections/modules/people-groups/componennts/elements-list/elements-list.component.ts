@@ -6,7 +6,7 @@ import { UsersService } from '../../services/users.service';
 @Component({
   selector: 'app-elements-list',
   templateUrl: './elements-list.component.html',
-  styleUrls: ['./elements-list.component.scss']
+  styleUrls: ['./elements-list.component.scss'],
 })
 export class ElementsListComponent {
   @Input() groups!: GroupProps[] | undefined;
@@ -15,6 +15,6 @@ export class ElementsListComponent {
 
   constructor(
     protected groupsService: GroupsService,
-    protected usersService: UsersService
+    protected usersService: UsersService,
   ) {}
 }

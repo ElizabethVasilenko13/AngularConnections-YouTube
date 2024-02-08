@@ -4,14 +4,17 @@ import { GroupProps } from '../../models/groups';
 @Component({
   selector: 'app-element-details',
   templateUrl: './element-details.component.html',
-  styleUrls: ['./element-details.component.scss']
+  styleUrls: ['./element-details.component.scss'],
 })
 export class ElementDetailsComponent {
   @Input() group: GroupProps | undefined;
   @Input() isActive!: boolean;
   @Input() isGroupComponent = false;
   @Output() deleteGroup = new EventEmitter<string>();
-  @Output() openConversation = new EventEmitter<{ groupId: string | null; companionId?: string | null }>();
+  @Output() openConversation = new EventEmitter<{
+    groupId: string | null;
+    companionId?: string | null;
+  }>();
 
   onDeleteGroup(uid: string): void {
     this.deleteGroup.emit(uid);

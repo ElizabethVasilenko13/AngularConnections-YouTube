@@ -4,9 +4,7 @@
       <h2>GROUPS</h2>
       <div class="btns__container">
         <app-button
-          [disabled]="
-            !countdownService.isCountdownEnded('groups')
-          "
+          [disabled]="!countdownService.isCountdownEnded('groups')"
           (buttonClick)="groupsService.updateGroupsList()"
         >
           {{ 'Update List' | uppercase }}
@@ -22,16 +20,18 @@
       </div>
       <app-countdown-message [identifier]="'groups'"></app-countdown-message>
     </div>
-    <app-elements-list [groups]="(groupsData$ | async)?.items" [isGroupLoading]="isGroupsLoading$ | async" [isGroupComponent]="true"></app-elements-list>
+    <app-elements-list
+      [groups]="(groupsData$ | async)?.items"
+      [isGroupLoading]="isGroupsLoading$ | async"
+      [isGroupComponent]="true"
+    ></app-elements-list>
   </div>
   <div class="main__content">
     <div class="content__header">
       <h2>PEOPLE</h2>
       <div class="btns__container">
         <app-button
-          [disabled]="
-            !countdownService.isCountdownEnded('users')
-          "
+          [disabled]="!countdownService.isCountdownEnded('users')"
           (buttonClick)="usersService.updateUsersList()"
         >
           {{ 'Update List' | uppercase }}
@@ -39,7 +39,10 @@
       </div>
       <app-countdown-message [identifier]="'users'"></app-countdown-message>
     </div>
-    <app-elements-list [groups]="(usersData$ | async)?.items" [isGroupLoading]="isUsersLoading$ | async"></app-elements-list>
+    <app-elements-list
+      [groups]="(usersData$ | async)?.items"
+      [isGroupLoading]="isUsersLoading$ | async"
+    ></app-elements-list>
   </div>
 </div>
 <ng-template #createForm>

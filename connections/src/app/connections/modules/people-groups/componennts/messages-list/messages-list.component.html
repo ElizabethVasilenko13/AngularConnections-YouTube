@@ -5,7 +5,7 @@
     [class.currentUser]="messagesService.isMessageCreatedByCurrentUser(message.authorID)"
   >
     <div class="message__creator">
-      {{ message.authorID| userNameTransform: (usersData$ | async) }}
+      {{ message.authorID | userNameTransform: (usersData$ | async) }}
     </div>
     <div class="message__text">{{ message.message }}</div>
     <div class="message__date">

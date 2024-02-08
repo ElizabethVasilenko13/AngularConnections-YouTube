@@ -1,4 +1,4 @@
-import { MessageResp } from "./conversation";
+import { MessageResp } from './conversation';
 
 export interface GroupMessagesResponse {
   Count: string;

@@ -93,7 +93,7 @@ const reducer = createReducer(
           items: [
             {
               uid: action.groupID,
-              name: action.name ,
+              name: action.name,
               createdAt: String(new Date().getTime()),
               createdBy: action.userId,
             },

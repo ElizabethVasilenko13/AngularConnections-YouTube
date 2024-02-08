@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import {
-  loadConversationMessagesSinceAction,
-} from '../store/users/users.actions';
+import { loadConversationMessagesSinceAction } from '../store/users/users.actions';
 import { Observable, Subscription, combineLatest, take } from 'rxjs';
 import {
   conversationBackendSelector,
@@ -49,14 +47,17 @@ export class ConversationPageService {
     conversationID: string,
     conversationData$: Observable<UserProps | null>,
   ): void {
-    combineLatest([
-      this.isUsersLoading$,
-      this.isAllConversationsLoading$,
-    ]).subscribe(([isUsersLoading, isAllConversationsLoading]) => {
-      if (!isUsersLoading && !isAllConversationsLoading && !this.usersService.isConversationJustCreated$.value) {
-        this.loadMessagesSince(conversationID, conversationData$);
-      }
-    });
+    combineLatest([this.isUsersLoading$, this.isAllConversationsLoading$]).subscribe(
+      ([isUsersLoading, isAllConversationsLoading]) => {
+        if (
+          !isUsersLoading &&
+          !isAllConversationsLoading &&
+          !this.usersService.isConversationJustCreated$.value
+        ) {
+          this.loadMessagesSince(conversationID, conversationData$);
+        }
+      },
+    );
   }
 
   updateConversation(

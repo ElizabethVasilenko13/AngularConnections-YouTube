@@ -1,4 +1,4 @@
-import { MessageItem } from "./group-dialog";
+import { MessageItem } from './group-dialog';
 
 export interface MessageResp {
   authorID: {

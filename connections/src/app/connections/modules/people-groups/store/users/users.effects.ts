@@ -138,8 +138,8 @@ export class UsersEffects {
             );
             const transformedConversation = response.Items.map((conversation) => ({
               authorID: conversation.authorID.S,
-              message:  conversation.message.S,
-              createdAt: conversation.createdAt.S
+              message: conversation.message.S,
+              createdAt: conversation.createdAt.S,
             }));
             return loadConversationMessagesSinceSuccessAction({
               conversationID,

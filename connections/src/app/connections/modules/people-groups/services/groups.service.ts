@@ -57,7 +57,6 @@ export class GroupsService {
     this.store.dispatch(loadGroupsAction());
   }
 
-
   toConversationGroupPage(groupID: string | null): void {
     if (groupID) {
       this.router.navigate([`group/${groupID}`]);
@@ -105,14 +104,14 @@ export class GroupsService {
   }
 
   onDeleteGroup(groupID: string | undefined, redirect = false): void {
-    const id = groupID ?? ''
+    const id = groupID ?? '';
     this.dialogService
       .openConfirmDialog('Are you sure you want to delete this group?')
       .afterClosed()
       .pipe(take(1))
       .subscribe((res) => {
         if (res) {
-          this.store.dispatch(deleteGroupAction({ groupID : id, redirect }));
+          this.store.dispatch(deleteGroupAction({ groupID: id, redirect }));
         }
       });
   }

@@ -7,7 +7,6 @@ export type GroupResp = {
   createdBy: { S: string };
 };
 
-
 export interface GroupsResponse {
   Count: string;
   Items: GroupResp[];

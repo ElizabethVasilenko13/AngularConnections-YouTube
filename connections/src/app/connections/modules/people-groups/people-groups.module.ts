@@ -36,7 +36,7 @@ import { ElementDetailsComponent } from './componennts/element-details/element-d
     MessagesListComponent,
     PostMessageFormComponent,
     ElementsListComponent,
-    ElementDetailsComponent
+    ElementDetailsComponent,
   ],
   exports: [MainPageComponent],
   imports: [
@@ -47,7 +47,7 @@ import { ElementDetailsComponent } from './componennts/element-details/element-d
     StoreModule.forFeature(Features.Groups, groupsReducer),
     StoreModule.forFeature(Features.Users, usersReducer),
     EffectsModule.forFeature([GroupsEffects, UsersEffects]),
-    CommonModule
+    CommonModule,
   ],
   providers: [
     UsersApiService,

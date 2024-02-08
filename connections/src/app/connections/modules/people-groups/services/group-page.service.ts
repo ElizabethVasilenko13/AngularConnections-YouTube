@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
 import { Store, select } from '@ngrx/store';
-import { GroupPageComponent } from '../pages/group-page/group-page.component';
 import { AuthService } from '@core/services/auth.service';
 import {
   backendGroupErrorSelector,
@@ -9,9 +7,7 @@ import {
 } from '../store/groups/groups.selectors';
 import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { GroupProps } from '../models/groups';
-import {
-  loadGroupMessagesSinceAction,
-} from '../store/groups/groups.actions';
+import { loadGroupMessagesSinceAction } from '../store/groups/groups.actions';
 import { CountdownService } from '@core/services/countdown.service';
 import { GroupsService } from './groups.service';
 
@@ -24,10 +20,9 @@ export class GroupPageService {
 
   constructor(
     private store: Store,
-    public dialogRef: MatDialogRef<GroupPageComponent>,
     protected authService: AuthService,
     public countdownService: CountdownService,
-    private groupsservice: GroupsService
+    private groupsservice: GroupsService,
   ) {}
 
   updateGroupDialog(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
