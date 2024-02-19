@@ -16,7 +16,7 @@ import { MessagesService } from '../../services/messages.service';
 })
 export class ConversationPageComponent implements OnInit, OnDestroy {
   conversationData$!: Observable<UserProps | null>;
-  isConversationsLoading$ = this.conversationPageService.isConversationsLoading$;
+  isConversationLoading$ = this.conversationPageService.isConversationLoading$;
   backendErrors$ = this.conversationPageService.backendErrors$;
   converastionID = '';
 

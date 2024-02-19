@@ -13,7 +13,7 @@ export class ButtonComponent {
   @Input() title = 'button';
   @Output() buttonClick: EventEmitter<Event> = new EventEmitter<Event>();
 
-  onClick(event: MouseEvent): void {
-    this.buttonClick.emit(event);
+  onClick(): void {
+    this.buttonClick.emit();
   }
 }

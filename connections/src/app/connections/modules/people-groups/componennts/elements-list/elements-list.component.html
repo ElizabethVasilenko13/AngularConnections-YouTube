@@ -1,0 +1,24 @@
+<app-loader [isLoading]="isGroupLoading"></app-loader>
+<div class="content__items" *ngIf="isGroupComponent; else usersList">
+  <ng-container *ngFor="let group of groups">
+    <app-element-details
+      [group]="group"
+      [isGroupComponent]="isGroupComponent"
+      [isActive]="groupsService.isGroupCreatedByCurrentUser(group?.createdBy)"
+      (openConversation)="groupsService.toConversationGroupPage($event.groupId)"
+      (deleteGroup)="groupsService.onDeleteGroup(group.uid)"
+    >
+    </app-element-details>
+  </ng-container>
+</div>
+<ng-template #usersList>
+  <div class="content__items">
+    <ng-container *ngFor="let group of groups">
+      <app-element-details
+        [group]="group"
+        [isActive]="usersService.isConversationID(group)"
+        (openConversation)="usersService.toConversationPage($event.groupId, $event.companionId)"
+      ></app-element-details>
+    </ng-container>
+  </div>
+</ng-template>

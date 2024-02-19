@@ -1,45 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import {
-  loadConversationMessagesAction,
-  loadConversationMessagesSinceAction,
-} from '../store/users/users.actions';
-import { Observable, Subscription, take } from 'rxjs';
+import { loadConversationMessagesSinceAction } from '../store/users/users.actions';
+import { Observable, Subscription, combineLatest, take } from 'rxjs';
 import {
   conversationBackendSelector,
+  isAllConversationsLoadinSelector,
   isConversationLoadinSelector,
+  isUsersLoadinSelector,
 } from '../store/users/users.selectors';
 import { AuthError } from '@shared/types/user.interaces';
 import { CountdownService } from '@core/services/countdown.service';
 import { UserProps } from '../models/users';
+import { UsersService } from './users.service';
 
 @Injectable()
 export class ConversationPageService {
-  isConversationsLoading$: Observable<boolean> = this.store.pipe(
+  isAllConversationsLoading$: Observable<boolean> = this.store.pipe(
+    select(isAllConversationsLoadinSelector),
+  );
+  isConversationLoading$: Observable<boolean> = this.store.pipe(
     select(isConversationLoadinSelector),
   );
   backendErrors$: Observable<AuthError | null> = this.store.pipe(
     select(conversationBackendSelector),
   );
+  isUsersLoading$: Observable<boolean> = this.store.pipe(select(isUsersLoadinSelector));
   subscriptions: Subscription[] = [];
   constructor(
     private store: Store,
     private countdownService: CountdownService,
+    protected usersService: UsersService,
   ) {}
-
-  loadAllMessages(conversationID: string): void {
-    this.store.dispatch(loadConversationMessagesAction({ conversationID }));
-  }
 
   loadMessagesSince(conversationID: string, conversationData$: Observable<UserProps | null>): void {
     conversationData$.pipe(take(1)).subscribe((value) => {
-      if (value && value.lastUpdated)
-        this.store.dispatch(
-          loadConversationMessagesSinceAction({
-            conversationID,
-            time: value.lastUpdated,
-          }),
-        );
+      this.store.dispatch(
+        loadConversationMessagesSinceAction({
+          conversationID,
+          time: value?.lastUpdated || 0,
+        }),
+      );
     });
   }
 
@@ -47,15 +47,17 @@ export class ConversationPageService {
     conversationID: string,
     conversationData$: Observable<UserProps | null>,
   ): void {
-    const conversationsDataSubscr = conversationData$?.pipe(take(1)).subscribe((data) => {
-      if (data && !data.messages) {
-        this.loadAllMessages(conversationID);
-      } else {
-        this.loadMessagesSince(conversationID, conversationData$);
-      }
-    });
-
-    this.subscriptions.push(conversationsDataSubscr);
+    combineLatest([this.isUsersLoading$, this.isAllConversationsLoading$]).subscribe(
+      ([isUsersLoading, isAllConversationsLoading]) => {
+        if (
+          !isUsersLoading &&
+          !isAllConversationsLoading &&
+          !this.usersService.isConversationJustCreated$.value
+        ) {
+          this.loadMessagesSince(conversationID, conversationData$);
+        }
+      },
+    );
   }
 
   updateConversation(
@@ -63,7 +65,7 @@ export class ConversationPageService {
     conversationData$: Observable<UserProps | null>,
   ): void {
     this.loadMessagesSince(conversationID, conversationData$);
-    const isConversationLoadingSubscr = this.isConversationsLoading$.subscribe((value) => {
+    const isConversationLoadingSubscr = this.isConversationLoading$.subscribe((value) => {
       if (!value) {
         this.backendErrors$.subscribe((error) => {
           if (!error) {

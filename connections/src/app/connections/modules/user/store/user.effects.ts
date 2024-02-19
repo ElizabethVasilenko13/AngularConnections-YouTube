@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
@@ -31,7 +31,7 @@ export class UserEffects {
   loadUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadUserAction),
-      exhaustMap(() => {
+      switchMap(() => {
         return this.userApiService.loadUser().pipe(
           map((response) => {
             this.snackBar.addMessage(
@@ -61,7 +61,7 @@ export class UserEffects {
   updateUserName$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UpdateUserNameAction),
-      exhaustMap(({ name }) => {
+      switchMap(({ name }) => {
         return this.userApiService.updateUser(name).pipe(
           map(() => {
             this.snackBar.addMessage(
@@ -84,7 +84,7 @@ export class UserEffects {
   logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LogoutAction),
-      exhaustMap(() => {
+      switchMap(() => {
         return this.userApiService.logout().pipe(
           map(() => {
             this.snackBar.addMessage('Logout successful', NotifyStyles.Success);

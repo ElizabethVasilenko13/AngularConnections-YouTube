@@ -9,7 +9,7 @@ import {
 import { MatDialogRef } from '@angular/material/dialog';
 import { ConversationPageComponent } from '../pages/conversation-page/conversation-page.component';
 import { DialogService } from '@core/services/dialog.service';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { UserProps, UsersProps } from '../models/users';
 import { AuthError } from '@shared/types/user.interaces';
 import {
@@ -27,6 +27,7 @@ export class UsersService {
   backendUsersListErrors$: Observable<AuthError | null> = this.store.pipe(
     select(usersBackendSelector),
   );
+  isConversationJustCreated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -38,12 +39,13 @@ export class UsersService {
     public countdownService: CountdownService,
   ) {}
 
-  toConversationPage(conversationID: string | undefined | null, companionID: string | undefined): void {
+  toConversationPage(companionID: string | null, conversationID: string | null = ''): void {
     if (conversationID) {
       this.router.navigate([`conversation/${conversationID}`]);
     } else {
       const companion = companionID ?? '';
       this.store.dispatch(createConversationAction({ companion }));
+      this.isConversationJustCreated$.next(true);
     }
   }
 

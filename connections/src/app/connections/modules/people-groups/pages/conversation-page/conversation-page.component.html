@@ -11,7 +11,7 @@
         <app-button
           [disabled]="
             !countdownService.isCountdownEnded('conversation' + converastionID) ||
-            !!(isConversationsLoading$ | async)
+            !!(isConversationLoading$ | async)
           "
           (buttonClick)="
             conversationPageService.updateConversation(converastionID, conversationData$)
@@ -22,7 +22,7 @@
         <app-button
           title="Delete conversation"
           customClass="header__control header__control-delete"
-          [disabled]="!!(isConversationsLoading$ | async)"
+          [disabled]="!!(isConversationLoading$ | async)"
           (buttonClick)="usersService.onDeleteConversation(converastionID)"
         >
           <mat-icon>delete</mat-icon>
@@ -31,12 +31,12 @@
     </div>
     <app-countdown-message [identifier]="'conversation' + converastionID"></app-countdown-message>
   </div>
-  <app-loader [isLoading]="isConversationsLoading$ | async"></app-loader>
+  <app-loader [isLoading]="isConversationLoading$ | async"></app-loader>
   <div class="group-dialog__main">
     <app-messages-list [messages]="(conversationData$ | async)?.messages"></app-messages-list>
     <app-post-message-form
       [formGroup]="messagesService.createMessageForm"
-      [isLoading$]="isConversationsLoading$"
+      [isLoading$]="isConversationLoading$"
       (sendMessage)="
         messagesService.sendMessageForConversation(this.converastionID, conversationData$)
       "

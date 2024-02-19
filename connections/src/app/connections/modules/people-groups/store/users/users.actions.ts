@@ -38,23 +38,6 @@ export const createConversationFailedAction = createAction(
   props<{ error: AuthError }>(),
 );
 
-export const loadConversationMessagesAction = createAction(
-  '[Conversation] Load Conversation',
-  props<{ conversationID: string }>(),
-);
-export const loadConversationMessagesSuccessAction = createAction(
-  '[Conversation] Load Conversation Success',
-  props<{
-    conversationData: ConverastionMessagesProps;
-    time: number;
-    conversationID: string;
-  }>(),
-);
-export const loadConversationMessagesFailedAction = createAction(
-  '[Conversation] Load Conversation Failed',
-  props<{ error: AuthError }>(),
-);
-
 export const loadConversationMessagesSinceAction = createAction(
   '[Conversation] Load Conversation Since',
   props<{ conversationID: string; time: number }>(),

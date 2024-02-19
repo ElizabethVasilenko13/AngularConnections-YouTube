@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from '@core/core.module';
-import { MatDialogRef} from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent],

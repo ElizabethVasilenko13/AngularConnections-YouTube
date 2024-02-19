@@ -9,9 +9,14 @@ export const isUsersLoadinSelector = createSelector(
   (state: UsersStateInterface) => state.isUsersLoading,
 );
 
+export const isAllConversationsLoadinSelector = createSelector(
+  usersFeatureSelector,
+  (state: UsersStateInterface) => state.isAllConversationsLoading,
+);
+
 export const isConversationLoadinSelector = createSelector(
   usersFeatureSelector,
-  (state: UsersStateInterface) => state.isConverstionsLoading,
+  (state: UsersStateInterface) => state.isConversationLoading,
 );
 
 export const usersSelector = createSelector(

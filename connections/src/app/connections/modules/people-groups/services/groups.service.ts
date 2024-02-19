@@ -2,7 +2,7 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogService } from '@core/services/dialog.service';
-import { Observable, Subscription, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import {
   createGroupAction,
@@ -19,6 +19,7 @@ import { AuthError } from '@shared/types/user.interaces';
 import { AuthService } from '@core/services/auth.service';
 import { GroupsApiService } from './groups-api.service';
 import { CountdownService } from '@core/services/countdown.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class GroupsService {
@@ -39,6 +40,7 @@ export class GroupsService {
       ],
     ],
   });
+  isGroupJustCreated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private store: Store,
@@ -48,10 +50,17 @@ export class GroupsService {
     private authService: AuthService,
     private groupApiService: GroupsApiService,
     public countdownService: CountdownService,
+    private router: Router,
   ) {}
 
   loadGroups(): void {
     this.store.dispatch(loadGroupsAction());
+  }
+
+  toConversationGroupPage(groupID: string | null): void {
+    if (groupID) {
+      this.router.navigate([`group/${groupID}`]);
+    }
   }
 
   isGroupCreatedByCurrentUser(createdBy: string | undefined): boolean {
@@ -94,16 +103,15 @@ export class GroupsService {
     this.dialog.open(template, dialogConfig);
   }
 
-  onDeleteGroup(event: Event, groupID: string | undefined, redirect?: boolean): void {
-    event.stopPropagation();
-    const id = groupID ?? ''
+  onDeleteGroup(groupID: string | undefined, redirect = false): void {
+    const id = groupID ?? '';
     this.dialogService
       .openConfirmDialog('Are you sure you want to delete this group?')
       .afterClosed()
       .pipe(take(1))
       .subscribe((res) => {
         if (res) {
-          this.store.dispatch(deleteGroupAction({ groupID : id, redirect }));
+          this.store.dispatch(deleteGroupAction({ groupID: id, redirect }));
         }
       });
   }

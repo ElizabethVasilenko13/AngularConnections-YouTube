@@ -29,8 +29,8 @@ export class MessagesService {
   }
 
   messageDateComparator(a: MessageItem, b: MessageItem): number {
-    const valueA = +a.createdAt.S;
-    const valueB = +b.createdAt.S;
+    const valueA = +a.createdAt;
+    const valueB = +b.createdAt;
     return valueA - valueB;
   }
 
@@ -45,12 +45,12 @@ export class MessagesService {
   ): void {
     const message = this.createMessageForm.get('text')?.value || '';
     data$.pipe(take(1)).subscribe((value) => {
-      if (value && value.lastUpdated) {
+      if (value) {
         this.store.dispatch(
           createAction({
             targetID,
             message,
-            time: value.lastUpdated,
+            time: value.lastUpdated || 0,
           }),
         );
       }

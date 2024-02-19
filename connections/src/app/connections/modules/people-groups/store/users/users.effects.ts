@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotifyService } from '@core/services/notify.service';
@@ -12,12 +12,9 @@ import {
   deleteConversationAction,
   deleteConversationFailedAction,
   deleteConversationSuccessAction,
-  loadConversationMessagesAction,
-  loadConversationMessagesFailedAction,
   loadConversationMessagesSinceAction,
   loadConversationMessagesSinceFailedAction,
   loadConversationMessagesSinceSuccessAction,
-  loadConversationMessagesSuccessAction,
   loadConversationsAction,
   loadConversationsFailedAction,
   loadConversationsSuccessAction,
@@ -45,11 +42,15 @@ export class UsersEffects {
   loadUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadUsersAction),
-      exhaustMap(({ currentUserId }) => {
+      switchMap(({ currentUserId }) => {
         return this.usersApi.loadUsers().pipe(
           map((response) => {
             this.snackBar.addMessage(`Users have been succesfully loaded`, NotifyStyles.Success);
-            const filteredUsers = response.Items.filter((user) => user.uid.S !== currentUserId);
+            const transformedUsers = response.Items.map((user) => ({
+              name: user.name.S,
+              uid: user.uid.S,
+            }));
+            const filteredUsers = transformedUsers.filter((user) => user.uid !== currentUserId);
             this.store.dispatch(loadConversationsAction());
             return loadUsersSuccessAction({
               users: {
@@ -73,7 +74,7 @@ export class UsersEffects {
   loadConversations$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadConversationsAction),
-      exhaustMap(() => {
+      switchMap(() => {
         return this.usersApi.loadConversations().pipe(
           map((response) => {
             this.snackBar.addMessage(
@@ -101,7 +102,7 @@ export class UsersEffects {
   createConversation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createConversationAction),
-      exhaustMap(({ companion }) => {
+      switchMap(({ companion }) => {
         return this.usersApi.createConversation(companion).pipe(
           map(({ conversationID }) => {
             this.snackBar.addMessage(
@@ -125,52 +126,27 @@ export class UsersEffects {
     ),
   );
 
-  loadConversation$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(loadConversationMessagesAction),
-      exhaustMap(({ conversationID }) => {
-        return this.usersApi.loadConversation(conversationID).pipe(
-          map((response) => {
-            this.snackBar.addMessage(
-              `Conversation have been succesfully loaded`,
-              NotifyStyles.Success,
-            );
-            return loadConversationMessagesSuccessAction({
-              conversationID,
-              time: new Date().getTime(),
-              conversationData: {
-                count: response.Count,
-                items: response.Items,
-              },
-            });
-          }),
-          catchError((error: HttpErrorResponse) => {
-            const errorMes = error.error;
-            const errorSnakBar = errorMes ? errorMes.message : error.message;
-            this.snackBar.addMessage(errorSnakBar, NotifyStyles.Error);
-            return of(loadConversationMessagesFailedAction({ error: error.error }));
-          }),
-        );
-      }),
-    ),
-  );
-
   loadConversationSince$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadConversationMessagesSinceAction),
-      exhaustMap(({ conversationID, time }) => {
+      switchMap(({ conversationID, time }) => {
         return this.usersApi.loadConversation(conversationID, time).pipe(
           map((response) => {
             this.snackBar.addMessage(
               `Last messages have been succesfully loaded`,
               NotifyStyles.Success,
             );
+            const transformedConversation = response.Items.map((conversation) => ({
+              authorID: conversation.authorID.S,
+              message: conversation.message.S,
+              createdAt: conversation.createdAt.S,
+            }));
             return loadConversationMessagesSinceSuccessAction({
               conversationID,
               time: new Date().getTime(),
               conversationData: {
                 count: response.Count,
-                items: response.Items,
+                items: transformedConversation,
               },
             });
           }),
@@ -188,7 +164,7 @@ export class UsersEffects {
   deleteConversation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteConversationAction),
-      exhaustMap(({ conversationID, redirect }) => {
+      switchMap(({ conversationID, redirect }) => {
         return this.usersApi.deleteConversation(conversationID).pipe(
           map(() => {
             this.snackBar.addMessage(
@@ -212,7 +188,7 @@ export class UsersEffects {
   postMessage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(postConversationMessageAction),
-      exhaustMap(({ conversationID, message, time }) => {
+      switchMap(({ conversationID, message, time }) => {
         return this.usersApi.postNewMessage(conversationID, message).pipe(
           map(() => {
             this.snackBar.addMessage(`Message was sent successfully`, NotifyStyles.Success);

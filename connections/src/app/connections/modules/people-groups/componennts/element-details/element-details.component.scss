@@ -1,10 +1,7 @@
 @import 'vars';
 
-.active {
-  background-color: rgb(52, 57, 78);
-}
-
 .item {
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   border: 1px solid $accent-color;
@@ -19,6 +16,13 @@
   }
 }
 
-.group__link {
+.group-property {
   flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.active {
+  background-color: rgb(52, 57, 78);
 }

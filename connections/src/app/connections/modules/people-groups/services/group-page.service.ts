@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
 import { Store, select } from '@ngrx/store';
-import { GroupsComponent } from '../componennts/groups/groups.component';
-import { GroupPageComponent } from '../pages/group-page/group-page.component';
 import { AuthService } from '@core/services/auth.service';
 import {
   backendGroupErrorSelector,
@@ -10,11 +7,9 @@ import {
 } from '../store/groups/groups.selectors';
 import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { GroupProps } from '../models/groups';
-import {
-  loadGroupMessagesAction,
-  loadGroupMessagesSinceAction,
-} from '../store/groups/groups.actions';
+import { loadGroupMessagesSinceAction } from '../store/groups/groups.actions';
 import { CountdownService } from '@core/services/countdown.service';
+import { GroupsService } from './groups.service';
 
 @Injectable()
 export class GroupPageService {
@@ -25,9 +20,9 @@ export class GroupPageService {
 
   constructor(
     private store: Store,
-    public dialogRef: MatDialogRef<GroupsComponent | GroupPageComponent>,
     protected authService: AuthService,
     public countdownService: CountdownService,
+    private groupsservice: GroupsService,
   ) {}
 
   updateGroupDialog(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
@@ -46,18 +41,13 @@ export class GroupPageService {
 
   loadMessagesSince(groupID: string, groupDialogData$: Observable<GroupProps | null>): void {
     groupDialogData$.pipe(take(1)).subscribe((value) => {
-      if (value && value.lastUpdated)
-        this.store.dispatch(
-          loadGroupMessagesSinceAction({
-            groupID,
-            time: value.lastUpdated,
-          }),
-        );
+      this.store.dispatch(
+        loadGroupMessagesSinceAction({
+          groupID,
+          time: value?.lastUpdated || 0,
+        }),
+      );
     });
-  }
-
-  loadAllMessages(groupID: string): void {
-    this.store.dispatch(loadGroupMessagesAction({ groupID }));
   }
 
   subscribeToGroupDialogData(
@@ -65,14 +55,13 @@ export class GroupPageService {
     groupDialogData$: Observable<GroupProps | null>,
   ): void {
     const groupDialogDataSubscr = groupDialogData$.pipe(take(1)).subscribe((groupData) => {
+      if (!groupData || this.groupsservice.isGroupJustCreated$.value === false) {
+        this.loadMessagesSince(groupID, groupDialogData$);
+      }
+
       if (groupData) {
-        if (groupData.createdBy.S === this.authService.currentUserID) {
+        if (groupData.createdBy === this.authService.currentUserID) {
           this.isGroupCreatedByCurrnetUser$.next(true);
-        }
-        if (!groupData.messages) {
-          this.loadAllMessages(groupID);
-        } else {
-          this.loadMessagesSince(groupID, groupDialogData$);
         }
       }
     });

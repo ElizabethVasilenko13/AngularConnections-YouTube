@@ -6,7 +6,7 @@
           <mat-icon>keyboard_arrow_left</mat-icon>
         </a>
         <h2>
-          {{ 'Group ' + '"' + ((groupDialogData$ | async)?.name?.S || '') + '"' | uppercase }}
+          {{ 'Group ' + '"' + ((groupDialogData$ | async)?.name || '') + '"' | uppercase }}
         </h2>
       </div>
       <div class="header__controls">
@@ -24,7 +24,7 @@
           title="Delete group"
           customClass="header__control header__control-delete"
           [disabled]="!!(isGroupDialogLoading$ | async)"
-          (buttonClick)="groupsService.onDeleteGroup($event, groupID, true)"
+          (buttonClick)="groupsService.onDeleteGroup(groupID, true)"
         >
           <mat-icon>delete</mat-icon>
         </app-button>

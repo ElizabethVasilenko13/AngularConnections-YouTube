@@ -1,21 +1,15 @@
-import { AuthError } from '@shared/types/user.interaces';
-import { MessageItem } from './group-dialog';
+import { MessageProps } from './conversation';
 
-export type Group = {
+export type GroupResp = {
   id: { S: string };
   name: { S: string };
   createdAt: { S: string };
   createdBy: { S: string };
 };
 
-export interface GroupMessageProps {
-  count: string;
-  items: MessageItem[];
-}
-
 export interface GroupsResponse {
   Count: string;
-  Items: Group[];
+  Items: GroupResp[];
 }
 
 export interface GroupApiProps {
@@ -23,13 +17,12 @@ export interface GroupApiProps {
 }
 
 export type GroupProps = {
-  id: { S: string };
-  name: { S: string };
-  createdAt: { S: string };
-  createdBy: { S: string };
-  messages?: GroupMessageProps | null;
+  uid: string;
+  name: string;
+  createdBy?: string;
+  conversatonID?: string | null;
+  messages?: MessageProps | null;
   lastUpdated?: number | null;
-  backendErrors?: AuthError | null;
 };
 
 export interface GroupsProps {

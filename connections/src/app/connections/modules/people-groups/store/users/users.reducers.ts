@@ -7,12 +7,9 @@ import {
   deleteConversationAction,
   deleteConversationFailedAction,
   deleteConversationSuccessAction,
-  loadConversationMessagesAction,
-  loadConversationMessagesFailedAction,
   loadConversationMessagesSinceAction,
   loadConversationMessagesSinceFailedAction,
   loadConversationMessagesSinceSuccessAction,
-  loadConversationMessagesSuccessAction,
   loadConversationsAction,
   loadConversationsFailedAction,
   loadConversationsSuccessAction,
@@ -26,7 +23,8 @@ import {
 
 const initialState: UsersStateInterface = {
   isUsersLoading: false,
-  isConverstionsLoading: false,
+  isAllConversationsLoading: false,
+  isConversationLoading: false,
   backendUsersErrors: null,
   backendConverstionsErrors: null,
   users: null,
@@ -62,35 +60,46 @@ const reducer = createReducer(
   ),
   on(
     loadConversationsAction,
+    (state): UsersStateInterface => ({
+      ...state,
+      isAllConversationsLoading: true,
+      backendUsersErrors: null,
+    }),
+  ),
+  on(
     createConversationAction,
-    loadConversationMessagesAction,
     loadConversationMessagesSinceAction,
     deleteConversationAction,
     postConversationMessageAction,
     (state): UsersStateInterface => ({
       ...state,
-      isConverstionsLoading: true,
+      isConversationLoading: true,
       backendUsersErrors: null,
     }),
   ),
   on(
     loadConversationsFailedAction,
+    (state, action): UsersStateInterface => ({
+      ...state,
+      isAllConversationsLoading: false,
+      backendConverstionsErrors: action.error,
+    }),
+  ),
+  on(
     createConversationFailedAction,
-    loadConversationMessagesFailedAction,
     loadConversationMessagesSinceFailedAction,
     deleteConversationFailedAction,
     postConversationMessageFailedAction,
     (state, action): UsersStateInterface => ({
       ...state,
-      isUsersLoading: false,
-      isConverstionsLoading: false,
+      isConversationLoading: false,
       backendConverstionsErrors: action.error,
     }),
   ),
   on(loadConversationsSuccessAction, (state, action): UsersStateInterface => {
     const updatedUsers = (state.users?.items || []).map((user) => {
       const conversation = action.conversations.items.find(
-        (conversation) => user.uid.S === conversation.companionID.S,
+        (conversation) => user.uid === conversation.companionID.S,
       );
       if (conversation) {
         return { ...user, conversatonID: conversation.id.S };
@@ -100,8 +109,7 @@ const reducer = createReducer(
 
     return {
       ...state,
-      isUsersLoading: false,
-      isConverstionsLoading: false,
+      isAllConversationsLoading: false,
       backendUsersErrors: null,
       backendConverstionsErrors: null,
       users: { items: updatedUsers || [], count: state.users?.count || '0' },
@@ -111,7 +119,7 @@ const reducer = createReducer(
     createConversationSuccessAction,
     (state, { companion, conversationId }): UsersStateInterface => {
       const updatedUsers = (state.users?.items || []).map((user) => {
-        if (user.uid.S === companion) {
+        if (user.uid === companion) {
           return { ...user, conversatonID: conversationId };
         }
         return user;
@@ -119,39 +127,13 @@ const reducer = createReducer(
 
       return {
         ...state,
-        isUsersLoading: false,
-        isConverstionsLoading: false,
+        isConversationLoading: false,
         backendUsersErrors: null,
         backendConverstionsErrors: null,
         users: { items: updatedUsers || [], count: state.users?.count || '0' },
       };
     },
   ),
-  on(loadConversationMessagesSuccessAction, (state, action): UsersStateInterface => {
-    const loadedConversatonsIds = state?.loadedConversatonsIds
-      ? [...state.loadedConversatonsIds, action.conversationID]
-      : [action.conversationID];
-    const updatedUsers = (state.users?.items || []).map((user) => {
-      if (user.conversatonID && user.conversatonID === action.conversationID) {
-        return {
-          ...user,
-          messages: action.conversationData,
-          lastUpdated: action.time,
-        };
-      }
-      return user;
-    });
-
-    return {
-      ...state,
-      isUsersLoading: false,
-      isConverstionsLoading: false,
-      backendUsersErrors: null,
-      backendConverstionsErrors: null,
-      users: { items: updatedUsers, count: state.users?.count || '0' },
-      loadedConversatonsIds,
-    };
-  }),
   on(loadConversationMessagesSinceSuccessAction, (state, action): UsersStateInterface => {
     const loadedConversatonsIds = state?.loadedConversatonsIds
       ? [...state.loadedConversatonsIds, action.conversationID]
@@ -172,8 +154,7 @@ const reducer = createReducer(
 
     return {
       ...state,
-      isUsersLoading: false,
-      isConverstionsLoading: false,
+      isConversationLoading: false,
       backendUsersErrors: null,
       backendConverstionsErrors: null,
       users: { items: updatedUsers, count: state.users?.count || '0' },
@@ -185,13 +166,13 @@ const reducer = createReducer(
       state?.loadedConversatonsIds?.filter((id) => id !== action.conversationID) ?? null;
     const updatedUsers = (state.users?.items || []).map((user) => {
       if (user.conversatonID && user.conversatonID === action.conversationID) {
-        return { ...user, messages: null, conversatonID: null };
+        return { ...user, messages: null, conversatonID: null, lastUpdated: null };
       }
       return user;
     });
     return {
       ...state,
-      isConverstionsLoading: false,
+      isConversationLoading: false,
       users: { items: updatedUsers, count: state.users?.count || '0' },
       loadedConversatonsIds,
     };
@@ -200,7 +181,7 @@ const reducer = createReducer(
     postConversationMessageSuccessAction,
     (state): UsersStateInterface => ({
       ...state,
-      isConverstionsLoading: false,
+      isConversationLoading: false,
     }),
   ),
 );

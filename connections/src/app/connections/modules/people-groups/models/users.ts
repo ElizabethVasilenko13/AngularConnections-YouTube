@@ -1,4 +1,6 @@
+import { MessageProps, MessageResp } from './conversation';
 import { MessageItem } from './group-dialog';
+import { GroupProps } from './groups';
 
 export type User = {
   uid: { S: string };
@@ -21,7 +23,7 @@ export interface CreateConversationsResponse {
 
 export interface ConverastionMessagesResponse {
   Count: string;
-  Items: MessageItem[];
+  Items: MessageResp[];
 }
 
 export interface ConverastionMessagesProps {
@@ -40,20 +42,16 @@ export interface UsersResponse {
   Items: User[];
 }
 
-export interface ConversationMessagesProps {
-  count: string;
-  items: MessageItem[];
-}
-
 export interface UserProps {
-  uid: { S: string };
-  name: { S: string };
+  uid: string;
+  name: string;
+  createdBy?: string;
   conversatonID?: string | null;
-  messages?: ConversationMessagesProps | null;
+  messages?: MessageProps | null;
   lastUpdated?: number | null;
 }
 
 export interface UsersProps {
   count: string;
-  items: UserProps[];
+  items: GroupProps[];
 }
