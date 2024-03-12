@@ -1,6 +1,6 @@
 Hey there! Here my connections Angular App!
 
-Deploy: https://rolling-scopes-school.github.io/elizabethvasilenko13-ANGULAR2023Q4
+Deploy: https://elizabethvasilenko13.github.io/AngularConnections-YouTube/
 
 Milestones done: 
 - Milestone 1. Registration
